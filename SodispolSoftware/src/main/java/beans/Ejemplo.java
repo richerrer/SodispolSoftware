@@ -8,8 +8,11 @@ package beans;
 
 import ejemploClases.Persona;
 import java.util.ArrayList;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 /**
  *
@@ -20,6 +23,7 @@ import javax.faces.bean.ViewScoped;
 public class Ejemplo {
 
     private ArrayList<Persona> personas = new ArrayList<Persona>();
+    private boolean encontrado = false;
     
     public Ejemplo() {
         Persona p = new Persona("ricardo maya","10:30 - 11:30","Estudiante");
@@ -53,5 +57,25 @@ public class Ejemplo {
     public void setPersonas(ArrayList<Persona> personas) {
         this.personas = personas;
     }
+
+    public boolean isEncontrado() {
+        return encontrado;
+    }
+
+    public void setEncontrado(boolean encontrado) {
+        this.encontrado = encontrado;
+    }
     
+    public void a(){
+        this.encontrado = true;
+    }
+    
+    public void buttonAction(ActionEvent actionEvent) {
+        addMessage("Si se encontro el paciente");
+    }
+     
+    public void addMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
 }

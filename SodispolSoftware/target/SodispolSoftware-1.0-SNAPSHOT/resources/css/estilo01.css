@@ -26,6 +26,9 @@ body{
 .ancho2{
     width: 100%;
 }
+.ancho60{
+    width: 60%;
+}
 .juntar{
     display: inline-block;
     vertical-align: top;
@@ -41,6 +44,11 @@ body{
 .margen_izquierdo{
     margin-left: 1em;
 }
+
+.margen_izquierdo2{
+    margin-left: 2em;
+}
+
 .margen_top1{
     margin-top: 1%;
 }
@@ -50,6 +58,9 @@ body{
 }
 .margen_top3{
     margin-top: 5%;
+}
+.margen_top4{
+    margin-top: 8%;
 }
 .adaptar{
     width: 100%;
