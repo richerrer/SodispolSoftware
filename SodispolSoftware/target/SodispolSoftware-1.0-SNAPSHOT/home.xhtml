@@ -15,6 +15,8 @@
          <script src="resources/js/main.js"></script>
     </h:head>
     <h:body>
+    <div id="container">
+            <div id="header">   
         <header >
             <ui:include src="/resources/templates/header.xhtml"/>
          </header>
@@ -23,8 +25,9 @@
         <nav class="navbar navbar-default color1 ancho1 center" role="navigation">
             <ui:include src="/resources/templates/navMedico.xhtml"/>
         </nav>
+            </div>
         
-        <div class="container slider ancho1 margen_top2">
+        <div id="content" class="container slider ancho1 margen_top2">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8  alturaEjemplo">
                     <section>
@@ -75,10 +78,11 @@
                 </div>
             </div>
         </div>
-        
+        <div id="footer">
         <footer class="margen_top2 color1">
             <ui:include src="/resources/templates/footer.xhtml"/>
         </footer>
-        
+        </div>
+     </div>    
     </h:body>
 </html>
