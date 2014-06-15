@@ -28,17 +28,66 @@
         
         <div class="container ancho1">
             <div class="row">
-                <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5  alturaEjemplo">
-                    <section class="margen_izquierdo2">
-                        
+                <div class="col-xs-12 col-sm-5 col-md-5 col-lg-2">
+                    <section class="margen_top4 margen_izquierdo2">
+                        <p:graphicImage url="resources/images/raul.png" width="120em"/>
+                    </section>
+                </div>
+                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-6">
+                    <section>
+                        <h:form >
+                            <h:panelGrid columns="4" style="font-size: smaller" class=" ancho2 margen_top3">
+                                <h:outputLabel value="Nombre:"/>
+                                <h:outputLabel value="Raul Mira"/>
+                                <h:outputLabel value="Teléfono:"/>
+                                <h:outputLabel value="2547845"/>
+                                <h:outputLabel value="Matrícula:"/>
+                                <h:outputLabel value="201012145"/>
+                                <h:outputLabel value="Cédula:"/>
+                                <h:outputLabel value="094784512"/>
+                                <h:outputLabel value="Carrera:"/>
+                                <h:outputLabel value="Ing.en Ciencias Computacionales"/>
+                                <h:outputLabel value="Estado Civíl:"/>
+                                <h:outputLabel value="Casado"/>
+                            </h:panelGrid>
+                            
+                        </h:form>
+                    </section>
+                </div>
+                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+                    <section>
                         
                     </section>
                 </div>
-                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 ">
-                    <section class="margen_izquierdo2 margen_top3">
-                        
-                    </section>
-                </div>
+            </div>
+            
+            <div class="row">
+                <c:forEach var="panel" begin="1" end="3" step="1">
+                <div class="col-xs-12 col-sm-5 col-md-5 col-lg-6">
+                    <h:form>
+                        <p:panel id="toggleable#{panel}" header="Observacion #{panel}/01/2014" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel#{panel}" style="margin-bottom:20px">
+                           <p:ajax event="close" listener="#{panelView.onClose}" />
+                           <p:ajax event="toggle" listener="#{panelView.onToggle}"/>
+                           <h:panelGrid columns="2" cellpadding="10">
+                               <p:graphicImage name="demo/images/godfather/godfather2.jpg" />
+                               <h:outputText value="Francis Ford Coppola's legendary continuation..." />
+                           </h:panelGrid>
+                           <f:facet name="options">
+                               <p:menu>
+                                   <p:submenu label="Settings">
+                                       <p:menuitem value="Abrir" url="home.xhtml" icon="ui-icon-document" />
+                                       <p:menuitem value="Toggle" url="#" icon="ui-icon-newwin" onclick="PF('panel').toggle()" />
+                                       <p:menuitem value="Remove" url="#" icon="ui-icon-close" onclick="PF('panel').close()" />
+                                   </p:submenu>
+                                </p:menu>
+                            </f:facet>
+                            <f:facet name="actions">
+                                <h:outputLink styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default" value="home.xhtml"><h:outputText styleClass="ui-icon ui-icon-document" /></h:outputLink>
+                            </f:facet>
+                         </p:panel>
+                       </h:form>
+                </div> 
+            </c:forEach>
             </div>
         </div>
         
