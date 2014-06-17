@@ -16,7 +16,8 @@
         <sec:intercept-url pattern="/administradores/*" access="ROLE_ADMIN"/>
         <sec:intercept-url pattern="/usuarios/*" access="ROLE_DOCTOR"/>
         <sec:intercept-url pattern="/home.xhtml" access="ROLE_DOCTOR"/>
-        <sec:logout logout-success-url="https://compa:8443/cas/logout" invalidate-session="true" logout-url="/logout" />
+        <!--<sec:logout logout-success-url="https://compa:8443/cas/logout" invalidate-session="true" logout-url="/logout" />-->
+        <sec:logout logout-success-url="https://auth.espol.edu.ec/logout" invalidate-session="true" logout-url="/logout" />
     </sec:http>
     
     <!-- which application am I authenticating -->
@@ -27,7 +28,8 @@
     
     <!-- where do I go when I need authentication -->
     <bean id="casEntryPoint" class="org.springframework.security.cas.web.CasAuthenticationEntryPoint">
-        <property name="loginUrl" value="https://compa:8443/cas/login"/>
+        <!--<property name="loginUrl" value="https://compa:8443/cas/login"/>-->
+        <property name="loginUrl" value="https://auth.espol.edu.ec/login"/>
         <property name="serviceProperties" ref="serviceProperties"/>
     </bean>
     
@@ -49,7 +51,8 @@
         <property name="serviceProperties" ref="serviceProperties"/>
         <property name="ticketValidator">
             <bean class="org.jasig.cas.client.validation.Cas20ServiceTicketValidator">
-               <constructor-arg index="0" value="https://compa:8443/cas"/>
+               <!--<constructor-arg index="0" value="https://compa:8443/cas"/>-->
+               <constructor-arg index="0" value="https://auth.espol.edu.ec"/>
             </bean>
         </property>
         <property name="key" value="my_password_for_this_auth_provider_only"/>
