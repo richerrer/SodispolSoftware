@@ -8,6 +8,7 @@ package org.primefaces.showcase.view.data;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import javax.annotation.PostConstruct;
@@ -29,18 +30,31 @@ import org.primefaces.model.ScheduleModel;
 @ViewScoped
 public class ScheduleView implements Serializable {
     private ScheduleModel eventModel;
-    private ScheduleModel lazyEventModel;
+    //private ScheduleModel lazyEventModel;
     private ScheduleEvent event = new DefaultScheduleEvent();
             
     @PostConstruct
     public void init(){
         eventModel = new DefaultScheduleModel();
-        eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm()));
-        eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today6Pm()));
-        eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", nextDay9Am(), nextDay11Am()));
-        eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", theDayAfter3Pm(), fourDaysLater3pm()));
+        //eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm()));
+        //eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today6Pm()));
+        //eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", nextDay9Am(), nextDay11Am()));
+        //eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", theDayAfter3Pm(), fourDaysLater3pm()));
+        //eventModel.addEvent(new DefaultScheduleEvent("Hola", newFechayHora(21, 6, 2014, 3, 20, 0), newFechayHora(21, 6, 2014, 4, 20, 1)));
         
-        lazyEventModel = new LazyScheduleModel() {
+        ArrayList<DefaultScheduleEvent> eventos = new ArrayList<DefaultScheduleEvent>();
+        
+        eventos.add(new DefaultScheduleEvent("Jose Romero", newFechayHora(21, 6, 2014, 3, 20, 1), newFechayHora(21, 6, 2014, 4, 20, 1)));
+        eventos.add(new DefaultScheduleEvent("Raul Mira", newFechayHora(22, 6, 2014, 9, 40, 0), newFechayHora(22, 6, 2014, 10, 40, 0)));
+        eventos.add(new DefaultScheduleEvent("Ricardo Maya", newFechayHora(21, 6, 2014, 6, 20, 1), newFechayHora(21, 6, 2014, 7, 20, 1)));
+        eventos.add(new DefaultScheduleEvent("Jose Romero", newFechayHora(25, 6, 2014, 3, 20, 1), newFechayHora(25, 6, 2014, 4, 20, 1)));
+        
+        for(DefaultScheduleEvent e: eventos)
+        {
+            eventModel.addEvent(e);
+        }
+        
+        /*lazyEventModel = new LazyScheduleModel() {
             
             @Override
             public void loadEvents(Date start, Date end){
@@ -50,7 +64,7 @@ public class ScheduleView implements Serializable {
                 random = getRandomDate(start);
                 addEvent(new DefaultScheduleEvent("Lazy Event 2", random, random));
             }
-        };
+        };*/
     }
     
     public Date getRandomDate(Date base) {
@@ -72,9 +86,9 @@ public class ScheduleView implements Serializable {
         return eventModel;
     }
     
-    public ScheduleModel getLazyEventModel() {
+    /*public ScheduleModel getLazyEventModel() {
         return lazyEventModel;
-    }
+    }*/
     
     private Calendar today() {
         Calendar calendar = Calendar.getInstance();
@@ -176,7 +190,8 @@ public class ScheduleView implements Serializable {
     }
     
     public void onDateSelect(SelectEvent selectEvent) {
-        event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
+        //event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
+        redirect.Redireccionar.redirect("citas.xhtml");
     }
     
     public void onEventMove(ScheduleEntryMoveEvent event) {
@@ -194,4 +209,26 @@ public class ScheduleView implements Serializable {
     private void addMessage(FacesMessage message) {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
+    
+    
+    /*@
+    @requires 1 <= dia && dia <= 31;
+    @requires 1 <= mes && mes <= 12;
+    @requires 1 <= hora && hora <= 12;
+    @requires 0 <= minuto && minuto <= 59;
+    @requires 0 <= ampm && ampm <= 1;
+    @*/
+    private Date newFechayHora(int dia, int mes, int anio, int hora, int minuto, int ampm) {
+        Calendar t = (Calendar) today().clone();
+        t.set(Calendar.AM_PM, ampm);
+        t.set(Calendar.DATE, dia);
+        //t.set(Calendar.DAY_OF_MONTH, dia);
+        t.set(Calendar.MONTH, mes-1);
+        t.set(Calendar.YEAR, anio);
+        t.set(Calendar.HOUR, hora);
+        t.set(Calendar.MINUTE, minuto);
+        
+        return t.getTime();
+    }
+    
 }
