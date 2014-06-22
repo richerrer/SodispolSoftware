@@ -6,11 +6,11 @@
     <navigation-rule>
         <from-view-id>/paciente.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>nuevaObservacion</from-outcome>
-            <to-view-id>/nuevaObservacion.xhtml</to-view-id>
+            <from-outcome>observacion</from-outcome>
+            <to-view-id>/observacion.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>observacion</from-outcome>
+            <from-outcome>listObservacion</from-outcome>
             <to-view-id>/listObservacion.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
