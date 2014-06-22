@@ -45,6 +45,7 @@
                                 <p:commandButton  value="Buscar Paciente" id="buscarPaciente" update="growl" actionListener="#{ejemplo.buttonAction}" styleClass="ui-priority-primary margen_top3">
                                     <p:ajax  update=":informacionPaciente :botonesFicha" listener="#{ejemplo.a()}" />
                                 </p:commandButton>
+                                
                             </h:panelGrid>
                              
                         </h:form>
@@ -94,8 +95,8 @@
                         </p:panelGrid>
                         <h:form id="botonesFicha" class="ancho60 centrar">
                             <c:if test="#{ejemplo.encontrado}">
-                                <p:commandButton  value="Ver Ficha" id="verFicha"  actionListener="#{ejemplo.buttonAction}" styleClass="ui-priority-primary margen_top3 " />
-                                <p:commandButton  value="Crear Ficha" id="crearFicha"  actionListener="#{ejemplo.buttonAction}" styleClass="ui-priority-primary margen_top3 margen_izquierdo"/>
+                                <p:commandButton  value="Nueva Observación" id="nuevaObservacion"  action="nuevaObservacion" styleClass="ui-priority-primary margen_top3 "/>
+                                <p:commandButton  value="Ver Observaciones" id="observaciones"  action="listObservacion.xhtml" styleClass="ui-priority-primary margen_top3 margen_izquierdo" />
                             </c:if>
                         </h:form>
                     </section>

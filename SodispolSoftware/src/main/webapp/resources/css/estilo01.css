@@ -26,8 +26,17 @@ body{
 .ancho2{
     width: 100%;
 }
+.ancho25{
+    width: 25%;
+}
 .ancho60{
     width: 60%;
+}
+.ancho80{
+    width: 80%;
+}
+.ancho70{
+    width: 70%;
 }
 .juntar{
     display: inline-block;
@@ -48,7 +57,9 @@ body{
 .margen_izquierdo2{
     margin-left: 2em;
 }
-
+.margen_izquierdo5{
+    margin-left: 5em;
+}
 .margen_top1{
     margin-top: 1%;
 }
@@ -121,7 +132,7 @@ body{
 }
 
 .color6{
-    background-color: 324A71;
+    background-color: #CCCCCC;
 }
 
 .alturaEjemplo{

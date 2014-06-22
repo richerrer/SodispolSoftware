@@ -73,6 +73,10 @@ public class Ejemplo {
     public void buttonAction(ActionEvent actionEvent) {
         addMessage("Si se encontro el paciente");
     }
+    public String navegacionPaciente(int numero) {
+        if(numero==1){return "ficha";}
+        return "observacion";
+    }
      
     public void addMessage(String summary) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
