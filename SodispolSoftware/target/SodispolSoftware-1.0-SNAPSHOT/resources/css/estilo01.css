@@ -83,6 +83,10 @@ body{
 .centrar{
     text-align: center;
 }
+.centrar2{
+    text-align: center;
+    width: 100%;
+}
 .justificar{
     text-align: justify;
 }
@@ -160,4 +164,8 @@ body{
 #footer{
     width: 100%;
     position: absolute;
+}
+
+.espacioSuperior{
+    margin-top: 60%;
 }

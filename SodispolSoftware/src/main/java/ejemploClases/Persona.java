@@ -15,6 +15,7 @@ public class Persona {
     private String horario;
     private String carrera;
     
+    
     public Persona(String a,String b,String d){
         nombre = a;
         horario =b;
