@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Sodispol_Paciente - Dispensario Médico</title>
+        <link rel="stylesheet" href="resources/cssBoostrap/bootstrap.css"/>
+        <link rel="Stylesheet" href="resources/css/estilo01.css"/>
+        <link href="http://fonts.googleapis.com/css?family=Duru+Sans" rel="styleshee" type="text/css"/>
+        <!--<script src="http://code.jquery.com/jquery.js"></script>-->
+        <script src="resources/js/bootstrap.js"></script>
+         <script src="resources/js/main.js"></script>
+    </h:head>
+    <h:body>
+        <header >
+            <ui:include src="/resources/templates/header.xhtml"/>
+         </header>
+        
+         
+        <nav class="navbar navbar-default color1 ancho1 center" role="navigation">
+            <ui:include src="/resources/templates/navMedico.xhtml"/>
+        </nav>
+        
+        <div class="container ancho1">
+            <div class="row">
+                <div class="col-xs-12 col-sm-5 col-md-5 col-lg-2">
+                    <section class="margen_top4 margen_izquierdo2">
+                        <p:graphicImage url="resources/images/raul.png" width="120em"/>
+                    </section>
+                </div>
+                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-5">
+                    <section>
+                        <h:form >
+                            <h:panelGrid columns="4" style="font-size: smaller" class=" ancho2 margen_top3">
+                                <h:outputLabel value="Nombre:"/>
+                                <h:outputLabel value="Raul Mira"/>
+                                <h:outputLabel value="Teléfono:"/>
+                                <h:outputLabel value="2547845"/>
+                                <h:outputLabel value="Matrícula:"/>
+                                <h:outputLabel value="201012145"/>
+                                <h:outputLabel value="Cédula:"/>
+                                <h:outputLabel value="094784512"/>
+                                <h:outputLabel value="Carrera:"/>
+                                <h:outputLabel value="Ing.en Ciencias Computacionales"/>
+                                <h:outputLabel value="Estado Civíl:"/>
+                                <h:outputLabel value="Casado"/>
+                            </h:panelGrid>
+                            
+                        </h:form>
+                    </section>
+                </div>
+                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-5">
+                    <section>
+                        <h:form style="font-size: xx-small">
+                            <p:dataTable var="car" value="#{dtFilterView.cars}" widgetVar="carsTable"
+                                         emptyMessage="No cars found with given criteria" filteredValue="#{dtFilterView.filteredCars}">
+
+                                <f:facet name="header">
+                                    <p:outputPanel>
+                                        <h:outputText value="Search all fields:" />
+                                        <p:inputText id="globalFilter" onkeyup="PF('carsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                                    </p:outputPanel>
+                                </f:facet>
+
+                                <p:column filterBy="#{car.year}" headerText="Year" footerText="lte" filterMatchMode="lte">
+                                    <f:facet name="filter">
+                                        <p:spinner onchange="PF('carsTable').filter()" styleClass="year-spinner">
+                                            <f:converter converterId="javax.faces.Integer" />
+                                        </p:spinner>
+                                    </f:facet>
+                                    <h:outputText value="#{car.year}" />
+                                </p:column>
+                                
+                               <p:column filterBy="#{car.year}" headerText="Year" footerText="lte" filterMatchMode="lte">
+                                    <f:facet name="filter">
+                                        <p:spinner onchange="PF('carsTable').filter()" styleClass="year-spinner">
+                                            <f:converter converterId="javax.faces.Integer" />
+                                        </p:spinner>
+                                    </f:facet>
+                                    <h:outputText value="#{car.year}" />
+                                </p:column>
+
+                                <p:column filterBy="#{car.id}" headerText="Año" filterMatchMode="lte">
+                                    <h:outputText value="#{car.id}" />
+                                </p:column>
+
+                                <p:column filterBy="#{car.color}" headerText="Doctor" footerText="in" filterMatchMode="in">
+                                    <f:facet name="filter">
+                                        <p:selectCheckboxMenu label="Colors" onchange="PF('carsTable').filter()" panelStyle="width:125px" scrollHeight="150">
+                                            <f:selectItems value="#{dtFilterView.colors}" />
+                                        </p:selectCheckboxMenu>
+                                    </f:facet>
+                                    <h:outputText value="#{car.color}" />
+                                </p:column>
+                            </p:dataTable>
+                        </h:form>
+                    </section>
+                </div>
+            </div>
+            
+            <div class="row margen_top2">
+                <c:forEach var="panel" begin="1" end="5" step="1">
+                <div class="col-xs-12 col-sm-5 col-md-5 col-lg-6">
+                    
+                    <h:form>
+                        <p:panel id="toggleable#{panel}" header="Observacion #{panel}/01/2014" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel#{panel}" style="margin-bottom:20px">
+                           <p:ajax event="close" listener="#{panelView.onClose}" />
+                           <p:ajax event="toggle" listener="#{panelView.onToggle}"/>
+                           <h:panelGrid columns="4" style="font-size: smaller" class="ancho2">
+                                <h:outputLabel value="Doctor:"/>
+                                <h:outputLabel value="Enrique Rivera"/>
+                                <h:outputLabel value="Estatura:"/>
+                                <h:outputLabel value="1.78 cm"/>
+                                <h:outputLabel value="Peso:"/>
+                                <h:outputLabel value="68Kg"/>
+                                <h:outputLabel value="Presión Arterial:"/>
+                                <h:outputLabel value="126 70"/>
+                                <h:outputLabel value="Pulso:"/>
+                                <h:outputLabel value="190 p.p.m"/>
+                                
+                            </h:panelGrid>
+                           <f:facet name="options">
+                               <p:menu>
+                                   <p:submenu label="Settings">
+                                       <p:menuitem value="Abrir" url="home.xhtml" icon="ui-icon-document" />
+                                       <p:menuitem value="Toggle" url="#" icon="ui-icon-newwin" onclick="PF('panel').toggle()" />
+                                       <p:menuitem value="Remove" url="#" icon="ui-icon-close" onclick="PF('panel').close()" />
+                                   </p:submenu>
+                                </p:menu>
+                            </f:facet>
+                            <f:facet name="actions">
+                                <h:outputLink styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default" value="home.xhtml"><h:outputText styleClass="ui-icon ui-icon-document" /></h:outputLink>
+                            </f:facet>
+                         </p:panel>
+                       </h:form>
+                </div> 
+            </c:forEach>
+            </div>
+        </div>
+        
+        <footer class="margen_top2 color1">
+            <ui:include src="/resources/templates/footer.xhtml"/>
+        </footer>
+        
+    </h:body>
+</html>
