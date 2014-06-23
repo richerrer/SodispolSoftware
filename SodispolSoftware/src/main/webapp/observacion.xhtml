@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:compositeComponents="http://java.sun.com/jsf/composite/compositeComponents">
+    <h:head>
+        <title>Sodispol_Paciente - Dispensario Médico</title>
+        <link rel="stylesheet" href="resources/cssBoostrap/bootstrap.css"/>
+        <link rel="Stylesheet" href="resources/css/estilo01.css"/>
+        <link href="http://fonts.googleapis.com/css?family=Duru+Sans" rel="styleshee" type="text/css"/>
+        <!--<script src="http://code.jquery.com/jquery.js"></script>-->
+        <script src="resources/js/bootstrap.js"></script>
+         <script src="resources/js/main.js"></script>
+    </h:head>
+    
+    <f:metadata>
+        <f:viewParam name="modificador" value="#{ejemplo2.modificador}"/>
+    </f:metadata>
+    
+    <h:body>
+        <header >
+            <ui:include src="/resources/templates/header.xhtml"/>
+         </header>
+        
+         
+        <nav class="navbar navbar-default color1 ancho1 center" role="navigation">
+            <ui:include src="/resources/templates/navMedico.xhtml"/>
+        </nav>
+        
+        <div class="container ancho2">
+            <div class="row ancho80" style="margin: auto">
+                <div class="col-xs-12 col-sm-5 col-md-5 col-lg-2">
+                    <section class="margen_top4 margen_izquierdo2">
+                        <p:graphicImage url="resources/images/raul.png" width="120em"/>
+                    </section>
+                </div>
+                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-6">
+                    <section>
+                        <h:form >
+                            <h:panelGrid columns="4" style="font-size: smaller" class=" ancho2 margen_top3">
+                                <h:outputLabel value="Nombre:"/>
+                                <h:outputLabel value="Raul Mira"/>
+                                <h:outputLabel value="Teléfono:"/>
+                                <h:outputLabel value="2547845"/>
+                                <h:outputLabel value="Matrícula:"/>
+                                <h:outputLabel value="201012145"/>
+                                <h:outputLabel value="Cédula:"/>
+                                <h:outputLabel value="094784512"/>
+                                <h:outputLabel value="Carrera:"/>
+                                <h:outputLabel value="Ing.en Ciencias Computacionales"/>
+                                <h:outputLabel value="Estado Civíl:"/>
+                                <h:outputLabel value="Casado"/>
+                            </h:panelGrid>
+                            
+                        </h:form>
+                    </section>
+                </div>
+            </div>
+            
+            <div class="row margen_top2">
+                <div class="ancho70" style="margin: auto">
+                    <h:form>
+                        
+                        <!--    Ficha     -->
+                        <p:panel id="toggleable1" header="Ficha Médica" toggleable="true"  toggleSpeed="500" widgetVar="panel1" style="margin-bottom:20px"  styleClass="color6">
+                            <ui:include src="/resources/templates/fichaNuevaEstudiante.xhtml"/>
+                        </p:panel>
+                        
+                        <!--     Examen Observacion     -->
+                        <p:panel id="toggleable2" header="Examén Físico 10/01/2014" toggleable="true"  toggleSpeed="500"  widgetVar="panel2" style="margin-bottom:20px"  styleClass="color6">
+                            <!--<ui:include src="/resources/templates/examenNuevoEstudiante.xhtml"/>-->
+                            <compositeComponents:examenNuevoEstudiante verificador="#{ejemplo2.modificador}"/>
+                        </p:panel>
+                        
+                        <!--     Observaciones anateriores     -->
+                        <c:if test="#{ejemplo2.modificador==1}">
+                            <p:panel id="toggleable3" header="Observaciones Anteriores" toggleable="true"  toggleSpeed="500"  widgetVar="panel3" style="margin-bottom:20px"  styleClass="color6">
+
+                            </p:panel>
+                        </c:if>
+                        <!--    Observacion Especifica      -->
+                        <p:panel id="toggleable4" header="Observación dada por Dr. Enrique Martinez" toggleable="true"  toggleSpeed="500"  widgetVar="panel4" style="margin-bottom:20px"  styleClass="color6">
+                            <c:if test="#{ejemplo2.modificador==1}">
+                                <h:inputTextarea class="ancho2" rows="8"/>
+                            </c:if>
+                            <c:if test="#{ejemplo2.modificador==0}">
+                                <h:inputTextarea class="ancho2" rows="8" readonly="true"/>
+                            </c:if>
+                        </p:panel>
+                        <c:if test="#{ejemplo2.modificador==1}">
+                                <p:commandButton value="Guardar"/>
+                        </c:if>
+                        
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="margen_top2 color1">
+            <ui:include src="/resources/templates/footer.xhtml"/>
+        </footer>
+        
+    </h:body>
+</html>

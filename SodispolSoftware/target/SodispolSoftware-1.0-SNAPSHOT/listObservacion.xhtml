@@ -124,17 +124,22 @@
                                 <h:outputLabel value="190 p.p.m"/>
                                 
                             </h:panelGrid>
-                           <f:facet name="options">
+                           <!--<f:facet name="options">
                                <p:menu>
                                    <p:submenu label="Settings">
-                                       <p:menuitem value="Abrir" url="home.xhtml" icon="ui-icon-document" />
+                                       <p:menuitem value="Abrir" url="nuevaObservacion.xhtml" icon="ui-icon-document">
+                                           <f:param name="modificador" value="0" />
+                                       </p:menuitem>
                                        <p:menuitem value="Toggle" url="#" icon="ui-icon-newwin" onclick="PF('panel').toggle()" />
                                        <p:menuitem value="Remove" url="#" icon="ui-icon-close" onclick="PF('panel').close()" />
                                    </p:submenu>
                                 </p:menu>
-                            </f:facet>
+                            </f:facet>-->
                             <f:facet name="actions">
-                                <h:outputLink styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default" value="home.xhtml"><h:outputText styleClass="ui-icon ui-icon-document" /></h:outputLink>
+                                <h:outputLink styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default" value="observacion.xhtml">
+                                    <h:outputText styleClass="ui-icon ui-icon-document" />
+                                    <f:param name="modificador" value="0" />
+                                </h:outputLink>
                             </f:facet>
                          </p:panel>
                        </h:form>

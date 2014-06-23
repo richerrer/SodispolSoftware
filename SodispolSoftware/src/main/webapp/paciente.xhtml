@@ -95,8 +95,12 @@
                         </p:panelGrid>
                         <h:form id="botonesFicha" class="ancho60 centrar">
                             <c:if test="#{ejemplo.encontrado}">
-                                <p:commandButton  value="Nueva Observación" id="nuevaObservacion"  action="nuevaObservacion" styleClass="ui-priority-primary margen_top3 "/>
-                                <p:commandButton  value="Ver Observaciones" id="observaciones"  action="listObservacion.xhtml" styleClass="ui-priority-primary margen_top3 margen_izquierdo" />
+                                <p:commandButton  value="Nueva Observación" id="nuevaObservacion"  action="observacion" styleClass="ui-priority-primary margen_top3 ">
+                                    <f:param name="modificador" value="1" />
+                                </p:commandButton>
+                                <p:commandButton  value="Ver Observaciones" id="observaciones"  action="listObservacion" styleClass="ui-priority-primary margen_top3 margen_izquierdo">
+                                    <f:param name="modificador" value="0" />
+                                </p:commandButton>
                             </c:if>
                         </h:form>
                     </section>
