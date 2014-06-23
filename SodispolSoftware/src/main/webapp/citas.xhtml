@@ -60,9 +60,13 @@
                 </div>
                 <div class="col-md-2 alturaEjemplo">
                     <h:form id="botonesCita">
+                            <div class="row">
+                                <p:commandButton  action="nuevaCita.xhtml" value="Crear Cita" id="b0" styleClass="ui-priority-primary margen_top3 espacioSuperior adaptar">
+                                </p:commandButton>
+                            </div>
                         <c:if test="#{ejemplo.encontrado}">
                             <div class="row">
-                                <p:commandButton  value="Aprobar" id="b1" styleClass="ui-priority-primary margen_top3 espacioSuperior adaptar">
+                                <p:commandButton  value="Aprobar" id="b1" styleClass="ui-priority-primary margen_top3 adaptar">
                                 </p:commandButton>
                             </div>
                             <div class="row">
