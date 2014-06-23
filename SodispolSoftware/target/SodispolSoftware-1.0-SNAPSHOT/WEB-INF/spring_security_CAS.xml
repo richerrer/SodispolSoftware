@@ -12,7 +12,7 @@
     <sec:http entry-point-ref="casEntryPoint" auto-config="true" path-type="ant">
         <sec:custom-filter before="CAS_FILTER" ref="casSingleSignOutFilter"/>
         <sec:custom-filter after="CAS_FILTER"  ref="casFilter"/>
-        <sec:intercept-url pattern="/paciente.xhtml" filters="none"/>
+        <sec:intercept-url pattern="/*" access="ROLE_DOCTOR"/>
         <sec:intercept-url pattern="/administradores/*" access="ROLE_ADMIN"/>
         <sec:intercept-url pattern="/usuarios/*" access="ROLE_DOCTOR"/>
         <sec:intercept-url pattern="/home.xhtml" access="ROLE_DOCTOR"/>
