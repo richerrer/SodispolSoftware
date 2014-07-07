@@ -50,6 +50,12 @@ body{
     margin: 0.1em auto;
 }
 
+.subrayar{
+    text-decoration: underline;
+}
+.negritas{
+    font-weight: bold;
+}
 .margen_izquierdo{
     margin-left: 1em;
 }
@@ -76,8 +82,10 @@ body{
 .adaptar{
     width: 100%;
     border-radius: 10px;
-    border: 2px solid black;
-    
+    border: 2px solid black;  
+}
+.panelBarY{
+    overflow-y: scroll
 }
 
 .centrar{
@@ -132,7 +140,7 @@ body{
 }
 
 .color5{
-    background-color: red;
+    background-color: white;
 }
 
 .color6{
@@ -168,11 +176,4 @@ body{
 
 .espacioSuperior{
     margin-top: 60%;
-}
-
-.espacioIzq1{
-    margin-left: 45%;
-}
-.espacioIzq2{
-    margin-left: 60px;
 }
