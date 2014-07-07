@@ -31,7 +31,7 @@
             <div class="row margen_top2">
                 <div class="ancho70" style="margin: auto">
                     <h:form>
-                        <p:panel id="toggleable1" header="Ficha Médica" toggleable="true"  toggleSpeed="500" widgetVar="panel1" style="margin-bottom:20px"  styleClass="color6">
+                        <p:panel id="toggleable1" header="Nueva Cita" toggleable="true"  toggleSpeed="500" widgetVar="panel1" style="margin-bottom:20px"  styleClass="color6">
                             <h:panelGrid columns="2" style="margin: auto">
         <p:graphicImage url="resources/images/espol1.png" width="90em"/>
         <h:panelGrid columns="1" style="text-align: center" class="margen_izquierdo2">
@@ -46,7 +46,7 @@
                                     <h:outputLabel for="title" value="Paciente:" />
                                 </div>
                                 <div class="col-md-4">
-                                    <p:inputText id="title" value="#{scheduleView.event.title}" required="true" />
+                                    <p:inputText id="title" value="#{scheduleView.event.title}" />
                                 </div>
                                 <div class="col-md-2"></div>
                              </div>
@@ -70,15 +70,18 @@
                                     <h:outputLabel for="time" value="Hora:" />
                                 </div>
                                 <div class="col-md-4">
-                                    <p:calendar id="time" value="#{calendarView.date11}" pattern="HH:mm a" timeOnly="true"  />
+                                    <p:inputText id="titl2e" value="#{scheduleView.event.title}"  />
                                 </div>
+                                <!--<div class="col-md-4">
+                                    <p:calendar id="time" value="" pattern="HH:mm a" timeOnly="true"  />
+                                </div>-->
                                 <div class="col-md-2"></div>
                              </div>
                                 
                             </div>
                         </p:panel>
                         
-                        <p:commandButton value="Guardar" action="succes.xhmtl"/>
+                        <p:commandButton value="Guardar" action="succes" ajax="false"/>
                     </h:form>
                 </div>
             </div>

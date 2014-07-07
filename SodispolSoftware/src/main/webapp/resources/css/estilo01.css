@@ -169,3 +169,10 @@ body{
 .espacioSuperior{
     margin-top: 60%;
 }
+
+.espacioIzq1{
+    margin-left: 45%;
+}
+.espacioIzq2{
+    margin-left: 60px;
+}
