@@ -34,7 +34,7 @@
                         <p:growl id="messages" showDetail="true" />
                         <h:panelGrid columnClasses="value">
                             <br/><br/>
-                            <p:schedule id="schedule" value="#{scheduleView.eventModel}" widgetVar="myschedule">
+                            <p:schedule id="schedule" value="#{scheduleView.eventModel}" widgetVar="myschedule"  locale="es">
                                 <!--<p:ajax event="dateSelect" listener="#{scheduleView.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />-->
                                 <p:ajax event="dateSelect" listener="#{scheduleView.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
                                 <p:ajax event="eventSelect" listener="#{scheduleView.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
@@ -67,26 +67,30 @@
  
                     <script type="text/javascript">
                         PrimeFaces.locales['es'] = {
-                        closeText: 'kapat',
-                        prevText: 'geri',
-                        nextText: 'ileri',
-                        currentText: 'bugün',
-                        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
-                             'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
-                        monthNamesShort: ['Oca','Şub','Mar','Nis','May','Haz',
-                            'Tem','Ağu','Eyl','Eki','Kas','Ara'],
-                        dayNames: ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'],
-                        dayNamesShort: ['Pz','Pt','Sa','Ça','Pe','Cu','Ct'],
-                        dayNamesMin: ['Pz','Pt','Sa','Ça','Pe','Cu','Ct'],
-                        weekHeader: 'Hf',
-                        firstDay: 1,
+                        closeText: "Cerrar",
+                        prevText: "Anterior",
+                        nextText: "Siguiente",
+                        monthNames: ["Enero","Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                        monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+                        dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+                        dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+                        dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+                        weekHeader: "Semana",
+                        firstDay: 0,
                         isRTL: false,
                         showMonthAfterYear: false,
-                        yearSuffix: '',
-                        month: 'Mes',
-                        week: 'Semana',
-                        day: 'Dia',
-                        allDayText : 'Tüm Gün'
+                        yearSuffix: "",
+                        timeOnlyTitle: "Solo hora",
+                        timeText: "Tiempo",
+                        hourText: "Hora",
+                        minuteText: "Minuto",
+                        secondText: "Segundo",
+                        currentText: "Fecha actual",
+                        ampm: false,
+                        month: "Mes",
+                        week: "Semana",
+                        day: "Día",
+                        allDayText : "Todo el día"
                         };
                     </script>
                     <style type="text/css">
@@ -99,6 +103,11 @@
         
             </div>
         </div>
+        
+        
+        <footer class="margen_top2 color1">
+            <ui:include src="/resources/templates/footer.xhtml"/>
+        </footer>
         
     </h:body>
 </html>
