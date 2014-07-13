@@ -29,6 +29,12 @@ body{
 .ancho25{
     width: 25%;
 }
+.ancho35{
+    width: 35%;
+}
+.ancho50{
+    width: 50%;
+}
 .ancho60{
     width: 60%;
 }
@@ -94,6 +100,10 @@ body{
 .centrar2{
     text-align: center;
     width: 100%;
+}
+.centrar3
+{
+    margin: 0 auto;
 }
 .justificar{
     text-align: justify;
@@ -176,4 +186,8 @@ body{
 
 .espacioSuperior{
     margin-top: 60%;
+}
+.icon-modificar {
+            width: 30px;   
+            height: 30px; 
 }

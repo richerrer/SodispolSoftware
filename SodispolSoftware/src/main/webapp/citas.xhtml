@@ -5,7 +5,8 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Sodispol - Dispensario Médico</title>
         <link rel="stylesheet" href="resources/cssBoostrap/bootstrap.css"/>
@@ -29,59 +30,39 @@
             </div>
         
         <div id="content" class="container slider ancho1 margen_top2">
-            <div class="row">
-                <div class="col-md-3 alturaEjemplo"></div>
-                <div class="col-md-4">
+            <div class="row ancho35 centrar3">
+                
+                
                     <section style="font-size: smaller !important">
                         <h3 class="centrar">CITAS DEL DÍA</h3>
                         <br/>
                         <h:form>  
-                            <p:dataTable var="p" value="#{ejemplo.personas}" id="seded" > 
-                                <p:column headerText="Horario">  
-                                    <h:outputText value="#{p.horario}" /> 
-                                </p:column>  
-
-                                <p:column headerText="Nombre">  
-                                    <!--<h:outputText value="#{p.nombre}" />  
-                                    <p:commandButton  value="#{p.nombre}" id="nombre" styleClass="adaptar"></p:commandButton>-->
-                                    <p:commandLink id="nonAjax" ajax="false" >
-                                        <h:outputText value="#{p.nombre}" styleClass="centrar2"/>
-                                        <p:ajax  update=":botonesCita" listener="#{ejemplo.a()}" />
-                                    </p:commandLink>
-                                </p:column>  
-
-                                <p:column headerText="Ocupacion" >  
-                                    <h:outputText value="#{p.carrera}" />  
-                                </p:column>  
- 
-                            </p:dataTable>  
+                            <p:dataTable var="p" value="#{ejemplo.personas}" id="seded">
+                                <p:column headerText="Horario">
+                                    <h:outputText value="#{p.horario}" />
+                                </p:column>
+                                <p:column headerText="Paciente">
+                                    <h:outputText value="#{p.nombre}" />
+                                </p:column>
+                                <p:column headerText="Estado">
+                                    <h:outputText value="Pendiente" />
+                                </p:column>
+                                <p:column headerText="Modificar">
+                                    <p:commandButton  value="" type="button" styleClass="icon-modificar" image="ui-icon-refresh" onclick="PF('estadoChange').show();"/>
+                                    
+                                </p:column>
+                                <p:column headerText="Eliminar">
+                                    <p:commandButton  value="Eliminar" id="cambiarEstado" styleClass="icon-modificar" image="ui-icon-trash"/>
+                                
+                                </p:column>
+                            </p:dataTable>
+                            
+                            
+                            
                         </h:form>  
                     </section>
-                </div>
-                <div class="col-md-2 alturaEjemplo">
-                    <h:form id="botonesCita">
-                            <div class="row">
-                                <p:commandButton  action="nuevaCita.xhtml" value="Crear Cita" id="b0" styleClass="ui-priority-primary margen_top3 espacioSuperior adaptar">
-                                </p:commandButton>
-                            </div>
-                        <c:if test="#{ejemplo.encontrado}">
-                            <div class="row">
-                                <p:commandButton  value="Aprobar" id="b1" action="succes.xhmtl" styleClass="ui-priority-primary margen_top3 adaptar">
-                                </p:commandButton>
-                            </div>
-                            <div class="row">
-                                <p:commandButton  value="Posponer" id="b2" action="succes.xhmtl" styleClass="ui-priority-primary margen_top3 adaptar">
-                                </p:commandButton>
-                            </div>
-                            <div class="row">
-                                <p:commandButton  value="Eliminar" id="b3" action="succes.xhmtl" styleClass="ui-priority-primary margen_top3 adaptar">
-                                </p:commandButton>
-                            </div>
-                       </c:if>
-                    </h:form>
-                </div>
-                    
-                <div class="col-md-3 alturaEjemplo"></div>
+                              
+                
             </div>
         </div>
         <div id="footer">
