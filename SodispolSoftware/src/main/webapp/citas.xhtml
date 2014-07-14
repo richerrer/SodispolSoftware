@@ -30,12 +30,13 @@
             </div>
         
         <div id="content" class="container slider ancho1 margen_top2">
-            <div class="row ancho35 centrar3">
+            <div class="row ancho50 centrar3">
                 
                 
                     <section style="font-size: smaller !important">
                         <h3 class="centrar">CITAS DEL DÍA</h3>
                         <br/>
+                        <h5 class="centrar">APR = Aprobada , PND = Pendiente , CMP = Completada</h5>
                         <h:form>  
                             <p:dataTable var="p" value="#{ejemplo.personas}" id="seded">
                                 <p:column headerText="Horario">
@@ -48,8 +49,11 @@
                                     <h:outputText value="Pendiente" />
                                 </p:column>
                                 <p:column headerText="Modificar">
-                                    <p:commandButton  value="" type="button" styleClass="icon-modificar" image="ui-icon-refresh" onclick="PF('estadoChange').show();"/>
-                                    
+                                    <p:selectOneButton>
+                                        <f:selectItem itemLabel="APR" itemValue="1" />
+                                        <f:selectItem itemLabel="PND" itemValue="2" />
+                                        <f:selectItem itemLabel="CMP" itemValue="3" />                                        
+                                    </p:selectOneButton>
                                 </p:column>
                                 <p:column headerText="Eliminar">
                                     <p:commandButton  value="Eliminar" id="cambiarEstado" styleClass="icon-modificar" image="ui-icon-trash"/>
