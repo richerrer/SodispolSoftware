@@ -21,11 +21,22 @@ public class Ejemplo2 {
     Map<String, String> parametros =FacesContext.getCurrentInstance().
                    getExternalContext().getRequestParameterMap();
     private long modificador;
+    private String matricula;
     
     public Ejemplo2() {
         modificador=Long.parseLong(parametros.get("modificador"));
     }
 
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    
+    
     public long getModificador() {
         return modificador;
     }

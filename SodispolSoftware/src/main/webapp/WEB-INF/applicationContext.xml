@@ -34,4 +34,15 @@
      <import resource="springConfig/database/HibernateSessionFactory.xml"/>  
      <import resource="springConfig/beansInjections/userBean.xml"/>
      
+     <!-- Se crea un propio view scope ya que spring no lo implementa por defecto-->
+     <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+        <property name="scopes">
+            <map>
+                <entry key="view">
+                    <bean class="com.sodispolSoftware.spring.ViewScope"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+     
 </beans>

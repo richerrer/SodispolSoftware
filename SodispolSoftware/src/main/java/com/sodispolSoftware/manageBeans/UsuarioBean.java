@@ -8,17 +8,18 @@ package com.sodispolSoftware.manageBeans;
 
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
-import javax.inject.Named;
-import java.io.Serializable;
 import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import org.springframework.context.annotation.Scope;
 
 /**
  *
  * @author usuario
  */
-@Named(value = "usuarioBean")
+@Named
+//@Scope("session")
 @SessionScoped
-public class UsuarioBean implements Serializable {
+public class UsuarioBean{
 
     private Doctor doctor;
     private Estudiante estudiante;

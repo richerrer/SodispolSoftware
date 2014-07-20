@@ -60,7 +60,7 @@
                             <c:if test="#{pacienteBean.encontrado}">
                             <p:row>
                                 <p:column colspan="1"><strong>Nombre:</strong></p:column>
-                                <p:column colspan="1">Raul Alberto</p:column> 
+                                <p:column colspan="1">#{pacienteBean.estudiante.nombre1} #{pacienteBean.estudiante.nombre2}</p:column> 
                                 <p:column rowspan="6">
                                     <p:graphicImage url="resources/images/raul.png" width="150px"/>
                                 </p:column>
@@ -99,9 +99,11 @@
                             <c:if test="#{pacienteBean.encontrado}">
                                 <p:commandButton  value="Nueva Observación" id="nuevaObservacion"  action="observacion" styleClass="ui-priority-primary margen_top3 ">
                                     <f:param name="modificador" value="1" />
+                                    <f:param name="matricula" value="#{pacienteBean.estudiante.matricula}" />
                                 </p:commandButton>
                                 <p:commandButton  value="Ver Observaciones" id="observaciones"  action="listObservacion" styleClass="ui-priority-primary margen_top3 margen_izquierdo">
                                     <f:param name="modificador" value="0" />
+                                    <f:param name="matricula" value="#{pacienteBean.estudiante.matricula}" />
                                 </p:commandButton>
                             </c:if>
                         </h:form>

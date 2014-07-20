@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 18-jul-2014 18:32:53 by Hibernate Tools 3.6.0 -->
+<!-- Generated 20-jul-2014 15:20:17 by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="com.sodispolSoftware.model.Patologiadetalleficha" table="patologiadetalleficha" schema="public">
         <id name="idpatogogiaficha" type="long">

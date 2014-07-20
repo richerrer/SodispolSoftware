@@ -1,5 +1,5 @@
 package com.sodispolSoftware.model;
-// Generated 18-jul-2014 18:32:52 by Hibernate Tools 3.6.0
+// Generated 20-jul-2014 15:20:16 by Hibernate Tools 3.6.0
 
 
 import java.util.HashSet;
@@ -13,6 +13,8 @@ public class Estudiante  implements java.io.Serializable {
 
      private long idestudiante;
      private Roleuser roleuser;
+     private String matricula;
+     private String cedula;
      private String username;
      private String direccion;
      private String estadocivil;
@@ -21,17 +23,29 @@ public class Estudiante  implements java.io.Serializable {
      private Set<Citamedica> citamedicas = new HashSet<Citamedica>(0);
      private Set<Fichamedicaestudiante> fichamedicaestudiantes = new HashSet<Fichamedicaestudiante>(0);
 
+     
+     /*Atributos de clase*/
+     private String nombre1;
+     private String nombre2;
+     private String apellido1;
+     private String apellido2;
+     private String carrera;
+     private int edad;
+     private String fechaNacimiento;
+     
     public Estudiante() {
     }
 
 	
-    public Estudiante(long idestudiante, Roleuser roleuser) {
-        this.idestudiante = idestudiante;
+    public Estudiante(Roleuser roleuser,boolean estadoborrado) {
         this.roleuser = roleuser;
+        this.estadoborrado = estadoborrado;
     }
-    public Estudiante(long idestudiante, Roleuser roleuser, String username, String direccion, String estadocivil, String telefono, Boolean estadoborrado, Set<Citamedica> citamedicas, Set<Fichamedicaestudiante> fichamedicaestudiantes) {
-       this.idestudiante = idestudiante;
+    public Estudiante(Roleuser roleuser, String matricula, String cedula, String username, String direccion, String estadocivil, String telefono, Boolean estadoborrado, Set<Citamedica> citamedicas, Set<Fichamedicaestudiante> fichamedicaestudiantes) {
+      // this.idestudiante = idestudiante;
        this.roleuser = roleuser;
+       this.matricula = matricula;
+       this.cedula = cedula;
        this.username = username;
        this.direccion = direccion;
        this.estadocivil = estadocivil;
@@ -54,6 +68,20 @@ public class Estudiante  implements java.io.Serializable {
     
     public void setRoleuser(Roleuser roleuser) {
         this.roleuser = roleuser;
+    }
+    public String getMatricula() {
+        return this.matricula;
+    }
+    
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+    public String getCedula() {
+        return this.cedula;
+    }
+    
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
     }
     public String getUsername() {
         return this.username;
@@ -105,6 +133,65 @@ public class Estudiante  implements java.io.Serializable {
         this.fichamedicaestudiantes = fichamedicaestudiantes;
     }
 
+    public String getNombre1() {
+        return nombre1;
+    }
+
+    public void setNombre1(String nombre1) {
+        this.nombre1 = nombre1;
+    }
+
+    public String getNombre2() {
+        return nombre2;
+    }
+
+    public void setNombre2(String nombre2) {
+        this.nombre2 = nombre2;
+    }
+
+    public String getApellido1() {
+        return apellido1;
+    }
+
+    public void setApellido1(String apellido1) {
+        this.apellido1 = apellido1;
+    }
+
+    public String getApellido2() {
+        return apellido2;
+    }
+
+    public void setApellido2(String apellido2) {
+        this.apellido2 = apellido2;
+    }
+
+    public String getCarrera() {
+        return carrera;
+    }
+
+    public void setCarrera(String carrera) {
+        this.carrera = carrera;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public String getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(String fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public String getNombres(){
+        return nombre1+" "+nombre2;
+    }
 
 
 

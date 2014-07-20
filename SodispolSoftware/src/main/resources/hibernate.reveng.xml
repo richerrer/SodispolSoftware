@@ -2,20 +2,20 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="SodispolSoftware" match-schema="public"/>
-  <table-filter match-name="categoriamedicinamedicina"/>
-  <table-filter match-name="enfermero"/>
-  <table-filter match-name="receta"/>
-  <table-filter match-name="doctor"/>
-  <table-filter match-name="detalleabastecimiento"/>
-  <table-filter match-name="categoriamedicina"/>
-  <table-filter match-name="estudiante"/>
-  <table-filter match-name="citamedica"/>
   <table-filter match-name="patologia"/>
-  <table-filter match-name="categoriapatologia"/>
-  <table-filter match-name="medicinaepecifica"/>
   <table-filter match-name="medicina"/>
-  <table-filter match-name="fichamedicaestudiante"/>
-  <table-filter match-name="patologiadetalleficha"/>
-  <table-filter match-name="roleuser"/>
   <table-filter match-name="detallefichaestudiante"/>
+  <table-filter match-name="estudiante"/>
+  <table-filter match-name="categoriapatologia"/>
+  <table-filter match-name="receta"/>
+  <table-filter match-name="categoriamedicina"/>
+  <table-filter match-name="doctor"/>
+  <table-filter match-name="categoriamedicinamedicina"/>
+  <table-filter match-name="detalleabastecimiento"/>
+  <table-filter match-name="roleuser"/>
+  <table-filter match-name="patologiadetalleficha"/>
+  <table-filter match-name="enfermero"/>
+  <table-filter match-name="medicinaepecifica"/>
+  <table-filter match-name="fichamedicaestudiante"/>
+  <table-filter match-name="citamedica"/>
 </hibernate-reverse-engineering>

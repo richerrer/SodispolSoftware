@@ -1,5 +1,5 @@
 package com.sodispolSoftware.model;
-// Generated 18-jul-2014 18:32:52 by Hibernate Tools 3.6.0
+// Generated 20-jul-2014 15:20:16 by Hibernate Tools 3.6.0
 
 
 

@@ -18,10 +18,6 @@
          <script src="resources/js/main.js"></script>
     </h:head>
     
-    <f:metadata>
-        <f:viewParam name="modificador" value="#{ejemplo2.modificador}"/>
-    </f:metadata>
-    
     <h:body>
         <header >
             <ui:include src="/resources/templates/header.xhtml"/>
@@ -44,11 +40,11 @@
                         <h:form >
                             <h:panelGrid columns="4" style="font-size: smaller" class=" ancho2 margen_top3">
                                 <h:outputLabel value="Nombre:"/>
-                                <h:outputLabel value="Raul Mira"/>
+                                <h:outputLabel value="#{fichaEstudianteBean.estudiante.nombres}"/>
                                 <h:outputLabel value="Teléfono:"/>
                                 <h:outputLabel value="2547845"/>
                                 <h:outputLabel value="Matrícula:"/>
-                                <h:outputLabel value="201012145"/>
+                                <h:outputLabel value="#{fichaEstudianteBean.matricula}"/>
                                 <h:outputLabel value="Cédula:"/>
                                 <h:outputLabel value="094784512"/>
                                 <h:outputLabel value="Carrera:"/>

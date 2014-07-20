@@ -11,5 +11,9 @@
         <bean id="roleUserDao" class="com.sodispolSoftware.dao.implement.RoleUserDaoImpl" >
             <property name="sessionFactory" ref="sessionFactory" />
         </bean>
+        
+        <bean id="estudianteDao" class="com.sodispolSoftware.dao.implement.EstudianteDaoImpl" >
+            <property name="sessionFactory" ref="sessionFactory" />
+        </bean>
     
 </beans>
