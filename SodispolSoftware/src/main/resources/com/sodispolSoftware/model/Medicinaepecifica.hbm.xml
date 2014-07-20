@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 18-jul-2014 18:32:53 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.sodispolSoftware.model.Medicinaepecifica" table="medicinaepecifica" schema="public">
+        <id name="idmedicinaespecifica" type="long">
+            <column name="idmedicinaespecifica" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="medicina" class="com.sodispolSoftware.model.Medicina" fetch="select">
+            <column name="idmedicina" not-null="true" />
+        </many-to-one>
+        <property name="unidadesdisponibles" type="java.lang.Integer">
+            <column name="unidadesdisponibles" />
+        </property>
+        <property name="fechacaducidad" type="time">
+            <column name="fechacaducidad" length="15" />
+        </property>
+        <property name="estadocaducado" type="java.lang.Boolean">
+            <column name="estadocaducado" />
+        </property>
+        <property name="estadoborrado" type="java.lang.Boolean">
+            <column name="estadoborrado" />
+        </property>
+        <set name="recetas" table="receta" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idmedicinaepecifica" not-null="true" />
+            </key>
+            <one-to-many class="com.sodispolSoftware.model.Receta" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -6,7 +6,7 @@
        http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
        http://www.springframework.org/schema/security
-       http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+       http://www.springframework.org/schema/security/spring-security-3.1.xsd">
     
     
     <sec:http entry-point-ref="casEntryPoint" auto-config="true" path-type="ant">
@@ -43,11 +43,11 @@
         <sec:authentication-provider ref="casAuthenticationProvider" />
     </sec:authentication-manager>
     
-    <!--<bean id="allAuthenticatedUserService" class="com.spring.myuserdetail.MyUserService"/> -->
+    <bean id="allAuthenticatedUserService" class="com.sodispolSoftware.myuserdetail.MyUserService"/>
     
     <bean id="casAuthenticationProvider" class="org.springframework.security.cas.authentication.CasAuthenticationProvider">
-        <property name="userDetailsService" ref="userServices"/>
-        <!--<property name="userDetailsService" ref="allAuthenticatedUserService"/>-->
+        <!--<property name="userDetailsService" ref="userServices"/>-->
+        <property name="userDetailsService" ref="allAuthenticatedUserService"/>
         <property name="serviceProperties" ref="serviceProperties"/>
         <property name="ticketValidator">
             <bean class="org.jasig.cas.client.validation.Cas20ServiceTicketValidator">

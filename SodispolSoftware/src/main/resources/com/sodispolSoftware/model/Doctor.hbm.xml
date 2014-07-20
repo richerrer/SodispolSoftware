@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 18-jul-2014 18:32:53 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.sodispolSoftware.model.Doctor" table="doctor" schema="public">
+        <id name="iddoctor" type="long">
+            <column name="iddoctor" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="roleuser" class="com.sodispolSoftware.model.Roleuser" fetch="select">
+            <column name="idroleuser" not-null="true" />
+        </many-to-one>
+        <property name="username" type="string">
+            <column name="username" length="100" />
+        </property>
+        <property name="estadoborrado" type="java.lang.Boolean">
+            <column name="estadoborrado" />
+        </property>
+        <set name="detalleabastecimientos" table="detalleabastecimiento" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="iddoctor" not-null="true" />
+            </key>
+            <one-to-many class="com.sodispolSoftware.model.Detalleabastecimiento" />
+        </set>
+        <set name="citamedicas" table="citamedica" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="iddoctor" not-null="true" />
+            </key>
+            <one-to-many class="com.sodispolSoftware.model.Citamedica" />
+        </set>
+        <set name="detallefichaestudiantes" table="detallefichaestudiante" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="iddoctor" not-null="true" />
+            </key>
+            <one-to-many class="com.sodispolSoftware.model.Detallefichaestudiante" />
+        </set>
+    </class>
+</hibernate-mapping>

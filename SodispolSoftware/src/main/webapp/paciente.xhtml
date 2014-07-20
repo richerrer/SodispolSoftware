@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
@@ -14,7 +13,7 @@
         <link href="http://fonts.googleapis.com/css?family=Duru+Sans" rel="styleshee" type="text/css"/>
         <!--<script src="http://code.jquery.com/jquery.js"></script>-->
         <script src="resources/js/bootstrap.js"></script>
-         <script src="resources/js/main.js"></script>
+        <script src="resources/js/main.js"></script>
     </h:head>
     <h:body>
         <header >
@@ -34,16 +33,19 @@
                         
                         <h:form>
                             <p:growl id="growl" life="2000" />
+                            
                             <h:panelGrid columns="1" class=" ancho2 margen_top3">
                                  <p:selectOneRadio  id="tipoBusqueda" style="width: 40%" >
                                     <f:selectItem itemLabel="Matrícula" itemValue="matricula" />
                                     <f:selectItem itemLabel="Cédula" itemValue="cedula" />
                                  </p:selectOneRadio>
                             </h:panelGrid>
+                            
                             <h:panelGrid columns="1" class=" ancho2 margen_top3" >
                                 <p:inputText  maxlength="15" style="width: 60%"/> 
-                                <p:commandButton  value="Buscar Paciente" id="buscarPaciente" update="growl" actionListener="#{ejemplo.buttonAction}" styleClass="ui-priority-primary margen_top3">
-                                    <p:ajax  update=":informacionPaciente :botonesFicha" listener="#{ejemplo.a()}" />
+                                
+                                <p:commandButton  value="Buscar Paciente" id="buscarPaciente" update="growl" actionListener="#{pacienteBean.buttonAction}" styleClass="ui-priority-primary margen_top3">
+                                    <p:ajax  update=":informacionPaciente :botonesFicha" listener="#{pacienteBean.a()}" />
                                 </p:commandButton>
                                 
                             </h:panelGrid>
@@ -55,7 +57,7 @@
                 <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 ">
                     <section class="margen_izquierdo2 margen_top3">
                         <p:panelGrid id="informacionPaciente" style="font-size: small">
-                            <c:if test="#{ejemplo.encontrado}">
+                            <c:if test="#{pacienteBean.encontrado}">
                             <p:row>
                                 <p:column colspan="1"><strong>Nombre:</strong></p:column>
                                 <p:column colspan="1">Raul Alberto</p:column> 
@@ -94,7 +96,7 @@
                          </c:if>
                         </p:panelGrid>
                         <h:form id="botonesFicha" class="ancho60 centrar">
-                            <c:if test="#{ejemplo.encontrado}">
+                            <c:if test="#{pacienteBean.encontrado}">
                                 <p:commandButton  value="Nueva Observación" id="nuevaObservacion"  action="observacion" styleClass="ui-priority-primary margen_top3 ">
                                     <f:param name="modificador" value="1" />
                                 </p:commandButton>

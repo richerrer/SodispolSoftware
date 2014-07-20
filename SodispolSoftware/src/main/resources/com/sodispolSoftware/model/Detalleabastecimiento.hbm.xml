@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 18-jul-2014 18:32:53 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.sodispolSoftware.model.Detalleabastecimiento" table="detalleabastecimiento" schema="public">
+        <id name="idabastecimiento" type="long">
+            <column name="idabastecimiento" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="medicina" class="com.sodispolSoftware.model.Medicina" fetch="select">
+            <column name="idmedicina" not-null="true" />
+        </many-to-one>
+        <many-to-one name="enfermero" class="com.sodispolSoftware.model.Enfermero" fetch="select">
+            <column name="idenfermero" not-null="true" />
+        </many-to-one>
+        <many-to-one name="doctor" class="com.sodispolSoftware.model.Doctor" fetch="select">
+            <column name="iddoctor" not-null="true" />
+        </many-to-one>
+        <property name="fechaabastecimiento" type="time">
+            <column name="fechaabastecimiento" length="15" />
+        </property>
+        <property name="cajasantesabastecimiento" type="java.lang.Integer">
+            <column name="cajasantesabastecimiento" />
+        </property>
+        <property name="cajasdespuesabastecimiento" type="java.lang.Integer">
+            <column name="cajasdespuesabastecimiento" />
+        </property>
+        <property name="cajastotales" type="java.lang.Integer">
+            <column name="cajastotales" />
+        </property>
+        <property name="estadoborrado" type="java.lang.Boolean">
+            <column name="estadoborrado" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -4,16 +4,14 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
-    <context-param>
-        <param-name>javax.faces.CONFIG_FILES</param-name>
-        <param-value>/WEB-INF/faces-config.xml</param-value>
-    </context-param>
+    
     <!-- Este servlet es el que me permite usar #{} para llamar funciones o beans -->
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    
      <!-- todas las rutas que tengan .jsf o .faces o .xhtml pasan al servlet, se puede borrar el sufijo /faces-->
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
@@ -36,13 +34,13 @@
         <welcome-file>home.xhtml</welcome-file>
     </welcome-file-list>
     
-    <!--  configuracion con spring security y cas-->
+    <!--.....................configuracion con spring security y cas.....................-->
     
     <!--Especificamos cual es la ruta para el archivo de configuracion de spring security-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            <!--/WEB-INF/applicationContext-security.xml-->
+            /WEB-INF/applicationContext.xml
             /WEB-INF/spring_security_CAS.xml
         </param-value>
     </context-param>
@@ -51,6 +49,10 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+    
+    <listener>
+	<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+   </listener>
     
     <filter>
       <filter-name>springSecurityFilterChain</filter-name>

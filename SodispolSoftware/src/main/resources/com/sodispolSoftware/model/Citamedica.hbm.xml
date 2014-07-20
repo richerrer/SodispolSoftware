@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 18-jul-2014 18:32:53 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.sodispolSoftware.model.Citamedica" table="citamedica" schema="public">
+        <id name="idcita" type="long">
+            <column name="idcita" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="estudiante" class="com.sodispolSoftware.model.Estudiante" fetch="select">
+            <column name="idestudiante" not-null="true" />
+        </many-to-one>
+        <many-to-one name="doctor" class="com.sodispolSoftware.model.Doctor" fetch="select">
+            <column name="iddoctor" not-null="true" />
+        </many-to-one>
+        <property name="fechareg" type="time">
+            <column name="fechareg" length="15" not-null="true">
+                <comment>fecha en la que se registro la cita, pudo no habersela registrado con antelacion</comment>
+            </column>
+        </property>
+        <property name="fechaprog" type="time">
+            <column name="fechaprog" length="15" not-null="true">
+                <comment>fecha en la que se dara la cita, no siempre se saca una cita con antelacion</comment>
+            </column>
+        </property>
+        <property name="estadocita" type="string">
+            <column name="estadocita" length="1" />
+        </property>
+        <property name="estadoborrado" type="java.lang.Boolean">
+            <column name="estadoborrado" />
+        </property>
+        <set name="detallefichaestudiantes" table="detallefichaestudiante" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idcita" not-null="true" />
+            </key>
+            <one-to-many class="com.sodispolSoftware.model.Detallefichaestudiante" />
+        </set>
+    </class>
+</hibernate-mapping>
