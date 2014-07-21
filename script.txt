@@ -1,0 +1,72 @@
+-- Database: "SodispolSoftware"
+
+-- DROP DATABASE "SodispolSoftware";
+
+CREATE DATABASE "SodispolSoftware"
+  WITH OWNER = "usuarioSoftware"
+       ENCODING = 'UTF8'
+       TABLESPACE = pg_default
+       LC_COLLATE = 'Spanish_Spain.1252'
+       LC_CTYPE = 'Spanish_Spain.1252'
+       CONNECTION LIMIT = -1;
+
+
+CREATE TABLE CategoriaMedicinaMedicina (idCategoriaMedicinaMedicina  BIGSERIAL NOT NULL, estadoBorrado bool, idMedicina int8 NOT NULL, idCategoriaMedicina int4 NOT NULL, PRIMARY KEY (idCategoriaMedicinaMedicina));
+CREATE TABLE CategoriaMedicina (idCategoriaMedicina  SERIAL NOT NULL, estadoBorrado bool, descripcion varchar(255), PRIMARY KEY (idCategoriaMedicina));
+CREATE TABLE PatologiaDetalleFicha (idPatogogiaFicha  BIGSERIAL NOT NULL, estadoBorrado bool, idDetalleFichaEstudiante int8 NOT NULL, idPatologia int8 NOT NULL, PRIMARY KEY (idPatogogiaFicha));
+CREATE TABLE CategoriaPatologia (idCategoria  BIGSERIAL NOT NULL, estadoBorrado bool, descripcion varchar(255), PRIMARY KEY (idCategoria));
+CREATE TABLE Patologia (idPatologia  BIGSERIAL NOT NULL, nombre varchar(255), descripcion varchar(1000), estadoBorrado bool, idCategoriaPatologia int8 NOT NULL, PRIMARY KEY (idPatologia));
+CREATE TABLE CitaMedica (idCita  BIGSERIAL NOT NULL, fechaReg time(6) NOT NULL, fechaProg time(6) NOT NULL, estadoCita varchar(1), idEstudiante int8 NOT NULL, estadoBorrado bool, idDoctor int8 NOT NULL, PRIMARY KEY (idCita));
+COMMENT ON COLUMN CitaMedica.fechaReg IS 'fecha en la que se registro la cita, pudo no habersela registrado con antelacion';
+COMMENT ON COLUMN CitaMedica.fechaProg IS 'fecha en la que se dara la cita, no siempre se saca una cita con antelacion';
+CREATE TABLE DetalleAbastecimiento (idAbastecimiento  BIGSERIAL NOT NULL, fechaAbastecimiento time(6), cajasAntesAbastecimiento int4, cajasDespuesAbastecimiento int4, cajasTotales int4, estadoBorrado bool, idMedicina int8 NOT NULL, idEnfermero int8 NOT NULL, idDoctor int8 NOT NULL, PRIMARY KEY (idAbastecimiento));
+CREATE TABLE MedicinaEpecifica (idMedicinaEspecifica  BIGSERIAL NOT NULL, unidadesDisponibles int4, fechaCaducidad time(7), estadoCaducado bool, estadoBorrado bool, idMedicina int8 NOT NULL, PRIMARY KEY (idMedicinaEspecifica));
+CREATE TABLE Enfermero (idEnfermero  BIGSERIAL NOT NULL, username varchar(255), estadoBorrado bool, idRoleUser int8 NOT NULL, PRIMARY KEY (idEnfermero));
+CREATE TABLE Receta (idReceta  BIGSERIAL NOT NULL, dosis int4, estadoBorrado bool, idDetalleFichaEstudiante int8 NOT NULL, idMedicinaEpecifica int8 NOT NULL, PRIMARY KEY (idReceta));
+CREATE TABLE Medicina (idMedicina  BIGSERIAL NOT NULL, descripcion varchar(1000), cajasDisponibles int4, estadoDisponible bool, estadoBorrado bool, PRIMARY KEY (idMedicina));
+CREATE TABLE RoleUser (idRoleUser  BIGSERIAL NOT NULL, descripcion varchar(255), PRIMARY KEY (idRoleUser));
+CREATE TABLE DetalleFichaEstudiante (idDetalleFicha  BIGSERIAL NOT NULL, estatura float8 NOT NULL, peso float8 NOT NULL, examenPiel varchar(255) NOT NULL, aparatoRespiratorio varchar(255) NOT NULL, apartoCirculatorio varchar(255) NOT NULL, presionArterial varchar(255) NOT NULL, pulso varchar(255) NOT NULL, ruidosCardiacos varchar(255) NOT NULL, aparatoDigestivo varchar(255) NOT NULL, aparatoGenicoUrinario varchar(255) NOT NULL, sitemaLinfatico varchar(255) NOT NULL, sistemaNervioso varchar(255) NOT NULL, fecha time(6), observaciones text NOT NULL, temperatura varchar(255), estadoBorrado bool, idDoctor int8 NOT NULL, idCita int8 NOT NULL, idFchaMedica int8 NOT NULL, PRIMARY KEY (idDetalleFicha));
+CREATE TABLE FichaMedicaEstudiante (idFichaMedica  BIGSERIAL NOT NULL, antecedentesPatologicos text, enfermedadesInfancia text, vacunasRecibidas text, estadoBorrado bool, idEstudiante int8 NOT NULL, PRIMARY KEY (idFichaMedica));
+CREATE TABLE Estudiante (idEstudiante  BIGSERIAL NOT NULL, username varchar(100), direccion varchar(255), estadoCivil varchar(50), telefono varchar(15), estadoBorrado bool, idRoleUser int8 NOT NULL, PRIMARY KEY (idEstudiante));
+CREATE TABLE Doctor (idDoctor  BIGSERIAL NOT NULL, username varchar(100), estadoBorrado bool, idRoleUser int8 NOT NULL, PRIMARY KEY (idDoctor));
+ALTER TABLE DetalleFichaEstudiante ADD CONSTRAINT FKDetalleFic646359 FOREIGN KEY (idCita) REFERENCES CitaMedica (idCita);
+ALTER TABLE DetalleFichaEstudiante ADD CONSTRAINT FKDetalleFic763279 FOREIGN KEY (idDoctor) REFERENCES Doctor (idDoctor);
+ALTER TABLE CategoriaMedicinaMedicina ADD CONSTRAINT FKCategoriaM644013 FOREIGN KEY (idCategoriaMedicina) REFERENCES CategoriaMedicina (idCategoriaMedicina);
+ALTER TABLE CategoriaMedicinaMedicina ADD CONSTRAINT FKCategoriaM819190 FOREIGN KEY (idMedicina) REFERENCES Medicina (idMedicina);
+ALTER TABLE CitaMedica ADD CONSTRAINT FKCitaMedica121843 FOREIGN KEY (idEstudiante) REFERENCES Estudiante (idEstudiante);
+ALTER TABLE Doctor ADD CONSTRAINT FKDoctor144224 FOREIGN KEY (idRoleUser) REFERENCES RoleUser (idRoleUser);
+ALTER TABLE Estudiante ADD CONSTRAINT FKEstudiante241992 FOREIGN KEY (idRoleUser) REFERENCES RoleUser (idRoleUser);
+ALTER TABLE Receta ADD CONSTRAINT FKReceta702741 FOREIGN KEY (idDetalleFichaEstudiante) REFERENCES DetalleFichaEstudiante (idDetalleFicha);
+ALTER TABLE MedicinaEpecifica ADD CONSTRAINT FKMedicinaEp947051 FOREIGN KEY (idMedicina) REFERENCES Medicina (idMedicina);
+ALTER TABLE Receta ADD CONSTRAINT FKReceta791018 FOREIGN KEY (idMedicinaEpecifica) REFERENCES MedicinaEpecifica (idMedicinaEspecifica);
+ALTER TABLE DetalleAbastecimiento ADD CONSTRAINT FKDetalleAba824044 FOREIGN KEY (idMedicina) REFERENCES Medicina (idMedicina);
+ALTER TABLE DetalleAbastecimiento ADD CONSTRAINT FKDetalleAba150528 FOREIGN KEY (idEnfermero) REFERENCES Enfermero (idEnfermero);
+ALTER TABLE DetalleAbastecimiento ADD CONSTRAINT FKDetalleAba326950 FOREIGN KEY (idDoctor) REFERENCES Doctor (idDoctor);
+ALTER TABLE Enfermero ADD CONSTRAINT FKEnfermero7465 FOREIGN KEY (idRoleUser) REFERENCES RoleUser (idRoleUser);
+ALTER TABLE CitaMedica ADD CONSTRAINT FKCitaMedica356543 FOREIGN KEY (idDoctor) REFERENCES Doctor (idDoctor);
+ALTER TABLE Patologia ADD CONSTRAINT FKPatologia730371 FOREIGN KEY (idCategoriaPatologia) REFERENCES CategoriaPatologia (idCategoria);
+ALTER TABLE PatologiaDetalleFicha ADD CONSTRAINT FKPatologiaD426301 FOREIGN KEY (idDetalleFichaEstudiante) REFERENCES DetalleFichaEstudiante (idDetalleFicha);
+ALTER TABLE PatologiaDetalleFicha ADD CONSTRAINT FKPatologiaD38117 FOREIGN KEY (idPatologia) REFERENCES Patologia (idPatologia);
+ALTER TABLE FichaMedicaEstudiante ADD CONSTRAINT FKFichaMedic220896 FOREIGN KEY (idEstudiante) REFERENCES Estudiante (idEstudiante);
+ALTER TABLE DetalleFichaEstudiante ADD CONSTRAINT FKDetalleFic917157 FOREIGN KEY (idFchaMedica) REFERENCES FichaMedicaEstudiante (idFichaMedica);
+CREATE INDEX Doctor_idDoctor ON Doctor (idDoctor);
+
+INSERT INTO roleuser(descripcion)
+    VALUES ('ROLE_DOCTOR'),('ROLE_ENFERMERO'),('ROLE_ESTUDIANTE'),('ROLE_PROFESIONAL')
+
+	INSERT INTO doctor(username,estadoborrado, idroleuser)
+    VALUES ('rmaya',false,1);
+
+	
+create or replace function getDoctorByUsername (username text) returns 
+table (iddoctor bigint,username text,estadoborrado boolean,idroleuser bigint) as
+$$
+select d.iddoctor,d.username,d.estadoborrado,d.idroleuser from doctor d
+ where username = $1
+$$
+LANGUAGE 'sql' VOLATILE;
+
+
+select * from getDoctorByUsername('rmaya')
+
+
