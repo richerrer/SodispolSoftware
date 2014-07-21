@@ -8,6 +8,7 @@ package com.sodispolSoftware.manageBeans;
 
 import com.sodispolSoftware.businessObject.EstudianteBo;
 import com.sodispolSoftware.model.Estudiante;
+import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
 import java.io.Serializable;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
@@ -32,16 +33,19 @@ public class PacienteBean {
     
     @Inject
     private EstudianteBo estudianteBo;
-
     private Estudiante estudiante;
-    
     private boolean encontrado = false;
+    private String matricula;
     
     public PacienteBean() {
     }
 
     public EstudianteBo getEstudianteBo() {
         return estudianteBo;
+    }
+    
+    public void setEstudianteBo(EstudianteBo estudianteBo) {
+        this.estudianteBo = estudianteBo;
     }
 
     public Estudiante getEstudiante() {
@@ -51,23 +55,26 @@ public class PacienteBean {
     public void setEstudiante(Estudiante estudiante) {
         this.estudiante = estudiante;
     }
-    
-    
 
-    public void setEstudianteBo(EstudianteBo estudianteBo) {
-        this.estudianteBo = estudianteBo;
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
     }
     
-    public void a(){
-        setEstudiante(estudianteBo.getEstudiante("201013448"));
+    
+    
+    public void consultar(){
+        setEstudiante(null);
+        setEstudiante(estudianteBo.getEstudiante(getMatricula()));
         if(getEstudiante()!=null){
             this.encontrado = true;
         }
         else{
             this.encontrado = false;
         }
-        //this.encontrado = true;
-        
     }
     
     public boolean isEncontrado() {
@@ -80,10 +87,10 @@ public class PacienteBean {
     
     public void buttonAction(ActionEvent actionEvent) {
         if(this.encontrado){
-            addMessage("Si se encontro el paciente");
+            addMessage("Si se encontro el paciente "+getEstudiante());
         }
         else{
-            addMessage("No se encontro el paciente");
+            addMessage("No se encontro el paciente "+matricula);
         }
     }
     

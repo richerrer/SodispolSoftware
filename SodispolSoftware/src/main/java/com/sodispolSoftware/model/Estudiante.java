@@ -10,7 +10,7 @@ import java.util.Set;
  */
 public class Estudiante  implements java.io.Serializable {
 
-
+     /*Atributos de la base de datos*/
      private long idestudiante;
      private Roleuser roleuser;
      private String matricula;
@@ -32,6 +32,7 @@ public class Estudiante  implements java.io.Serializable {
      private String carrera;
      private int edad;
      private String fechaNacimiento;
+     private String foto;
      
     public Estudiante() {
     }
@@ -192,8 +193,23 @@ public class Estudiante  implements java.io.Serializable {
     public String getNombres(){
         return nombre1+" "+nombre2;
     }
+    
+    public String getApellidos(){
+        return apellido1+" "+apellido2;
+    }
 
+    public String getFoto() {
+        return foto;
+    }
 
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
+     @Override
+    public String toString(){
+        return nombre1 +" "+apellido1;
+    }
 
 }
 

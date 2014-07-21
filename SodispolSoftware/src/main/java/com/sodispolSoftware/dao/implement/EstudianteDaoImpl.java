@@ -48,6 +48,7 @@ public class EstudianteDaoImpl extends HibernateDaoSupport implements Estudiante
         estudiante.setApellido2((String)attributes[10]);
         estudiante.setCarrera((String)attributes[6]);
         estudiante.setEdad((Integer)attributes[5]);
+        estudiante.setFoto((String)attributes[12]);
         /*estudiante.setFechaNacimiento((String)attributes[11]);*/
     }
 

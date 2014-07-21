@@ -42,10 +42,10 @@
                             </h:panelGrid>
                             
                             <h:panelGrid columns="1" class=" ancho2 margen_top3" >
-                                <p:inputText  maxlength="15" style="width: 60%"/> 
-                                
+                                <p:inputText id="paramBusqueda" maxlength="15" style="width: 60%" value="#{pacienteBean.matricula}"/> 
                                 <p:commandButton  value="Buscar Paciente" id="buscarPaciente" update="growl" actionListener="#{pacienteBean.buttonAction}" styleClass="ui-priority-primary margen_top3">
-                                    <p:ajax  update=":informacionPaciente :botonesFicha" listener="#{pacienteBean.a()}" />
+                                    <!--Se envia al servidor a procesar el boton y el texto ya sea por matricula o cedula, asi como el tipo de busqueda-->
+                                    <p:ajax process="@this,paramBusqueda" update=":informacionPaciente :botonesFicha" listener="#{pacienteBean.consultar()}" />
                                 </p:commandButton>
                                 
                             </h:panelGrid>
@@ -59,39 +59,43 @@
                         <p:panelGrid id="informacionPaciente" style="font-size: small">
                             <c:if test="#{pacienteBean.encontrado}">
                             <p:row>
-                                <p:column colspan="1"><strong>Nombre:</strong></p:column>
-                                <p:column colspan="1">#{pacienteBean.estudiante.nombre1} #{pacienteBean.estudiante.nombre2}</p:column> 
+                                <p:column colspan="1"><strong>Nombres:</strong></p:column>
+                                <p:column colspan="1">#{pacienteBean.estudiante.nombres}</p:column> 
                                 <p:column rowspan="6">
-                                    <p:graphicImage url="resources/images/raul.png" width="150px"/>
+                                    <p:graphicImage url="#{pacienteBean.estudiante.foto}" width="150px"/>
                                 </p:column>
                             </p:row>
                            <p:row>
                                 <p:column colspan="1"><strong>Apellidos:</strong></p:column>
-                                <p:column colspan="1">Mira Rodriguez</p:column>  
+                                <p:column colspan="1">#{pacienteBean.estudiante.apellidos}</p:column>  
                             </p:row>
                            <p:row>
                                 <p:column colspan="1"><strong>Matricula:</strong></p:column>
-                                <p:column colspan="1">20101111</p:column>  
+                                <p:column colspan="1">#{pacienteBean.estudiante.matricula}</p:column>  
                             </p:row>
                             <p:row>
                                 <p:column colspan="1"><strong>Cedula:</strong></p:column>
-                                <p:column colspan="1">0999999999</p:column>  
+                                <p:column colspan="1">#{pacienteBean.estudiante.cedula}</p:column>  
                             </p:row>
                            <p:row>
                                 <p:column colspan="1"><strong>Direccion:</strong></p:column>
-                                <p:column colspan="1">Duran</p:column>  
+                                <p:column colspan="1">#{pacienteBean.estudiante.direccion}</p:column>  
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1"><strong>Teléfono:</strong></p:column>
+                                <p:column colspan="1">#{pacienteBean.estudiante.telefono}</p:column>  
                             </p:row>
                            <p:row>
                                 <p:column colspan="1"><strong>Estado Civil:</strong></p:column>
-                                <p:column colspan="1">Casado</p:column>  
+                                <p:column colspan="1">#{pacienteBean.estudiante.estadocivil}</p:column>  
                             </p:row>
                            <p:row>
                                 <p:column colspan="1"><strong>Edad:</strong></p:column>
-                                <p:column colspan="1">21</p:column>  
+                                <p:column colspan="1">#{pacienteBean.estudiante.edad}</p:column>  
                             </p:row>
                             <p:row>
                                 <p:column colspan="1"><strong>Carrera:</strong></p:column>
-                                <p:column colspan="1">Ing. en Ciencias Computacionales orientacion Multimedia</p:column>  
+                                <p:column colspan="1">#{pacienteBean.estudiante.carrera}</p:column>  
                             </p:row>      
                          </c:if>
                         </p:panelGrid>

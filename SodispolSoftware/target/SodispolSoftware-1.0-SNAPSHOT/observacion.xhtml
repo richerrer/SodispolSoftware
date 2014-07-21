@@ -42,15 +42,15 @@
                                 <h:outputLabel value="Nombre:"/>
                                 <h:outputLabel value="#{fichaEstudianteBean.estudiante.nombres}"/>
                                 <h:outputLabel value="Teléfono:"/>
-                                <h:outputLabel value="2547845"/>
+                                <h:outputLabel value="#{fichaEstudianteBean.estudiante.telefono}"/>
                                 <h:outputLabel value="Matrícula:"/>
                                 <h:outputLabel value="#{fichaEstudianteBean.matricula}"/>
                                 <h:outputLabel value="Cédula:"/>
-                                <h:outputLabel value="094784512"/>
+                                <h:outputLabel value="#{fichaEstudianteBean.estudiante.cedula}"/>
                                 <h:outputLabel value="Carrera:"/>
-                                <h:outputLabel value="Ing.en Ciencias Computacionales"/>
+                                <h:outputLabel value="#{fichaEstudianteBean.estudiante.carrera}"/>
                                 <h:outputLabel value="Estado Civíl:"/>
-                                <h:outputLabel value="Casado"/>
+                                <h:outputLabel value="#{fichaEstudianteBean.estudiante.estadocivil}"/>
                             </h:panelGrid>
                             
                         </h:form>
@@ -105,7 +105,7 @@
                             </c:if>
                         </p:panel>
                         
-                        <!--     Observaciones anateriores     -->
+                        <!--     Observaciones anteriores     -->
                         <c:if test="#{ejemplo2.modificador==1}">
                             <p:panel id="toggleable5" header="Recetar" toggleable="true"  collapsed="true" toggleSpeed="500"  widgetVar="panel5" style="margin-bottom:20px"  styleClass="color6">
                                 <div style="height: 25em" class="panelBarY">

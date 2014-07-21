@@ -34,11 +34,13 @@ public class EstudianteBoImpl implements EstudianteBo{
     @Override
     public Estudiante getEstudiante(String matricula) {
         Object[] attributes = WbServiceEspol.loadEstudinateAttributesByMatricula(matricula);
+        /*No se encuentra esa matricula en la base de Espol*/
         if(attributes==null){
             return null;
         }
-        Estudiante estudiante = estudianteDao.getEstudiante(matricula);
         
+        Estudiante estudiante = estudianteDao.getEstudiante(matricula);
+        /*Si el estudiante no se encuentra en nuestra base de datos*/
         if(estudiante==null){
             String autority = "ROLE_ESTUDIANTE";
             estudiante = new Estudiante(roleUserBo.getRoleUser(autority),false);

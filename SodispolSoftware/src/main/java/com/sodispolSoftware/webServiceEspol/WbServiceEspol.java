@@ -58,7 +58,7 @@ public class WbServiceEspol {
         public static Object[] loadEstudinateAttributesByMatricula(String matricula)
     {
         if(matricula.equals("201013448")){
-            return new Object[]{"1722904628","rmaya","alborada 13 etapa","casado","2246570",21,"Ing. en Ciencias Computacionales","ricardo","david","maya","herrera","29 de Julio de 1992 "};
+            return new Object[]{"0954787589","raulalmir","Villa Club","Casado","2246570",21,"Ing. en Ciencias Computacionales Orientación Multimedia","Raul","Alberto","Mira","Rodriguez","1 de Enero de 1991 ","resources/images/raul.png"};
         }
         
         return null;
