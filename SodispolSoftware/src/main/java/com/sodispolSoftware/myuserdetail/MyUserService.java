@@ -39,17 +39,21 @@ public class MyUserService implements UserDetailsService {
         String roleUser = WbServiceEspol.getRoleByUsername(username);
         boolean state = WbServiceEspol.getStateByUsername(username);
         
-        if(roleUser.equals("D")&& state ){
+        if(roleUser.equals("P")&& state )//Si es un profesional
+        {    
             Doctor doctor = doctorBo.getDoctor(username);
-            usuarioBean.setUser(doctor);
-            return new MyUserDetails(username,doctor);
+            if(doctor != null)        //Si es un doctor
+            {
+                usuarioBean.setUser(doctor);
+                return new MyUserDetails(username,doctor);
+            }
+            else            //Si es un paciente profesional
+            {
+            }
+            
         }
         if(roleUser.equals("E")&& state ){}
-        
-        if(roleUser.equals("PP")&& state ){}
-            
-        if(roleUser.equals("PE")&& state ){}
-            
+  
         return null;
     }
 }

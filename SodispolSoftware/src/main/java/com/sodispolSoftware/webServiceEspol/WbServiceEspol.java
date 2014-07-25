@@ -14,16 +14,10 @@ public class WbServiceEspol {
     
     public static String getRoleByUsername(String username){
         if(username.equals("rmaya")){
-            return "D";//DOCTOR
-        }
-        if(username.equals("raulalmir")){
-            return "E";//ENFERMERO
-        }
-        if(username.equals("joanrome")){
-            return "PP";//PACIENTE PROFESIONALE
+            return "P";//Profesional
         }
         if(username.equals("gabapare")){
-            return "D";//PACIENTE ESTUDIANTE  PE
+            return "E";//Estudiante
         }
         return null;
     }

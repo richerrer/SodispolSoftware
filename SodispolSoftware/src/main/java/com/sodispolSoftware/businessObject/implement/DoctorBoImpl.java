@@ -33,12 +33,12 @@ public class DoctorBoImpl implements DoctorBo{
     public Doctor getDoctor(String username) {
         Doctor doctor = doctorDao.getDoctor(username);
         
-        if(doctor==null){
+        /*if(doctor==null){
             String autority = "ROLE_DOCTOR";
             doctor = new Doctor(username,roleUserBo.getRoleUser(autority),false);
             this.addDoctor(doctor);
             doctor = doctorDao.getDoctor(username);
-        }
+        }*/
         return doctor;
     }
 
