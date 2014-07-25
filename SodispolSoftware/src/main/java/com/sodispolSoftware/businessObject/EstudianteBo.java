@@ -13,6 +13,6 @@ import com.sodispolSoftware.model.Estudiante;
  * @author usuario
  */
 public interface EstudianteBo {
-    public Estudiante getEstudiante(String matricula);
+    public Estudiante getEstudianteByMatricula(String matricula);
     public void addEstudiante(Estudiante estudiante);
 }

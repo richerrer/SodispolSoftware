@@ -68,7 +68,7 @@ public class PacienteBean {
     
     public void consultar(){
         setEstudiante(null);
-        setEstudiante(estudianteBo.getEstudiante(getMatricula()));
+        setEstudiante(estudianteBo.getEstudianteByMatricula(getMatricula()));
         if(getEstudiante()!=null){
             this.encontrado = true;
         }

@@ -31,7 +31,7 @@ public class FichaEstudianteBean {
     public FichaEstudianteBean(EstudianteBo estudianteBo) {
         this.estudianteBo = estudianteBo;
         matricula=parametros.get("matricula");
-        estudiante = estudianteBo.getEstudiante(matricula);
+        estudiante = estudianteBo.getEstudianteByMatricula(matricula);
     }
 
     public Estudiante getEstudiante() {

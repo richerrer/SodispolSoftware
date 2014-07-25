@@ -19,13 +19,13 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 public class EstudianteDaoImpl extends HibernateDaoSupport implements EstudianteDao{
 
     @Override
-    public Estudiante getEstudiante(String matricula) {
+    public Estudiante getEstudiante(String matricula,Object[] attributes) {
         try
         {
             Object[] paramsEstudiante = new Object[]{matricula,false};
             
             Estudiante estudiante = (Estudiante)getHibernateTemplate().find("from Estudiante e where e.matricula= ? and estadoborrado = ?",paramsEstudiante).get(0); 
-            loadDataFromWebService(estudiante);
+            loadDataFromWebService(estudiante,attributes);
              return estudiante;
         }
         catch(Exception ex)
@@ -39,9 +39,8 @@ public class EstudianteDaoImpl extends HibernateDaoSupport implements Estudiante
         getHibernateTemplate().save(estudiante);
     }
     
-    public void loadDataFromWebService(Estudiante estudiante)
+    public void loadDataFromWebService(Estudiante estudiante,Object[] attributes)
     {
-        Object[] attributes = WbServiceEspol.loadEstudinateAttributesByMatricula(estudiante.getMatricula());
         estudiante.setNombre1((String)attributes[7]);
         estudiante.setNombre2((String)attributes[8]);
         estudiante.setApellido1((String)attributes[9]);

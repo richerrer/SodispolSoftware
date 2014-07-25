@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.sodispolSoftware.businessObject.implement;
 
 import com.sodispolSoftware.businessObject.DoctorBo;
@@ -13,25 +7,68 @@ import com.sodispolSoftware.model.Doctor;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+/**
+ * Esta clase es una implementación de  DoctorBo, la cual define la lógica de 
+ * negocio del objeto Doctor
+ *
+ * @author: Ricardo D. Maya Herrera
+ * @version: 1.0
+ */
 @Named
 public class DoctorBoImpl implements DoctorBo{
-    @Inject 
+   
+    @Inject
     private DoctorDao doctorDao;
     
     @Inject
     private RoleUserBo roleUserBo;
 
+    /**
+     * Get the value of doctorDao
+     *
+     * @return the value of doctorDao
+     */
+    public DoctorDao getDoctorDao() {
+        return doctorDao;
+    }
+
+    /**
+     * Set the value of doctorDao
+     *
+     * @param doctorDao new value of doctorDao
+     */
     public void setDoctorDao(DoctorDao doctorDao) {
         this.doctorDao = doctorDao;
     }
-    
+
+    /**
+     * Get the value of roleUserBo
+     *
+     * @return the value of roleUserBo
+     */
+    public RoleUserBo getRoleUserBo() {
+        return roleUserBo;
+    }
+
+    /**
+     * Set the value of roleUserBo
+     *
+     * @param roleUserBo new value of roleUserBo
+     */
     public void setRoleUserBo(RoleUserBo roleUserBo) {
         this.roleUserBo = roleUserBo;
     }
 
+    /**
+     * Devuelve el Doctor según su username. Este objeto lo obtiene del 
+     * Objeto Dao asociado al Doctor.
+     *
+     * @param username username del Doctor
+     * @return el Doctor asociado al username.
+     */
     @Override
     public Doctor getDoctor(String username) {
-        Doctor doctor = doctorDao.getDoctor(username);
+        Doctor doctor = getDoctorDao().getDoctor(username);
         
         /*if(doctor==null){
             String autority = "ROLE_DOCTOR";
@@ -41,10 +78,15 @@ public class DoctorBoImpl implements DoctorBo{
         }*/
         return doctor;
     }
-
+    
+    /**
+     * Agrega un nuevo Doctor.
+     *
+     * @param doctor es el Doctor a ser agregado
+     */
     @Override
     public void addDoctor(Doctor doctor) {
-        doctorDao.addDoctor(doctor);
+        getDoctorDao().addDoctor(doctor);
     }
     
 }
