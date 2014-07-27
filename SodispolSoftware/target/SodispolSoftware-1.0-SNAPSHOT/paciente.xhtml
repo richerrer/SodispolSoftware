@@ -32,20 +32,21 @@
                         <h3 class="margen_top4"><p>Buscar Paciente</p></h3>
                         
                         <h:form>
-                            <p:growl id="growl" life="2000" />
+                            <p:growl id="growl" life="3000" />
                             
                             <h:panelGrid columns="1" class=" ancho2 margen_top3">
-                                 <p:selectOneRadio  id="tipoBusqueda" style="width: 40%" >
-                                    <f:selectItem itemLabel="Matrícula" itemValue="matricula" />
-                                    <f:selectItem itemLabel="Cédula" itemValue="cedula" />
+                                <p:selectOneRadio  id="tipoBusqueda" style="width: 40%" value="#{pacienteBean.tipoBusqueda}" required="true">
+                                     <f:selectItem itemLabel="Matrícula" itemValue="matricula"/>
+                                     <f:selectItem itemLabel="Cédula" itemValue="cedula" />
                                  </p:selectOneRadio>
                             </h:panelGrid>
                             
                             <h:panelGrid columns="1" class=" ancho2 margen_top3" >
-                                <p:inputText id="paramBusqueda" maxlength="15" style="width: 60%" value="#{pacienteBean.matricula}"/> 
+                                <p:inputText id="paramBusqueda" maxlength="15" style="width: 60%" value="#{pacienteBean.paramBusqueda}" required="true"/>
+        
                                 <p:commandButton  value="Buscar Paciente" id="buscarPaciente" update="growl" actionListener="#{pacienteBean.buttonAction}" styleClass="ui-priority-primary margen_top3">
                                     <!--Se envia al servidor a procesar el boton y el texto ya sea por matricula o cedula, asi como el tipo de busqueda-->
-                                    <p:ajax process="@this,paramBusqueda" update=":informacionPaciente :botonesFicha" listener="#{pacienteBean.consultar()}" />
+                                    <p:ajax process="@this,paramBusqueda,tipoBusqueda" update=":informacionPaciente :botonesFicha" listener="#{pacienteBean.consultar()}" />
                                 </p:commandButton>
                                 
                             </h:panelGrid>
@@ -56,8 +57,9 @@
                 </div>
                 <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 ">
                     <section class="margen_izquierdo2 margen_top3">
+                        <h3 class="margen_izquierdo5">Información del Paciente:</h3>
                         <p:panelGrid id="informacionPaciente" style="font-size: small">
-                            <c:if test="#{pacienteBean.encontrado}">
+                           <c:if test="#{pacienteBean.encontrado}">
                             <p:row>
                                 <p:column colspan="1"><strong>Nombres:</strong></p:column>
                                 <p:column colspan="1">#{pacienteBean.estudiante.nombres}</p:column> 
@@ -100,14 +102,16 @@
                          </c:if>
                         </p:panelGrid>
                         <h:form id="botonesFicha" class="ancho60 centrar">
-                            <c:if test="#{pacienteBean.encontrado}">
-                                <p:commandButton  value="Nueva Observación" id="nuevaObservacion"  action="observacion" styleClass="ui-priority-primary margen_top3 ">
+                            <c:if test="#{pacienteBean.encontrado and (pacienteBean.estudiante!=null)}">
+                                <p:commandButton  value="Nueva Observación" id="nuevaObservacion"  action="observacion.xhtml" styleClass="ui-priority-primary margen_top3 ">
                                     <f:param name="modificador" value="1" />
-                                    <f:param name="matricula" value="#{pacienteBean.estudiante.matricula}" />
+                                    <f:param name="tipoBusqueda" value="#{pacienteBean.tipoBusqueda}"/>
+                                    <f:param name="paramBusqueda" value="#{pacienteBean.paramBusqueda}"/>
                                 </p:commandButton>
-                                <p:commandButton  value="Ver Observaciones" id="observaciones"  action="listObservacion" styleClass="ui-priority-primary margen_top3 margen_izquierdo">
+                                <p:commandButton  value="Ver Observaciones" id="observaciones"  action="listObservacion.xhtml" styleClass="ui-priority-primary margen_top3 margen_izquierdo">
                                     <f:param name="modificador" value="0" />
-                                    <f:param name="matricula" value="#{pacienteBean.estudiante.matricula}" />
+                                    <f:param name="tipoBusqueda" value="#{pacienteBean.tipoBusqueda}"/>
+                                    <f:param name="paramBusqueda" value="#{pacienteBean.paramBusqueda}"/>
                                 </p:commandButton>
                             </c:if>
                         </h:form>

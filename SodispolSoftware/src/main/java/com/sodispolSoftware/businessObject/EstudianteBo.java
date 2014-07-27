@@ -7,6 +7,7 @@
 package com.sodispolSoftware.businessObject;
 
 import com.sodispolSoftware.model.Estudiante;
+import com.sodispolSoftware.model.Fichamedicaestudiante;
 
 /**
  *
@@ -14,5 +15,10 @@ import com.sodispolSoftware.model.Estudiante;
  */
 public interface EstudianteBo {
     public Estudiante getEstudianteByMatricula(String matricula);
+    public Estudiante getEstudianteByCedula(String cedula);
+    public Fichamedicaestudiante getFichaMedica(Estudiante estudiante);
     public void addEstudiante(Estudiante estudiante);
+    public void updateEstudiante(Estudiante estudiante);
+    public void addFichaMedica(Estudiante estudiante,Fichamedicaestudiante ficha);
+    public void updateFichaMedica(Estudiante estudiante,Fichamedicaestudiante ficha);
 }

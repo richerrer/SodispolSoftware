@@ -1,102 +1,166 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.sodispolSoftware.manageBeans;
 
 import com.sodispolSoftware.businessObject.EstudianteBo;
 import com.sodispolSoftware.model.Estudiante;
-import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
-import java.io.Serializable;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import org.springframework.context.annotation.Scope;
 
 /**
+ * Este bean mantiene el paciente consultado por el Doctor.
  *
- * @author usuario
+ * @author: Ricardo D. Maya Herrera
+ * @version: 1.0
  */
-//@Named(value = "pacienteBean")
 @Named
 @Scope("view")
 public class PacienteBean {
     
     @Inject
     private EstudianteBo estudianteBo;
+
     private Estudiante estudiante;
+
     private boolean encontrado = false;
-    private String matricula;
+
+    private String paramBusqueda;
     
-    public PacienteBean() {
+    private String tipoBusqueda;
+
+    /**
+     * Get the value of tipoBusqueda
+     *
+     * @return the value of tipoBusqueda (matricula o cedula)
+     */
+    public String getTipoBusqueda() {
+        return tipoBusqueda;
     }
 
-    public EstudianteBo getEstudianteBo() {
-        return estudianteBo;
+    /**
+     * Set the value of tipoBusqueda
+     *
+     * @param tipoBusqueda new value of tipoBusqueda
+     */
+    public void setTipoBusqueda(String tipoBusqueda) {
+        this.tipoBusqueda = tipoBusqueda;
     }
     
-    public void setEstudianteBo(EstudianteBo estudianteBo) {
-        this.estudianteBo = estudianteBo;
+
+    /**
+     * Get the value of paramBusqueda
+     *
+     * @return the value of paramBusqueda 
+     */
+    public String getParamBusqueda() {
+        return paramBusqueda;
     }
 
-    public Estudiante getEstudiante() {
-        return estudiante;
+    /**
+     * Set the value of paramBusqueda
+     *
+     * @param paramBusqueda new value of paramBusqueda
+     */
+    public void setParamBusqueda(String paramBusqueda) {
+        this.paramBusqueda = paramBusqueda;
     }
 
-    public void setEstudiante(Estudiante estudiante) {
-        this.estudiante = estudiante;
-    }
-
-    public String getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
-    }
     
-    
-    
-    public void consultar(){
-        setEstudiante(null);
-        setEstudiante(estudianteBo.getEstudianteByMatricula(getMatricula()));
-        if(getEstudiante()!=null){
-            this.encontrado = true;
-        }
-        else{
-            this.encontrado = false;
-        }
-    }
-    
+    /**
+     * Get the value of encontrado
+     *
+     * @return the value of encontrado
+     */
     public boolean isEncontrado() {
         return encontrado;
     }
 
+    /**
+     * Set the value of encontrado
+     *
+     * @param encontrado new value of encontrado
+     */
     public void setEncontrado(boolean encontrado) {
         this.encontrado = encontrado;
     }
-    
+
+    /**
+     * Get the value of estudiante
+     *
+     * @return the value of estudiante
+     */
+    public Estudiante getEstudiante() {
+        return estudiante;
+    }
+
+    /**
+     * Set the value of estudiante
+     *
+     * @param estudiante new value of estudiante
+     */
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
+    }
+
+    /**
+     * Get the value of estudianteBo
+     *
+     * @return the value of estudianteBo
+     */
+    public EstudianteBo getEstudianteBo() {
+        return estudianteBo;
+    }
+
+    /**
+     * Set the value of estudianteBo
+     *
+     * @param estudianteBo new value of estudianteBo
+     */
+    public void setEstudianteBo(EstudianteBo estudianteBo) {
+        this.estudianteBo = estudianteBo;
+    }
+
+    /**
+     * Dependiendo del tipo de búsqueda, se busca al Estudiante por matrícula o
+     * cédula.
+     */    
+    public void consultar(){
+        setEstudiante(null);
+        if(getTipoBusqueda().equals("matricula"))
+        {
+            setEstudiante(getEstudianteBo().getEstudianteByMatricula(getParamBusqueda()));
+            setEncontrado(getEstudiante()!=null);
+        }
+        if(getTipoBusqueda().equals("cedula"))
+        {
+            setEstudiante(getEstudianteBo().getEstudianteByCedula(getParamBusqueda()));
+            setEncontrado(getEstudiante()!=null);
+        }
+        
+    }
+    /**
+     * Dependiendo de si se encontró al estudiante, se añade un tipo de mensaje.
+     * 
+     * @param actionEvent 
+     */ 
     public void buttonAction(ActionEvent actionEvent) {
-        if(this.encontrado){
+        if(isEncontrado()){
             addMessage("Si se encontro el paciente "+getEstudiante());
         }
         else{
-            addMessage("No se encontro el paciente "+matricula);
+            addMessage("No se encontro el paciente "+getParamBusqueda());
         }
     }
     
-     
-    public void addMessage(String summary) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
+    /**
+     * Se añade el mensaje al objeto growl.
+     * 
+     * @param mensaje 
+     */  
+    public void addMessage(String mensaje) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje,  null);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
     

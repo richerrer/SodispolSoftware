@@ -13,6 +13,8 @@ import com.sodispolSoftware.model.Estudiante;
  * @author usuario
  */
 public interface EstudianteDao {
-    public Estudiante getEstudiante(String matricula,Object[] attributes);
+    public Estudiante getEstudianteByMatricula(String matricula,Object[] attributes);
+    public Estudiante getEstudianteByCedula(String matricula,Object[] attributes);
     public void addEstudiante(Estudiante estudiante);
+    public void updateEstudiante(Estudiante estudiante);
 }

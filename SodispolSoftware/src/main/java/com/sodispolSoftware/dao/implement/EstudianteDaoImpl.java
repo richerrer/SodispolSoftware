@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package com.sodispolSoftware.dao.implement;
 
@@ -19,7 +14,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 public class EstudianteDaoImpl extends HibernateDaoSupport implements EstudianteDao{
 
     @Override
-    public Estudiante getEstudiante(String matricula,Object[] attributes) {
+    public Estudiante getEstudianteByMatricula(String matricula,Object[] attributes) {
         try
         {
             Object[] paramsEstudiante = new Object[]{matricula,false};
@@ -34,6 +29,21 @@ public class EstudianteDaoImpl extends HibernateDaoSupport implements Estudiante
         }
     }
     
+    @Override
+    public Estudiante getEstudianteByCedula(String cedula, Object[] attributes) {
+        try
+        {
+            Object[] paramsEstudiante = new Object[]{cedula,false};
+            
+            Estudiante estudiante = (Estudiante)getHibernateTemplate().find("from Estudiante e where e.cedula= ? and estadoborrado = ?",paramsEstudiante).get(0); 
+            loadDataFromWebService(estudiante,attributes);
+             return estudiante;
+        }
+        catch(Exception ex)
+        {
+            return null;
+        }
+    }
     @Override
     public void addEstudiante(Estudiante estudiante) {
         getHibernateTemplate().save(estudiante);
@@ -50,6 +60,13 @@ public class EstudianteDaoImpl extends HibernateDaoSupport implements Estudiante
         estudiante.setFoto((String)attributes[12]);
         /*estudiante.setFechaNacimiento((String)attributes[11]);*/
     }
+
+    @Override
+    public void updateEstudiante(Estudiante estudiante) {
+        getHibernateTemplate().update(estudiante);
+    }
+
+    
 
     
     

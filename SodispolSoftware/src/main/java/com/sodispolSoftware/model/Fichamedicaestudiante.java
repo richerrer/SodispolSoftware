@@ -23,12 +23,11 @@ public class Fichamedicaestudiante  implements java.io.Serializable {
     }
 
 	
-    public Fichamedicaestudiante(long idfichamedica, Estudiante estudiante) {
-        this.idfichamedica = idfichamedica;
-        this.estudiante = estudiante;
+    public Fichamedicaestudiante(boolean estadoborrado) {
+        this.estadoborrado = estadoborrado;
     }
-    public Fichamedicaestudiante(long idfichamedica, Estudiante estudiante, String antecedentespatologicos, String enfermedadesinfancia, String vacunasrecibidas, Boolean estadoborrado, Set<Detallefichaestudiante> detallefichaestudiantes) {
-       this.idfichamedica = idfichamedica;
+    public Fichamedicaestudiante(Estudiante estudiante, String antecedentespatologicos, String enfermedadesinfancia, String vacunasrecibidas, Boolean estadoborrado, Set<Detallefichaestudiante> detallefichaestudiantes) {
+       
        this.estudiante = estudiante;
        this.antecedentespatologicos = antecedentespatologicos;
        this.enfermedadesinfancia = enfermedadesinfancia;

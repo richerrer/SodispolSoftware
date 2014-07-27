@@ -49,10 +49,19 @@ public class WbServiceEspol {
         return null;
     }
     
-        public static Object[] loadEstudinateAttributesByMatricula(String matricula)
+    public static Object[] loadEstudinateAttributesByMatricula(String matricula)
     {
         if(matricula.equals("201013448")){
-            return new Object[]{"0954787589","raulalmir","Villa Club","Casado","2246570",21,"Ing. en Ciencias Computacionales Orientación Multimedia","Raul","Alberto","Mira","Rodriguez","1 de Enero de 1991 ","resources/images/raul.png"};
+            return new Object[]{"1722904628","raulalmir","Villa Club","Casado","2246570",21,"Ing. en Ciencias Computacionales Orientación Multimedia","Raul","Alberto","Mira","Rodriguez","1 de Enero de 1991 ","resources/images/raul.png"};
+        }
+        
+        return null;
+    }
+    
+    public static Object[] loadEstudinateAttributesByCedula(String cedula)
+    {
+        if(cedula.equals("1722904628")){
+            return new Object[]{"201013448","raulalmir","Villa Club","Casado","2246570",21,"Ing. en Ciencias Computacionales Orientación Multimedia","Raul","Alberto","Mira","Rodriguez","1 de Enero de 1991 ","resources/images/raul.png"};
         }
         
         return null;

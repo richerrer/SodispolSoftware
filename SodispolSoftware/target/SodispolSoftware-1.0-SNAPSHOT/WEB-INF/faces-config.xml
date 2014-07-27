@@ -8,7 +8,7 @@
         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
     </application>
     
-    <navigation-rule>
+    <!--<navigation-rule>
         <from-view-id>/paciente.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>observacion</from-outcome>
@@ -18,5 +18,5 @@
             <from-outcome>listObservacion</from-outcome>
             <to-view-id>/listObservacion.xhtml</to-view-id>
         </navigation-case>
-    </navigation-rule>
+    </navigation-rule>-->
 </faces-config>
