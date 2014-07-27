@@ -70,7 +70,12 @@
             <artifactId>hibernate-jpa-2.0-api</artifactId>
             <version>1.0.1.Final</version>
         </dependency>
-        
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
@@ -214,7 +219,7 @@
             <artifactId>cas-client-core</artifactId>
             <version>${org.jasig.cas.client.version}</version>
         </dependency>
-        
+        <!-- Pool de conexiones DBCP --> 
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
@@ -227,6 +232,8 @@
             <artifactId>postgresql</artifactId>
             <version>${org.postgresql.version}</version>
         </dependency>
+        
+        
 
     </dependencies>
 

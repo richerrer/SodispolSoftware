@@ -24,7 +24,6 @@ public class DoctorDaoImpl extends HibernateDaoSupport implements DoctorDao{
         try
         {
             Object[] paramsDoctor = new Object[]{username,false};
-            Object[] paramsRoleUser = new Object[]{"ROLE_DOCTOR"};
             
             Doctor doctor = (Doctor)getHibernateTemplate().find("from Doctor d where d.username= ? and estadoborrado = ?",paramsDoctor).get(0); 
             doctor.setRoleuser((Roleuser)getHibernateTemplate().get(Roleuser.class, doctor.getRoleuser().getIdroleuser()));
