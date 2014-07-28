@@ -52,7 +52,7 @@ ALTER TABLE DetalleFichaEstudiante ADD CONSTRAINT FKDetalleFic917157 FOREIGN KEY
 CREATE INDEX Doctor_idDoctor ON Doctor (idDoctor);
 
 INSERT INTO roleuser(descripcion)
-    VALUES ('ROLE_DOCTOR'),('ROLE_ENFERMERO'),('ROLE_ESTUDIANTE'),('ROLE_PROFESIONAL')
+    VALUES ('ROLE_DOCTOR'),('ROLE_ENFERMERO'),('ROLE_ESTUDIANTE'),('ROLE_PROFESIONAL');
 
 	INSERT INTO doctor(username,estadoborrado, idroleuser)
     VALUES ('rmaya',false,1);
