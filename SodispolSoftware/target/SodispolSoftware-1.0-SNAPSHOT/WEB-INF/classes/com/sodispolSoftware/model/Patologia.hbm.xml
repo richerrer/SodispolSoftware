@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 20-jul-2014 15:20:17 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.sodispolSoftware.model.Patologia" table="patologia" schema="public">
+        <id name="idpatologia" type="long">
+            <column name="idpatologia" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="categoriapatologia" class="com.sodispolSoftware.model.Categoriapatologia" fetch="select">
+            <column name="idcategoriapatologia" not-null="true" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="nombre" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="1000" />
+        </property>
+        <property name="estadoborrado" type="java.lang.Boolean">
+            <column name="estadoborrado" />
+        </property>
+        <set name="patologiadetallefichas" table="patologiadetalleficha" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idpatologia" not-null="true" />
+            </key>
+            <one-to-many class="com.sodispolSoftware.model.Patologiadetalleficha" />
+        </set>
+    </class>
+</hibernate-mapping>
