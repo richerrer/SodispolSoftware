@@ -1,8 +1,10 @@
 package com.sodispolSoftware.businessObject.implement;
 
+import com.sodispolSoftware.businessObject.DetalleFichaEstudianteBo;
 import com.sodispolSoftware.businessObject.DoctorBo;
 import com.sodispolSoftware.businessObject.RoleUserBo;
 import com.sodispolSoftware.dao.DoctorDao;
+import com.sodispolSoftware.model.Detallefichaestudiante;
 import com.sodispolSoftware.model.Doctor;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -22,6 +24,30 @@ public class DoctorBoImpl implements DoctorBo{
     
     @Inject
     private RoleUserBo roleUserBo;
+    
+    @Inject
+    private DetalleFichaEstudianteBo detalleFichaEstudianteBo;
+  
+
+
+    /**
+     * Get the value of detalleFichaEstudianteBo
+     *
+     * @return the value of detalleFichaEstudianteBo
+     */
+    public DetalleFichaEstudianteBo getDetalleFichaEstudianteBo() {
+        return detalleFichaEstudianteBo;
+    }
+
+    /**
+     * Set the value of detalleFichaEstudianteBo
+     *
+     * @param detalleFichaEstudianteBo new value of detalleFichaEstudianteBo
+     */
+    public void setDetalleFichaEstudianteBo(DetalleFichaEstudianteBo detalleFichaEstudianteBo) {
+        this.detalleFichaEstudianteBo = detalleFichaEstudianteBo;
+    }
+
 
     /**
      * Get the value of doctorDao
@@ -69,7 +95,6 @@ public class DoctorBoImpl implements DoctorBo{
     @Override
     public Doctor getDoctor(String username) {
         Doctor doctor = getDoctorDao().getDoctor(username);
-        
         /*if(doctor==null){
             String autority = "ROLE_DOCTOR";
             doctor = new Doctor(username,roleUserBo.getRoleUser(autority),false);
@@ -87,6 +112,11 @@ public class DoctorBoImpl implements DoctorBo{
     @Override
     public void addDoctor(Doctor doctor) {
         getDoctorDao().addDoctor(doctor);
+    }
+
+    @Override
+    public void saveDetalleFichaEstudiante(Detallefichaestudiante detalleFicha) {
+        getDetalleFichaEstudianteBo().addDetalleFicha(detalleFicha);
     }
     
 }

@@ -12,16 +12,16 @@
             <column name="idmedicina" not-null="true" />
         </many-to-one>
         <property name="unidadesdisponibles" type="java.lang.Integer">
-            <column name="unidadesdisponibles" />
+            <column name="unidadesdisponibles" not-null="true"/>
         </property>
-        <property name="fechacaducidad" type="time">
-            <column name="fechacaducidad" length="15" />
+        <property name="fechacaducidad" type="calendar">
+            <column name="fechacaducidad" length="13" not-null="true"/>
         </property>
         <property name="estadocaducado" type="java.lang.Boolean">
-            <column name="estadocaducado" />
+            <column name="estadocaducado" not-null="true"/>
         </property>
         <property name="estadoborrado" type="java.lang.Boolean">
-            <column name="estadoborrado" />
+            <column name="estadoborrado" not-null="true"/>
         </property>
         <set name="recetas" table="receta" inverse="true" lazy="true" fetch="select">
             <key>

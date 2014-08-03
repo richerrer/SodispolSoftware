@@ -7,14 +7,11 @@
 package com.sodispolSoftware.businessObject;
 
 import com.sodispolSoftware.model.Detallefichaestudiante;
-import com.sodispolSoftware.model.Doctor;
 
 /**
  *
- * @author usuario
+ * @author Ricardo
  */
-public interface DoctorBo {
-    public Doctor getDoctor(String username);
-    public void addDoctor(Doctor doctor);
-    public void saveDetalleFichaEstudiante(Detallefichaestudiante detalleFicha);
+public interface DetalleFichaEstudianteBo {
+    public void addDetalleFicha(Detallefichaestudiante detalleFicha);
 }

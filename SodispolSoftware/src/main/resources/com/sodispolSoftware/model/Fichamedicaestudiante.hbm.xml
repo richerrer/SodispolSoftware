@@ -21,7 +21,7 @@
             <column name="vacunasrecibidas" />
         </property>
         <property name="estadoborrado" type="java.lang.Boolean">
-            <column name="estadoborrado" />
+            <column name="estadoborrado" not-null="true"/>
         </property>
         <set name="detallefichaestudiantes" table="detallefichaestudiante" inverse="true" lazy="true" fetch="select">
             <key>

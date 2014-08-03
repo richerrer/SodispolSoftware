@@ -28,7 +28,7 @@ public class PacienteBean {
 
     private String paramBusqueda;
     
-    private String tipoBusqueda;
+    private String tipoBusqueda = "matricula";
 
     /**
      * Get the value of tipoBusqueda

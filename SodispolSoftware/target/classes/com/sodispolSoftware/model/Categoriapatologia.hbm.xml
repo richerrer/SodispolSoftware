@@ -9,10 +9,10 @@
             <generator class="assigned" />
         </id>
         <property name="estadoborrado" type="java.lang.Boolean">
-            <column name="estadoborrado" />
+            <column name="estadoborrado" not-null="true"/>
         </property>
         <property name="descripcion" type="string">
-            <column name="descripcion" />
+            <column name="descripcion" not-null="true"/>
         </property>
         <set name="patologias" table="patologia" inverse="true" lazy="true" fetch="select">
             <key>

@@ -79,6 +79,10 @@ public class MyUserService implements UserDetailsService {
             Doctor doctor = getDoctorBo().getDoctor(username);
             if (doctor != null) //Si es un doctor
             {
+                //FacesContext facesContext = FacesContext.getCurrentInstance();
+                //HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+               // UsuarioBean myBean = (UsuarioBean)session.getAttribute("UsuarioBean");
+                //myBean.setUser(doctor);
                 getUsuarioBean().setUser(doctor);
                 return new MyUserDetails(username, doctor);
             } else //Si es un paciente profesional

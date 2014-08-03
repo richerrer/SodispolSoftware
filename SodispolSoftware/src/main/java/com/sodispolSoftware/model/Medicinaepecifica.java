@@ -2,6 +2,7 @@ package com.sodispolSoftware.model;
 // Generated 20-jul-2014 15:20:16 by Hibernate Tools 3.6.0
 
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,7 +16,7 @@ public class Medicinaepecifica  implements java.io.Serializable {
      private long idmedicinaespecifica;
      private Medicina medicina;
      private Integer unidadesdisponibles;
-     private Date fechacaducidad;
+     private Calendar fechacaducidad;
      private Boolean estadocaducado;
      private Boolean estadoborrado;
      private Set<Receta> recetas = new HashSet<Receta>(0);
@@ -28,7 +29,7 @@ public class Medicinaepecifica  implements java.io.Serializable {
         this.idmedicinaespecifica = idmedicinaespecifica;
         this.medicina = medicina;
     }
-    public Medicinaepecifica(long idmedicinaespecifica, Medicina medicina, Integer unidadesdisponibles, Date fechacaducidad, Boolean estadocaducado, Boolean estadoborrado, Set<Receta> recetas) {
+    public Medicinaepecifica(long idmedicinaespecifica, Medicina medicina, Integer unidadesdisponibles, Calendar fechacaducidad, Boolean estadocaducado, Boolean estadoborrado, Set<Receta> recetas) {
        this.idmedicinaespecifica = idmedicinaespecifica;
        this.medicina = medicina;
        this.unidadesdisponibles = unidadesdisponibles;
@@ -59,11 +60,11 @@ public class Medicinaepecifica  implements java.io.Serializable {
     public void setUnidadesdisponibles(Integer unidadesdisponibles) {
         this.unidadesdisponibles = unidadesdisponibles;
     }
-    public Date getFechacaducidad() {
+    public Calendar getFechacaducidad() {
         return this.fechacaducidad;
     }
     
-    public void setFechacaducidad(Date fechacaducidad) {
+    public void setFechacaducidad(Calendar fechacaducidad) {
         this.fechacaducidad = fechacaducidad;
     }
     public Boolean getEstadocaducado() {

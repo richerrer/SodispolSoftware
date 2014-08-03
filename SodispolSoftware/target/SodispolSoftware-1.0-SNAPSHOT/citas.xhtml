@@ -14,25 +14,23 @@
         <link href="http://fonts.googleapis.com/css?family=Duru+Sans" rel="styleshee" type="text/css"/>
         <script src="http://code.jquery.com/jquery.js"></script>
         <script src="resources/js/bootstrap.js"></script>
-         <script src="resources/js/main.js"></script>
+        <script src="resources/js/main.js"></script>
     </h:head>
     <h:body>
-    <div id="container">
-            <div id="header">   
-        <header >
-            <ui:include src="/resources/templates/header.xhtml"/>
-         </header>
-        
-         
-        <nav class="navbar navbar-default color1 ancho1 center" role="navigation">
-            <ui:include src="/resources/templates/navMedico.xhtml"/>
-        </nav>
-            </div>
-        
-        <div id="content" class="container slider ancho1 margen_top2">
-            <div class="row ancho50 centrar3">
-                
-                
+        <div class="wrapper">   
+            <header >
+                <ui:include src="/resources/templates/header.xhtml"/>
+            </header>
+
+
+            <nav class="navbar navbar-default color1 ancho1 center" role="navigation">
+                <ui:include src="/resources/templates/navMedico.xhtml"/>
+            </nav>
+
+            <div id="content" class="container slider ancho1 margen_top2">
+                <div class="row ancho50 centrar3">
+
+
                     <section style="font-size: smaller !important">
                         <h3 class="centrar">CITAS DEL DÍA</h3>
                         <br/>
@@ -57,23 +55,23 @@
                                 </p:column>
                                 <p:column headerText="Eliminar">
                                     <p:commandButton  value="Eliminar" id="cambiarEstado" styleClass="icon-modificar" image="ui-icon-trash"/>
-                                
+
                                 </p:column>
                             </p:dataTable>
-                            
-                            
-                            
+
+
+
                         </h:form>  
                     </section>
-                              
-                
+
+
+                </div>
             </div>
         </div>
         <div id="footer">
-        <footer class="margen_top2 color1">
-            <ui:include src="/resources/templates/footer.xhtml"/>
-        </footer>
-        </div>
-     </div>    
+            <footer class="margen_top2 color1">
+                <ui:include src="/resources/templates/footer.xhtml"/>
+            </footer>
+        </div>   
     </h:body>
 </html>

@@ -2,6 +2,7 @@ package com.sodispolSoftware.model;
 // Generated 20-jul-2014 15:20:16 by Hibernate Tools 3.6.0
 
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,7 +29,7 @@ public class Detallefichaestudiante  implements java.io.Serializable {
      private String aparatogenicourinario;
      private String sitemalinfatico;
      private String sistemanervioso;
-     private Date fecha;
+     private Calendar fecha;
      private String observaciones;
      private String temperatura;
      private Boolean estadoborrado;
@@ -39,8 +40,8 @@ public class Detallefichaestudiante  implements java.io.Serializable {
     }
 
 	
-    public Detallefichaestudiante(long iddetalleficha, Citamedica citamedica, Doctor doctor, Fichamedicaestudiante fichamedicaestudiante, double estatura, double peso, String examenpiel, String aparatorespiratorio, String apartocirculatorio, String presionarterial, String pulso, String ruidoscardiacos, String aparatodigestivo, String aparatogenicourinario, String sitemalinfatico, String sistemanervioso, String observaciones) {
-        this.iddetalleficha = iddetalleficha;
+    public Detallefichaestudiante(Citamedica citamedica, Doctor doctor, Fichamedicaestudiante fichamedicaestudiante, double estatura, double peso, String examenpiel, String aparatorespiratorio, String apartocirculatorio, String presionarterial, String pulso, String ruidoscardiacos, String aparatodigestivo, String aparatogenicourinario, String sitemalinfatico, String sistemanervioso, String observaciones) {
+        
         this.citamedica = citamedica;
         this.doctor = doctor;
         this.fichamedicaestudiante = fichamedicaestudiante;
@@ -58,8 +59,8 @@ public class Detallefichaestudiante  implements java.io.Serializable {
         this.sistemanervioso = sistemanervioso;
         this.observaciones = observaciones;
     }
-    public Detallefichaestudiante(long iddetalleficha, Citamedica citamedica, Doctor doctor, Fichamedicaestudiante fichamedicaestudiante, double estatura, double peso, String examenpiel, String aparatorespiratorio, String apartocirculatorio, String presionarterial, String pulso, String ruidoscardiacos, String aparatodigestivo, String aparatogenicourinario, String sitemalinfatico, String sistemanervioso, Date fecha, String observaciones, String temperatura, Boolean estadoborrado, Set<Receta> recetas, Set<Patologiadetalleficha> patologiadetallefichas) {
-       this.iddetalleficha = iddetalleficha;
+    public Detallefichaestudiante(Citamedica citamedica, Doctor doctor, Fichamedicaestudiante fichamedicaestudiante, double estatura, double peso, String examenpiel, String aparatorespiratorio, String apartocirculatorio, String presionarterial, String pulso, String ruidoscardiacos, String aparatodigestivo, String aparatogenicourinario, String sitemalinfatico, String sistemanervioso, Calendar fecha, String observaciones, String temperatura, Boolean estadoborrado, Set<Receta> recetas, Set<Patologiadetalleficha> patologiadetallefichas) {
+       
        this.citamedica = citamedica;
        this.doctor = doctor;
        this.fichamedicaestudiante = fichamedicaestudiante;
@@ -195,11 +196,11 @@ public class Detallefichaestudiante  implements java.io.Serializable {
     public void setSistemanervioso(String sistemanervioso) {
         this.sistemanervioso = sistemanervioso;
     }
-    public Date getFecha() {
+    public Calendar getFecha() {
         return this.fecha;
     }
     
-    public void setFecha(Date fecha) {
+    public void setFecha(Calendar fecha) {
         this.fecha = fecha;
     }
     public String getObservaciones() {

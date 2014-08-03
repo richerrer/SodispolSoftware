@@ -15,7 +15,7 @@
             <column name="idpatologia" not-null="true" />
         </many-to-one>
         <property name="estadoborrado" type="java.lang.Boolean">
-            <column name="estadoborrado" />
+            <column name="estadoborrado" not-null="true"/>
         </property>
     </class>
 </hibernate-mapping>

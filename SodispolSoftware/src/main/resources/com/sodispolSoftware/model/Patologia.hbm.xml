@@ -12,13 +12,13 @@
             <column name="idcategoriapatologia" not-null="true" />
         </many-to-one>
         <property name="nombre" type="string">
-            <column name="nombre" />
+            <column name="nombre" not-null="true"/>
         </property>
         <property name="descripcion" type="string">
-            <column name="descripcion" length="1000" />
+            <column name="descripcion" length="1000" not-null="true"/>
         </property>
         <property name="estadoborrado" type="java.lang.Boolean">
-            <column name="estadoborrado" />
+            <column name="estadoborrado" not-null="true" />
         </property>
         <set name="patologiadetallefichas" table="patologiadetalleficha" inverse="true" lazy="true" fetch="select">
             <key>

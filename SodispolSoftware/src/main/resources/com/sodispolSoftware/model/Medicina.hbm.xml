@@ -12,13 +12,13 @@
             <column name="descripcion" length="1000" />
         </property>
         <property name="cajasdisponibles" type="java.lang.Integer">
-            <column name="cajasdisponibles" />
+            <column name="cajasdisponibles" not-null="true"/>
         </property>
         <property name="estadodisponible" type="java.lang.Boolean">
-            <column name="estadodisponible" />
+            <column name="estadodisponible" not-null="true"/>
         </property>
         <property name="estadoborrado" type="java.lang.Boolean">
-            <column name="estadoborrado" />
+            <column name="estadoborrado" not-null="true"/>
         </property>
         <set name="detalleabastecimientos" table="detalleabastecimiento" inverse="true" lazy="true" fetch="select">
             <key>

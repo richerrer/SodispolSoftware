@@ -12,10 +12,10 @@
             <column name="idroleuser" not-null="true" />
         </many-to-one>
         <property name="username" type="string">
-            <column name="username" />
+            <column name="username" not-null="true" />
         </property>
         <property name="estadoborrado" type="java.lang.Boolean">
-            <column name="estadoborrado" />
+            <column name="estadoborrado" not-null="true"/>
         </property>
         <set name="detalleabastecimientos" table="detalleabastecimiento" inverse="true" lazy="true" fetch="select">
             <key>

@@ -2,9 +2,12 @@ package com.sodispolSoftware.manageBeans;
 
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Named;
-
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
 /**
  * Este bean mantiene que usuario se encuentra registrado en la aplicación.
  *
@@ -12,14 +15,13 @@ import javax.inject.Named;
  * @version: 1.0
  */
 @Named
-@SessionScoped
+@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)//proxyMode = ScopedProxyMode.TARGET_CLASS se lo utiliza para poder inyectar este bean en MyUserDetails ver http://www.agile-works.com/blog/?p=254
 public class UsuarioBean{
 
     private Doctor doctor;
     
     private Estudiante estudiante;
-    
-  
+   
     /**
      * Get the value of estudiante
      *

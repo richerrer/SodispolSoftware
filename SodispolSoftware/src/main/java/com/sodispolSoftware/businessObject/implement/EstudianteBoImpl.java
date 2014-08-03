@@ -9,6 +9,7 @@ import com.sodispolSoftware.model.Fichamedicaestudiante;
 import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.springframework.context.annotation.Scope;
 
 /**
  * Esta clase es una implementación de  EstudianteBo, la cual define la lógica de 
@@ -18,6 +19,7 @@ import javax.inject.Named;
  * @version: 1.0
  */
 @Named
+@Scope("prototype")
 public class EstudianteBoImpl implements EstudianteBo{
 
     @Inject
@@ -28,6 +30,16 @@ public class EstudianteBoImpl implements EstudianteBo{
     
     @Inject
     private FichaMedicaEstudianteBo fichaMedicaEstudianteBo;
+    
+   private Estudiante e;
+
+    public Estudiante getE() {
+        return e;
+    }
+
+    public void setE(Estudiante e) {
+        this.e = e;
+    }
 
     /**
      * Get the value of fichaMedicaEstudianteBo
@@ -116,7 +128,7 @@ public class EstudianteBoImpl implements EstudianteBo{
             estudiante.setTelefono((String)attributes[4]);
             this.addEstudiante(estudiante);
             estudiante = getEstudianteDao().getEstudianteByMatricula(matricula,attributes);
-        }
+        }e = estudiante;
         return estudiante;
     }
     

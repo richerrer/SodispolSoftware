@@ -2,6 +2,7 @@ package com.sodispolSoftware.model;
 // Generated 20-jul-2014 15:20:16 by Hibernate Tools 3.6.0
 
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -14,7 +15,7 @@ public class Detalleabastecimiento  implements java.io.Serializable {
      private Medicina medicina;
      private Enfermero enfermero;
      private Doctor doctor;
-     private Date fechaabastecimiento;
+     private Calendar fechaabastecimiento;
      private Integer cajasantesabastecimiento;
      private Integer cajasdespuesabastecimiento;
      private Integer cajastotales;
@@ -30,7 +31,7 @@ public class Detalleabastecimiento  implements java.io.Serializable {
         this.enfermero = enfermero;
         this.doctor = doctor;
     }
-    public Detalleabastecimiento(long idabastecimiento, Medicina medicina, Enfermero enfermero, Doctor doctor, Date fechaabastecimiento, Integer cajasantesabastecimiento, Integer cajasdespuesabastecimiento, Integer cajastotales, Boolean estadoborrado) {
+    public Detalleabastecimiento(long idabastecimiento, Medicina medicina, Enfermero enfermero, Doctor doctor, Calendar fechaabastecimiento, Integer cajasantesabastecimiento, Integer cajasdespuesabastecimiento, Integer cajastotales, Boolean estadoborrado) {
        this.idabastecimiento = idabastecimiento;
        this.medicina = medicina;
        this.enfermero = enfermero;
@@ -70,11 +71,11 @@ public class Detalleabastecimiento  implements java.io.Serializable {
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
     }
-    public Date getFechaabastecimiento() {
+    public Calendar getFechaabastecimiento() {
         return this.fechaabastecimiento;
     }
     
-    public void setFechaabastecimiento(Date fechaabastecimiento) {
+    public void setFechaabastecimiento(Calendar fechaabastecimiento) {
         this.fechaabastecimiento = fechaabastecimiento;
     }
     public Integer getCajasantesabastecimiento() {
@@ -105,9 +106,6 @@ public class Detalleabastecimiento  implements java.io.Serializable {
     public void setEstadoborrado(Boolean estadoborrado) {
         this.estadoborrado = estadoborrado;
     }
-
-
-
 
 }
 

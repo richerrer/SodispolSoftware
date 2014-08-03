@@ -41,13 +41,6 @@ public class Ejemplo {
         personas.add(p2);
         personas.add(p3);
         personas.add(p4);
-        personas.add(p5);
-        personas.add(p6);
-        personas.add(p7);
-        personas.add(p8);
-        personas.add(p9);
-        personas.add(p10);
-        personas.add(p11);
     }
 
     public ArrayList<Persona> getPersonas() {

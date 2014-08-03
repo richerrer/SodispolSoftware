@@ -14,21 +14,17 @@
         <many-to-one name="doctor" class="com.sodispolSoftware.model.Doctor" fetch="select">
             <column name="iddoctor" not-null="true" />
         </many-to-one>
-        <property name="fechareg" type="time">
-            <column name="fechareg" length="15" not-null="true">
-                <comment>fecha en la que se registro la cita, pudo no habersela registrado con antelacion</comment>
-            </column>
+        <property name="fechareg" type="calendar">
+            <column name="fechareg" length="13" not-null="true"/>      
         </property>
-        <property name="fechaprog" type="time">
-            <column name="fechaprog" length="15" not-null="true">
-                <comment>fecha en la que se dara la cita, no siempre se saca una cita con antelacion</comment>
-            </column>
+        <property name="fechaprog" type="calendar">
+            <column name="fechaprog" length="13" not-null="true"/>
         </property>
         <property name="estadocita" type="string">
-            <column name="estadocita" length="1" />
+            <column name="estadocita" length="1" not-null="true"/>
         </property>
         <property name="estadoborrado" type="java.lang.Boolean">
-            <column name="estadoborrado" />
+            <column name="estadoborrado" not-null="true"/>
         </property>
         <set name="detallefichaestudiantes" table="detallefichaestudiante" inverse="true" lazy="true" fetch="select">
             <key>

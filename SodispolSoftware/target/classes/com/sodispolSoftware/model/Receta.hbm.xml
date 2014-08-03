@@ -15,10 +15,10 @@
             <column name="iddetallefichaestudiante" not-null="true" />
         </many-to-one>
         <property name="dosis" type="java.lang.Integer">
-            <column name="dosis" />
+            <column name="dosis" not-null="true"/>
         </property>
         <property name="estadoborrado" type="java.lang.Boolean">
-            <column name="estadoborrado" />
+            <column name="estadoborrado" not-null="true"/>
         </property>
     </class>
 </hibernate-mapping>

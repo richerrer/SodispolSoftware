@@ -2,6 +2,7 @@ package com.sodispolSoftware.model;
 // Generated 20-jul-2014 15:20:16 by Hibernate Tools 3.6.0
 
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,8 +16,8 @@ public class Citamedica  implements java.io.Serializable {
      private long idcita;
      private Estudiante estudiante;
      private Doctor doctor;
-     private Date fechareg;
-     private Date fechaprog;
+     private Calendar fechareg;
+     private Calendar fechaprog;
      private String estadocita;
      private Boolean estadoborrado;
      private Set<Detallefichaestudiante> detallefichaestudiantes = new HashSet<Detallefichaestudiante>(0);
@@ -25,14 +26,14 @@ public class Citamedica  implements java.io.Serializable {
     }
 
 	
-    public Citamedica(long idcita, Estudiante estudiante, Doctor doctor, Date fechareg, Date fechaprog) {
+    public Citamedica(long idcita, Estudiante estudiante, Doctor doctor, Calendar fechareg, Calendar fechaprog) {
         this.idcita = idcita;
         this.estudiante = estudiante;
         this.doctor = doctor;
         this.fechareg = fechareg;
         this.fechaprog = fechaprog;
     }
-    public Citamedica(long idcita, Estudiante estudiante, Doctor doctor, Date fechareg, Date fechaprog, String estadocita, Boolean estadoborrado, Set<Detallefichaestudiante> detallefichaestudiantes) {
+    public Citamedica(long idcita, Estudiante estudiante, Doctor doctor, Calendar fechareg, Calendar fechaprog, String estadocita, Boolean estadoborrado, Set<Detallefichaestudiante> detallefichaestudiantes) {
        this.idcita = idcita;
        this.estudiante = estudiante;
        this.doctor = doctor;
@@ -64,18 +65,18 @@ public class Citamedica  implements java.io.Serializable {
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
     }
-    public Date getFechareg() {
+    public Calendar getFechareg() {
         return this.fechareg;
     }
     
-    public void setFechareg(Date fechareg) {
+    public void setFechareg(Calendar fechareg) {
         this.fechareg = fechareg;
     }
-    public Date getFechaprog() {
+    public Calendar getFechaprog() {
         return this.fechaprog;
     }
     
-    public void setFechaprog(Date fechaprog) {
+    public void setFechaprog(Calendar fechaprog) {
         this.fechaprog = fechaprog;
     }
     public String getEstadocita() {
