@@ -8,6 +8,7 @@ import com.sodispolSoftware.model.Detallefichaestudiante;
 import com.sodispolSoftware.model.Doctor;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.springframework.context.annotation.Scope;
 
 /**
  * Esta clase es una implementación de  DoctorBo, la cual define la lógica de 
@@ -17,6 +18,7 @@ import javax.inject.Named;
  * @version: 1.0
  */
 @Named
+@Scope("prototype")
 public class DoctorBoImpl implements DoctorBo{
    
     @Inject

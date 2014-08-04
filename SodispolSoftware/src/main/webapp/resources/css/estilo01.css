@@ -1,16 +1,19 @@
+html, body{     
+    height: 100%; 
+} 
 body{
-   background-color: #C9DCDA; 
+    background-color: #C9DCDA; 
 }
 .color1{
     background-color: #324A71;
 }
 
 .blanco{
- color: white;   
+    color: white;   
 }
 
 .titulo{
- font-family: fantasy;
+    font-family: fantasy;
     text-shadow: 4px 4px 4px whitesmoke;
     color: #324A71;   
 }
@@ -139,7 +142,7 @@ body{
     }
     .anchoNavElement{
         width: 13%;
-       
+
     }
     .overflowHidden{
         overflow: hidden;
@@ -188,6 +191,9 @@ body{
     margin-top: 60%;
 }
 .icon-modificar {
-            width: 30px;   
-            height: 30px; 
+    width: 30px;   
+    height: 30px; 
+}
+.wrapper{
+    min-height: 79%;
 }

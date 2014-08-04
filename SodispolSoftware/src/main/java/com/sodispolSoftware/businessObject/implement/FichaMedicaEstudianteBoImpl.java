@@ -6,6 +6,7 @@ import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Fichamedicaestudiante;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.springframework.context.annotation.Scope;
 
 /**
  * Esta clase es una implementación de  FichaMedicaEstudianteBo, la cual define 
@@ -15,6 +16,7 @@ import javax.inject.Named;
  * @version: 1.0
  */
 @Named
+@Scope("prototype")
 public class FichaMedicaEstudianteBoImpl implements FichaMedicaEstudianteBo{
 
     @Inject

@@ -19,5 +19,9 @@
         <bean id="fichaMedicaEstudianteDao" class="com.sodispolSoftware.dao.implement.FichaMedicaEstudianteDaoImpl" >
             <property name="sessionFactory" ref="sessionFactory" />
         </bean>
+        
+        <bean id="detalleFichaEstudianteDao" class="com.sodispolSoftware.dao.implement.DetalleFichaEstudianteDaoImpl" >
+            <property name="sessionFactory" ref="sessionFactory" />
+        </bean>
     
 </beans>

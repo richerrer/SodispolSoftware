@@ -11,12 +11,14 @@ import com.sodispolSoftware.dao.DetalleFichaEstudianteDao;
 import com.sodispolSoftware.model.Detallefichaestudiante;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.springframework.context.annotation.Scope;
 
 /**
  *
  * @author Ricardo
  */
 @Named
+@Scope("prototype")
 public class DetalleFichaEstudianteBoImpl implements DetalleFichaEstudianteBo{
 
     @Inject
