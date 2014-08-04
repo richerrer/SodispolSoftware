@@ -1,0 +1,235 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+          
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Sodispol - Dispensario Médico</title>
+        <link rel="stylesheet" href="resources/cssBoostrap/bootstrap.css"/>
+        <link rel="Stylesheet" href="resources/css/estilo01.css"/>
+        <link href="http://fonts.googleapis.com/css?family=Duru+Sans" rel="styleshee" type="text/css"/>
+        <script src="resources/js/bootstrap.js"></script>
+         <script src="resources/js/main.js"></script>
+    </h:head>
+    <h:body>
+        
+        <div id="container">
+            <div id="header">    
+            <header >
+                    <ui:include src="/resources/templates/header.xhtml"/>
+                 </header>
+            
+                <nav class="navbar navbar-default color1 ancho1 center" role="navigation">
+                    <ui:include src="/resources/templates/navMedico.xhtml"/>
+                </nav>
+             </div>
+            
+        <div id="content" class="container slider ancho1 margen_top2">
+                    
+                    <section>
+                        <h2 class="texto" style="text-align: center">Administrar Inventario</h2>
+                        <hr style="color: #440706;" size="5" width="95%"/>
+                        <p><b>En esta sección usted dispone del inventario del dispensario médico, usted puede agregar, eliminar y modificar medicamentos</b> </p>
+                        <br/>
+                        <hr style="color: #000;" size="5" width="95%"/>
+                   
+                        
+          <p:growl id="growl" showDetail="true" /> 
+          
+          <h:form>
+          <p:commandButton value="Ingresar nuevo medicamento" type="button" onclick="PF('eventDialog').show();" />
+          
+          
+          <br/> <br/> <br/> 
+          <p:dialog widgetVar="eventDialog" header="Datos del medicamento" showEffect="clip" hideEffect="clip" resizable="false">
+            <h:panelGrid id="eventDetails" columns="2">
+                <h:outputLabel  value="Nombre:" />
+                <p:inputText id="Nombre" required="true" />
+
+                <h:outputLabel value="Detalle:" />
+                <p:inputTextarea rows="2" cols="22" />
+
+                <h:outputLabel value="Unidades:" />
+                <p:inputText id="Unidades" style="text-align:center;" required="true" />
+                <br/><br/>
+                <p:commandButton id="addButton" value="Guardar" oncomplete="PF('eventDialog').hide();PF('medicamento').show() ;" />
+            </h:panelGrid>
+           </p:dialog>   
+          
+          <p:dialog header="Agregado" widgetVar="dlg1" minHeight="40" resizable="false">
+            <h:outputText value="Ha agregado medicamentos al inventario!" />
+          </p:dialog>
+          <p:dialog header="Quitado" widgetVar="dlg2" minHeight="40" resizable="false">
+             <h:outputText value="Ha quitado medicamentos del inventario !" />
+          </p:dialog>
+          
+          <p:dialog header="Eliminar" widgetVar="dlg3" minHeight="40" resizable="false">
+             <h:outputText value="¿Está seguro que desea eliminar este medicamento?" /> <br/><br/> 
+             <p:commandButton id="addButton1" value="Si"  oncomplete="PF('dlg3').hide();" />
+             <p:commandButton id="addButton2" value="No"  oncomplete="PF('dlg3').hide();" />
+          </p:dialog>
+          <p:dialog header="Eliminar" widgetVar="dlg4" minHeight="40" resizable="false">
+             <h:outputText value="¿Está seguro que desea eliminar este medicamento?" /> <br/><br/> 
+             <p:commandButton id="addButton3" value="Si"  oncomplete="PF('dlg4').hide();" />
+             <p:commandButton id="addButton4" value="No"  oncomplete="PF('dlg4').hide();" />
+          </p:dialog>
+          <p:dialog header="Eliminar" widgetVar="dlg5" minHeight="40" resizable="false">
+             <h:outputText value="¿Está seguro que desea eliminar este medicamento?" /> <br/><br/> 
+             <p:commandButton id="addButton5" value="Si" oncomplete="PF('dlg5').hide();" />
+             <p:commandButton id="addButton6" value="No" oncomplete="PF('dlg5').hide();" />
+          </p:dialog>
+          <p:dialog header="Eliminar" widgetVar="dlg6" minHeight="40" resizable="false">
+             <h:outputText value="¿Está seguro que desea eliminar este medicamento?" /> <br/><br/> 
+             <p:commandButton id="addButton7" value="Si" oncomplete="PF('dlg6').hide();" />
+             <p:commandButton id="addButton8" value="No" oncomplete="PF('dlg6').hide();" />
+          </p:dialog>
+          
+          <p:panel widgetVar="medicamento1" visible="true">
+          <p:fieldset legend="Alka-Seltzer" toggleable="true" toggleSpeed="500" collapsed="true" >
+            <p:panelGrid>
+                <f:facet name="header">
+                    <p:row>
+                        <p:column colspan="6">Alka-Seltzer</p:column>
+                        <p:column colspan="1">Disponibles: 30</p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2">
+                             <p:graphicImage value="/resources/images/mAlka.png" />
+                        </p:column>           
+                        <p:column colspan="4" style="text-align : justify;">
+                            Antiácido, coadyuvante en el tratamiento de los transtornos 
+                            dispéticos agudos, analgésico. Adultos 1 o 2 tabletas en agua. No 
+                            deben tomarse más de 8 tabletas en 24 horas. Niños: la mitad de la 
+                            dosis de los adultos. Beneficios: Antiácido, coadyuvante en el tratamiento
+                            de los transtornos dispéticos agudos, analgésico
+                        </p:column>
+                        <p:column>
+                            <p:inputText style="text-align : center;"/><br/>
+                            <br/><p:commandButton value="Agregar" oncomplete="PF('dlg1').show()"/><br/><br/>
+                            <p:commandButton value="Quitar" oncomplete="PF('dlg2').show()" /><br/><br/> 
+                            <p:commandButton value="Eliminar" oncomplete="PF('dlg3').show()" />
+                        </p:column>
+                    </p:row>
+                </f:facet>
+            </p:panelGrid>
+            </p:fieldset>
+          </p:panel>
+          
+          <p:panel widgetVar="medicamento2" visible="true">
+           <p:fieldset legend="Apronax 550mg" toggleable="true" toggleSpeed="500" collapsed="true" >
+            <p:panelGrid>
+                <f:facet name="header">
+                    <p:row>
+                        <p:column colspan="6">Apronax 550mg</p:column>
+                        <p:column colspan="1">Disponibles: 51</p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2">
+                             <p:graphicImage value="/resources/images/mApronax.png" />
+                        </p:column>           
+                        <p:column colspan="4" style="text-align : justify;">
+                            Apronax® (Naproxeno sódico), es un fármaco antiinflamatorio no esteroidal (AINE)
+                            , con propiedades analgésicas, antiinflamatorias y antipiréticas. El mecanismo de acción
+                            con Apronax® (Naproxeno sódico) es mediante bloqueo de cicloxigenasa consecuentemente se
+                            disminuye la síntesis de prostaglandinas, mediadoras de la inflamación. Sin embargo, como
+                            otros AINEs, el mecanismo exacto de acción aún no es suficientemente conocido. No deprime
+                            el sistema nervioso central, por no ser narcótico ni inductor del metabolismo enzimático.
+                            Apronax® por ser muy soluble en el agua, es rápida y completamente absorbido en el tracto 
+                            gastrointestinal luego de su administración oral y por ello se obtienen niveles plasmáticos
+                            adecuados que permiten iniciar el alivio del dolor dentro de 20 minutos de su administración oral.
+                        </p:column>
+                        <p:column>
+                            <p:inputText style="text-align : center;"/> <br/>
+                            <br/><p:commandButton value="Agregar" oncomplete="PF('dlg1').show()" /><br/><br/>
+                            <p:commandButton value="Quitar" oncomplete="PF('dlg2').show()" /><br/><br/> 
+                            <p:commandButton value="Eliminar" oncomplete="PF('dlg4').show()" />
+                        </p:column>
+                    </p:row>
+                </f:facet>
+            </p:panelGrid>
+            </p:fieldset>
+          </p:panel>
+         
+          <p:panel widgetVar="medicamento3" visible="true">
+          <p:fieldset legend="Bepanthol" toggleable="true" toggleSpeed="500" collapsed="true" >
+            <p:panelGrid>
+                <f:facet name="header">
+                    <p:row>
+                        <p:column colspan="6">Bepanthol</p:column>
+                        <p:column colspan="1">Disponibles: 19</p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2">
+                             <p:graphicImage value="/resources/images/mBephantol.png" />
+                        </p:column>           
+                        <p:column colspan="4" style="text-align : justify;">
+                            Emoliente que forma una delicada película que permanece en la piel del bebé,
+                            protegiéndolo /curándolo de la resequedad y quemaduras producidas por la orina o el 
+                            frecuente roce con el pañal. Por otra parte contribuye a proteger, prevenir, curar 
+                            y humectar las grietas que se producen alrededor de los pezones durante la lactancia.
+                            Beneficios: Emoliente que forma una delicada película que permanece en la piel del
+                            bebé, protegiéndolo /curándolo de la resequedad y quemaduras producidas por la orina 
+                            o el frecuente roce con el pañal. Por otra parte contribuye a proteger, prevenir, curar
+                            y humectar las grietas que se producen alrededor de los pezones durante la lactancia.
+                        </p:column>
+                        <p:column>
+                            <p:inputText style="text-align : center;"/> <br/>
+                            <br/><p:commandButton value="Agregar" oncomplete="PF('dlg1').show()" /><br/><br/>
+                            <p:commandButton value="Quitar" oncomplete="PF('dlg2').show()" /><br/><br/> 
+                            <p:commandButton value="Eliminar" oncomplete="PF('dlg5').show()" />
+                        </p:column>
+                    </p:row>
+                </f:facet>
+            </p:panelGrid>
+            </p:fieldset>
+          </p:panel>
+              
+          <p:panel widgetVar="medicamento" visible="false">
+          <p:fieldset legend="Bumetanida" toggleable="true" toggleSpeed="500" collapsed="true" >
+            <p:panelGrid >
+                <f:facet name="header">
+                    <p:row>
+                        <p:column colspan="6">Bumetanida</p:column>
+                        <p:column colspan="1">Disponibles: 24</p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2">
+                             <p:graphicImage value="/resources/images/mBumetadina.png" />
+                        </p:column>           
+                        <p:column colspan="4" style="text-align : justify;">
+                            La bumetanida, es un diurético que se usa para reducir la inflamación y retención
+                            de líquido provocadas por diversos problemas médicos, incluyendo enfermedades al 
+                            corazón o al hígado. También se usa para tratar la hipertensión. Funciona al hacer 
+                            que los riñones eliminen el agua y la sal innecesaria del cuerpo a través de la orina.
+                            La bumetanida viene envasada como un comprimido para tomar por vía oral. Por lo general 
+                            se toma 1 vez al día, en la mañana.
+                        </p:column>
+                        <p:column>
+                            <p:inputText style="text-align : center;"/> <br/>
+                            <br/><p:commandButton value="Agregar" oncomplete="PF('dlg1').show()" /><br/><br/>
+                            <p:commandButton value="Quitar" oncomplete="PF('dlg2').show()" /><br/><br/> 
+                            <p:commandButton value="Eliminar" oncomplete="PF('dlg6').show()" />
+                            
+                        </p:column>
+                    </p:row>
+                </f:facet>
+            </p:panelGrid>
+            </p:fieldset>
+          </p:panel> 
+          
+           </h:form>
+</section>
+        </div>
+        <div id="footer">
+        <footer class="margen_top2 color1">
+            <ui:include src="/resources/templates/footer.xhtml"/>
+        </footer>
+        </div>
+        </div>
+    </h:body>
+</html>

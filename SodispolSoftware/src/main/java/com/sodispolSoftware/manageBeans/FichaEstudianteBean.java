@@ -7,6 +7,7 @@ import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Fichamedicaestudiante;
 import java.util.Calendar;
 import java.util.Map;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
@@ -59,6 +60,7 @@ public class FichaEstudianteBean {
     private Double peso;
     private String temperatura;
 
+    
     /**
      * Constructor del bean, el cual se encarga de obtener al Estudiante según
      * su matrícula o cédula, los cuales dependen del tipo de busqueda
@@ -91,6 +93,7 @@ public class FichaEstudianteBean {
     }
 
     public String guardar(ActionEvent actionEvent) {
+        
         guardarEstudiante();
         guardarFichaMedica();
         guardarDetalleFichaMedica();
@@ -118,6 +121,21 @@ public class FichaEstudianteBean {
         detalle.setFichamedicaestudiante(getFichaMedica());
         detalle.setFecha(getFechaActualCalendar());
         detalle.setDoctor(getUsuarioBean().getDoctor());
+        
+        detalle.setEstatura(getEstatura());
+        detalle.setPeso(getPeso());
+        detalle.setExamenpiel(getExamenPiel());
+        detalle.setAparatorespiratorio(getAparatoRespiratorio());
+        detalle.setApartocirculatorio(getAparatoCirculatorio());
+        detalle.setPulso(getPulso());
+        detalle.setRuidoscardiacos(getRuidosCardiacos());
+        detalle.setAparatodigestivo(getAparatoDigestivo());
+        detalle.setAparatogenicourinario(getAparatoUrinario());
+        detalle.setSitemalinfatico(getSistemaLinfatico());
+        detalle.setSistemanervioso(getSistemaNervioso());
+        detalle.setTemperatura(getTemperatura());
+        detalle.setPresionarterial(getPresionArterial());
+        detalle.setObservaciones(getObservacion());
         /*d.setEstatura(estatura);
          d.setFichamedicaestudiante(getFichaMedica());*/
         getDoctorBo().saveDetalleFichaEstudiante(detalle);

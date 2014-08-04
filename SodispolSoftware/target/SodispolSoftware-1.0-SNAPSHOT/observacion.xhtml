@@ -37,7 +37,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-7 col-md-7 col-lg-6">
                         <section>
-                            <h:form >
+                            <h:form>
                                 <h:panelGrid columns="4" style="font-size: smaller" class=" ancho2 margen_top3">
                                     <h:outputLabel value="Nombre:"/>
                                     <h:outputLabel value="#{fichaEstudianteBean.estudiante.nombres}"/>
@@ -61,7 +61,7 @@
                 <div class="row margen_top2">
                     <div class="ancho70" style="margin: auto">
                         <h:form>
-
+                            <p:growl id="growl" showDetail="true" sticky="false"  />
                             <!--    Ficha     -->
                             <p:panel id="toggleable1" collapsed="true" header="Ficha Médica" toggleable="true"  toggleSpeed="500" widgetVar="panel1" style="margin-bottom:20px"  styleClass="color6">
                                 <ui:include src="/resources/templates/fichaNuevaEstudiante.xhtml"/>
@@ -70,11 +70,11 @@
                             <!--     Examen Observacion     -->
                             <p:panel id="toggleable2" collapsed="true" header="Examén Físico #{fichaEstudianteBean.fechaActual}" toggleable="true"  toggleSpeed="500"  widgetVar="panel2" style="margin-bottom:20px"  styleClass="color6">
                                 <!--<ui:include src="/resources/templates/examenNuevoEstudiante.xhtml"/>-->
-                                <compositeComponents:examenNuevoEstudiante verificador="#{ejemplo2.modificador}"/>
+                                <compositeComponents:examenNuevoEstudiante verificador="#{validadorFicha.modificador}"/>
                             </p:panel>
 
                             <!--     Observaciones anteriores     -->
-                            <c:if test="#{ejemplo2.modificador==1}">
+                            <c:if test="#{validadorFicha.modificador==1}">
                                 <p:panel id="toggleable3" header="Observaciones Anteriores" collapsed="true" toggleable="true"  toggleSpeed="500"  widgetVar="panel3" style="margin-bottom:20px"  styleClass="color6">
                                     <div class="color5 ancho2" style="height:10em;overflow-y: scroll ">
 
@@ -97,17 +97,17 @@
                             </c:if>
 
                             <!--    Observacion Especifica      -->
-                            <p:panel id="toggleable4" header="Observación dada por Dr. Enrique Martinez" collapsed="true" toggleable="true"  toggleSpeed="500"  widgetVar="panel4" style="margin-bottom:20px"  styleClass="color6">
-                                <c:if test="#{ejemplo2.modificador==1}">
-                                    <h:inputTextarea class="ancho2" rows="8"/>   
+                            <p:panel id="toggleable4" header="Observación dada por Dr. #{usuarioBean.doctor}" collapsed="true" toggleable="true"  toggleSpeed="500"  widgetVar="panel4" style="margin-bottom:20px"  styleClass="color6">
+                                <c:if test="#{validadorFicha.modificador==1}">
+                                    <h:inputTextarea value="#{fichaEstudianteBean.observacion}" class="ancho2" rows="8" required="true" requiredMessage="Se requiere llenar el campo Observación"/>   
                                 </c:if>
-                                <c:if test="#{ejemplo2.modificador==0}">
+                                <c:if test="#{validadorFicha.modificador==0}">
                                     <h:inputTextarea class="ancho2" rows="8" readonly="true"/>
                                 </c:if>
                             </p:panel>
 
                             <!--     Recetas     -->
-                            <c:if test="#{ejemplo2.modificador==1}">
+                            <c:if test="#{validadorFicha.modificador==1}">
                                 <p:panel id="toggleable5" header="Recetar" toggleable="true"  collapsed="true" toggleSpeed="500"  widgetVar="panel5" style="margin-bottom:20px"  styleClass="color6">
                                     <div style="height: 25em" class="panelBarY">
 
@@ -168,8 +168,8 @@
                             </c:if>
 
 
-                            <c:if test="#{ejemplo2.modificador==1}">
-                                <p:commandButton value="Guardar" action="#{fichaEstudianteBean.guardar(actionEvent)}"/>
+                            <c:if test="#{validadorFicha.modificador==1}">
+                                <p:commandButton  value="Guardar" id="buscarPaciente" update="growl" action="#{fichaEstudianteBean.guardar(actionEvent)}"/>
                             </c:if>
 
                         </h:form>

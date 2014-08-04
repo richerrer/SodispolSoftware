@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Sodispol - Dispensario Médico</title>
+        <link rel="stylesheet" href="resources/cssBoostrap/bootstrap.css"/>
+        <link rel="Stylesheet" href="resources/css/estilo01.css"/>
+        <link href="http://fonts.googleapis.com/css?family=Duru+Sans" rel="styleshee" type="text/css"/>
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="resources/js/bootstrap.js"></script>
+         <script src="resources/js/main.js"></script>
+    </h:head>
+    <h:body>
+    <div id="container">
+            <div id="header">   
+        <header >
+            <ui:include src="/resources/templates/header.xhtml"/>
+         </header>
+        
+         
+        <nav class="navbar navbar-default color1 ancho1 center" role="navigation">
+            <ui:include src="/resources/templates/navEstudiante.xhtml"/>
+        </nav>
+            </div>
+        
+        <div id="content" class="container slider ancho1 margen_top2">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8  alturaEjemplo">
+                    <section>
+                        <h2 class="texto">Bienvenido #{request.getRemoteUser()}</h2>
+                        
+                        <table style="border:3px solid #282A2B; background-color:#282A2B; float: left;" > 
+                            <tr> 
+                            <td> 
+                            <img name="slide" id="slide" alt ="my images" height="214" width="300" src="resources/images/evento1.png"/> 
+                            </td> 
+                            </tr> 
+                            
+                            <tr> 
+                            <td align="center" style="font:small-caps bold 15px georgia; color:black;"> 
+                            <div id ="mydiv"></div> 
+                            </td> 
+                            </tr>                             
+                        </table> 
+                        
+                        <div style="margin-top: 2em ;margin-left:25em">
+                        <h3 class="texto">Mision</h3>
+                        <h4 style="text-align : justify; ">El departamento médico-enfermería está comprometido en la tarea de convertirse en un centro de prevención de salud para beneficio de la comunidad politécnica. </h4>
+                        <p style=" text-align : justify; ">En el Campus Gustavo Galindo existen dos dispensarios médicos, uno en el área de la Oficina de Bienestar Estudiantil y otro en la Facultad de Economía y Negocios. Atienden tres médicos en un horario de 08h00 a 22h00 con el auxilio de dos enfermeras.</p>
+                        </div>
+                    </section>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+                    <section style="font-size: smaller !important">
+                        <h3 class="centrar">PRÓXIMA CITA</h3>
+                        <br/>
+                        <h:form>  
+                            <p:dataTable var="p" value="#{ejemplo.personas}" id="seded">  
+                                <p:column headerText="Horario">  
+                                    <h:outputText value="#{p.horario}" />  
+                                </p:column>  
+
+                                <p:column headerText="Médico">  
+                                    <h:outputText value="#{p.nombre}" />  
+                                </p:column>  
+                                
+                            </p:dataTable>  
+                        </h:form>  
+                    </section>
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+        <footer class="margen_top2 color1">
+            <ui:include src="/resources/templates/footer.xhtml"/>
+        </footer>
+        </div>
+     </div>    
+    </h:body>
+</html>

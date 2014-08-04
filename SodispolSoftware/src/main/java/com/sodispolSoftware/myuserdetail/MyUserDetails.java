@@ -7,6 +7,7 @@
 package com.sodispolSoftware.myuserdetail;
 
 import com.sodispolSoftware.model.Doctor;
+import com.sodispolSoftware.model.User;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,11 +23,11 @@ public class MyUserDetails implements Serializable, UserDetails {
 
 	private static final long serialVersionUID = 1L;
 	private final String username;
-        private Doctor doctor;
+        private User user;
 	
-	public MyUserDetails(String username,Doctor doctor) {
+	public MyUserDetails(String username,User user) {
 		this.username=username;
-                this.doctor = doctor;
+                this.user = user;
 	}
 	
 	@Override
@@ -37,7 +38,7 @@ public class MyUserDetails implements Serializable, UserDetails {
 			
 			@Override
 			public String getAuthority() {
-                            String autority = doctor.getRoleuser().getDescripcion();
+                            String autority = user.getRoleuser().getDescripcion();
                             return autority;
 			}
 		});

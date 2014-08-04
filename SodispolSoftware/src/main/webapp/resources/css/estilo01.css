@@ -29,6 +29,9 @@ body{
 .ancho2{
     width: 100%;
 }
+.ancho15{
+    width: 17%;
+}
 .ancho25{
     width: 25%;
 }
@@ -196,4 +199,7 @@ body{
 }
 .wrapper{
     min-height: 79%;
+}
+.inline_block{
+    display: inline-block;
 }
