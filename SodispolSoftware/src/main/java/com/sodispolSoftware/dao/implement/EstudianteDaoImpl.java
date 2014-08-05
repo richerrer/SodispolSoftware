@@ -2,9 +2,10 @@
 package com.sodispolSoftware.dao.implement;
 
 import com.sodispolSoftware.dao.EstudianteDao;
-import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
+import com.sodispolSoftware.model.Roleuser;
 import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
+import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
@@ -13,6 +14,24 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  */
 public class EstudianteDaoImpl extends HibernateDaoSupport implements EstudianteDao{
 
+     @Override
+    public Estudiante getEstudiante(String username) {
+        try
+        {
+            Object[] paramsEstudiante = new Object[]{username,false};
+            
+            Estudiante estudiante = (Estudiante)getHibernateTemplate().find("from Estudiante e where e.username= ? and estadoborrado = ?",paramsEstudiante).get(0); 
+            estudiante.setRoleuser((Roleuser)getHibernateTemplate().get(Roleuser.class, estudiante.getRoleuser().getIdroleuser()));
+            Object[] attributes = WbServiceEspol.loadEstudianteAttributes(username);
+            loadDataFromWebService(estudiante,attributes);
+            return estudiante;
+        }
+        catch(DataAccessException ex)
+        {
+            return null;
+        }
+    }
+    
     @Override
     public Estudiante getEstudianteByMatricula(String matricula,Object[] attributes) {
         try
@@ -23,7 +42,7 @@ public class EstudianteDaoImpl extends HibernateDaoSupport implements Estudiante
             loadDataFromWebService(estudiante,attributes);
              return estudiante;
         }
-        catch(Exception ex)
+        catch(DataAccessException ex)
         {
             return null;
         }
@@ -39,7 +58,7 @@ public class EstudianteDaoImpl extends HibernateDaoSupport implements Estudiante
             loadDataFromWebService(estudiante,attributes);
              return estudiante;
         }
-        catch(Exception ex)
+        catch(DataAccessException ex)
         {
             return null;
         }
@@ -65,10 +84,5 @@ public class EstudianteDaoImpl extends HibernateDaoSupport implements Estudiante
     public void updateEstudiante(Estudiante estudiante) {
         getHibernateTemplate().update(estudiante);
     }
-
-    
-
-    
-    
     
 }

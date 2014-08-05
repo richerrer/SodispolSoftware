@@ -1,8 +1,10 @@
 package com.sodispolSoftware.myuserdetail;
 
 import com.sodispolSoftware.businessObject.DoctorBo;
+import com.sodispolSoftware.businessObject.EstudianteBo;
 import com.sodispolSoftware.manageBeans.UsuarioBean;
 import com.sodispolSoftware.model.Doctor;
+import com.sodispolSoftware.model.Estudiante;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,7 +26,30 @@ public class MyUserService implements UserDetailsService {
     private DoctorBo doctorBo;
     
     @Inject
+    private EstudianteBo estudianteBo;
+
+    @Inject
     private UsuarioBean usuarioBean;
+    
+        /**
+     * Get the value of estudianteBo
+     *
+     * @return the value of estudianteBo
+     */
+    public EstudianteBo getEstudianteBo() {
+        return estudianteBo;
+    }
+
+    /**
+     * Set the value of estudianteBo
+     *
+     * @param estudianteBo new value of estudianteBo
+     */
+    public void setEstudianteBo(EstudianteBo estudianteBo) {
+        this.estudianteBo = estudianteBo;
+    }
+
+    
 
     /**
      * Get the value of doctorBo
@@ -79,18 +104,18 @@ public class MyUserService implements UserDetailsService {
             Doctor doctor = getDoctorBo().getDoctor(username);
             if (doctor != null) //Si es un doctor
             {
-                //FacesContext facesContext = FacesContext.getCurrentInstance();
-                //HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
-               // UsuarioBean myBean = (UsuarioBean)session.getAttribute("UsuarioBean");
-                //myBean.setUser(doctor);
                 getUsuarioBean().setUser(doctor);
                 return new MyUserDetails(username, doctor);
-            } else //Si es un paciente profesional
+            } 
+            else //Si es un paciente profesional
             {
             }
 
         }
-        if (roleUser.equals("E") && state) {
+        if (roleUser.equals("E") && state) {//Si es un paciente estudiante
+            Estudiante estudiante = getEstudianteBo().getEstudiante(username);
+            getUsuarioBean().setEstudiante(estudiante);
+            return new MyUserDetails(username, estudiante);   
         }
 
         return null;

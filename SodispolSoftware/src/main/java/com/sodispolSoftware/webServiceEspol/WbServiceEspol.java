@@ -17,7 +17,7 @@ public class WbServiceEspol {
             return "P";//Profesional
         }
         if(username.equals("gabapare")){
-            return "P";//Estudiante
+            return "E";//Estudiante
         }
         return null;
     }
@@ -43,9 +43,9 @@ public class WbServiceEspol {
         if(username.equals("rmaya")){
             return new Object[]{"ricardo","david","maya","herrera","rmaya@espol.edu.ec","Cardiologo"};
         }
-        if(username.equals("gabapare")){
+        /*if(username.equals("gabapare")){
             return new Object[]{"gaby","alejandra","paredes","torres","gabapare@espol.edu.ec","Cardiologo"};
-        }
+        }*/
         return null;
     }
     
@@ -64,6 +64,15 @@ public class WbServiceEspol {
             return new Object[]{"201013448","raulalmir","Villa Club","Casado","2246570",21,"Ing. en Ciencias Computacionales Orientación Multimedia","Raul","Alberto","Mira","Rodriguez","1 de Enero de 1991 ","resources/images/raul.png"};
         }
         
+        return null;
+    }
+    
+    public static Object[] loadEstudianteAttributes(String username)
+    {
+        
+        if(username.equals("gabapare")){
+            return new Object[]{"201011111","0999999999","Leonidas Plaza y Oriente","Soltero","2338227",22,"Ing. en Electronica y Telecomunicaciones","Gabriela","Alejandra","Paredes","Torres","1 de Mayo de 1992 ","resources/images/raul.png"};
+        }
         return null;
     }
 }

@@ -14,6 +14,7 @@ import com.sodispolSoftware.model.Fichamedicaestudiante;
  * @author usuario
  */
 public interface EstudianteBo {
+    public Estudiante getEstudiante(String username);
     public Estudiante getEstudianteByMatricula(String matricula);
     public Estudiante getEstudianteByCedula(String cedula);
     public Fichamedicaestudiante getFichaMedica(Estudiante estudiante);

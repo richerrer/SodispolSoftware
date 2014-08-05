@@ -6,7 +6,6 @@
 
 package com.sodispolSoftware.myuserdetail;
 
-import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.User;
 import java.io.Serializable;
 import java.util.ArrayList;

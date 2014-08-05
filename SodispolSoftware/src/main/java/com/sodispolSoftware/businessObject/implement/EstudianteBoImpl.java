@@ -31,17 +31,7 @@ public class EstudianteBoImpl implements EstudianteBo{
     @Inject
     private FichaMedicaEstudianteBo fichaMedicaEstudianteBo;
     
-   private Estudiante e;
-
-    public Estudiante getE() {
-        return e;
-    }
-
-    public void setE(Estudiante e) {
-        this.e = e;
-    }
-
-    /**
+     /**
      * Get the value of fichaMedicaEstudianteBo
      *
      * @return the value of fichaMedicaEstudianteBo
@@ -95,6 +85,20 @@ public class EstudianteBoImpl implements EstudianteBo{
     public void setEstudianteDao(EstudianteDao estudianteDao) {
         this.estudianteDao = estudianteDao;
     }
+    
+    /**
+     * Obtiene un Estudiante según su username, en el cual primero comprueba 
+     * si ese username se encuentra en la base de datos, y en caso de que no se encuentre
+     * en nuestra base de datos, se crea un nuevo Estudiante.
+     *
+     * @param username matricula del estudiante
+     * @return Estudiante según la matrícula
+     */
+    @Override
+    public Estudiante getEstudiante(String username) {
+        Estudiante estudiante = getEstudianteDao().getEstudiante(username);
+        return estudiante;
+    }
 
     /**
      * Obtiene un Estudiante según su matrícula, en el cual primero comprueba 
@@ -128,7 +132,7 @@ public class EstudianteBoImpl implements EstudianteBo{
             estudiante.setTelefono((String)attributes[4]);
             this.addEstudiante(estudiante);
             estudiante = getEstudianteDao().getEstudianteByMatricula(matricula,attributes);
-        }e = estudiante;
+        }
         return estudiante;
     }
     
@@ -228,9 +232,5 @@ public class EstudianteBoImpl implements EstudianteBo{
         ficha.setEstudiante(estudiante);
         getFichaMedicaEstudianteBo().updateFicha(ficha);
     }
-
-    
-    
-    
-    
+  
 }
