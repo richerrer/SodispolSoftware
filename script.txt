@@ -392,3 +392,6 @@ INSERT INTO roleuser(descripcion)
 
 	INSERT INTO doctor(username,estadoborrado, idroleuser)
     VALUES ('rmaya',false,1);
+	
+create unique index I_doctor_username on doctor(username,estadoborrado);
+create unique index I_enfermero_username on enfermero(username,estadoborrado);
