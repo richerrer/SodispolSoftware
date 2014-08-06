@@ -9,6 +9,8 @@ package com.sodispolSoftware.businessObject.implement;
 import com.sodispolSoftware.businessObject.DetalleFichaEstudianteBo;
 import com.sodispolSoftware.dao.DetalleFichaEstudianteDao;
 import com.sodispolSoftware.model.Detallefichaestudiante;
+import com.sodispolSoftware.model.Estudiante;
+import java.util.ArrayList;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.springframework.context.annotation.Scope;
@@ -28,6 +30,11 @@ public class DetalleFichaEstudianteBoImpl implements DetalleFichaEstudianteBo{
     public void addDetalleFicha(Detallefichaestudiante detalleFicha) {
         getDetalleFichaEstudianteDao().addDetalleFicha(detalleFicha);
     }
+    
+    @Override
+    public ArrayList<Object[]> getObservaciones(Estudiante estudiante) {
+        return getDetalleFichaEstudianteDao().getObservaciones(estudiante);
+    }
 
     /**
      * Get the value of detalleFichaEstudianteDao
@@ -46,6 +53,8 @@ public class DetalleFichaEstudianteBoImpl implements DetalleFichaEstudianteBo{
     public void setDetalleFichaEstudianteDao(DetalleFichaEstudianteDao detalleFichaEstudianteDao) {
         this.detalleFichaEstudianteDao = detalleFichaEstudianteDao;
     }
+
+    
 
     
     

@@ -5,6 +5,7 @@ import com.sodispolSoftware.businessObject.EstudianteBo;
 import com.sodispolSoftware.model.Detallefichaestudiante;
 import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Fichamedicaestudiante;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
 import javax.faces.application.FacesMessage;
@@ -26,7 +27,7 @@ import org.springframework.context.annotation.Scope;
 @Scope("view")
 public class FichaEstudianteBean {
 
-    @Inject
+    
     private DoctorBo doctorBo;
 
     @Inject
@@ -60,17 +61,19 @@ public class FichaEstudianteBean {
     private Double peso;
     private String temperatura;
 
+    private ArrayList<Object[]> observacionesAnteriores;
     
     /**
      * Constructor del bean, el cual se encarga de obtener al Estudiante según
      * su matrícula o cédula, los cuales dependen del tipo de busqueda
      *
+     * @param doctorBo
      * @param estudianteBo Maneja la lógica de negocio del Estudiante
      */
     @Inject
-    public FichaEstudianteBean(EstudianteBo estudianteBo) {
+    public FichaEstudianteBean(DoctorBo doctorBo,EstudianteBo estudianteBo) {
         
-        inicializarParametros(estudianteBo);
+        inicializarParametros(doctorBo,estudianteBo);
         if (getTipoBusqueda().equals("matricula")) {
             setEstudiante(getEstudianteBo().getEstudianteByMatricula(getParamBusqueda()));
         }
@@ -78,15 +81,16 @@ public class FichaEstudianteBean {
             setEstudiante(getEstudianteBo().getEstudianteByCedula(getParamBusqueda()));
         }
         setFichaMedica(getEstudianteBo().getFichaMedica(getEstudiante()));
+        setObservacionesAnteriores(getDoctorBo().getObservaciones(getEstudiante()));
 
     }
     
-    public void inicializarParametros(EstudianteBo estudianteBo){
+    public void inicializarParametros(DoctorBo doctorBo,EstudianteBo estudianteBo){
         setFechaActualCalendar(Calendar.getInstance());
         setFechaActual(getFechaActualCalendar().get(Calendar.DAY_OF_MONTH) + "/"
                 + (getFechaActualCalendar().get(Calendar.MONTH) + 1) + "/"
                 + getFechaActualCalendar().get(Calendar.YEAR));
-
+        setDoctorBo(doctorBo);
         setEstudianteBo(estudianteBo);
         setTipoBusqueda(getParametros().get("tipoBusqueda"));
         setParamBusqueda(getParametros().get("paramBusqueda"));
@@ -139,6 +143,14 @@ public class FichaEstudianteBean {
         /*d.setEstatura(estatura);
          d.setFichamedicaestudiante(getFichaMedica());*/
         getDoctorBo().saveDetalleFichaEstudiante(detalle);
+    }
+
+    public ArrayList<Object[]> getObservacionesAnteriores() {
+        return observacionesAnteriores;
+    }
+
+    public void setObservacionesAnteriores(ArrayList<Object[]> observacionesAnteriores) {
+        this.observacionesAnteriores = observacionesAnteriores;
     }
     
     

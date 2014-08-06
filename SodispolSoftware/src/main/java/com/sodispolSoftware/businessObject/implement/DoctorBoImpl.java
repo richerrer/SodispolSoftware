@@ -6,6 +6,8 @@ import com.sodispolSoftware.businessObject.RoleUserBo;
 import com.sodispolSoftware.dao.DoctorDao;
 import com.sodispolSoftware.model.Detallefichaestudiante;
 import com.sodispolSoftware.model.Doctor;
+import com.sodispolSoftware.model.Estudiante;
+import java.util.ArrayList;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.springframework.context.annotation.Scope;
@@ -119,6 +121,11 @@ public class DoctorBoImpl implements DoctorBo{
     @Override
     public void saveDetalleFichaEstudiante(Detallefichaestudiante detalleFicha) {
         getDetalleFichaEstudianteBo().addDetalleFicha(detalleFicha);
+    }
+
+    @Override
+    public ArrayList<Object[]> getObservaciones(Estudiante estudiante) {
+        return getDetalleFichaEstudianteBo().getObservaciones(estudiante);
     }
     
 }

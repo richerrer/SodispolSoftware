@@ -7,6 +7,8 @@
 package com.sodispolSoftware.businessObject;
 
 import com.sodispolSoftware.model.Detallefichaestudiante;
+import com.sodispolSoftware.model.Estudiante;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,4 +16,5 @@ import com.sodispolSoftware.model.Detallefichaestudiante;
  */
 public interface DetalleFichaEstudianteBo {
     public void addDetalleFicha(Detallefichaestudiante detalleFicha);
+    public ArrayList<Object[]> getObservaciones(Estudiante estudiante);
 }

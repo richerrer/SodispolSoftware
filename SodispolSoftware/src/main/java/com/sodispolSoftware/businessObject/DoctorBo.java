@@ -8,6 +8,8 @@ package com.sodispolSoftware.businessObject;
 
 import com.sodispolSoftware.model.Detallefichaestudiante;
 import com.sodispolSoftware.model.Doctor;
+import com.sodispolSoftware.model.Estudiante;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,4 +19,5 @@ public interface DoctorBo {
     public Doctor getDoctor(String username);
     public void addDoctor(Doctor doctor);
     public void saveDetalleFichaEstudiante(Detallefichaestudiante detalleFicha);
+    public ArrayList<Object[]> getObservaciones(Estudiante estudiante);
 }
