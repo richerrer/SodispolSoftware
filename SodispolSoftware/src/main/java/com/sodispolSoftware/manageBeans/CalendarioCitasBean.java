@@ -7,6 +7,7 @@
 package com.sodispolSoftware.manageBeans;
 
 
+import com.sodispolSoftware.businessObject.CitaBo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,6 +18,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
@@ -32,6 +34,10 @@ import org.springframework.context.annotation.Scope;
 @ManagedBean
 @Scope("view")
 public class CalendarioCitasBean implements Serializable {
+    
+    @Inject
+    private CitaBo citaBo;
+    
     private ScheduleModel eventModel;
     //private ScheduleModel lazyEventModel;
     private ScheduleEvent event = new DefaultScheduleEvent();
@@ -39,23 +45,25 @@ public class CalendarioCitasBean implements Serializable {
     @PostConstruct
     public void init(){
         eventModel = new DefaultScheduleModel();
+        
+        loadCitas();
         //eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm()));
         //eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today6Pm()));
         //eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", nextDay9Am(), nextDay11Am()));
         //eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", theDayAfter3Pm(), fourDaysLater3pm()));
         //eventModel.addEvent(new DefaultScheduleEvent("Hola", newFechayHora(21, 6, 2014, 3, 20, 0), newFechayHora(21, 6, 2014, 4, 20, 1)));
         
-        ArrayList<DefaultScheduleEvent> eventos = new ArrayList<DefaultScheduleEvent>();
+        //ArrayList<DefaultScheduleEvent> eventos = new ArrayList<DefaultScheduleEvent>();
         
-        eventos.add(new DefaultScheduleEvent("Jose Romero", newFechayHora(21, 8, 2014, 3, 20, 1), newFechayHora(21, 8, 2014, 4, 20, 1)));
-        eventos.add(new DefaultScheduleEvent("Raul Mira", newFechayHora(22, 8, 2014, 9, 40, 0), newFechayHora(22, 8, 2014, 10, 40, 0)));
-        eventos.add(new DefaultScheduleEvent("Ricardo Maya", newFechayHora(21, 8, 2014, 6, 20, 1), newFechayHora(21, 8, 2014, 7, 20, 1)));
-        eventos.add(new DefaultScheduleEvent("Jose Romero", newFechayHora(25, 8, 2014, 3, 20, 1), newFechayHora(25, 8, 2014, 4, 20, 1)));
+        //eventos.add(new DefaultScheduleEvent("Jose Romero", newFechayHora(21, 8, 2014, 3, 20, 1), newFechayHora(21, 8, 2014, 4, 20, 1)));
+        //eventos.add(new DefaultScheduleEvent("Raul Mira", newFechayHora(22, 8, 2014, 9, 40, 0), newFechayHora(22, 8, 2014, 10, 40, 0)));
+        //eventos.add(new DefaultScheduleEvent("Ricardo Maya", newFechayHora(21, 8, 2014, 6, 20, 1), newFechayHora(21, 8, 2014, 7, 20, 1)));
+        //eventos.add(new DefaultScheduleEvent("Jose Romero", newFechayHora(25, 8, 2014, 3, 20, 1), newFechayHora(25, 8, 2014, 4, 20, 1)));
         
-        for(DefaultScheduleEvent e: eventos)
-        {
-            eventModel.addEvent(e);
-        }
+        //for(DefaultScheduleEvent e: eventos)
+        //{
+        //    eventModel.addEvent(e);
+        //}
         
         /*lazyEventModel = new LazyScheduleModel() {
             
@@ -234,4 +242,15 @@ public class CalendarioCitasBean implements Serializable {
         return t.getTime();
     }
     
+    public void loadCitas()
+    {
+        ArrayList<Object[]> citas;
+        
+        citas=citaBo.getCitas();
+        
+        for(Object[] c : citas)
+        {
+            
+        }
+    }
 }

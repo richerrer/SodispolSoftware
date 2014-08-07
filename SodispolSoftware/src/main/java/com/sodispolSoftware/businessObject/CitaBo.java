@@ -8,11 +8,12 @@ package com.sodispolSoftware.businessObject;
 
 import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Fichamedicaestudiante;
+import java.util.ArrayList;
 
 /**
  *
  * @author usuario
  */
 public interface CitaBo {
-    
+    public ArrayList<Object[]> getCitas();
 }

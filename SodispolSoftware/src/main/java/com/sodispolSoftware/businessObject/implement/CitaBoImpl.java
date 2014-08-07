@@ -9,6 +9,7 @@ import com.sodispolSoftware.dao.EstudianteDao;
 import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Fichamedicaestudiante;
 import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
+import java.util.ArrayList;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.springframework.context.annotation.Scope;
@@ -25,7 +26,22 @@ import org.springframework.context.annotation.Scope;
 public class CitaBoImpl implements CitaBo{
 
     @Inject
-    private CitaDao estudianteDao;
+    private CitaDao citaDao;
+
+    public CitaDao getCitaDao() {
+        return citaDao;
+    }
+
+    public void setCitaDao(CitaDao citaDao) {
+        this.citaDao = citaDao;
+    }
+
+    
+    
+    @Override
+    public ArrayList<Object[]> getCitas() {
+        return getCitaDao().getCitas();
+    }
 
    
 }
