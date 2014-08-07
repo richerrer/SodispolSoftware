@@ -16,6 +16,9 @@ public class WbServiceEspol {
         if(username.equals("rmaya")){
             return "P";//Profesional
         }
+        if(username.equals("joanrome")){
+            return "P";//Profesional
+        }
         if(username.equals("gabapare")){
             return "E";//Estudiante
         }
@@ -30,7 +33,7 @@ public class WbServiceEspol {
             return true;//ENFERMERO
         }
         if(username.equals("joanrome")){
-            return false;//PACIENTE PROFESIONALE
+            return true;//PACIENTE PROFESIONALE
         }
         if(username.equals("gabapare")){
             return true;//PACIENTE ESTUDIANTE
@@ -46,6 +49,9 @@ public class WbServiceEspol {
         /*if(username.equals("gabapare")){
             return new Object[]{"gaby","alejandra","paredes","torres","gabapare@espol.edu.ec","Cardiologo"};
         }*/
+        if(username.equals("joanrome")){
+            return new Object[]{"jose","andres","romero","triviño","joanrome@espol.edu.ec","Cardiologo"};
+        }
         return null;
     }
     
