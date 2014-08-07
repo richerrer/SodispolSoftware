@@ -24,4 +24,7 @@
             <property name="sessionFactory" ref="sessionFactory" />
         </bean>
     
+        <bean id="CitaDao" class="com.sodispolSoftware.dao.implement.CitaDaoImpl" >
+            <property name="sessionFactory" ref="sessionFactory" />
+        </bean>
 </beans>
