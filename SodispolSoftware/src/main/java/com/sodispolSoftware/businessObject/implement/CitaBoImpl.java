@@ -6,6 +6,7 @@ import com.sodispolSoftware.businessObject.FichaMedicaEstudianteBo;
 import com.sodispolSoftware.businessObject.RoleUserBo;
 import com.sodispolSoftware.dao.CitaDao;
 import com.sodispolSoftware.dao.EstudianteDao;
+import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Fichamedicaestudiante;
 import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
@@ -39,8 +40,8 @@ public class CitaBoImpl implements CitaBo{
     
     
     @Override
-    public ArrayList<Object[]> getCitas() {
-        return getCitaDao().getCitas();
+    public ArrayList<Object[]> getCitas(Doctor doctor) {
+        return getCitaDao().getCitas(doctor);
     }
 
    

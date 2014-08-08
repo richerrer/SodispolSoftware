@@ -21,16 +21,37 @@ import org.springframework.context.annotation.Scope;
 @Scope("view")
 public class CitaBean {
     
-    @Inject
+    //@Inject
     private CitaBo citaBo;
+    
+    @Inject
+    private UsuarioBean usuarioBean;
     
     private ArrayList<Object[]> citas;
     private String pac="Jose PEPE";
+    private String ncita;
 
     @Inject
-    public CitaBean()
+    public CitaBean(CitaBo citaBo)
     {
-        
+        //setNcita(getUsuarioBean().getDoctor().getCitamedicas().iterator().next().getFechareg().toString());
+        //setNcita(getUsuarioBean().getDoctor().getApellido1());
+    }
+
+    public String getNcita() {
+        return ncita;
+    }
+
+    public void setNcita(String ncita) {
+        this.ncita = ncita;
+    }
+
+    public UsuarioBean getUsuarioBean() {
+        return usuarioBean;
+    }
+
+    public void setUsuarioBean(UsuarioBean usuarioBean) {
+        this.usuarioBean = usuarioBean;
     }
 
     public ArrayList<Object[]> getCitas() {
@@ -57,5 +78,11 @@ public class CitaBean {
         this.pac = pac;
     }
     
-    
+    public String NNams()
+    {
+        ArrayList<Object[]> citasM;
+        citasM = getCitaBo().getCitas(getUsuarioBean().getDoctor());
+        return citasM.get(0)[0].toString();
+    } 
+           
 }

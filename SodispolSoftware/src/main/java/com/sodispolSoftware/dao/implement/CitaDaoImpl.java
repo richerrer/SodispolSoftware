@@ -3,6 +3,7 @@ package com.sodispolSoftware.dao.implement;
 
 import com.sodispolSoftware.dao.CitaDao;
 import com.sodispolSoftware.dao.EstudianteDao;
+import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Roleuser;
 import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
@@ -17,9 +18,10 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao{
 
     @Override
-    public ArrayList<Object[]> getCitas() {
+    public ArrayList<Object[]> getCitas(Doctor doctor) {
         try{
-            ArrayList<Object[]> consulta = (ArrayList<Object[]>)getHibernateTemplate().find("select * from Citamedica c where c."); 
+            Object[] paramsCitas = new Object[]{doctor,false};
+            ArrayList<Object[]> consulta = (ArrayList<Object[]>)getHibernateTemplate().find("select c.estadocita from Citamedica c where c.doctor = ? and c.estadoborrado = ?",paramsCitas); 
             
             return consulta;
         }
