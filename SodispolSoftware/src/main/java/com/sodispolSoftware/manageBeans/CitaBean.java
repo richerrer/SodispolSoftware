@@ -6,6 +6,10 @@
 
 package com.sodispolSoftware.manageBeans;
 
+import com.sodispolSoftware.businessObject.CitaBo;
+import com.sodispolSoftware.model.Citamedica;
+import java.util.ArrayList;
+import javax.inject.Inject;
 import javax.inject.Named;
 import org.springframework.context.annotation.Scope;
 
@@ -16,7 +20,34 @@ import org.springframework.context.annotation.Scope;
 @Named
 @Scope("view")
 public class CitaBean {
+    
+    @Inject
+    private CitaBo citaBo;
+    
+    private ArrayList<Object[]> citas;
     private String pac="Jose PEPE";
+
+    @Inject
+    public CitaBean()
+    {
+        
+    }
+
+    public ArrayList<Object[]> getCitas() {
+        return citas;
+    }
+
+    public void setCitas(ArrayList<Object[]> citas) {
+        this.citas = citas;
+    }
+    
+    public CitaBo getCitaBo() {
+        return citaBo;
+    }
+
+    public void setCitaBo(CitaBo citaBo) {
+        this.citaBo = citaBo;
+    }
 
     public String getPac() {
         return pac;

@@ -8,6 +8,7 @@ package com.sodispolSoftware.manageBeans;
 
 
 import com.sodispolSoftware.businessObject.CitaBo;
+import com.sodispolSoftware.model.Citamedica;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,7 +47,7 @@ public class CalendarioCitasBean implements Serializable {
     public void init(){
         eventModel = new DefaultScheduleModel();
         
-        loadCitas();
+        //loadCitas();
         //eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm()));
         //eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today6Pm()));
         //eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", nextDay9Am(), nextDay11Am()));
@@ -241,16 +242,16 @@ public class CalendarioCitasBean implements Serializable {
         
         return t.getTime();
     }
-    
+    /*
     public void loadCitas()
     {
-        ArrayList<Object[]> citas;
+        ArrayList<Citamedica> citas;
         
         citas=citaBo.getCitas();
         
-        for(Object[] c : citas)
+        for(Citamedica c : citas)
         {
             
         }
-    }
+    }*/
 }

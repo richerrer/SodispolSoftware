@@ -19,7 +19,7 @@ public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao{
     @Override
     public ArrayList<Object[]> getCitas() {
         try{
-            ArrayList<Object[]> consulta = (ArrayList<Object[]>)getHibernateTemplate().find("select * from Citamedica c"); 
+            ArrayList<Object[]> consulta = (ArrayList<Object[]>)getHibernateTemplate().find("select * from Citamedica c where c."); 
             
             return consulta;
         }
