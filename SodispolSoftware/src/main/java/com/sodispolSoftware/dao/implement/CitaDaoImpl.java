@@ -25,7 +25,7 @@ public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao{
             
             return consulta;
         }
-        catch(DataAccessException ex){
+        catch(Exception ex){
             return null;
         }
     }

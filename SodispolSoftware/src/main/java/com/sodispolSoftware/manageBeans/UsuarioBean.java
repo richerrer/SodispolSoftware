@@ -7,7 +7,6 @@ import javax.faces.bean.SessionScoped;
 import javax.inject.Named;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.stereotype.Component;
 /**
  * Este bean mantiene que usuario se encuentra registrado en la aplicación.
  *

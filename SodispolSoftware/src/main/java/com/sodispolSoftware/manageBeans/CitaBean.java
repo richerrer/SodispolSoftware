@@ -24,7 +24,7 @@ public class CitaBean {
     //@Inject
     private CitaBo citaBo;
     
-    @Inject
+    
     private UsuarioBean usuarioBean;
     
     private ArrayList<Object[]> citas;
@@ -32,10 +32,12 @@ public class CitaBean {
     private String ncita;
 
     @Inject
-    public CitaBean(CitaBo citaBo)
+    public CitaBean(CitaBo citaBo,UsuarioBean usuarioBean)
     {
+        setUsuarioBean(usuarioBean);
+        setCitaBo(citaBo);
         //setNcita(getUsuarioBean().getDoctor().getCitamedicas().iterator().next().getFechareg().toString());
-        //setNcita(getUsuarioBean().getDoctor().getApellido1());
+        setNcita(getUsuarioBean().getDoctor().getApellido1());
     }
 
     public String getNcita() {

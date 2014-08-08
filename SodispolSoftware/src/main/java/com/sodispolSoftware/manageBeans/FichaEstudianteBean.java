@@ -27,16 +27,15 @@ import org.springframework.context.annotation.Scope;
 @Scope("view")
 public class FichaEstudianteBean {
 
-    
-    private DoctorBo doctorBo;
-
     @Inject
     private UsuarioBean usuarioBean;
-
+    
+    private DoctorBo doctorBo;
+    
     private EstudianteBo estudianteBo;
-
+    
     private Estudiante estudiante;
-
+    
     private String paramBusqueda;
 
     private String tipoBusqueda;
@@ -48,17 +47,29 @@ public class FichaEstudianteBean {
     private String fechaActual;
 
     private Double estatura;
+    
     private String examenPiel;
+    
     private String aparatoRespiratorio;
+    
     private String aparatoCirculatorio;
+    
     private String pulso;
+    
     private String ruidosCardiacos;
+    
     private String aparatoDigestivo;
+    
     private String aparatoUrinario;
+    
     private String sistemaLinfatico;
+    
     private String sistemaNervioso;
+    
     private String observacion;
+    
     private Double peso;
+    
     private String temperatura;
 
     private ArrayList<Object[]> observacionesAnteriores;
@@ -66,25 +77,7 @@ public class FichaEstudianteBean {
     private long numButtons = 1;
     
     private final int paginacion = 15;
-
-    /**
-     * Get the value of numButtons
-     *
-     * @return the value of numButtons
-     */
-    public long getNumButtons() {
-        return numButtons;
-    }
-
-    /**
-     * Set the value of numButtons
-     *
-     * @param numButtons new value of numButtons
-     */
-    public void setNumButtons(long numButtons) {
-        this.numButtons = numButtons;
-    }
-
+    
     /**
      * Constructor del bean, el cual se encarga de obtener al Estudiante según
      * su matrícula o cédula, los cuales dependen del tipo de busqueda
@@ -118,6 +111,28 @@ public class FichaEstudianteBean {
         setTipoBusqueda(getParametros().get("tipoBusqueda"));
         setParamBusqueda(getParametros().get("paramBusqueda"));
     }
+
+    /**
+     * Get the value of numButtons
+     *
+     * @return the value of numButtons
+     */
+    public long getNumButtons() {
+        return numButtons;
+    }
+
+    /**
+     * Set the value of numButtons
+     *
+     * @param numButtons new value of numButtons
+     */
+    public void setNumButtons(long numButtons) {
+        this.numButtons = numButtons;
+    }
+
+    
+    
+    
 
     public String guardar(ActionEvent actionEvent) {
         
