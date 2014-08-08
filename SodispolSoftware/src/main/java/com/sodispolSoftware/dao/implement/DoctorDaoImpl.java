@@ -10,7 +10,6 @@ import com.sodispolSoftware.dao.DoctorDao;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Roleuser;
 import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
-import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
@@ -31,7 +30,7 @@ public class DoctorDaoImpl extends HibernateDaoSupport implements DoctorDao{
             loadDataFromWebService(doctor);
             return doctor;
         }
-        catch(DataAccessException ex)
+        catch(IndexOutOfBoundsException ex)//Cuando no se encuentra ningun objeto en la consulta
         {
             return null;
         }

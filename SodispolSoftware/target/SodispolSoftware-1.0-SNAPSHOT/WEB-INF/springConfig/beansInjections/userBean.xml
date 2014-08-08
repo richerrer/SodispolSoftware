@@ -4,27 +4,27 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
     
-        <bean id="doctorDao" class="com.sodispolSoftware.dao.implement.DoctorDaoImpl" >
+<bean id="doctorDao" class="com.sodispolSoftware.dao.implement.DoctorDaoImpl" scope="prototype">
             <property name="sessionFactory" ref="sessionFactory" />
         </bean>
         
-        <bean id="roleUserDao" class="com.sodispolSoftware.dao.implement.RoleUserDaoImpl" >
+        <bean id="roleUserDao" class="com.sodispolSoftware.dao.implement.RoleUserDaoImpl" scope="prototype">
             <property name="sessionFactory" ref="sessionFactory" />
         </bean>
         
-        <bean id="estudianteDao" class="com.sodispolSoftware.dao.implement.EstudianteDaoImpl" >
+        <bean id="estudianteDao" class="com.sodispolSoftware.dao.implement.EstudianteDaoImpl" scope="prototype">
             <property name="sessionFactory" ref="sessionFactory" />
         </bean>
         
-        <bean id="fichaMedicaEstudianteDao" class="com.sodispolSoftware.dao.implement.FichaMedicaEstudianteDaoImpl" >
+        <bean id="fichaMedicaEstudianteDao" class="com.sodispolSoftware.dao.implement.FichaMedicaEstudianteDaoImpl" scope="prototype">
             <property name="sessionFactory" ref="sessionFactory" />
         </bean>
         
-        <bean id="detalleFichaEstudianteDao" class="com.sodispolSoftware.dao.implement.DetalleFichaEstudianteDaoImpl" >
+        <bean id="detalleFichaEstudianteDao" class="com.sodispolSoftware.dao.implement.DetalleFichaEstudianteDaoImpl" scope="prototype">
             <property name="sessionFactory" ref="sessionFactory" />
         </bean>
     
-        <bean id="CitaDao" class="com.sodispolSoftware.dao.implement.CitaDaoImpl" >
+        <bean id="CitaDao" class="com.sodispolSoftware.dao.implement.CitaDaoImpl" scope="prototype">
             <property name="sessionFactory" ref="sessionFactory" />
         </bean>
 </beans>

@@ -97,6 +97,21 @@ public class EstudianteBoImpl implements EstudianteBo{
     @Override
     public Estudiante getEstudiante(String username) {
         Estudiante estudiante = getEstudianteDao().getEstudiante(username);
+        if(estudiante == null)
+        {  
+            Object[] attributes = WbServiceEspol.loadEstudianteAttributes(username);
+            String autority = "ROLE_ESTUDIANTE";
+            estudiante = new Estudiante(getRoleUserBo().getRoleUser(autority),false);
+            estudiante.setMatricula((String)attributes[0]);
+            estudiante.setCedula((String)attributes[1]);
+            estudiante.setUsername(username);
+            estudiante.setDireccion((String)attributes[2]);
+            estudiante.setEstadocivil((String)attributes[3]);
+            estudiante.setTelefono((String)attributes[4]);
+            this.addEstudiante(estudiante);
+            estudiante = getEstudianteDao().getEstudiante(username);
+        }
+        
         return estudiante;
     }
 

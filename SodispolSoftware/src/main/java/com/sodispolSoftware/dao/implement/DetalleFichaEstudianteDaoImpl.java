@@ -10,7 +10,8 @@ import com.sodispolSoftware.dao.DetalleFichaEstudianteDao;
 import com.sodispolSoftware.model.Detallefichaestudiante;
 import com.sodispolSoftware.model.Estudiante;
 import java.util.ArrayList;
-import org.springframework.dao.DataAccessException;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
@@ -25,17 +26,42 @@ public class DetalleFichaEstudianteDaoImpl extends HibernateDaoSupport implement
     }
 
     @Override
-    public ArrayList<Object[]> getObservaciones(Estudiante estudiante) {
+    public ArrayList<Object[]> getObservaciones(Estudiante estudiante,int firstResult,int maxResult) {
+        Session session = getHibernateTemplate().getSessionFactory().openSession();
         try{
-            Object[] paramsObservaciones = new Object[]{estudiante,false};
-            
-            //ArrayList<Object[]> consulta = (ArrayList<Object[]>)getHibernateTemplate().find("select d.fecha,d.observaciones from Detallefichaestudiante d inner join d.fichamedicaestudiante f where f.estudiante= ? and d.estadoborrado = ? order by 1 desc",paramsObservaciones); 
-            ArrayList<Object[]> consulta = (ArrayList<Object[]>)getHibernateTemplate().find("select d.fecha,d.observaciones from Detallefichaestudiante d  where d.fichamedicaestudiante.estudiante= ? and d.estadoborrado = ? order by 1 desc",paramsObservaciones); 
-            
+            /*Object[] paramsObservaciones = new Object[]{estudiante,false};
+            ArrayList<Object[]> consulta = (ArrayList<Object[]>)getHibernateTemplate().find("select d.fecha,d.observaciones,doc.username from Detallefichaestudiante d join d.doctor as doc where d.fichamedicaestudiante.estudiante= ? and d.estadoborrado = ? order by 1 desc",paramsObservaciones); 
+            */
+            session.beginTransaction();
+            Query query = session.createQuery("select d.fecha,d.observaciones,doc.username from Detallefichaestudiante d join d.doctor as doc where d.fichamedicaestudiante.estudiante= :estudiante and d.estadoborrado = :estado order by 1 desc");
+            query.setParameter("estudiante",estudiante); 
+            query.setParameter("estado",false);
+            query.setMaxResults(maxResult);
+            query.setFirstResult(maxResult * (firstResult-1));
+            ArrayList<Object[]> consulta = (ArrayList<Object[]>)query.list();
+            session.beginTransaction().commit();
+            session.close();
+            //ArrayList<Object[]> consulta = new ArrayList<Object[]>();
             return consulta;
         }
-        catch(DataAccessException ex){
+        catch(IndexOutOfBoundsException ex){
             return null;
+        }
+    }
+
+    @Override
+    public long getNumObservaciones(Estudiante estudiante) {
+        try
+        {
+            Object[] paramsDoctor = new Object[]{estudiante,false};
+            
+            long numero = (Long)getHibernateTemplate().find("select count(d) from Detallefichaestudiante d where d.fichamedicaestudiante.estudiante= ? and d.estadoborrado = ?",paramsDoctor).get(0); 
+            
+            return numero;
+        }
+        catch(IndexOutOfBoundsException ex)
+        {
+            return 0;
         }
     }
     

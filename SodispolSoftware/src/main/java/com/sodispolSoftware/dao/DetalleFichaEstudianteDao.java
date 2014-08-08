@@ -16,5 +16,6 @@ import java.util.ArrayList;
  */
 public interface DetalleFichaEstudianteDao {
     public void addDetalleFicha(Detallefichaestudiante detalleFicha);
-    public ArrayList<Object[]> getObservaciones(Estudiante estudiante);
+    public ArrayList<Object[]> getObservaciones(Estudiante estudiante,int firstResult,int maxResult);
+    public long getNumObservaciones(Estudiante estudiante);
 }

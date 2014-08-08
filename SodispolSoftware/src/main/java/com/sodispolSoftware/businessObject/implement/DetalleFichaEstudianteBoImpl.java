@@ -11,6 +11,7 @@ import com.sodispolSoftware.dao.DetalleFichaEstudianteDao;
 import com.sodispolSoftware.model.Detallefichaestudiante;
 import com.sodispolSoftware.model.Estudiante;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.springframework.context.annotation.Scope;
@@ -32,8 +33,17 @@ public class DetalleFichaEstudianteBoImpl implements DetalleFichaEstudianteBo{
     }
     
     @Override
-    public ArrayList<Object[]> getObservaciones(Estudiante estudiante) {
-        return getDetalleFichaEstudianteDao().getObservaciones(estudiante);
+    public ArrayList<Object[]> getObservaciones(Estudiante estudiante,int firstResult,int maxResult) {
+        ArrayList<Object[]> observaciones = getDetalleFichaEstudianteDao().getObservaciones(estudiante,firstResult,maxResult);
+        for (Object[] object : observaciones) {
+            object[0] = ((Calendar)object[0]).get(Calendar.DAY_OF_MONTH) + "/" +(((Calendar)object[0]).get(Calendar.MONTH)+1)+ "/" +((Calendar)object[0]).get(Calendar.YEAR) ;       
+        }
+        return observaciones;
+    }
+    
+    @Override
+    public long getNumObservaciones(Estudiante estudiante) {
+        return getDetalleFichaEstudianteDao().getNumObservaciones(estudiante);
     }
 
     /**
@@ -53,9 +63,5 @@ public class DetalleFichaEstudianteBoImpl implements DetalleFichaEstudianteBo{
     public void setDetalleFichaEstudianteDao(DetalleFichaEstudianteDao detalleFichaEstudianteDao) {
         this.detalleFichaEstudianteDao = detalleFichaEstudianteDao;
     }
-
-    
-
-    
-    
+   
 }

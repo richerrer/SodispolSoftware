@@ -63,6 +63,28 @@ public class FichaEstudianteBean {
 
     private ArrayList<Object[]> observacionesAnteriores;
     
+    private long numButtons = 1;
+    
+    private final int paginacion = 15;
+
+    /**
+     * Get the value of numButtons
+     *
+     * @return the value of numButtons
+     */
+    public long getNumButtons() {
+        return numButtons;
+    }
+
+    /**
+     * Set the value of numButtons
+     *
+     * @param numButtons new value of numButtons
+     */
+    public void setNumButtons(long numButtons) {
+        this.numButtons = numButtons;
+    }
+
     /**
      * Constructor del bean, el cual se encarga de obtener al Estudiante según
      * su matrícula o cédula, los cuales dependen del tipo de busqueda
@@ -81,7 +103,8 @@ public class FichaEstudianteBean {
             setEstudiante(getEstudianteBo().getEstudianteByCedula(getParamBusqueda()));
         }
         setFichaMedica(getEstudianteBo().getFichaMedica(getEstudiante()));
-        setObservacionesAnteriores(getDoctorBo().getObservaciones(getEstudiante()));
+        getNumObservaciones();
+        setObservacionesAnteriores(getDoctorBo().getObservaciones(getEstudiante(),1,paginacion));
 
     }
     
@@ -143,6 +166,19 @@ public class FichaEstudianteBean {
         /*d.setEstatura(estatura);
          d.setFichamedicaestudiante(getFichaMedica());*/
         getDoctorBo().saveDetalleFichaEstudiante(detalle);
+    }
+    
+    public void getNumObservaciones(){
+        long num = getDoctorBo().getNumObservaciones(getEstudiante());
+        if((num%paginacion)==0){
+            setNumButtons(num /paginacion);
+        }else{
+            setNumButtons((int)(num/paginacion)+1);
+        }
+    }
+    
+    public void paginarObservacionesAnteriores(int firstResult){
+        setObservacionesAnteriores(getDoctorBo().getObservaciones(getEstudiante(),firstResult,paginacion));
     }
 
     public ArrayList<Object[]> getObservacionesAnteriores() {

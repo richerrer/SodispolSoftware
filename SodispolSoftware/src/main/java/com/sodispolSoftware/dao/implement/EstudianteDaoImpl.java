@@ -26,7 +26,7 @@ public class EstudianteDaoImpl extends HibernateDaoSupport implements Estudiante
             loadDataFromWebService(estudiante,attributes);
             return estudiante;
         }
-        catch(DataAccessException ex)
+        catch(IndexOutOfBoundsException ex)//Cuando no se encuentra ningun objeto en la consulta
         {
             return null;
         }
@@ -42,7 +42,7 @@ public class EstudianteDaoImpl extends HibernateDaoSupport implements Estudiante
             loadDataFromWebService(estudiante,attributes);
              return estudiante;
         }
-        catch(DataAccessException ex)
+        catch(IndexOutOfBoundsException ex)//Cuando no se encuentra ningun objeto en la consulta
         {
             return null;
         }
@@ -58,7 +58,7 @@ public class EstudianteDaoImpl extends HibernateDaoSupport implements Estudiante
             loadDataFromWebService(estudiante,attributes);
              return estudiante;
         }
-        catch(DataAccessException ex)
+        catch(IndexOutOfBoundsException ex)//Cuando no se encuentra ningun objeto en la consulta
         {
             return null;
         }

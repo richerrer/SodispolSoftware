@@ -19,5 +19,6 @@ public interface DoctorBo {
     public Doctor getDoctor(String username);
     public void addDoctor(Doctor doctor);
     public void saveDetalleFichaEstudiante(Detallefichaestudiante detalleFicha);
-    public ArrayList<Object[]> getObservaciones(Estudiante estudiante);
+    public ArrayList<Object[]> getObservaciones(Estudiante estudiante,int firstResult,int maxResult);
+    public long getNumObservaciones(Estudiante estudiante);
 }

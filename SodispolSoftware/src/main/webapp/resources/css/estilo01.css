@@ -203,3 +203,6 @@ body{
 .inline_block{
     display: inline-block;
 }
+.paginacion_boton{
+    font-size: xx-small !important;
+}

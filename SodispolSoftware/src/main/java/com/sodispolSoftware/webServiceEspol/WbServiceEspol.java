@@ -60,6 +60,9 @@ public class WbServiceEspol {
         if(matricula.equals("201013448")){
             return new Object[]{"1722904628","raulalmir","Villa Club","Casado","2246570",21,"Ing. en Ciencias Computacionales Orientación Multimedia","Raul","Alberto","Mira","Rodriguez","1 de Enero de 1991 ","resources/images/raul.png"};
         }
+        if(matricula.equals("201011111")){
+            return new Object[]{"0999999999","gabapare","Leonidas Plaza y Oriente","Soltero","2338227",22,"Ing. en Electronica y Telecomunicaciones","Gabriela","Alejandra","Paredes","Torres","1 de Mayo de 1992 ","resources/images/raeul.png"};
+        }
         
         return null;
     }
@@ -69,7 +72,9 @@ public class WbServiceEspol {
         if(cedula.equals("1722904628")){
             return new Object[]{"201013448","raulalmir","Villa Club","Casado","2246570",21,"Ing. en Ciencias Computacionales Orientación Multimedia","Raul","Alberto","Mira","Rodriguez","1 de Enero de 1991 ","resources/images/raul.png"};
         }
-        
+        if(cedula.equals("0999999999")){
+            return new Object[]{"201011111","gabapare","Leonidas Plaza y Oriente","Soltero","2338227",22,"Ing. en Electronica y Telecomunicaciones","Gabriela","Alejandra","Paredes","Torres","1 de Mayo de 1992 ","resources/images/raeul.png"};
+        }
         return null;
     }
     
