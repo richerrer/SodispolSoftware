@@ -27,8 +27,8 @@ public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao{
             ArrayList<Object[]> consulta = (ArrayList<Object[]>)getHibernateTemplate().find("select d.fecha,d.observaciones,doc.username from Detallefichaestudiante d join d.doctor as doc where d.fichamedicaestudiante.estudiante= ? and d.estadoborrado = ? order by 1 desc",paramsObservaciones); 
             */
             session.beginTransaction();
-            Query query = session.createQuery("select c.estudiante, c.estadocita, c.fechareg, c.fechaprog from Citamedica c where c.estadoborrado = :estado order by 1 desc");
-            //query.setParameter("doctor",doctor); 
+            Query query = session.createQuery("select c.estudiante, c.estadocita, c.fechareg, c.fechaprog from Citamedica c where c.doctor = :doctor and c.estadoborrado = :estado order by 1 desc");
+            query.setParameter("doctor",doctor); 
             query.setParameter("estado",false);
             //query.setMaxResults(maxResult);
             //query.setFirstResult(maxResult * (firstResult-1));

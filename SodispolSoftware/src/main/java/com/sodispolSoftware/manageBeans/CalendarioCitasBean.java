@@ -284,11 +284,13 @@ public class CalendarioCitasBean implements Serializable {
         for(Object[] obj : citasConsultadas)
         {
             Estudiante est = (Estudiante) obj[0];
+            String estadoCita = (String) obj[1];
             Calendar fechaReg = (Calendar) obj[2];
             Calendar fechaProg = (Calendar) obj[3];
-            DefaultScheduleEvent ev = new DefaultScheduleEvent(est.getUsername(), fechaReg.getTime(), fechaReg.getTime());
+            DefaultScheduleEvent ev = new DefaultScheduleEvent(est.getUsername(), fechaReg.getTime(), fechaReg.getTime(),estadoCita);
             
             eventModel.addEvent(ev);
         }
+        
     }
 }

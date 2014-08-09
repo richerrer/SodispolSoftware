@@ -206,3 +206,21 @@ body{
 .paginacion_boton{
     font-size: xx-small !important;
 }
+
+.P .fc-event-inner {
+    border-style: solid;
+    border-color: darkorange;
+    background: darkorange;
+}
+
+.C .fc-event-inner {
+    border-style: solid;
+    border-color: #808080;
+    background: #808080;
+    
+}
+.A .fc-event-inner {
+    border-style: solid;
+    border-color: green;
+    background: green;
+}
