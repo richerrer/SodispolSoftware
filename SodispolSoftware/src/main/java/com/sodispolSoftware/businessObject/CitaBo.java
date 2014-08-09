@@ -17,4 +17,5 @@ import java.util.ArrayList;
  */
 public interface CitaBo {
     public ArrayList<Object[]> getCitas(Doctor doctor);
+    public int getncitas();
 }
