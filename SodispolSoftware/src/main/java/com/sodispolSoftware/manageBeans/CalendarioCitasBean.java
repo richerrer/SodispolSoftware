@@ -9,6 +9,7 @@ package com.sodispolSoftware.manageBeans;
 
 import com.sodispolSoftware.businessObject.CitaBo;
 import com.sodispolSoftware.model.Citamedica;
+import com.sodispolSoftware.model.Estudiante;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,18 +37,29 @@ import org.springframework.context.annotation.Scope;
 @Scope("view")
 public class CalendarioCitasBean implements Serializable {
     
-    @Inject
+    
     private CitaBo citaBo;
+    private UsuarioBean usuarioBean;
+    
+    private ArrayList<Object[]> citasConsultadas;
     
     private ScheduleModel eventModel;
     //private ScheduleModel lazyEventModel;
     private ScheduleEvent event = new DefaultScheduleEvent();
-            
+    
+    @Inject       
+    public CalendarioCitasBean(CitaBo citaBo,UsuarioBean usuarioBean)
+    {
+        setUsuarioBean(usuarioBean);
+        setCitaBo(citaBo);
+        setCitasConsultadas(getCitaBo().getCitas(getUsuarioBean().getDoctor()));
+    }
+    
     @PostConstruct
     public void init(){
         eventModel = new DefaultScheduleModel();
         
-        //loadCitas();
+        loadCitas();
         //eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm()));
         //eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today6Pm()));
         //eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", nextDay9Am(), nextDay11Am()));
@@ -221,6 +233,30 @@ public class CalendarioCitasBean implements Serializable {
     private void addMessage(FacesMessage message) {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
+
+    public CitaBo getCitaBo() {
+        return citaBo;
+    }
+
+    public void setCitaBo(CitaBo citaBo) {
+        this.citaBo = citaBo;
+    }
+
+    public UsuarioBean getUsuarioBean() {
+        return usuarioBean;
+    }
+
+    public void setUsuarioBean(UsuarioBean usuarioBean) {
+        this.usuarioBean = usuarioBean;
+    }
+
+    public ArrayList<Object[]> getCitasConsultadas() {
+        return citasConsultadas;
+    }
+
+    public void setCitasConsultadas(ArrayList<Object[]> citasConsultadas) {
+        this.citasConsultadas = citasConsultadas;
+    }
     
     
     /*@
@@ -242,16 +278,17 @@ public class CalendarioCitasBean implements Serializable {
         
         return t.getTime();
     }
-    /*
+    
     public void loadCitas()
     {
-        ArrayList<Citamedica> citas;
-        
-        citas=citaBo.getCitas();
-        
-        for(Citamedica c : citas)
+        for(Object[] obj : citasConsultadas)
         {
+            Estudiante est = (Estudiante) obj[0];
+            Calendar fechaReg = (Calendar) obj[2];
+            Calendar fechaProg = (Calendar) obj[3];
+            DefaultScheduleEvent ev = new DefaultScheduleEvent(est.getUsername(), fechaReg.getTime(), fechaReg.getTime());
             
+            eventModel.addEvent(ev);
         }
-    }*/
+    }
 }

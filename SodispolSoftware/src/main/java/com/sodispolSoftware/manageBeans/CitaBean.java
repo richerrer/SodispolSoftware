@@ -21,10 +21,10 @@ import org.springframework.context.annotation.Scope;
 @Scope("view")
 public class CitaBean {
     
-    @Inject
+    //Inject
     private CitaBo citaBo;
     
-    @Inject
+    //@Inject
     private UsuarioBean usuarioBean;
     
     private ArrayList<Object[]> citas;
@@ -33,6 +33,16 @@ public class CitaBean {
     private Object[] o;
     private int num=-2;
 
+    @Inject
+    public CitaBean(CitaBo citaBo,UsuarioBean usuarioBean)
+    {
+        setUsuarioBean(usuarioBean);
+        setCitaBo(citaBo);
+        //setNcita(getUsuarioBean().getDoctor().getCitamedicas().iterator().next().getFechareg().toString());
+        //setNcita(getUsuarioBean().getDoctor().getApellido1());
+        //setO(nnams2());
+        setNcita((String) nnams2()[0]);
+    }
     
     public String getNcita() {
         return ncita;
@@ -90,12 +100,21 @@ public class CitaBean {
         this.num = num;
     }
     
-    public void nnams()
+    public String nnams()
     {
         ArrayList<Object[]> citasM;
         //citasM = getCitaBo().getCitas(getUsuarioBean().getDoctor());
         //setO(citasM.get(0));
         setNum(getCitaBo().getncitas());
+        
+        return "";
+    } 
+    
+    public Object[] nnams2()
+    {
+        ArrayList<Object[]> citasM;
+        citasM = getCitaBo().getCitas(getUsuarioBean().getDoctor());
+        return citasM.get(0);
     } 
            
 }
