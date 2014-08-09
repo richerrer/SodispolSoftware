@@ -44,5 +44,10 @@ public class CitaBoImpl implements CitaBo{
         return getCitaDao().getCitas(doctor);
     }
 
+    @Override
+    public int getncitas() {
+        return getCitaDao().getncitas();
+    }
+
    
 }

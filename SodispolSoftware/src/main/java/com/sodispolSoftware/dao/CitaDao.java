@@ -16,4 +16,5 @@ import java.util.ArrayList;
  */
 public interface CitaDao {
     public ArrayList<Object[]> getCitas(Doctor doctor);
+    public int getncitas();
 }

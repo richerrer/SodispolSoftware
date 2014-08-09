@@ -20,13 +20,26 @@ public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao{
     @Override
     public ArrayList<Object[]> getCitas(Doctor doctor) {
         try{
-            Object[] paramsCitas = new Object[]{doctor,false};
-            ArrayList<Object[]> consulta = (ArrayList<Object[]>)getHibernateTemplate().find("select c.estadocita from Citamedica c where c.doctor = ? and c.estadoborrado = ?",paramsCitas); 
-            
+            Object[] paramsCitas = new Object[]{false};
+            ArrayList<Object[]> consulta = (ArrayList<Object[]>)getHibernateTemplate().find("select c.estadocita from Citamedica c where c.estadoborrado = ? order by 1 desc",paramsCitas); 
+            System.out.println(consulta.size());
             return consulta;
         }
-        catch(Exception ex){
+        catch(DataAccessException ex){
             return null;
+        }
+    }
+
+    @Override
+    public int getncitas() {
+        try{
+            Object[] paramsCitas = new Object[]{false};
+            ArrayList<Object[]> consulta = (ArrayList<Object[]>)getHibernateTemplate().find("select c.estadocita from Citamedica c where c.estadoborrado = ? order by 1 desc",paramsCitas); 
+            int nconsul = consulta.size();
+            return nconsul;
+        }
+        catch(DataAccessException ex){
+            return -1;
         }
     }
 
