@@ -3,6 +3,7 @@ package com.sodispolSoftware.dao.implement;
 
 import com.sodispolSoftware.dao.CitaDao;
 import com.sodispolSoftware.dao.EstudianteDao;
+import com.sodispolSoftware.model.Citamedica;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Roleuser;
@@ -23,19 +24,13 @@ public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao{
     public ArrayList<Object[]> getCitas(Doctor doctor) {
         Session session = getHibernateTemplate().getSessionFactory().openSession();
         try{
-            /*Object[] paramsObservaciones = new Object[]{estudiante,false};
-            ArrayList<Object[]> consulta = (ArrayList<Object[]>)getHibernateTemplate().find("select d.fecha,d.observaciones,doc.username from Detallefichaestudiante d join d.doctor as doc where d.fichamedicaestudiante.estudiante= ? and d.estadoborrado = ? order by 1 desc",paramsObservaciones); 
-            */
             session.beginTransaction();
-            Query query = session.createQuery("select c.estudiante, c.estadocita, c.fechareg, c.fechaprog from Citamedica c where c.doctor = :doctor and c.estadoborrado = :estado order by 1 desc");
+            Query query = session.createQuery("select c.estudiante, c.estadocita, c.fechareg, c.fechaprog, c.idcita from Citamedica c where c.doctor = :doctor and c.estadoborrado = :estado order by 1 desc");
             query.setParameter("doctor",doctor); 
             query.setParameter("estado",false);
-            //query.setMaxResults(maxResult);
-            //query.setFirstResult(maxResult * (firstResult-1));
             ArrayList<Object[]> consulta = (ArrayList<Object[]>)query.list();
             session.beginTransaction().commit();
             session.close();
-            //ArrayList<Object[]> consulta = new ArrayList<Object[]>();
             return consulta;
         }
         catch(IndexOutOfBoundsException ex){
@@ -67,6 +62,11 @@ public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao{
         catch(DataAccessException ex){
             return -1;
         }
+    }
+
+    @Override
+    public void updateCita(Citamedica cita) {
+        getHibernateTemplate().saveOrUpdate(cita);
     }
 
      

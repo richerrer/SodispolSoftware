@@ -6,6 +6,7 @@
 
 package com.sodispolSoftware.dao;
 
+import com.sodispolSoftware.model.Citamedica;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
 import java.util.ArrayList;
@@ -16,5 +17,6 @@ import java.util.ArrayList;
  */
 public interface CitaDao {
     public ArrayList<Object[]> getCitas(Doctor doctor);
+    public void updateCita(Citamedica cita);
     public int getncitas();
 }

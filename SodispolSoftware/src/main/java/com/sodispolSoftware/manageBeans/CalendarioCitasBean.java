@@ -41,7 +41,8 @@ public class CalendarioCitasBean implements Serializable {
     private CitaBo citaBo;
     private UsuarioBean usuarioBean;
     
-    private ArrayList<Object[]> citasConsultadas;
+    private ArrayList<Object[]> consultaCitas;
+    private ArrayList<Citamedica> citasCargadas=new ArrayList<Citamedica>();
     
     private ScheduleModel eventModel;
     //private ScheduleModel lazyEventModel;
@@ -52,43 +53,13 @@ public class CalendarioCitasBean implements Serializable {
     {
         setUsuarioBean(usuarioBean);
         setCitaBo(citaBo);
-        setCitasConsultadas(getCitaBo().getCitas(getUsuarioBean().getDoctor()));
+        setConsultaCitas(getCitaBo().getCitas(getUsuarioBean().getDoctor()));
     }
     
     @PostConstruct
     public void init(){
-        eventModel = new DefaultScheduleModel();
-        
-        loadCitas();
-        //eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm()));
-        //eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today6Pm()));
-        //eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", nextDay9Am(), nextDay11Am()));
-        //eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", theDayAfter3Pm(), fourDaysLater3pm()));
-        //eventModel.addEvent(new DefaultScheduleEvent("Hola", newFechayHora(21, 6, 2014, 3, 20, 0), newFechayHora(21, 6, 2014, 4, 20, 1)));
-        
-        //ArrayList<DefaultScheduleEvent> eventos = new ArrayList<DefaultScheduleEvent>();
-        
-        //eventos.add(new DefaultScheduleEvent("Jose Romero", newFechayHora(21, 8, 2014, 3, 20, 1), newFechayHora(21, 8, 2014, 4, 20, 1)));
-        //eventos.add(new DefaultScheduleEvent("Raul Mira", newFechayHora(22, 8, 2014, 9, 40, 0), newFechayHora(22, 8, 2014, 10, 40, 0)));
-        //eventos.add(new DefaultScheduleEvent("Ricardo Maya", newFechayHora(21, 8, 2014, 6, 20, 1), newFechayHora(21, 8, 2014, 7, 20, 1)));
-        //eventos.add(new DefaultScheduleEvent("Jose Romero", newFechayHora(25, 8, 2014, 3, 20, 1), newFechayHora(25, 8, 2014, 4, 20, 1)));
-        
-        //for(DefaultScheduleEvent e: eventos)
-        //{
-        //    eventModel.addEvent(e);
-        //}
-        
-        /*lazyEventModel = new LazyScheduleModel() {
-            
-            @Override
-            public void loadEvents(Date start, Date end){
-                Date random = getRandomDate(start);
-                addEvent(new DefaultScheduleEvent("Lazy Event 1", random, random));
-                
-                random = getRandomDate(start);
-                addEvent(new DefaultScheduleEvent("Lazy Event 2", random, random));
-            }
-        };*/
+        eventModel = new DefaultScheduleModel();        
+        loadCitas();        
     }
     
     public Date getRandomDate(Date base) {
@@ -211,11 +182,12 @@ public class CalendarioCitasBean implements Serializable {
     
     public void onEventSelect(SelectEvent selectEvent) {
         event = (ScheduleEvent) selectEvent.getObject();
+        redirect.Redireccionar.redirect("citas.xhtml?ID="+event.getId());
     }
     
     public void onDateSelect(SelectEvent selectEvent) {
         //event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
-        redirect.Redireccionar.redirect("citas.xhtml");
+        redirect.Redireccionar.redirect("citas.xhtml?ID=787");
     }
     
     public void onEventMove(ScheduleEntryMoveEvent event) {
@@ -250,14 +222,14 @@ public class CalendarioCitasBean implements Serializable {
         this.usuarioBean = usuarioBean;
     }
 
-    public ArrayList<Object[]> getCitasConsultadas() {
-        return citasConsultadas;
+    public ArrayList<Object[]> getConsultaCitas() {
+        return consultaCitas;
     }
 
-    public void setCitasConsultadas(ArrayList<Object[]> citasConsultadas) {
-        this.citasConsultadas = citasConsultadas;
+    public void setConsultaCitas(ArrayList<Object[]> consultaCitas) {
+        this.consultaCitas = consultaCitas;
     }
-    
+
     
     /*@
     @requires 1 <= dia && dia <= 31;
@@ -281,16 +253,37 @@ public class CalendarioCitasBean implements Serializable {
     
     public void loadCitas()
     {
-        for(Object[] obj : citasConsultadas)
+        for(Object[] obj : consultaCitas)
         {
             Estudiante est = (Estudiante) obj[0];
             String estadoCita = (String) obj[1];
             Calendar fechaReg = (Calendar) obj[2];
             Calendar fechaProg = (Calendar) obj[3];
-            DefaultScheduleEvent ev = new DefaultScheduleEvent(est.getUsername(), fechaReg.getTime(), fechaReg.getTime(),estadoCita);
+            Long citaId = (Long) obj[4];
+            //String prueba = (String) obj[1];
+            DefaultScheduleEvent ev = new DefaultScheduleEvent("  ID:"+citaId+", Paciente:"+est.getUsername(), fechaReg.getTime(), fechaReg.getTime(),estadoCita);
+            
+            //ev.setId(prueba);
+            citasCargadas.add(new Citamedica(citaId.longValue(), est, getUsuarioBean().getDoctor(), fechaReg, fechaProg));
             
             eventModel.addEvent(ev);
         }
         
+    }
+    
+    public Citamedica getCitaSeleccionada(long id)
+    {
+        for(Citamedica cmd : citasCargadas)
+        {
+            if(cmd.getIdcita()==id)
+                return cmd;
+        }
+        return null;
+    }
+    
+    public void guardarModificacion(ActionEvent actionEvent)
+    {
+        long idCitaSeleccionada = Long.valueOf(event.getTitle().substring(5, (event.getTitle().lastIndexOf(","))-1));
+        getCitaBo().updateCita(getCitaSeleccionada(idCitaSeleccionada));
     }
 }

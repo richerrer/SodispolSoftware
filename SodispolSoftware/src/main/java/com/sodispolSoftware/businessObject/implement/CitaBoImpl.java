@@ -6,6 +6,7 @@ import com.sodispolSoftware.businessObject.FichaMedicaEstudianteBo;
 import com.sodispolSoftware.businessObject.RoleUserBo;
 import com.sodispolSoftware.dao.CitaDao;
 import com.sodispolSoftware.dao.EstudianteDao;
+import com.sodispolSoftware.model.Citamedica;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Fichamedicaestudiante;
@@ -47,6 +48,11 @@ public class CitaBoImpl implements CitaBo{
     @Override
     public int getncitas() {
         return getCitaDao().getncitas();
+    }
+
+    @Override
+    public void updateCita(Citamedica cita) {
+        getCitaDao().updateCita(cita);
     }
 
    

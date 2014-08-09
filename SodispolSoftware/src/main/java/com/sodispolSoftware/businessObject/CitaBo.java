@@ -6,6 +6,7 @@
 
 package com.sodispolSoftware.businessObject;
 
+import com.sodispolSoftware.model.Citamedica;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Fichamedicaestudiante;
@@ -17,5 +18,6 @@ import java.util.ArrayList;
  */
 public interface CitaBo {
     public ArrayList<Object[]> getCitas(Doctor doctor);
+    public void updateCita(Citamedica cita);
     public int getncitas();
 }
