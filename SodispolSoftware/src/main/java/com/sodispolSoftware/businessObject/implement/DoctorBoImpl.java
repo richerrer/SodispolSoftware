@@ -131,10 +131,16 @@ public class DoctorBoImpl implements DoctorBo{
         }
         return observaciones;
     }
+    
+    @Override
+    public ArrayList<Detallefichaestudiante> getDetallesFicha(Estudiante estudiante, int firstResult, int maxResult) {
+        return getDetalleFichaEstudianteBo().getDetallesFicha(estudiante, firstResult, maxResult);
+    }
 
     @Override
     public long getNumObservaciones(Estudiante estudiante) {
         return getDetalleFichaEstudianteBo().getNumObservaciones(estudiante);
     }
+
     
 }

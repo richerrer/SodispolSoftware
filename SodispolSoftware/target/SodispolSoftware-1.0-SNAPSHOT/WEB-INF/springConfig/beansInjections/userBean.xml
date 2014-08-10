@@ -1,31 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
     
-        <bean id="doctorDao" class="com.sodispolSoftware.dao.implement.DoctorDaoImpl" >
-            <property name="sessionFactory" ref="sessionFactory" />
-        </bean>
+    <bean id="doctorDao" class="com.sodispolSoftware.dao.implement.DoctorDaoImpl" scope="prototype">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
         
-        <bean id="roleUserDao" class="com.sodispolSoftware.dao.implement.RoleUserDaoImpl" >
-            <property name="sessionFactory" ref="sessionFactory" />
-        </bean>
+    <bean id="roleUserDao" class="com.sodispolSoftware.dao.implement.RoleUserDaoImpl" scope="prototype">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
         
-        <bean id="estudianteDao" class="com.sodispolSoftware.dao.implement.EstudianteDaoImpl" >
-            <property name="sessionFactory" ref="sessionFactory" />
-        </bean>
-		
-		<bean id="medicinaDao" class="com.sodispolSoftware.dao.implement.MedicinaDaoImpl" >
-            <property name="sessionFactory" ref="sessionFactory" />
-        </bean>
+    <bean id="estudianteDao" class="com.sodispolSoftware.dao.implement.EstudianteDaoImpl" scope="prototype">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
         
-        <bean id="fichaMedicaEstudianteDao" class="com.sodispolSoftware.dao.implement.FichaMedicaEstudianteDaoImpl" >
-            <property name="sessionFactory" ref="sessionFactory" />
-        </bean>
+    <bean id="fichaMedicaEstudianteDao" class="com.sodispolSoftware.dao.implement.FichaMedicaEstudianteDaoImpl" scope="prototype">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
         
-        <bean id="detalleFichaEstudianteDao" class="com.sodispolSoftware.dao.implement.DetalleFichaEstudianteDaoImpl" >
-            <property name="sessionFactory" ref="sessionFactory" />
-        </bean>
+    <bean id="detalleFichaEstudianteDao" class="com.sodispolSoftware.dao.implement.DetalleFichaEstudianteDaoImpl" scope="prototype">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
     
+    <bean id="CitaDao" class="com.sodispolSoftware.dao.implement.CitaDaoImpl" scope="prototype">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="medicinaDao" class="com.sodispolSoftware.dao.implement.MedicinaDaoImpl" scope="prototype">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
 </beans>

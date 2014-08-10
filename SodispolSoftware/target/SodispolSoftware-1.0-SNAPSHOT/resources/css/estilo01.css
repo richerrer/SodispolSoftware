@@ -204,7 +204,9 @@ body{
     display: inline-block;
 }
 .paginacion_boton{
-    font-size: xx-small !important;
+    font-size: x-small !important;
+    margin-left: 0.5em;
+    margin-top: 0.5em;
 }
 
 .P .fc-event-inner {

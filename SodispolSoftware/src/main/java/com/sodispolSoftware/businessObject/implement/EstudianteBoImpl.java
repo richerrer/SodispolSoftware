@@ -1,9 +1,11 @@
 package com.sodispolSoftware.businessObject.implement;
 
+import com.sodispolSoftware.businessObject.DetalleFichaEstudianteBo;
 import com.sodispolSoftware.businessObject.EstudianteBo;
 import com.sodispolSoftware.businessObject.FichaMedicaEstudianteBo;
 import com.sodispolSoftware.businessObject.RoleUserBo;
 import com.sodispolSoftware.dao.EstudianteDao;
+import com.sodispolSoftware.model.Detallefichaestudiante;
 import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Fichamedicaestudiante;
 import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
@@ -31,7 +33,28 @@ public class EstudianteBoImpl implements EstudianteBo{
     @Inject
     private FichaMedicaEstudianteBo fichaMedicaEstudianteBo;
     
-     /**
+    @Inject
+    private DetalleFichaEstudianteBo detalleFichaEstudianteBo;
+     
+    /**
+     * Get the value of detalleFichaEstudianteBo
+     *
+     * @return the value of detalleFichaEstudianteBo
+     */
+    public DetalleFichaEstudianteBo getDetalleFichaEstudianteBo() {
+        return detalleFichaEstudianteBo;
+    }
+
+    /**
+     * Set the value of detalleFichaEstudianteBo
+     *
+     * @param detalleFichaEstudianteBo new value of detalleFichaEstudianteBo
+     */
+    public void setDetalleFichaEstudianteBo(DetalleFichaEstudianteBo detalleFichaEstudianteBo) {
+        this.detalleFichaEstudianteBo = detalleFichaEstudianteBo;
+    }
+
+    /**
      * Get the value of fichaMedicaEstudianteBo
      *
      * @return the value of fichaMedicaEstudianteBo
@@ -99,15 +122,9 @@ public class EstudianteBoImpl implements EstudianteBo{
         Estudiante estudiante = getEstudianteDao().getEstudiante(username);
         if(estudiante == null)
         {  
-            Object[] attributes = WbServiceEspol.loadEstudianteAttributes(username);
             String autority = "ROLE_ESTUDIANTE";
             estudiante = new Estudiante(getRoleUserBo().getRoleUser(autority),false);
-            estudiante.setMatricula((String)attributes[0]);
-            estudiante.setCedula((String)attributes[1]);
-            estudiante.setUsername(username);
-            estudiante.setDireccion((String)attributes[2]);
-            estudiante.setEstadocivil((String)attributes[3]);
-            estudiante.setTelefono((String)attributes[4]);
+            WbServiceEspol.setDataEstudianteByUsernameFromWebService(estudiante, username);
             this.addEstudiante(estudiante);
             estudiante = getEstudianteDao().getEstudiante(username);
         }
@@ -126,27 +143,21 @@ public class EstudianteBoImpl implements EstudianteBo{
      */
     @Override
     public Estudiante getEstudianteByMatricula(String matricula) {
-        Object[] attributes = WbServiceEspol.loadEstudinateAttributesByMatricula(matricula);
         
         /*No se encuentra esa matrícula en la base de Espol*/
-        if(attributes==null){
+        if(!WbServiceEspol.verifyMatricula(matricula)){
             return null;
         }
         
-        Estudiante estudiante = getEstudianteDao().getEstudianteByMatricula(matricula,attributes);
+        Estudiante estudiante = getEstudianteDao().getEstudianteByMatricula(matricula);
         
         /*Si el estudiante no se encuentra en nuestra base de datos*/
         if(estudiante==null){
             String autority = "ROLE_ESTUDIANTE";
             estudiante = new Estudiante(getRoleUserBo().getRoleUser(autority),false);
-            estudiante.setMatricula(matricula);
-            estudiante.setCedula((String)attributes[0]);
-            estudiante.setUsername((String)attributes[1]);
-            estudiante.setDireccion((String)attributes[2]);
-            estudiante.setEstadocivil((String)attributes[3]);
-            estudiante.setTelefono((String)attributes[4]);
+            WbServiceEspol.setDataEstudianteByMatriculaFromWebService(estudiante, matricula);
             this.addEstudiante(estudiante);
-            estudiante = getEstudianteDao().getEstudianteByMatricula(matricula,attributes);
+            estudiante = getEstudianteDao().getEstudianteByMatricula(matricula);
         }
         return estudiante;
     }
@@ -162,27 +173,21 @@ public class EstudianteBoImpl implements EstudianteBo{
      */
     @Override
     public Estudiante getEstudianteByCedula(String cedula) {
-        Object[] attributes = WbServiceEspol.loadEstudinateAttributesByCedula(cedula);
         
         /*No se encuentra esa matrícula en la base de Espol*/
-        if(attributes==null){
+        if(!WbServiceEspol.verifyCedula(cedula)){
             return null;
         }
         
-        Estudiante estudiante = getEstudianteDao().getEstudianteByCedula(cedula,attributes);
+        Estudiante estudiante = getEstudianteDao().getEstudianteByCedula(cedula);
         
         /*Si el estudiante no se encuentra en nuestra base de datos*/
         if(estudiante==null){
             String autority = "ROLE_ESTUDIANTE";
             estudiante = new Estudiante(getRoleUserBo().getRoleUser(autority),false);
-            estudiante.setCedula(cedula);
-            estudiante.setMatricula((String)attributes[0]);
-            estudiante.setUsername((String)attributes[1]);
-            estudiante.setDireccion((String)attributes[2]);
-            estudiante.setEstadocivil((String)attributes[3]);
-            estudiante.setTelefono((String)attributes[4]);
+            WbServiceEspol.setDataEstudianteByCedulaFromWebService(estudiante, cedula);
             this.addEstudiante(estudiante);
-            estudiante = getEstudianteDao().getEstudianteByCedula(cedula,attributes);
+            estudiante = getEstudianteDao().getEstudianteByCedula(cedula);
         }
         return estudiante;
     }
@@ -246,6 +251,11 @@ public class EstudianteBoImpl implements EstudianteBo{
     public void updateFichaMedica(Estudiante estudiante, Fichamedicaestudiante ficha) {
         ficha.setEstudiante(estudiante);
         getFichaMedicaEstudianteBo().updateFicha(ficha);
+    }
+    
+    @Override
+    public Detallefichaestudiante getDetalleFichaEstudiante(long idDetalle,Estudiante estudiante) {
+        return getDetalleFichaEstudianteBo().getDetalleFichaEstudiante(idDetalle,estudiante);
     }
   
 }

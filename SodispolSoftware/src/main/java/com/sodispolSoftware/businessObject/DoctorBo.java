@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.sodispolSoftware.businessObject;
 
 import com.sodispolSoftware.model.Detallefichaestudiante;
@@ -16,9 +15,17 @@ import java.util.ArrayList;
  * @author usuario
  */
 public interface DoctorBo {
+
     public Doctor getDoctor(String username);
+
     public void addDoctor(Doctor doctor);
+
     public void saveDetalleFichaEstudiante(Detallefichaestudiante detalleFicha);
-    public ArrayList<Object[]> getObservaciones(Estudiante estudiante,int firstResult,int maxResult);
+
+    public ArrayList<Object[]> getObservaciones(Estudiante estudiante, int firstResult, int maxResult);
+
+    public ArrayList<Detallefichaestudiante> getDetallesFicha(Estudiante estudiante, int firstResult, int maxResult);
+
     public long getNumObservaciones(Estudiante estudiante);
+    
 }

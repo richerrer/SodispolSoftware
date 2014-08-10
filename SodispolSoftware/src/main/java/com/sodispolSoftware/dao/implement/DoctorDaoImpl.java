@@ -27,10 +27,10 @@ public class DoctorDaoImpl extends HibernateDaoSupport implements DoctorDao{
             
             Doctor doctor = (Doctor)getHibernateTemplate().find("from Doctor d where d.username= ? and estadoborrado = ?",paramsDoctor).get(0); 
             doctor.setRoleuser((Roleuser)getHibernateTemplate().get(Roleuser.class, doctor.getRoleuser().getIdroleuser()));
-            loadDataFromWebService(doctor);
+            WbServiceEspol.loadDataDoctorFromWebService(doctor);
             return doctor;
         }
-        catch(IndexOutOfBoundsException ex)//Cuando no se encuentra ningun objeto en la consulta
+        catch(Exception ex)//Cuando no se encuentra ningun objeto en la consulta
         {
             return null;
         }
@@ -43,16 +43,7 @@ public class DoctorDaoImpl extends HibernateDaoSupport implements DoctorDao{
         getHibernateTemplate().save(doctor);
     }
     
-    public void loadDataFromWebService(Doctor doctor)
-    {
-        Object[] attributes = WbServiceEspol.loadDoctorAttributes(doctor.getUsername());
-        doctor.setNombre1((String)attributes[0]);
-        doctor.setNombre2((String)attributes[1]);
-        doctor.setApellido1((String)attributes[2]);
-        doctor.setApellido2((String)attributes[3]);
-        doctor.setCorreo((String)attributes[4]);
-        doctor.setEspecializacion((String)attributes[5]);
-    }
+    
     
        
     //username = "r' or d.username like '%";

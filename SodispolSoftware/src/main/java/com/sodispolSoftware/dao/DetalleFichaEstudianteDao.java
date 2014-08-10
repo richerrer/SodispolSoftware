@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.sodispolSoftware.dao;
 
 import com.sodispolSoftware.model.Detallefichaestudiante;
@@ -15,7 +14,14 @@ import java.util.ArrayList;
  * @author Ricardo
  */
 public interface DetalleFichaEstudianteDao {
+
     public void addDetalleFicha(Detallefichaestudiante detalleFicha);
-    public ArrayList<Object[]> getObservaciones(Estudiante estudiante,int firstResult,int maxResult);
+
+    public ArrayList<Object[]> getObservaciones(Estudiante estudiante, int firstResult, int maxResult);
+
+    public ArrayList<Detallefichaestudiante> getDetallesFicha(Estudiante estudiante, int firstResult, int maxResult);
+
     public long getNumObservaciones(Estudiante estudiante);
+
+    public Detallefichaestudiante getDetalleFichaEstudiante(long idDetalle,Estudiante estudiante);
 }

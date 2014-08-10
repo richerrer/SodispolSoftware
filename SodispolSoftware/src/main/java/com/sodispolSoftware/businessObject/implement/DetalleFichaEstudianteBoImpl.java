@@ -42,10 +42,22 @@ public class DetalleFichaEstudianteBoImpl implements DetalleFichaEstudianteBo{
     }
     
     @Override
+    public ArrayList<Detallefichaestudiante> getDetallesFicha(Estudiante estudiante, int firstResult, int maxResult) {
+        return getDetalleFichaEstudianteDao().getDetallesFicha(estudiante, firstResult, maxResult);
+    }
+   
+    
+    @Override
     public long getNumObservaciones(Estudiante estudiante) {
         return getDetalleFichaEstudianteDao().getNumObservaciones(estudiante);
     }
 
+    @Override
+    public Detallefichaestudiante getDetalleFichaEstudiante(long idDetalle,Estudiante estudiante) {
+        return  getDetalleFichaEstudianteDao().getDetalleFichaEstudiante(idDetalle,estudiante);
+    }
+
+    
     /**
      * Get the value of detalleFichaEstudianteDao
      *
@@ -63,5 +75,7 @@ public class DetalleFichaEstudianteBoImpl implements DetalleFichaEstudianteBo{
     public void setDetalleFichaEstudianteDao(DetalleFichaEstudianteDao detalleFichaEstudianteDao) {
         this.detalleFichaEstudianteDao = detalleFichaEstudianteDao;
     }
-   
+
+    
+    
 }

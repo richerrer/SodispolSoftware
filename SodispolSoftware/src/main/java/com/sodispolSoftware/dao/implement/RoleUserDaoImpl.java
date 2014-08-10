@@ -21,7 +21,7 @@ public class RoleUserDaoImpl extends HibernateDaoSupport implements RoleUserDao 
             Object[] paramsRoleUser = new Object[]{descripcion};
             Roleuser roleUser = (Roleuser) getHibernateTemplate().find("from Roleuser r where r.descripcion = ?", paramsRoleUser).get(0);
             return roleUser;
-        } catch (IndexOutOfBoundsException ex)//Cuando no se encuentra ningun objeto en la consulta
+        } catch (Exception ex)//Cuando no se encuentra ningun objeto en la consulta
         {
             return null;
         }

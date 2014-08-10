@@ -7,6 +7,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Scope;
 
 /**
@@ -18,17 +19,81 @@ import org.springframework.context.annotation.Scope;
 @Named
 @Scope("view")
 public class PacienteBean {
-    
+
     @Inject
     private EstudianteBo estudianteBo;
+
+    @Inject
+    private UsuarioBean usuarioBean;
 
     private Estudiante estudiante;
 
     private boolean encontrado = false;
 
     private String paramBusqueda;
-    
+
     private String tipoBusqueda = "matricula";
+
+    /**
+     * Dependiendo del tipo de búsqueda, se busca al Estudiante por matrícula o
+     * cédula.
+     */
+    public void consultar() {
+        setEstudiante(null);
+        if (getTipoBusqueda().equals("matricula")) {
+            setEstudiante(getEstudianteBo().getEstudianteByMatricula(getParamBusqueda()));
+            setEncontrado(getEstudiante() != null);
+        }
+        if (getTipoBusqueda().equals("cedula")) {
+            setEstudiante(getEstudianteBo().getEstudianteByCedula(getParamBusqueda()));
+            setEncontrado(getEstudiante() != null);
+        }
+        getUsuarioBean().setEstudiantePaciente(getEstudiante());
+        HttpServletRequest origRequest = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        origRequest.setAttribute("estudiante", getEstudiante() );
+
+    }
+
+    /**
+     * Dependiendo de si se encontró al estudiante, se añade un tipo de mensaje.
+     *
+     * @param actionEvent
+     */
+    public void buttonAction(ActionEvent actionEvent) {
+        if (isEncontrado()) {
+            addMessage("Si se encontro el paciente " + getEstudiante());
+        } else {
+            addMessage("No se encontro el paciente " + getParamBusqueda());
+        }
+    }
+
+    /**
+     * Se añade el mensaje al objeto growl.
+     *
+     * @param mensaje
+     */
+    public void addMessage(String mensaje) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje, null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    /**
+     * Get the value of usuarioBean
+     *
+     * @return the value of usuarioBean
+     */
+    public UsuarioBean getUsuarioBean() {
+        return usuarioBean;
+    }
+
+    /**
+     * Set the value of usuarioBean
+     *
+     * @param usuarioBean new value of usuarioBean
+     */
+    public void setUsuarioBean(UsuarioBean usuarioBean) {
+        this.usuarioBean = usuarioBean;
+    }
 
     /**
      * Get the value of tipoBusqueda
@@ -47,12 +112,11 @@ public class PacienteBean {
     public void setTipoBusqueda(String tipoBusqueda) {
         this.tipoBusqueda = tipoBusqueda;
     }
-    
 
     /**
      * Get the value of paramBusqueda
      *
-     * @return the value of paramBusqueda 
+     * @return the value of paramBusqueda
      */
     public String getParamBusqueda() {
         return paramBusqueda;
@@ -67,7 +131,6 @@ public class PacienteBean {
         this.paramBusqueda = paramBusqueda;
     }
 
-    
     /**
      * Get the value of encontrado
      *
@@ -122,46 +185,4 @@ public class PacienteBean {
         this.estudianteBo = estudianteBo;
     }
 
-    /**
-     * Dependiendo del tipo de búsqueda, se busca al Estudiante por matrícula o
-     * cédula.
-     */    
-    public void consultar(){
-        setEstudiante(null);
-        if(getTipoBusqueda().equals("matricula"))
-        {
-            setEstudiante(getEstudianteBo().getEstudianteByMatricula(getParamBusqueda()));
-            setEncontrado(getEstudiante()!=null);
-        }
-        if(getTipoBusqueda().equals("cedula"))
-        {
-            setEstudiante(getEstudianteBo().getEstudianteByCedula(getParamBusqueda()));
-            setEncontrado(getEstudiante()!=null);
-        }
-        
-    }
-    /**
-     * Dependiendo de si se encontró al estudiante, se añade un tipo de mensaje.
-     * 
-     * @param actionEvent 
-     */ 
-    public void buttonAction(ActionEvent actionEvent) {
-        if(isEncontrado()){
-            addMessage("Si se encontro el paciente "+getEstudiante());
-        }
-        else{
-            addMessage("No se encontro el paciente "+getParamBusqueda());
-        }
-    }
-    
-    /**
-     * Se añade el mensaje al objeto growl.
-     * 
-     * @param mensaje 
-     */  
-    public void addMessage(String mensaje) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje,  null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
-    
 }

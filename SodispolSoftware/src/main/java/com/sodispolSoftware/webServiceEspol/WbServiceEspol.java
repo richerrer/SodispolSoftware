@@ -3,87 +3,287 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.sodispolSoftware.webServiceEspol;
+
+import com.sodispolSoftware.model.Doctor;
+import com.sodispolSoftware.model.Estudiante;
 
 /**
  *
- * Simula un web service de espol
+ * Simula un web service de espol en donde se le envía el username, y me
+ * devuelve si es un profesional o un estudiante.
  */
 public class WbServiceEspol {
-    
-    public static String getRoleByUsername(String username){
-        if(username.equals("rmaya")){
+
+    public static String getRoleByUsername(String username) {
+        if (username.equals("rmaya")) {
             return "P";//Profesional
         }
-        if(username.equals("joanrome")){
+        if (username.equals("joanrome")) {
             return "P";//Profesional
         }
-        if(username.equals("gabapare")){
-            return "E";//Estudiante
+        if (username.equals("gabapare")) {
+            return "P";//Estudiante
         }
         return null;
     }
     /* Retorna el estado, es deir si esta activo o no*/
-    public static boolean getStateByUsername(String username){
-        if(username.equals("rmaya")){
+
+    public static boolean getStateByUsername(String username) {
+        if (username.equals("rmaya")) {
             return true;//DOCTOR
         }
-        if(username.equals("raulalmir")){
+        if (username.equals("raulalmir")) {
             return true;//ENFERMERO
         }
-        if(username.equals("joanrome")){
+        if (username.equals("joanrome")) {
             return true;//PACIENTE PROFESIONALE
         }
-        if(username.equals("gabapare")){
+        if (username.equals("gabapare")) {
             return true;//PACIENTE ESTUDIANTE
         }
         return false;
     }
-    
-    public static Object[] loadDoctorAttributes(String username)
-    {
-        if(username.equals("rmaya")){
-            return new Object[]{"ricardo","david","maya","herrera","rmaya@espol.edu.ec","Cardiologo"};
+
+    public static Object[] loadDoctorAttributes(String username) {
+        if (username.equals("rmaya")) {
+            return new Object[]{"ricardo", "david", "maya", "herrera", "rmaya@espol.edu.ec", "Cardiologo"};
         }
-        /*if(username.equals("gabapare")){
-            return new Object[]{"gaby","alejandra","paredes","torres","gabapare@espol.edu.ec","Cardiologo"};
-        }*/
-        if(username.equals("joanrome")){
-            return new Object[]{"jose","andres","romero","triviño","joanrome@espol.edu.ec","Cardiologo"};
-        }
-        return null;
-    }
-    
-    public static Object[] loadEstudinateAttributesByMatricula(String matricula)
-    {
-        if(matricula.equals("201013448")){
-            return new Object[]{"1722904628","raulalmir","Villa Club","Casado","2246570",21,"Ing. en Ciencias Computacionales Orientación Multimedia","Raul","Alberto","Mira","Rodriguez","1 de Enero de 1991 ","resources/images/raul.png"};
-        }
-        if(matricula.equals("201011111")){
-            return new Object[]{"0999999999","gabapare","Leonidas Plaza y Oriente","Soltero","2338227",22,"Ing. en Electronica y Telecomunicaciones","Gabriela","Alejandra","Paredes","Torres","1 de Mayo de 1992 ","resources/images/raeul.png"};
-        }
-        
-        return null;
-    }
-    
-    public static Object[] loadEstudinateAttributesByCedula(String cedula)
-    {
-        if(cedula.equals("1722904628")){
-            return new Object[]{"201013448","raulalmir","Villa Club","Casado","2246570",21,"Ing. en Ciencias Computacionales Orientación Multimedia","Raul","Alberto","Mira","Rodriguez","1 de Enero de 1991 ","resources/images/raul.png"};
-        }
-        if(cedula.equals("0999999999")){
-            return new Object[]{"201011111","gabapare","Leonidas Plaza y Oriente","Soltero","2338227",22,"Ing. en Electronica y Telecomunicaciones","Gabriela","Alejandra","Paredes","Torres","1 de Mayo de 1992 ","resources/images/raeul.png"};
-        }
-        return null;
-    }
-    
-    public static Object[] loadEstudianteAttributes(String username)
-    {
-        
         if(username.equals("gabapare")){
-            return new Object[]{"201011111","0999999999","Leonidas Plaza y Oriente","Soltero","2338227",22,"Ing. en Electronica y Telecomunicaciones","Gabriela","Alejandra","Paredes","Torres","1 de Mayo de 1992 ","resources/images/raul.png"};
+         return new Object[]{"gaby","alejandra","paredes","torres","gabapare@espol.edu.ec","Cardiologo"};
+         }
+        if (username.equals("joanrome")) {
+            return new Object[]{"jose", "andres", "romero", "triviño", "joanrome@espol.edu.ec", "Cardiologo"};
         }
         return null;
     }
+
+    /**
+     *
+     * Simula un web service de espol en donde se le envía la matricula, y me
+     * devuelve los datos relevantes del estudiante de esa matricula.
+     *
+     * @param matricula
+     * @return
+     */
+    public static Object[] loadEstudinateAttributesByMatricula(String matricula) {
+        if (matricula.equals("201013448")) {
+            return new Object[]{"1722904628", "raulalmir", "Villa Club", "Casado", "2246570", 21, "Ing. en Ciencias Computacionales Orientación Multimedia", "Raul", "Alberto", "Mira", "Rodriguez", "1 de Enero de 1991 ", "resources/images/raul.png"};
+        }
+        if (matricula.equals("201011111")) {
+            return new Object[]{"0999999999", "gabapare", "Leonidas Plaza y Oriente", "Soltero", "2338227", 22, "Ing. en Electronica y Telecomunicaciones", "Gabriela", "Alejandra", "Paredes", "Torres", "1 de Mayo de 1992 ", "resources/images/raeul.png"};
+        }
+
+        return null;
+    }
+
+    /**
+     *
+     * Simula un web service de espol en donde se le envía la cedula, y me
+     * devuelve los datos relevantes del estudiante de esa cedula.
+     *
+     * @param cedula
+     * @return
+     */
+    public static Object[] loadEstudinateAttributesByCedula(String cedula) {
+        if (cedula.equals("1722904628")) {
+            return new Object[]{"201013448", "raulalmir", "Villa Club", "Casado", "2246570", 21, "Ing. en Ciencias Computacionales Orientación Multimedia", "Raul", "Alberto", "Mira", "Rodriguez", "1 de Enero de 1991 ", "resources/images/raul.png"};
+        }
+        if (cedula.equals("0999999999")) {
+            return new Object[]{"201011111", "gabapare", "Leonidas Plaza y Oriente", "Soltero", "2338227", 22, "Ing. en Electronica y Telecomunicaciones", "Gabriela", "Alejandra", "Paredes", "Torres", "1 de Mayo de 1992 ", "resources/images/raeul.png"};
+        }
+        return null;
+    }
+
+    /**
+     *
+     * Simula un web service de espol en donde se le envía el username, y me
+     * devuelve los datos relevantes del estudiante de esa username.
+     *
+     * @param username
+     * @return
+     */
+    public static Object[] loadEstudianteAttributes(String username) {
+
+        if (username.equals("gabapare")) {
+            return new Object[]{"201011111", "0999999999", "Leonidas Plaza y Oriente", "Soltero", "2338227", 22, "Ing. en Electronica y Telecomunicaciones", "Gabriela", "Alejandra", "Paredes", "Torres", "1 de Mayo de 1992 ", "resources/images/raul.png"};
+        }
+        return null;
+    }
+
+    /**
+     *
+     * Simula un web service de espol en donde se le envía la matricula, y me
+     * devuelve si esa matricula le pertenece a algun estudiante
+     *
+     * @param matricula
+     * @return
+     */
+    public static boolean verifyMatricula(String matricula) {
+        if (matricula.equals("201013448")) {
+            return true;
+        }
+        if (matricula.equals("201011111")) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     *
+     * Simula un web service de espol en donde se le envía la cedula, y me
+     * devuelve si esa cedula le pertenece a algun estudiante
+     *
+     * @param cedula
+     * @return
+     */
+    public static boolean verifyCedula(String cedula) {
+        if (cedula.equals("1722904628")) {
+            return true;
+        }
+        if (cedula.equals("0999999999")) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     *
+     * Carga los datos a un objeto doctor segun su username, desde un web
+     * service, que no maneja la base de datos interna Sodispol
+     * (nombres,apellidos,correo etc...)
+     *
+     * @param doctor
+     */
+    public static void loadDataDoctorFromWebService(Doctor doctor) {
+        Object[] attributes = WbServiceEspol.loadDoctorAttributes(doctor.getUsername());
+        doctor.setNombre1((String) attributes[0]);
+        doctor.setNombre2((String) attributes[1]);
+        doctor.setApellido1((String) attributes[2]);
+        doctor.setApellido2((String) attributes[3]);
+        doctor.setCorreo((String) attributes[4]);
+        doctor.setEspecializacion((String) attributes[5]);
+    }
+
+    /**
+     *
+     * Carga los datos a un objeto estudiante segun su matricula, desde un web
+     * service, que no maneja la base de datos interna Sodispol
+     * (nombres,apellidos,correo etc...)
+     *
+     * @param estudiante
+     */
+    public static void loadDataEstudianteByMatriculaFromWebService(Estudiante estudiante) {
+        Object[] attributes = WbServiceEspol.loadEstudinateAttributesByMatricula(estudiante.getMatricula());
+        estudiante.setNombre1((String) attributes[7]);
+        estudiante.setNombre2((String) attributes[8]);
+        estudiante.setApellido1((String) attributes[9]);
+        estudiante.setApellido2((String) attributes[10]);
+        estudiante.setCarrera((String) attributes[6]);
+        estudiante.setEdad((Integer) attributes[5]);
+        estudiante.setFoto((String) attributes[12]);
+        /*estudiante.setFechaNacimiento((String)attributes[11]);*/
+    }
+
+    /**
+     *
+     * Carga los datos a un objeto estudiante segun su cedula, desde un web
+     * service, que no maneja la base de datos interna Sodispol
+     * (nombres,apellidos,correo etc...)
+     *
+     * @param estudiante
+     */
+    public static void loadDataEstudianteByCedulaFromWebService(Estudiante estudiante) {
+        Object[] attributes = WbServiceEspol.loadEstudinateAttributesByCedula(estudiante.getCedula());
+        estudiante.setNombre1((String) attributes[7]);
+        estudiante.setNombre2((String) attributes[8]);
+        estudiante.setApellido1((String) attributes[9]);
+        estudiante.setApellido2((String) attributes[10]);
+        estudiante.setCarrera((String) attributes[6]);
+        estudiante.setEdad((Integer) attributes[5]);
+        estudiante.setFoto((String) attributes[12]);
+        /*estudiante.setFechaNacimiento((String)attributes[11]);*/
+    }
+
+    /**
+     *
+     * Carga los datos a un objeto estudiante segun su username, desde un web
+     * service, que no maneja la base de datos interna Sodispol
+     * (nombres,apellidos,correo etc...)
+     *
+     * @param estudiante
+     */
+    public static void loadDataEstudianteByUsernameFromWebService(Estudiante estudiante) {
+        Object[] attributes = WbServiceEspol.loadEstudianteAttributes(estudiante.getUsername());
+        estudiante.setNombre1((String) attributes[7]);
+        estudiante.setNombre2((String) attributes[8]);
+        estudiante.setApellido1((String) attributes[9]);
+        estudiante.setApellido2((String) attributes[10]);
+        estudiante.setCarrera((String) attributes[6]);
+        estudiante.setEdad((Integer) attributes[5]);
+        estudiante.setFoto((String) attributes[12]);
+        /*estudiante.setFechaNacimiento((String)attributes[11]);*/
+    }
+
+    /**
+     *
+     * Carga los datos a un objeto estudiante segun su matricula, desde un web
+     * service, para poder guardarlos en la base de datos Sodispol,la primera
+     * vez que se lo ingrese al sistema (matricula,cedula,username,direccion
+     * etc..)
+     *
+     * @param estudiante
+     * @param matricula
+     */
+    public static void setDataEstudianteByMatriculaFromWebService(Estudiante estudiante, String matricula) {
+        Object[] attributes = WbServiceEspol.loadEstudinateAttributesByMatricula(matricula);
+        estudiante.setMatricula(matricula);
+        estudiante.setCedula((String) attributes[0]);
+        estudiante.setUsername((String) attributes[1]);
+        estudiante.setDireccion((String) attributes[2]);
+        estudiante.setEstadocivil((String) attributes[3]);
+        estudiante.setTelefono((String) attributes[4]);
+    }
+
+    /**
+     *
+     * Carga los datos a un objeto estudiante segun su cedula, desde un web
+     * service, para poder guardarlos en la base de datos Sodispol,la primera
+     * vez que se lo ingrese al sistema (matricula,cedula,username,direccion
+     * etc..)
+     *
+     * @param estudiante
+     * @param cedula
+     */
+    public static void setDataEstudianteByCedulaFromWebService(Estudiante estudiante, String cedula) {
+        Object[] attributes = WbServiceEspol.loadEstudinateAttributesByCedula(cedula);
+        estudiante.setCedula(cedula);
+        estudiante.setMatricula((String) attributes[0]);
+        estudiante.setUsername((String) attributes[1]);
+        estudiante.setDireccion((String) attributes[2]);
+        estudiante.setEstadocivil((String) attributes[3]);
+        estudiante.setTelefono((String) attributes[4]);
+    }
+
+    /**
+     *
+     * Carga los datos a un objeto estudiante segun su username, desde un web
+     * service, para poder guardarlos en la base de datos Sodispol,la primera
+     * vez que se lo ingrese al sistema (matricula,cedula,username,direccion
+     * etc..)
+     *
+     * @param estudiante
+     * @param username
+     */
+    public static void setDataEstudianteByUsernameFromWebService(Estudiante estudiante, String username) {
+
+        Object[] attributes = WbServiceEspol.loadEstudianteAttributes(username);
+        estudiante.setMatricula((String) attributes[0]);
+        estudiante.setCedula((String) attributes[1]);
+        estudiante.setUsername(username);
+        estudiante.setDireccion((String) attributes[2]);
+        estudiante.setEstadocivil((String) attributes[3]);
+        estudiante.setTelefono((String) attributes[4]);
+    }
+   
 }

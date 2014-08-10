@@ -14,41 +14,41 @@
         <link href="http://fonts.googleapis.com/css?family=Duru+Sans" rel="styleshee" type="text/css"/>
         <!--<script src="http://code.jquery.com/jquery.js"></script>-->
         <script src="resources/js/bootstrap.js"></script>
-         <script src="resources/js/main.js"></script>
+        <script src="resources/js/main.js"></script>
     </h:head>
     <h:body>
         <header >
             <ui:include src="/resources/templates/header.xhtml"/>
-         </header>
-        
-         
+        </header>
+
+
         <nav class="navbar navbar-default color1 ancho1 center" role="navigation">
             <ui:include src="/resources/templates/navMedico.xhtml"/>
         </nav>
-        
+
         <div class="container ancho1">
             <div class="row">
                 <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5  alturaEjemplo">
                     <section class="margen_izquierdo2">
                         <h3 class="margen_top4"><p>Buscar Paciente</p></h3>
-                        
+
                         <h:form>
                             <p:growl id="growl" life="2000" />
                             <h:panelGrid columns="1" class=" ancho2 margen_top3">
-                                 <p:selectOneRadio  id="tipoBusqueda" style="width: 40%" >
+                                <p:selectOneRadio  id="tipoBusqueda" style="width: 40%" >
                                     <f:selectItem itemLabel="Matrícula" itemValue="matricula" />
                                     <f:selectItem itemLabel="Cédula" itemValue="cedula" />
-                                 </p:selectOneRadio>
+                                </p:selectOneRadio>
                             </h:panelGrid>
                             <h:panelGrid columns="1" class=" ancho2 margen_top3" >
                                 <p:inputText  maxlength="15" style="width: 60%"/> 
                                 <p:commandButton  value="Buscar Paciente" id="buscarPaciente" styleClass="ui-priority-primary margen_top3"/>
-                                    
-                                
+
+
                             </h:panelGrid>
-                             
+
                         </h:form>
-                        
+
                     </section>
                 </div>
                 <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 ">
@@ -97,17 +97,17 @@
                         </div>
                         <div class="row ancho2 margen_top1" style="font-size: medium" >
                             <p:commandButton  value="Guardar" id="guardarCita" styleClass="ui-priority-primary margen_top3"/>
-                                 
+
                         </div>
                     </div>                                  
                     <div class="col-md-1"></div>
                 </div>
             </div>
         </div>
-        
+
         <footer class="margen_top2 color1">
             <ui:include src="/resources/templates/footer.xhtml"/>
         </footer>
-        
+
     </h:body>
 </html>

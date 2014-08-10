@@ -21,6 +21,27 @@ public class UsuarioBean{
     
     private Estudiante estudiante;
    
+    private Estudiante estudiantePaciente;
+
+    /**
+     * Get the value of estudiantePaciente
+     *
+     * @return the value of estudiantePaciente
+     */
+    public Estudiante getEstudiantePaciente() {
+        return estudiantePaciente;
+    }
+
+    /**
+     * Set the value of estudiantePaciente
+     *
+     * @param estudiantePaciente new value of estudiantePaciente
+     */
+    public void setEstudiantePaciente(Estudiante estudiantePaciente) {
+        this.estudiantePaciente = estudiantePaciente;
+    }
+
+    
     /**
      * Get the value of estudiante
      *

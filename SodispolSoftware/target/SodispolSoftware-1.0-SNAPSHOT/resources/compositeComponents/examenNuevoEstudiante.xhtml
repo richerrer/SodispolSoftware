@@ -21,11 +21,11 @@
                 <div class="col-xs-12 col-sm-7 col-md-7 col-lg-6">
                     <c:if test="#{cc.attrs.verificador == 1}"> 
                         <h:inputText value="#{fichaEstudianteBean.estatura}" class="ancho15" converterMessage="El campo estatura requiere solo de números"/>
-                        <h:outputLabel class="margen_izquierdo inline_block">cm</h:outputLabel>
+                        <h:outputLabel class="margen_izquierdo inline_block">m</h:outputLabel>
                     </c:if>
                     <c:if test="#{cc.attrs.verificador == 0}"> 
-                        <h:inputText class="ancho80" readonly="true"/>
-                        <h:outputLabel class="inline_block">cm</h:outputLabel>
+                        <h:inputText value="#{fichaEstudianteBean.detalleFicha.estatura}"  class="ancho15" readonly="true"/>
+                        <h:outputLabel class="margen_izquierdo inline_block">m</h:outputLabel>
                     </c:if>
                 </div>
 
@@ -39,8 +39,8 @@
                         <h:outputLabel class="margen_izquierdo inline_block">kg</h:outputLabel>
                     </c:if>
                     <c:if test="#{cc.attrs.verificador == 0}"> 
-                        <h:inputText class="ancho80" readonly="true"/>
-                        <h:outputLabel class="inline_block">kg</h:outputLabel>
+                        <h:inputText value="#{fichaEstudianteBean.detalleFicha.peso}" class="ancho60" readonly="true"/>
+                        <h:outputLabel class="margen_izquierdo inline_block">kg</h:outputLabel>
                     </c:if>   
                 </div>  
             </div>
@@ -56,7 +56,7 @@
                         <h:inputText value="#{fichaEstudianteBean.examenPiel}" class="ancho80"/>
                     </c:if>
                     <c:if test="#{cc.attrs.verificador == 0}"> 
-                        <h:inputText class="ancho80" readonly="true"/>
+                        <h:inputText value="#{fichaEstudianteBean.detalleFicha.examenpiel}" class="ancho80" readonly="true"/>
                     </c:if>
                 </div>
 
@@ -73,7 +73,7 @@
                         <h:inputText value="#{fichaEstudianteBean.aparatoRespiratorio}" class="ancho80"/>
                     </c:if>
                     <c:if test="#{cc.attrs.verificador == 0}"> 
-                        <h:inputText class="ancho80" readonly="true"/>
+                        <h:inputText value="#{fichaEstudianteBean.detalleFicha.aparatorespiratorio}" class="ancho80" readonly="true"/>
                     </c:if>
                 </div>
 
@@ -90,7 +90,7 @@
                         <h:inputText value="#{fichaEstudianteBean.aparatoCirculatorio}" class="ancho80"/>
                     </c:if>
                     <c:if test="#{cc.attrs.verificador == 0}"> 
-                        <h:inputText class="ancho80" readonly="true"/>
+                        <h:inputText value="#{fichaEstudianteBean.detalleFicha.apartocirculatorio}" class="ancho80" readonly="true"/>
                     </c:if>
                 </div>
 
@@ -107,7 +107,7 @@
                         <h:inputText value="#{fichaEstudianteBean.presionArterial}" class="ancho80"/>
                     </c:if>
                     <c:if test="#{cc.attrs.verificador == 0}"> 
-                        <h:inputText class="ancho80" readonly="true"/>
+                        <h:inputText value="#{fichaEstudianteBean.detalleFicha.presionarterial}" class="ancho80" readonly="true"/>
                     </c:if>
                 </div>
             </div> 
@@ -123,7 +123,7 @@
                         <h:inputText value="#{fichaEstudianteBean.pulso}" class="ancho80"/>
                     </c:if>
                     <c:if test="#{cc.attrs.verificador == 0}"> 
-                        <h:inputText class="ancho80" readonly="true"/>
+                        <h:inputText value="#{fichaEstudianteBean.detalleFicha.pulso}" class="ancho80" readonly="true"/>
                     </c:if>
                 </div>
             </div> 
@@ -137,7 +137,7 @@
                         <h:inputText value="#{fichaEstudianteBean.ruidosCardiacos}" class="ancho80"/>
                     </c:if>
                     <c:if test="#{cc.attrs.verificador == 0}"> 
-                        <h:inputText class="ancho80" readonly="true"/>
+                        <h:inputText value="#{fichaEstudianteBean.detalleFicha.ruidoscardiacos}" class="ancho80" readonly="true"/>
                     </c:if>
                 </div>
             </div> 
@@ -151,7 +151,7 @@
                         <h:inputText value="#{fichaEstudianteBean.aparatoDigestivo}" class="ancho80"/>
                     </c:if>
                     <c:if test="#{cc.attrs.verificador == 0}"> 
-                        <h:inputText class="ancho80" readonly="true"/>
+                        <h:inputText value="#{fichaEstudianteBean.detalleFicha.aparatodigestivo}" class="ancho80" readonly="true"/>
                     </c:if>
                 </div>
             </div>
@@ -166,7 +166,7 @@
                         <h:inputText value="#{fichaEstudianteBean.aparatoUrinario}" class="ancho80"/>
                     </c:if>
                     <c:if test="#{cc.attrs.verificador == 0}"> 
-                        <h:inputText class="ancho80" readonly="true"/>
+                        <h:inputText value="#{fichaEstudianteBean.detalleFicha.aparatogenicourinario}" class="ancho80" readonly="true"/>
                     </c:if>
                 </div>
             </div> 
@@ -181,7 +181,7 @@
                         <h:inputText value="#{fichaEstudianteBean.sistemaLinfatico}" class="ancho80"/>
                     </c:if>
                     <c:if test="#{cc.attrs.verificador == 0}"> 
-                        <h:inputText class="ancho80" readonly="true"/>
+                        <h:inputText value="#{fichaEstudianteBean.detalleFicha.sitemalinfatico}" class="ancho80" readonly="true"/>
                     </c:if>
                 </div>
 
@@ -196,7 +196,7 @@
                         <h:inputText value="#{fichaEstudianteBean.sistemaNervioso}" class="ancho80"/>
                     </c:if>
                     <c:if test="#{cc.attrs.verificador == 0}"> 
-                        <h:inputText class="ancho80" readonly="true"/>
+                        <h:inputText value="#{fichaEstudianteBean.detalleFicha.sistemanervioso}" class="ancho80" readonly="true"/>
                     </c:if>
                 </div>
             </div> 
@@ -210,7 +210,7 @@
                         <h:inputText value="#{fichaEstudianteBean.temperatura}" class="ancho80"/>
                     </c:if>
                     <c:if test="#{cc.attrs.verificador == 0}"> 
-                        <h:inputText class="ancho80" readonly="true"/>
+                        <h:inputText value="#{fichaEstudianteBean.detalleFicha.temperatura}" class="ancho80" readonly="true"/>
                     </c:if>
                 </div>
             </div> 

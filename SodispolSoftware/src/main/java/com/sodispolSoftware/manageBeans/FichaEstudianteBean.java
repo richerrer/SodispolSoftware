@@ -5,15 +5,14 @@ import com.sodispolSoftware.businessObject.EstudianteBo;
 import com.sodispolSoftware.model.Detallefichaestudiante;
 import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Fichamedicaestudiante;
+import com.sodispolSoftware.redirect.Redireccionar;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpSession;
 import org.springframework.context.annotation.Scope;
 
 /**
@@ -27,89 +26,207 @@ import org.springframework.context.annotation.Scope;
 @Scope("view")
 public class FichaEstudianteBean {
 
-    @Inject
     private UsuarioBean usuarioBean;
-    
-    private DoctorBo doctorBo;
-    
-    private EstudianteBo estudianteBo;
-    
-    private Estudiante estudiante;
-    
-    private String paramBusqueda;
 
-    private String tipoBusqueda;
+    private DoctorBo doctorBo;
+
+    private EstudianteBo estudianteBo;
+
+    private Estudiante estudiante;
 
     private Fichamedicaestudiante fichaMedica;
 
     private Calendar fechaActualCalendar;
 
-    private String fechaActual;
-
     private Double estatura;
-    
+
     private String examenPiel;
-    
+
     private String aparatoRespiratorio;
-    
+
     private String aparatoCirculatorio;
-    
+
     private String pulso;
-    
+
     private String ruidosCardiacos;
-    
+
     private String aparatoDigestivo;
-    
+
     private String aparatoUrinario;
-    
+
     private String sistemaLinfatico;
-    
+
     private String sistemaNervioso;
-    
+
     private String observacion;
-    
+
     private Double peso;
-    
+
     private String temperatura;
 
     private ArrayList<Object[]> observacionesAnteriores;
-    
+
+    private ArrayList<Detallefichaestudiante> detallesAnteriores;
+
     private long numButtons = 1;
-    
+
     private final int paginacion = 15;
-    
+
+    private Map<String, String> parametros = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+
+    private long modificador;
+
+    private Detallefichaestudiante detalleFicha;
+
     /**
-     * Constructor del bean, el cual se encarga de obtener al Estudiante según
-     * su matrícula o cédula, los cuales dependen del tipo de busqueda
+     * Constructor del bean, el cual se encarga de inicializar los parámetros.
      *
      * @param doctorBo
      * @param estudianteBo Maneja la lógica de negocio del Estudiante
+     * @param usuarioBean
      */
     @Inject
-    public FichaEstudianteBean(DoctorBo doctorBo,EstudianteBo estudianteBo) {
-        
-        inicializarParametros(doctorBo,estudianteBo);
-        if (getTipoBusqueda().equals("matricula")) {
-            setEstudiante(getEstudianteBo().getEstudianteByMatricula(getParamBusqueda()));
+    public FichaEstudianteBean(DoctorBo doctorBo, EstudianteBo estudianteBo, UsuarioBean usuarioBean) {
+        try {
+            inicializarParametros(doctorBo, estudianteBo, usuarioBean);
+            cargarEstudiante();
+            cargarFichaMedicaEstudiante();
+            validarTipoFicha();
+        }catch (NumberFormatException ex) {//Si alguno de los parametros "modificador" o "iddetalleFicha"(si se lo va a usar) y no han sido seteados, hay una redireccion 
+            Redireccionar.redirect("paciente.xhtml");
+        }catch (NullPointerException ex) {
+            Redireccionar.redirect("paciente.xhtml");
         }
-        if (getTipoBusqueda().equals("cedula")) {
-            setEstudiante(getEstudianteBo().getEstudianteByCedula(getParamBusqueda()));
-        }
-        setFichaMedica(getEstudianteBo().getFichaMedica(getEstudiante()));
-        getNumObservaciones();
-        setObservacionesAnteriores(getDoctorBo().getObservaciones(getEstudiante(),1,paginacion));
-
     }
+
+    public void inicializarParametros(DoctorBo doctorBo, EstudianteBo estudianteBo, UsuarioBean usuarioBean) {
+            setModificador(Long.parseLong(getParametros().get("modificador")));
+            setFechaActualCalendar(Calendar.getInstance());
+            setDoctorBo(doctorBo);
+            setEstudianteBo(estudianteBo);
+            setUsuarioBean(usuarioBean);
     
-    public void inicializarParametros(DoctorBo doctorBo,EstudianteBo estudianteBo){
-        setFechaActualCalendar(Calendar.getInstance());
-        setFechaActual(getFechaActualCalendar().get(Calendar.DAY_OF_MONTH) + "/"
-                + (getFechaActualCalendar().get(Calendar.MONTH) + 1) + "/"
-                + getFechaActualCalendar().get(Calendar.YEAR));
-        setDoctorBo(doctorBo);
-        setEstudianteBo(estudianteBo);
-        setTipoBusqueda(getParametros().get("tipoBusqueda"));
-        setParamBusqueda(getParametros().get("paramBusqueda"));
+    }
+
+    public void cargarEstudiante() {
+        setEstudiante(getUsuarioBean().getEstudiantePaciente());
+        if(getEstudiante()==null){Redireccionar.redirect("paciente.xhtml");}
+    }
+
+    public void cargarFichaMedicaEstudiante() {
+        setFichaMedica(getEstudianteBo().getFichaMedica(getEstudiante()));
+    }
+
+    public void validarTipoFicha() {
+        if (getModificador() == 1) {//Si se va a crear un nuevo detalle de ficha medica
+            getNumObservaciones();
+            setDetallesAnteriores(getDoctorBo().getDetallesFicha(getEstudiante(), 1, paginacion));
+        } 
+        else {//Si solo se va a cargar un detalle de ficha estudiante
+            long iddetalleFicha = Long.parseLong(getParametros().get("iddetalleFicha"));
+            setDetalleFicha(getEstudianteBo().getDetalleFichaEstudiante(iddetalleFicha,getEstudiante()));
+            setFechaActualCalendar(getDetalleFicha().getFecha());
+        }
+    }
+
+    public String guardar(ActionEvent actionEvent) {
+        guardarEstudiante();
+        guardarFichaMedica();
+        if (getModificador() == 1) {
+            guardarDetalleFichaMedica();
+        }
+
+        return "succes.xhmtl";
+    }
+
+    public void guardarEstudiante() {
+        getEstudianteBo().updateEstudiante(getEstudiante());
+    }
+
+    public void guardarFichaMedica() {
+        if (getFichaMedica().getIdfichamedica() == 0)// Si la ficha es recién creada
+        {
+            getEstudianteBo().addFichaMedica(getEstudiante(), getFichaMedica());
+        } else {
+            getEstudianteBo().updateFichaMedica(getEstudiante(), getFichaMedica());
+        }
+    }
+
+    public void guardarDetalleFichaMedica() {
+        Detallefichaestudiante detalle = new Detallefichaestudiante();
+        cargarDatosDetalleFicha(detalle);
+        getDoctorBo().saveDetalleFichaEstudiante(detalle);
+    }
+
+    public void cargarDatosDetalleFicha(Detallefichaestudiante detalle) {
+        detalle.setEstadoborrado(false);
+        detalle.setFichamedicaestudiante(getFichaMedica());
+        detalle.setFecha(getFechaActualCalendar());
+        detalle.setDoctor(getUsuarioBean().getDoctor());
+        detalle.setEstatura(getEstatura());
+        detalle.setPeso(getPeso());
+        detalle.setExamenpiel(getExamenPiel());
+        detalle.setAparatorespiratorio(getAparatoRespiratorio());
+        detalle.setApartocirculatorio(getAparatoCirculatorio());
+        detalle.setPulso(getPulso());
+        detalle.setRuidoscardiacos(getRuidosCardiacos());
+        detalle.setAparatodigestivo(getAparatoDigestivo());
+        detalle.setAparatogenicourinario(getAparatoUrinario());
+        detalle.setSitemalinfatico(getSistemaLinfatico());
+        detalle.setSistemanervioso(getSistemaNervioso());
+        detalle.setTemperatura(getTemperatura());
+        detalle.setPresionarterial(getPresionArterial());
+        detalle.setObservaciones(getObservacion());
+    }
+
+    public void getNumObservaciones() {
+        long num = getDoctorBo().getNumObservaciones(getEstudiante());
+        if ((num % paginacion) == 0) {
+            setNumButtons(num / paginacion);
+        } else {
+            setNumButtons((int) (num / paginacion) + 1);
+        }
+    }
+
+    public void paginarObservacionesAnteriores(int firstResult) {
+        //setObservacionesAnteriores(getDoctorBo().getObservaciones(getEstudiante(),firstResult,paginacion));
+        setDetallesAnteriores(getDoctorBo().getDetallesFicha(getEstudiante(), firstResult, paginacion));
+    }
+
+    /**
+     * Get the value of detalleFicha
+     *
+     * @return the value of detalleFicha
+     */
+    public Detallefichaestudiante getDetalleFicha() {
+        return detalleFicha;
+    }
+
+    /**
+     * Set the value of detalleFicha
+     *
+     * @param detalleFicha new value of detalleFicha
+     */
+    public void setDetalleFicha(Detallefichaestudiante detalleFicha) {
+        this.detalleFicha = detalleFicha;
+    }
+
+    /**
+     * Get the value of modificador
+     *
+     * @return the value of modificador
+     */
+    public long getModificador() {
+        return modificador;
+    }
+
+    /**
+     * Set the value of modificador
+     *
+     * @param modificador new value of modificador
+     */
+    public void setModificador(long modificador) {
+        this.modificador = modificador;
     }
 
     /**
@@ -130,81 +247,24 @@ public class FichaEstudianteBean {
         this.numButtons = numButtons;
     }
 
-    
-    
-    
-
-    public String guardar(ActionEvent actionEvent) {
-        
-        guardarEstudiante();
-        guardarFichaMedica();
-        guardarDetalleFichaMedica();
-        return "succes.xhmtl";
-    }
-    
-    public void guardarEstudiante(){
-        getEstudianteBo().updateEstudiante(getEstudiante());
-    }
-    
-    public void guardarFichaMedica(){
-        if (getFichaMedica().getIdfichamedica() == 0)// Si la ficha es recién creada
-        {
-            getEstudianteBo().addFichaMedica(getEstudiante(), getFichaMedica());
-        } 
-        else 
-        {
-            getEstudianteBo().updateFichaMedica(getEstudiante(), getFichaMedica());
-        }
-    }
-    
-    public void guardarDetalleFichaMedica(){
-        Detallefichaestudiante detalle = new Detallefichaestudiante();
-        detalle.setEstadoborrado(false);
-        detalle.setFichamedicaestudiante(getFichaMedica());
-        detalle.setFecha(getFechaActualCalendar());
-        detalle.setDoctor(getUsuarioBean().getDoctor());
-        
-        detalle.setEstatura(getEstatura());
-        detalle.setPeso(getPeso());
-        detalle.setExamenpiel(getExamenPiel());
-        detalle.setAparatorespiratorio(getAparatoRespiratorio());
-        detalle.setApartocirculatorio(getAparatoCirculatorio());
-        detalle.setPulso(getPulso());
-        detalle.setRuidoscardiacos(getRuidosCardiacos());
-        detalle.setAparatodigestivo(getAparatoDigestivo());
-        detalle.setAparatogenicourinario(getAparatoUrinario());
-        detalle.setSitemalinfatico(getSistemaLinfatico());
-        detalle.setSistemanervioso(getSistemaNervioso());
-        detalle.setTemperatura(getTemperatura());
-        detalle.setPresionarterial(getPresionArterial());
-        detalle.setObservaciones(getObservacion());
-        /*d.setEstatura(estatura);
-         d.setFichamedicaestudiante(getFichaMedica());*/
-        getDoctorBo().saveDetalleFichaEstudiante(detalle);
-    }
-    
-    public void getNumObservaciones(){
-        long num = getDoctorBo().getNumObservaciones(getEstudiante());
-        if((num%paginacion)==0){
-            setNumButtons(num /paginacion);
-        }else{
-            setNumButtons((int)(num/paginacion)+1);
-        }
-    }
-    
-    public void paginarObservacionesAnteriores(int firstResult){
-        setObservacionesAnteriores(getDoctorBo().getObservaciones(getEstudiante(),firstResult,paginacion));
-    }
-
+    /**
+     * Get the value of ObservacionesAnteriores
+     *
+     * @return the value of ObservacionesAnteriores
+     */
     public ArrayList<Object[]> getObservacionesAnteriores() {
         return observacionesAnteriores;
     }
 
+    /**
+     * Set the value of observacionesAnteriores
+     *
+     * @param observacionesAnteriores new value of observacionesAnteriores
+     */
     public void setObservacionesAnteriores(ArrayList<Object[]> observacionesAnteriores) {
         this.observacionesAnteriores = observacionesAnteriores;
     }
-    
-    
+
     /**
      * Get the value of usuarioBean
      *
@@ -222,6 +282,7 @@ public class FichaEstudianteBean {
     public void setUsuarioBean(UsuarioBean usuarioBean) {
         this.usuarioBean = usuarioBean;
     }
+
     /**
      * Get the value of temperatura
      *
@@ -499,24 +560,6 @@ public class FichaEstudianteBean {
      *
      * @return the value of fechaActual
      */
-    public String getFechaActual() {
-        return fechaActual;
-    }
-
-    /**
-     * Set the value of fechaActual
-     *
-     * @param fechaActual new value of fechaActual
-     */
-    public void setFechaActual(String fechaActual) {
-        this.fechaActual = fechaActual;
-    }
-
-    /**
-     * Get the value of fechaActual
-     *
-     * @return the value of fechaActual
-     */
     public Calendar getFechaActualCalendar() {
         return fechaActualCalendar;
     }
@@ -548,45 +591,6 @@ public class FichaEstudianteBean {
         this.fichaMedica = fichaMedica;
     }
 
-    private Map<String, String> parametros = FacesContext.getCurrentInstance().
-            getExternalContext().getRequestParameterMap();
-
-    /**
-     * Get the value of tipoBusqueda
-     *
-     * @return the value of tipoBusqueda
-     */
-    public String getTipoBusqueda() {
-        return tipoBusqueda;
-    }
-
-    /**
-     * Set the value of tipoBusqueda
-     *
-     * @param tipoBusqueda new value of tipoBusqueda
-     */
-    public void setTipoBusqueda(String tipoBusqueda) {
-        this.tipoBusqueda = tipoBusqueda;
-    }
-
-    /**
-     * Get the value of paramBusqueda
-     *
-     * @return the value of paramBusqueda
-     */
-    public String getParamBusqueda() {
-        return paramBusqueda;
-    }
-
-    /**
-     * Set the value of paramBusqueda
-     *
-     * @param paramBusqueda new value of paramBusqueda
-     */
-    public void setParamBusqueda(String paramBusqueda) {
-        this.paramBusqueda = paramBusqueda;
-    }
-
     /**
      * Get the value of estudiante
      *
@@ -612,6 +616,14 @@ public class FichaEstudianteBean {
      */
     public EstudianteBo getEstudianteBo() {
         return estudianteBo;
+    }
+
+    public ArrayList<Detallefichaestudiante> getDetallesAnteriores() {
+        return detallesAnteriores;
+    }
+
+    public void setDetallesAnteriores(ArrayList<Detallefichaestudiante> detallesAnteriores) {
+        this.detallesAnteriores = detallesAnteriores;
     }
 
     /**

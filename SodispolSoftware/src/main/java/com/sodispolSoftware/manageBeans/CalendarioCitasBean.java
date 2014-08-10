@@ -33,7 +33,6 @@ import org.primefaces.model.ScheduleModel;
 import org.springframework.context.annotation.Scope;
 
 @Named
-@ManagedBean
 @Scope("view")
 public class CalendarioCitasBean implements Serializable {
     
@@ -182,12 +181,12 @@ public class CalendarioCitasBean implements Serializable {
     
     public void onEventSelect(SelectEvent selectEvent) {
         event = (ScheduleEvent) selectEvent.getObject();
-        redirect.Redireccionar.redirect("citas.xhtml?ID="+event.getId());
+        com.sodispolSoftware.redirect.Redireccionar.redirect("citas.xhtml?ID="+event.getId());
     }
     
     public void onDateSelect(SelectEvent selectEvent) {
         //event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
-        redirect.Redireccionar.redirect("citas.xhtml?ID=787");
+        com.sodispolSoftware.redirect.Redireccionar.redirect("citas.xhtml?ID=787");
     }
     
     public void onEventMove(ScheduleEntryMoveEvent event) {
