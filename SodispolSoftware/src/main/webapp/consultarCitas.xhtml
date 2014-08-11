@@ -33,7 +33,7 @@
                             <br/><br/>
                             <p:schedule id="schedule" value="#{calendarioCitasBean.eventModel}" widgetVar="myschedule"  locale="es">
                                 <!--<p:ajax event="dateSelect" listener="#{calendarioCitasBean.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />-->
-                                <p:ajax event="dateSelect" listener="#{calendarioCitasBean.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                                <p:ajax event="dateSelect" listener="#{calendarioCitasBean.onDateSelect}" update="eventDetails" />
                                 <p:ajax event="eventSelect" listener="#{calendarioCitasBean.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
                                 <p:ajax event="eventMove" listener="#{calendarioCitasBean.onEventMove}" update="messages" />
                                 <p:ajax event="eventResize" listener="#{calendarioCitasBean.onEventResize}" update="messages" />

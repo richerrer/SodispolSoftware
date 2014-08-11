@@ -10,6 +10,7 @@ package com.sodispolSoftware.manageBeans;
 import com.sodispolSoftware.businessObject.CitaBo;
 import com.sodispolSoftware.model.Citamedica;
 import com.sodispolSoftware.model.Estudiante;
+import com.sodispolSoftware.redirect.Redireccionar;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -181,12 +182,12 @@ public class CalendarioCitasBean implements Serializable {
     
     public void onEventSelect(SelectEvent selectEvent) {
         event = (ScheduleEvent) selectEvent.getObject();
-        com.sodispolSoftware.redirect.Redireccionar.redirect("citas.xhtml?ID="+event.getId());
+        Redireccionar.redirect("citas.xhtml");
     }
     
     public void onDateSelect(SelectEvent selectEvent) {
-        //event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
-        com.sodispolSoftware.redirect.Redireccionar.redirect("citas.xhtml?ID=787");
+        event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
+        Redireccionar.redirect("citas.xhtml");
     }
     
     public void onEventMove(ScheduleEntryMoveEvent event) {
