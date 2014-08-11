@@ -7,12 +7,14 @@
 package com.sodispolSoftware.manageBeans;
 
 import com.sodispolSoftware.businessObject.CitaBo;
+import com.sodispolSoftware.businessObject.DoctorBo;
 import com.sodispolSoftware.businessObject.EstudianteBo;
 import com.sodispolSoftware.model.Citamedica;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -36,6 +38,8 @@ public class CitaBean {
     
     private EstudianteBo estudianteBo;
     
+    private DoctorBo doctorBo;
+    
     private Estudiante estudiante;
 
     private boolean encontrado = false;
@@ -50,18 +54,39 @@ public class CitaBean {
     
     private Calendar fecha;
     
-    private ArrayList<Object[]> consultaDoctores;
+    private Calendar hora;
+    
+    private List<Doctor> consultaDoctores;
     
     @Inject
-    public CitaBean(CitaBo citaBo,UsuarioBean usuarioBean, EstudianteBo estudianteBo)
+    public CitaBean(CitaBo citaBo,UsuarioBean usuarioBean, EstudianteBo estudianteBo, DoctorBo doctorBo)
     {
         setUsuarioBean(usuarioBean);
         setCitaBo(citaBo);
         setEstudianteBo(estudianteBo);
+        setDoctorBo(doctorBo);
+        
+        setConsultaDoctores(getDoctorBo().getAllDoctors());
         //setNcita(getUsuarioBean().getDoctor().getCitamedicas().iterator().next().getFechareg().toString());
         //setNcita(getUsuarioBean().getDoctor().getApellido1());
         //setO(nnams2());
         //setNcita((String) nnams2()[0]);
+    }
+
+    public Calendar getHora() {
+        return hora;
+    }
+
+    public void setHora(Calendar hora) {
+        this.hora = hora;
+    }
+
+    public DoctorBo getDoctorBo() {
+        return doctorBo;
+    }
+
+    public void setDoctorBo(DoctorBo doctorBo) {
+        this.doctorBo = doctorBo;
     }
 
     public String getPaciente() {
@@ -88,11 +113,11 @@ public class CitaBean {
         this.fecha = fecha;
     }
 
-    public ArrayList<Object[]> getConsultaDoctores() {
+    public List<Doctor> getConsultaDoctores() {
         return consultaDoctores;
     }
 
-    public void setConsultaDoctores(ArrayList<Object[]> consultaDoctores) {
+    public void setConsultaDoctores(List<Doctor> consultaDoctores) {
         this.consultaDoctores = consultaDoctores;
     }
 

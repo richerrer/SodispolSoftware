@@ -7,6 +7,8 @@
 package com.sodispolSoftware.dao;
 
 import com.sodispolSoftware.model.Doctor;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -15,4 +17,5 @@ import com.sodispolSoftware.model.Doctor;
 public interface DoctorDao {
     public Doctor getDoctor(String username);
     public void addDoctor(Doctor doctor);
+    public List<Doctor> getAllDoctors();
 }

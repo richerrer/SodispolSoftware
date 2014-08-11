@@ -10,6 +10,10 @@ import com.sodispolSoftware.dao.DoctorDao;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Roleuser;
 import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
+import java.util.ArrayList;
+import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
@@ -64,5 +68,27 @@ public class DoctorDaoImpl extends HibernateDaoSupport implements DoctorDao{
             session.beginTransaction().rollback();
         }
     */
+
+    @Override
+    public List<Doctor> getAllDoctors() {
+        try
+        {
+            //Object[] paramsDoctor = new Object[]{username,false};
+            
+            List<Doctor> doctores = getHibernateTemplate().loadAll(Doctor.class);
+            //Doctor doctor = (Doctor)getHibernateTemplate().find("from Doctor d where d.username= ? and estadoborrado = ?",paramsDoctor).get(0); 
+            //doctor.setRoleuser((Roleuser)getHibernateTemplate().get(Roleuser.class, doctor.getRoleuser().getIdroleuser()));
+            for(Doctor doc : doctores)
+            {
+                WbServiceEspol.loadDataDoctorFromWebService(doc);
+            }
+            //WbServiceEspol.loadDataDoctorFromWebService(doctor);
+            return doctores;
+        }
+        catch(Exception ex)//Cuando no se encuentra ningun objeto en la consulta
+        {
+            return null;
+        }
+    }
     
 }

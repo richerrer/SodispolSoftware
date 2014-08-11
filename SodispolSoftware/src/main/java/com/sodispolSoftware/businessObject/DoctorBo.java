@@ -9,6 +9,7 @@ import com.sodispolSoftware.model.Detallefichaestudiante;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -28,4 +29,5 @@ public interface DoctorBo {
 
     public long getNumObservaciones(Estudiante estudiante);
     
+    public List<Doctor> getAllDoctors();
 }

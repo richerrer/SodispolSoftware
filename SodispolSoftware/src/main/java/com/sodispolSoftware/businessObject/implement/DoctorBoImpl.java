@@ -8,6 +8,7 @@ import com.sodispolSoftware.model.Detallefichaestudiante;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
 import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.springframework.context.annotation.Scope;
@@ -140,6 +141,11 @@ public class DoctorBoImpl implements DoctorBo{
     @Override
     public long getNumObservaciones(Estudiante estudiante) {
         return getDetalleFichaEstudianteBo().getNumObservaciones(estudiante);
+    }
+
+    @Override
+    public List<Doctor> getAllDoctors() {
+        return getDoctorDao().getAllDoctors();
     }
 
     
