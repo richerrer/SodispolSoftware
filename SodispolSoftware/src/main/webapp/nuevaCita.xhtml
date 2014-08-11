@@ -44,7 +44,7 @@
                                 <p:focus for="paramBusqueda" />
                                 <p:inputText id="paramBusqueda" maxlength="15" style="width: 60%" value="#{citaBean.paramBusqueda}" required="true"/>
                                 <p:commandButton  value="Buscar Paciente" id="buscarPaciente" update="growl" actionListener="#{citaBean.buttonAction}" styleClass="ui-priority-primary margen_top3">
-                                    <p:ajax process="@this,paramBusqueda,tipoBusqueda" update=":datosCita" listener="#{citaBean.consultar()}" />
+                                    <p:ajax process="@this,paramBusqueda,tipoBusqueda" update=":infoCita" listener="#{citaBean.consultar()}" />
                                 </p:commandButton>
 
                             </h:panelGrid>
@@ -53,7 +53,9 @@
 
                     </section>
                 </div>
-                <div id="datosCita" class="col-xs-12 col-sm-7 col-md-7 col-lg-7 ">
+                <h:form id="infoCita">
+                    
+                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 ">
                     <div class="col-md-1"></div>
                     <div class="col-md-9">
                         <div class="row ancho2 margen_top3" style="font-size: x-large" >
@@ -61,10 +63,10 @@
                         </div>
                         <div class="row ancho2 margen_top4" style="font-size: medium" >
                             <div class="col-md-3">
-                                <h:outputLabel for="paciente" value="Paciente:" />
+                                <h:outputLabel value="Datos de la Cita Médica:" />
                             </div>
                             <div class="col-md-9">
-                                <p:inputText  value="#{citaBean.estudiante.username}" maxlength="15" style="width: 60%" disabled="true"/> 
+                                <p:inputText value="#{citaBean.estudiante.nombre1} #{citaBean.estudiante.apellido1}" maxlength="15" style="width: 60%" /> 
                             </div>
                         </div>
                         <div class="row ancho2 margen_top2" style="font-size: medium">
@@ -72,10 +74,10 @@
                                 <h:outputLabel for="medico" value="Médico:" />
                             </div>
                             <div class="col-md-9">
-                                <p:selectOneMenu id="selectMedico" >
+                                <p:selectOneMenu id="selectMedico" value="#{citaBean.doctorUsername}">
                                     <f:selectItem itemLabel="-- Escoja un Médico --" itemValue="" />
                                     <c:forEach items="#{citaBean.consultaDoctores}" var="doctor" >
-                                        <f:selectItem itemLabel="#{doctor.username}" itemValue="#{doctor.iddoctor}" />
+                                        <f:selectItem itemLabel="#{doctor.username}" itemValue="#{doctor.username}" />
                                     </c:forEach>
                                 </p:selectOneMenu>
                                 <!--<p:inputText  maxlength="15" style="width: 60%"/>-->
@@ -86,24 +88,25 @@
                                 <h:outputLabel for="fecha" value="Fecha:" />
                             </div>
                             <div class="col-md-9">
-                                <p:calendar id="mask" value="#{citaBean.fecha}" pattern="dd-MM-yyyy" />
+                                <p:calendar id="datetime" value="#{citaBean.fecha}" pattern="dd-MM-yyyy HH:mm" />
                             </div>
                         </div>
-                        <div class="row ancho2 margen_top2" style="font-size: medium">
+                        <!--<div class="row ancho2 margen_top2" style="font-size: medium">
                             <div class="col-md-3">
                                 <h:outputLabel for="hora" value="Hora:" />
                             </div>
                             <div class="col-md-9">
                                 <p:calendar id="time" value="#{citaBean.hora}" pattern="HH:mm a" timeOnly="true"  />
                             </div>
-                        </div>
+                        </div>-->
                         <div class="row ancho2 margen_top1" style="font-size: medium" >
-                            <p:commandButton  value="Guardar" id="guardarCita" styleClass="ui-priority-primary margen_top3"/>
+                            <p:commandButton  value="Guardar" id="guardarCita" action="#{citaBean.guardarCita(actionEvent)}" styleClass="ui-priority-primary margen_top3"/>
 
                         </div>
                     </div>                                  
                     <div class="col-md-1"></div>
                 </div>
+                </h:form>
             </div>
         </div>
 

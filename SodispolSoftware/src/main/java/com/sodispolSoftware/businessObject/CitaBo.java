@@ -20,4 +20,5 @@ public interface CitaBo {
     public ArrayList<Object[]> getCitas(Doctor doctor);
     public void updateCita(Citamedica cita);
     public int getncitas();
+    public void addCita(Citamedica cita);
 }

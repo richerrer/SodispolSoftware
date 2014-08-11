@@ -12,6 +12,7 @@ import com.sodispolSoftware.businessObject.EstudianteBo;
 import com.sodispolSoftware.model.Citamedica;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
+import com.sodispolSoftware.redirect.Redireccionar;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -50,13 +51,16 @@ public class CitaBean {
     
     private String paciente;
    
-    private Doctor doctor;
+    //private Doctor doctor;
+    private String doctorUsername;
     
     private Calendar fecha;
     
     private Calendar hora;
     
-    private List<Doctor> consultaDoctores;
+    private ArrayList<Doctor> consultaDoctores;
+    
+    private int numDoctores;
     
     @Inject
     public CitaBean(CitaBo citaBo,UsuarioBean usuarioBean, EstudianteBo estudianteBo, DoctorBo doctorBo)
@@ -66,11 +70,36 @@ public class CitaBean {
         setEstudianteBo(estudianteBo);
         setDoctorBo(doctorBo);
         
-        setConsultaDoctores(getDoctorBo().getAllDoctors());
+        
+        // setNumDoctores(consultaDoctores.size());
         //setNcita(getUsuarioBean().getDoctor().getCitamedicas().iterator().next().getFechareg().toString());
         //setNcita(getUsuarioBean().getDoctor().getApellido1());
         //setO(nnams2());
         //setNcita((String) nnams2()[0]);
+    }
+
+    public String getDoctorUsername() {
+        return doctorUsername;
+    }
+
+    public void setDoctorUsername(String doctorUsername) {
+        this.doctorUsername = doctorUsername;
+    }
+
+    public ArrayList<Doctor> getConsultaDoctores() {
+        return consultaDoctores;
+    }
+
+    public void setConsultaDoctores(ArrayList<Doctor> consultaDoctores) {
+        this.consultaDoctores = consultaDoctores;
+    }
+
+    public int getNumDoctores() {
+        return numDoctores;
+    }
+
+    public void setNumDoctores(int numDoctores) {
+        this.numDoctores = numDoctores;
     }
 
     public Calendar getHora() {
@@ -97,28 +126,12 @@ public class CitaBean {
         this.paciente = paciente;
     }
 
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
-    }
-
     public Calendar getFecha() {
         return fecha;
     }
 
     public void setFecha(Calendar fecha) {
         this.fecha = fecha;
-    }
-
-    public List<Doctor> getConsultaDoctores() {
-        return consultaDoctores;
-    }
-
-    public void setConsultaDoctores(List<Doctor> consultaDoctores) {
-        this.consultaDoctores = consultaDoctores;
     }
 
     public EstudianteBo getEstudianteBo() {
@@ -208,7 +221,8 @@ public class CitaBean {
         HttpServletRequest origRequest = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
         origRequest.setAttribute("estudiante", getEstudiante() );
 
-        
+        loadDoctores();
+                
     }
     
     public void buttonAction(ActionEvent actionEvent) {
@@ -222,5 +236,25 @@ public class CitaBean {
     public void addMessage(String mensaje) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje, null);
         FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    
+    public void loadDoctores()
+    {
+        consultaDoctores=new ArrayList<Doctor>();
+        ///ArrayList<Doctor> doctores = getDoctorBo().getAllDoctors();
+        
+        //for(Doctor doct : doctores)
+        //{
+        //    consultaDoctores.add(doct);
+        //}
+        consultaDoctores.add(getDoctorBo().getDoctor("joanrome"));
+        //setConsultaDoctores(getDoctorBo().getAllDoctors());
+    }
+    
+    public String guardarCita(ActionEvent actionEvent)
+    {
+        Citamedica citaNueva = new Citamedica(estudiante, getDoctorBo().getDoctor(doctorUsername), fecha, fecha);
+        getCitaBo().addCita(citaNueva);
+        return "succes.xhtml";
     }
 }

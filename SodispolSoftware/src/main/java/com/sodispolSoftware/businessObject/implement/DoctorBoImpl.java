@@ -4,6 +4,7 @@ import com.sodispolSoftware.businessObject.DetalleFichaEstudianteBo;
 import com.sodispolSoftware.businessObject.DoctorBo;
 import com.sodispolSoftware.businessObject.RoleUserBo;
 import com.sodispolSoftware.dao.DoctorDao;
+import com.sodispolSoftware.model.Citamedica;
 import com.sodispolSoftware.model.Detallefichaestudiante;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
@@ -144,9 +145,8 @@ public class DoctorBoImpl implements DoctorBo{
     }
 
     @Override
-    public List<Doctor> getAllDoctors() {
+    public ArrayList<Doctor> getAllDoctors()  {
         return getDoctorDao().getAllDoctors();
     }
 
-    
 }

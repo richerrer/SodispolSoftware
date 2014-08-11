@@ -17,5 +17,5 @@ import java.util.List;
 public interface DoctorDao {
     public Doctor getDoctor(String username);
     public void addDoctor(Doctor doctor);
-    public List<Doctor> getAllDoctors();
+    public ArrayList<Doctor> getAllDoctors() ;
 }

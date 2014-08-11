@@ -187,7 +187,7 @@ public class CalendarioCitasBean implements Serializable {
     
     public void onDateSelect(SelectEvent selectEvent) {
         event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
-        Redireccionar.redirect("citas.xhtml");
+        com.sodispolSoftware.redirect.Redireccionar.redirect("citas.xhtml");
     }
     
     public void onEventMove(ScheduleEntryMoveEvent event) {
@@ -286,4 +286,6 @@ public class CalendarioCitasBean implements Serializable {
         long idCitaSeleccionada = Long.valueOf(event.getTitle().substring(5, (event.getTitle().lastIndexOf(","))-1));
         getCitaBo().updateCita(getCitaSeleccionada(idCitaSeleccionada));
     }
+    
+    
 }

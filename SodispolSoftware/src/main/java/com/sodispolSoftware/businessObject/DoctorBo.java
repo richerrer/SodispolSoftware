@@ -29,5 +29,5 @@ public interface DoctorBo {
 
     public long getNumObservaciones(Estudiante estudiante);
     
-    public List<Doctor> getAllDoctors();
+    public ArrayList<Doctor> getAllDoctors() ;
 }
