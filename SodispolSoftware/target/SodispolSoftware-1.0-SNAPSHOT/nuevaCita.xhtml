@@ -35,15 +35,17 @@
                         <h:form>
                             <p:growl id="growl" life="2000" />
                             <h:panelGrid columns="1" class=" ancho2 margen_top3">
-                                <p:selectOneRadio  id="tipoBusqueda" style="width: 40%" >
+                                <p:selectOneRadio  id="tipoBusqueda" style="width: 40%" value="#{citaBean.tipoBusqueda}" required="true">
                                     <f:selectItem itemLabel="Matrícula" itemValue="matricula" />
                                     <f:selectItem itemLabel="Cédula" itemValue="cedula" />
                                 </p:selectOneRadio>
                             </h:panelGrid>
                             <h:panelGrid columns="1" class=" ancho2 margen_top3" >
-                                <p:inputText  maxlength="15" style="width: 60%"/> 
-                                <p:commandButton  value="Buscar Paciente" id="buscarPaciente" styleClass="ui-priority-primary margen_top3"/>
-
+                                <p:focus for="paramBusqueda" />
+                                <p:inputText id="paramBusqueda" maxlength="15" style="width: 60%" value="#{citaBean.paramBusqueda}" required="true"/>
+                                <p:commandButton  value="Buscar Paciente" id="buscarPaciente" update="growl" actionListener="#{citaBean.buttonAction}" styleClass="ui-priority-primary margen_top3">
+                                    <p:ajax process="@this,paramBusqueda,tipoBusqueda" update=":datosCita" listener="#{citaBean.consultar()}" />
+                                </p:commandButton>
 
                             </h:panelGrid>
 
@@ -51,7 +53,7 @@
 
                     </section>
                 </div>
-                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 ">
+                <div id="datosCita" class="col-xs-12 col-sm-7 col-md-7 col-lg-7 ">
                     <div class="col-md-1"></div>
                     <div class="col-md-9">
                         <div class="row ancho2 margen_top3" style="font-size: x-large" >
@@ -62,7 +64,7 @@
                                 <h:outputLabel for="paciente" value="Paciente:" />
                             </div>
                             <div class="col-md-9">
-                                <p:inputText  value="" maxlength="15" style="width: 60%" disabled="true"/> 
+                                <p:inputText  value="#{citaBean.estudiante.username}" maxlength="15" style="width: 60%" disabled="true"/> 
                             </div>
                         </div>
                         <div class="row ancho2 margen_top2" style="font-size: medium">
