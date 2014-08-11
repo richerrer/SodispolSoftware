@@ -31,4 +31,6 @@
     <bean id="medicinaDao" class="com.sodispolSoftware.dao.implement.MedicinaDaoImpl" scope="prototype">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
+    
+    
 </beans>

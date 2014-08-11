@@ -23,6 +23,13 @@ public class Categoriamedicina  implements java.io.Serializable {
     public Categoriamedicina(int idcategoriamedicina) {
         this.idcategoriamedicina = idcategoriamedicina;
     }
+    
+    public Categoriamedicina(int idcategoriamedicina, String descripcion) {
+        this.idcategoriamedicina = idcategoriamedicina;
+        this.descripcion=descripcion;
+    }
+    
+    
     public Categoriamedicina(int idcategoriamedicina, Boolean estadoborrado, String descripcion, Set<Categoriamedicinamedicina> categoriamedicinamedicinas) {
        this.idcategoriamedicina = idcategoriamedicina;
        this.estadoborrado = estadoborrado;

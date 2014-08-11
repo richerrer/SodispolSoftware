@@ -6,7 +6,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-
+          
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Sodispol - Dispensario Médico</title>
@@ -14,131 +14,134 @@
         <link rel="Stylesheet" href="resources/css/estilo01.css"/>
         <link href="http://fonts.googleapis.com/css?family=Duru+Sans" rel="styleshee" type="text/css"/>
         <script src="resources/js/bootstrap.js"></script>
-        <script src="resources/js/main.js"></script>
+         <script src="resources/js/main.js"></script>
     </h:head>
     <h:body>
-
+        
         <div id="container">
             <div id="header">    
-                <header >
+            <header >
                     <ui:include src="/resources/templates/header.xhtml"/>
-                </header>
-
+                 </header>
+            
                 <nav class="navbar navbar-default color1 ancho1 center" role="navigation">
                     <ui:include src="/resources/templates/navMedico.xhtml"/>
                 </nav>
-            </div>
+             </div>
+            
+        <div id="content" class="container slider ancho1 margen_top2">
+                    
+                    <section>
+                        <h2 class="texto" style="text-align: center">Administrar Inventario</h2>
+                        <hr style="color: #440706;" size="5" width="95%"/>
+                        <p><b>En esta sección usted dispone del inventario del dispensario médico, usted puede agregar, eliminar y modificar medicamentos</b> </p>
+                       
+                        <hr style="color: #000;" size="5" width="95%"/>
+                   
+                        
+          <p:growl id="growl" showDetail="true" /> 
+          
+          <h:form>
+          
+          <p:panel id="toggleable6" header="Ingresar nuevo medicamento" toggleable="true"  collapsed="true" toggleSpeed="500"   style="margin-bottom:20px"  styleClass="color6">
+              <div style="height: 5em" >
+                  <p:panelGrid style="width: 99%">
+                      <f:facet name="header" >
+                          
+                        
+                         <p:row>
+                            <p:column colspan="4">Nombre</p:column>
+                            <p:column colspan="4">Categoría</p:column>
+                            <p:column colspan="3">Unidades Disponibles</p:column>
+                            <p:column>Accion</p:column>
+                         </p:row>
+                       
+                            
+                           <p:row>
+                            <p:column colspan="4" style="font-weight: bold;"> 
+                                <p:inputText id="nombre" value="#{medicinaBean.descripcion}" required="true" />
+                            </p:column>
+                            <p:column colspan="4">
+                                <p:selectOneMenu id="categorias" value="#{medicinaBean.categoriaSeleccionada}">
+                                    <f:selectItem itemLabel="Select One" itemValue="" />
+                                    <c:forEach items="#{medicinaBean.categoriasCargadas}" var="categoria">
+                                        <f:selectItem itemLabel="#{categoria.descripcion}" itemValue="#{categoria.descripcion}" />
+                                    </c:forEach>
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column colspan="3">
+                                <p:spinner size="2" value="#{medicinaBean.cajasdisponibles}" /> 
+                                unidades</p:column>
+                            <p:column style="font-weight: bold;">
+                            <p:commandButton value="Guardar" id="guardarMedicina" update="toggleable6" action="#{medicinaBean.guardarMedicina(actionEvent)}" />
 
-            <div id="content" class="container slider ancho1 margen_top2">
-
-                <section>
-                    <h2 class="texto" style="text-align: center">Administrar Inventario</h2>
-                    <hr style="color: #440706;" size="5" width="95%"/>
-                    <p><b>En esta sección usted dispone del inventario del dispensario médico, usted puede agregar, eliminar y modificar medicamentos</b> </p>
-                    <br/>
-                    <hr style="color: #000;" size="5" width="95%"/>
-
-
-                    <p:growl id="growl" showDetail="true" /> 
-
-                    <h:form>
-                        <p:commandButton value="Ingresar nuevo medicamento" type="button" onclick="PF('eventDialog').show();" />
-                        <br/><br/>
-                        <p:panel id="toggleable5" header="Lista de Medicamentos" toggleable="true"  collapsed="true" toggleSpeed="500"  widgetVar="panel5" style="margin-bottom:20px"  styleClass="color6">
-                            <div style="height: 25em" class="panelBarY">
-                                <p:panelGrid >
-                                    <f:facet name="header">
-                                        <p:row>
-                                            <p:column colspan="2">Nombre</p:column>
-                                            <p:column colspan="4">Descripcion</p:column>
-                                            <p:column colspan="2">Categoría</p:column>
-                                            <p:column colspan="1">Unidades Disponibles</p:column>
-                                            <p:column colspan="1">Cantidad</p:column>
-                                            <p:column>Accion</p:column>
-                                        </p:row>
-
-                                        <c:forEach items="#{medicinaBean.medicinas}" var="medicina">
-
-                                            <p:row>
-                                                <p:column colspan="2" style="font-weight: bold;">Nombre</p:column>
-                                                <p:column colspan="4">#{medicina.descripcion}/p:column>
-                                                    <p:column colspan="2">Analgésico</p:column>
-                                                    <p:column colspan="1">#{medicina.cajasdisponibles}</p:column>
-                                                    <p:column colspan="1"><p:spinner size="2" /></p:column>
-                                                    <p:column style="font-weight: bold;">
-                                                        <p:commandButton value="Agregar" oncomplete="PF('dlg1').show()"/><br/>
-                                                        <p:commandButton value="Quitar" oncomplete="PF('dlg2').show()" /><br/>
-                                                        <p:commandButton value="Eliminar" oncomplete="PF('dlg3').show()" />                                                                 
-                                                    </p:column>
-                                            </p:row>
-
-                                        </c:forEach>
-
-                                    </f:facet>
-                                </p:panelGrid> 
-                            </div>                        
-                        </p:panel>
-
-
-
-
-
-                        <br/> <br/> <br/> 
-                        <p:dialog widgetVar="eventDialog" header="Datos del medicamento" showEffect="clip" hideEffect="clip" resizable="false">
-                            <h:panelGrid id="eventDetails" columns="2">
-                                <h:outputLabel  value="Nombre:" />
-                                <p:inputText id="Nombre" required="true" />
-
-                                <h:outputLabel value="Detalle:" />
-                                <p:inputTextarea rows="2" cols="22" />
-
-                                <h:outputLabel value="Unidades:" />
-                                <p:inputText id="Unidades" style="text-align:center;" required="true" />
-                                <br/><br/>
-                                <p:commandButton id="addButton" value="Guardar" oncomplete="PF('eventDialog').hide();PF('medicamento').show() ;" />
-                            </h:panelGrid>
-                        </p:dialog>   
-
-                        <p:dialog header="Agregado" widgetVar="dlg1" minHeight="40" resizable="false">
-                            <h:outputText value="Ha agregado medicamentos al inventario!" />
-                        </p:dialog>
-                        <p:dialog header="Quitado" widgetVar="dlg2" minHeight="40" resizable="false">
-                            <h:outputText value="Ha quitado medicamentos del inventario !" />
-                        </p:dialog>
-
-                        <p:dialog header="Eliminar" widgetVar="dlg3" minHeight="40" resizable="false">
-                            <h:outputText value="¿Está seguro que desea eliminar este medicamento?" /> <br/><br/> 
-                            <p:commandButton id="addButton1" value="Si"  oncomplete="PF('dlg3').hide();" />
-                            <p:commandButton id="addButton2" value="No"  oncomplete="PF('dlg3').hide();" />
-                        </p:dialog>
-                        <p:dialog header="Eliminar" widgetVar="dlg4" minHeight="40" resizable="false">
-                            <h:outputText value="¿Está seguro que desea eliminar este medicamento?" /> <br/><br/> 
-                            <p:commandButton id="addButton3" value="Si"  oncomplete="PF('dlg4').hide();" />
-                            <p:commandButton id="addButton4" value="No"  oncomplete="PF('dlg4').hide();" />
-                        </p:dialog>
-                        <p:dialog header="Eliminar" widgetVar="dlg5" minHeight="40" resizable="false">
-                            <h:outputText value="¿Está seguro que desea eliminar este medicamento?" /> <br/><br/> 
-                            <p:commandButton id="addButton5" value="Si" oncomplete="PF('dlg5').hide();" />
-                            <p:commandButton id="addButton6" value="No" oncomplete="PF('dlg5').hide();" />
-                        </p:dialog>
-                        <p:dialog header="Eliminar" widgetVar="dlg6" minHeight="40" resizable="false">
-                            <h:outputText value="¿Está seguro que desea eliminar este medicamento?" /> <br/><br/> 
-                            <p:commandButton id="addButton7" value="Si" oncomplete="PF('dlg6').hide();" />
-                            <p:commandButton id="addButton8" value="No" oncomplete="PF('dlg6').hide();" />
-                        </p:dialog>
-
-
-
-
-
-                    </h:form>
-                </section>
-            </div>
-            <div id="footer">
-                <footer class="margen_top2 color1">
-                    <ui:include src="/resources/templates/footer.xhtml"/>
-                </footer>
-            </div>
+                            </p:column>
+                            </p:row> 
+                             
+                          
+                    </f:facet>
+                    </p:panelGrid>           
+           </div>                        
+          </p:panel>
+          
+          <p:panel id="toggleable5" header="Lista de Medicamentos" toggleable="true"  collapsed="true" toggleSpeed="500"  widgetVar="panel5" style="margin-bottom:20px"  styleClass="color6">
+              <div style="height: 25em" class="panelBarY">
+                  <p:panelGrid style="width: 99%">
+                      <f:facet name="header" >
+                          
+                        
+                         <p:row>
+                            <p:column colspan="4">Nombre</p:column>
+                            <p:column colspan="4">Categoría</p:column>
+                            <p:column colspan="3">Unidades Disponibles</p:column>
+                            <p:column colspan="3">Cantidad</p:column>
+                            <p:column>Accion</p:column>
+                         </p:row>
+                       
+                          
+                          <c:forEach items="#{medicinaBean.medicinasCargadas}" var="medicina">
+                            
+                           <p:row>
+                            <p:column colspan="4" style="font-weight: bold;">#{medicina.descripcion}</p:column>
+                            <p:column colspan="4">#{medicinaBean.categoria.descripcion}</p:column>
+                            <p:column colspan="3">#{medicina.cajasdisponibles} unidades</p:column>
+                            <p:column colspan="3"><p:spinner size="2" /></p:column>
+                            <p:column style="font-weight: bold;">
+                            <p:commandButton value="Agregar" oncomplete="PF('dlg1').show()"/>
+                            <p:commandButton value="Quitar" oncomplete="PF('dlg2').show()" />
+                            <p:commandButton value="Eliminar medicamento" oncomplete="PF('dlg3').show()" />                                                                 
+                            </p:column>
+                        </p:row>
+                             
+                         </c:forEach>
+                          
+                    </f:facet>
+                    </p:panelGrid> 
+              </div>                        
+          </p:panel>
+          
+          <br/> <br/> <br/> 
+         
+          
+          <p:dialog header="Agregado" widgetVar="dlg1" minHeight="40" resizable="false">
+            <h:outputText value="Ha agregado medicamentos al inventario!" />
+          </p:dialog>
+          <p:dialog header="Quitado" widgetVar="dlg2" minHeight="40" resizable="false">
+             <h:outputText value="Ha quitado medicamentos del inventario !" />
+          </p:dialog>
+          
+          
+          
+          
+          
+           </h:form>
+</section>
+        </div>
+        <div id="footer">
+        <footer class="margen_top2 color1">
+            <ui:include src="/resources/templates/footer.xhtml"/>
+        </footer>
+        </div>
         </div>
     </h:body>
 </html>

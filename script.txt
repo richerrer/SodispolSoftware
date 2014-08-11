@@ -393,5 +393,42 @@ INSERT INTO roleuser(descripcion)
 	INSERT INTO doctor(username,estadoborrado, idroleuser)
     VALUES ('rmaya',false,1);
 	
+	INSERT INTO medicina(descripcion,cajasdisponibles, estadodisponible, estadoborrado)
+    VALUES ('Apronax 550mg',20,true,false);
+	
+	INSERT INTO medicina(descripcion,cajasdisponibles, estadodisponible, estadoborrado)
+    VALUES ('Finalin Forte',12,true,false);
+	
+	INSERT INTO medicina(descripcion,cajasdisponibles, estadodisponible, estadoborrado)
+    VALUES ('Aspirina',22,true,false);
+	
+	INSERT INTO medicina(descripcion,cajasdisponibles, estadodisponible, estadoborrado)
+    VALUES ('Voltaren 220mg',20,true,false);
+	
+	INSERT INTO categoriamedicina(estadoborrado, descripcion)
+    VALUES (false, analgesico);
+	
+	INSERT INTO categoriamedicina(estadoborrado, descripcion)
+    VALUES (false, desinflamatorio);
+	
+	INSERT INTO categoriamedicina(estadoborrado, descripcion)
+    VALUES (false, mucolitico);
+	
+	INSERT INTO categoriamedicina(estadoborrado, descripcion)
+    VALUES (false, antibiotico);
+	
+	INSERT INTO categoriamedicinamedicina(estadoborrado, idmedicina, idcategoriamedicina)
+    VALUES (false, 1, 1);
+	
+	INSERT INTO categoriamedicinamedicina(estadoborrado, idmedicina, idcategoriamedicina)
+    VALUES (false, 2, 3);
+	
+	INSERT INTO categoriamedicinamedicina(estadoborrado, idmedicina, idcategoriamedicina)
+    VALUES (false, 3, 2);
+	
+	INSERT INTO categoriamedicinamedicina(estadoborrado, idmedicina, idcategoriamedicina)
+    VALUES (false, 4, 1);
+	
+	
 create unique index I_doctor_username on doctor(username,estadoborrado);
 create unique index I_enfermero_username on enfermero(username,estadoborrado);

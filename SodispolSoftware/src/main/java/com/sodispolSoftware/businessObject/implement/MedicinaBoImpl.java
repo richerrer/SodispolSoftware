@@ -8,6 +8,7 @@ package com.sodispolSoftware.businessObject.implement;
 
 import com.sodispolSoftware.businessObject.MedicinaBo;
 import com.sodispolSoftware.dao.MedicinaDao;
+import com.sodispolSoftware.model.Categoriamedicina;
 import com.sodispolSoftware.model.Medicina;
 import java.util.ArrayList;
 import javax.inject.Inject;
@@ -37,9 +38,25 @@ public class MedicinaBoImpl implements MedicinaBo {
 
     
     @Override
-    public ArrayList<Medicina> obtenerListaDeMedicinas() { 
-        ArrayList<Medicina> medicinas = getMedicinaDao().getListaDeMedicinas();
-        return medicinas;
+    public ArrayList<Object[]> obtenerListaDeMedicinas() { 
+        return getMedicinaDao().getListaDeMedicinas();
+    }
+
+    @Override
+    public Categoriamedicina obtenerCategoria(Long medicinaId) {
+        return getMedicinaDao().getCategoria(medicinaId);
+    }
+
+    @Override
+    public ArrayList<Object[]> obtenerListaDeCategorias() {
+        return getMedicinaDao().getListaDeCategorias();
+    }
+
+    @Override
+    public void agregarMedicina(Medicina medicina) {
+       
+        getMedicinaDao().addMedicina(medicina);
+    
     }
 
     

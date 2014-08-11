@@ -27,6 +27,19 @@ public class Medicina  implements java.io.Serializable {
     public Medicina(long idmedicina) {
         this.idmedicina = idmedicina;
     }
+    public Medicina(long idmedicina, String descripcion, Integer cajasDisp, Boolean estadoDisp) {
+        this.idmedicina = idmedicina;
+        this.descripcion = descripcion;
+        this.cajasdisponibles=cajasDisp;
+        this.estadodisponible=estadoDisp;
+    }
+    public Medicina( String descripcion, Integer cajasDisp, Boolean estadoDisp) {
+        this.descripcion = descripcion;
+        this.cajasdisponibles=cajasDisp;
+        this.estadodisponible=estadoDisp;
+    }
+    
+    
     public Medicina(long idmedicina, String descripcion, Integer cajasdisponibles, Boolean estadodisponible, Boolean estadoborrado, Set<Detalleabastecimiento> detalleabastecimientos, Set<Medicinaepecifica> medicinaepecificas, Set<Categoriamedicinamedicina> categoriamedicinamedicinas) {
        this.idmedicina = idmedicina;
        this.descripcion = descripcion;

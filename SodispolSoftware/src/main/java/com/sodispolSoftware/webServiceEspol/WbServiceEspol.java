@@ -19,6 +19,9 @@ public class WbServiceEspol {
         if (username.equals("rmaya")) {
             return "P";//Profesional
         }
+        if (username.equals("raualmir")) {
+            return "P";//Profesional
+        }
         if (username.equals("joanrome")) {
             return "P";//Profesional
         }
@@ -33,7 +36,7 @@ public class WbServiceEspol {
         if (username.equals("rmaya")) {
             return true;//DOCTOR
         }
-        if (username.equals("raulalmir")) {
+        if (username.equals("raualmir")) {
             return true;//ENFERMERO
         }
         if (username.equals("joanrome")) {
@@ -48,6 +51,9 @@ public class WbServiceEspol {
     public static Object[] loadDoctorAttributes(String username) {
         if (username.equals("rmaya")) {
             return new Object[]{"ricardo", "david", "maya", "herrera", "rmaya@espol.edu.ec", "Cardiologo"};
+        }
+        if (username.equals("raualmir")) {
+            return new Object[]{"raul", "alberto", "mira", "rodriguez", "raualmir@espol.edu.ec", "Cardiologo"};
         }
         if(username.equals("gabapare")){
          return new Object[]{"gaby","alejandra","paredes","torres","gabapare@espol.edu.ec","Cardiologo"};

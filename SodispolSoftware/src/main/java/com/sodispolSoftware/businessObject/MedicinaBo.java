@@ -6,6 +6,7 @@
 
 package com.sodispolSoftware.businessObject;
 
+import com.sodispolSoftware.model.Categoriamedicina;
 import com.sodispolSoftware.model.Medicina;
 import java.util.ArrayList;
 
@@ -15,6 +16,13 @@ import java.util.ArrayList;
  */
 public interface MedicinaBo {
 
-    public ArrayList<Medicina> obtenerListaDeMedicinas();
+    
+    public Categoriamedicina obtenerCategoria(Long medicinaId);
+    
+    public ArrayList<Object[]> obtenerListaDeMedicinas();
+    
+    public ArrayList<Object[]> obtenerListaDeCategorias();
+    
+    public void agregarMedicina(Medicina medicina);
     
 }

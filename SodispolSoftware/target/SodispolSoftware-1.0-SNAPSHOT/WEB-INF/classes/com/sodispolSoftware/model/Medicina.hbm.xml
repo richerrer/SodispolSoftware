@@ -6,8 +6,8 @@
     <class name="com.sodispolSoftware.model.Medicina" table="medicina" schema="public">
         <id name="idmedicina" type="long">
             <column name="idmedicina" />
-            <generator class="assigned" />
-        </id>
+            <generator class="identity" />
+        </id>        
         <property name="descripcion" type="string">
             <column name="descripcion" length="1000" />
         </property>
