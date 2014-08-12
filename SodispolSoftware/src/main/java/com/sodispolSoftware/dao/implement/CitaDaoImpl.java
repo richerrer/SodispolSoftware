@@ -21,9 +21,9 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao{
 
     @Override
-    public ArrayList<Citamedica> getCitas(Doctor doctor) 
+    public ArrayList<Object[]> getCitas(Doctor doctor) 
     {
-        /*
+        
         Session session = getHibernateTemplate().getSessionFactory().openSession();
         try{
             session.beginTransaction();
@@ -37,9 +37,9 @@ public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao{
         }
         catch(IndexOutOfBoundsException ex){
             return null;
-        }*/
+        }
         
-        
+        /*
         ArrayList<Citamedica> citas = new ArrayList<Citamedica>();
         Session session = getHibernateTemplate().getSessionFactory().openSession();
         try{
@@ -63,7 +63,7 @@ public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao{
         }
         catch(Exception ex){
             return null;
-        }
+        }*/
     }
     
 

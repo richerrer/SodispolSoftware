@@ -42,7 +42,7 @@ public class CalendarioCitasBean implements Serializable {
     private UsuarioBean usuarioBean;
     
     private ArrayList<Object[]> consultaCitas;
-    private ArrayList<Citamedica> citasCargadas;
+    private ArrayList<Citamedica> citasCargadas=new ArrayList<Citamedica>();
     
     private ScheduleModel eventModel;
     //private ScheduleModel lazyEventModel;
@@ -53,8 +53,8 @@ public class CalendarioCitasBean implements Serializable {
     {
         setUsuarioBean(usuarioBean);
         setCitaBo(citaBo);
-        //setConsultaCitas(getCitaBo().getCitas(getUsuarioBean().getDoctor()));
-        setCitasCargadas(getCitaBo().getCitas(getUsuarioBean().getDoctor()));
+        setConsultaCitas(getCitaBo().getCitas(getUsuarioBean().getDoctor()));
+        //setCitasCargadas(getCitaBo().getCitas(getUsuarioBean().getDoctor()));
     }
     
     @PostConstruct
@@ -262,12 +262,12 @@ public class CalendarioCitasBean implements Serializable {
     
     public void loadCitas()
     {
-        for(Citamedica c : citasCargadas)
-        {
+        for(Object[] obj : consultaCitas)
+        {/*
             DefaultScheduleEvent ev = new DefaultScheduleEvent("  ID:"+c.getIdcita()+", Paciente:"+c.getEstudiante().getUsername(), c.getFechareg().getTime(), c.getFechareg().getTime());
             eventModel.addEvent(ev);
+            */
             
-            /*
             Estudiante est = (Estudiante) obj[0];
             String estadoCita = (String) obj[1];
             Calendar fechaReg = (Calendar) obj[2];
@@ -279,7 +279,7 @@ public class CalendarioCitasBean implements Serializable {
             //ev.setId(prueba);
             citasCargadas.add(new Citamedica(citaId.longValue(), est, getUsuarioBean().getDoctor(), fechaReg, fechaProg));
             
-            eventModel.addEvent(ev);*/
+            eventModel.addEvent(ev);
         }
         
     }
