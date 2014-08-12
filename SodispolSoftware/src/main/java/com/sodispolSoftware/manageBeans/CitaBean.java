@@ -57,7 +57,7 @@ public class CitaBean {
     
     private Date fecha;
     
-    private Calendar hora;
+    private Calendar fechaBase=Calendar.getInstance();
     
     private ArrayList<Doctor> consultaDoctores;
     
@@ -104,13 +104,15 @@ public class CitaBean {
         this.numDoctores = numDoctores;
     }
 
-    public Calendar getHora() {
-        return hora;
+    public Calendar getFechaBase() {
+        return fechaBase;
     }
 
-    public void setHora(Calendar hora) {
-        this.hora = hora;
+    public void setFechaBase(Calendar fechaBase) {
+        this.fechaBase = fechaBase;
     }
+
+   
 
     public DoctorBo getDoctorBo() {
         return doctorBo;
@@ -242,30 +244,23 @@ public class CitaBean {
     
     public String guardarCita()
     {
-        //Calendar fechaCita = newFechayHora(fecha.getDate(), fecha.getMonth(), fecha.getYear(), fecha.getHours(), fecha.getMinutes());
-        //Citamedica citaNueva = new Citamedica(estudiante, getDoctorBo().getDoctor(doctorUsername), fechaCita, fechaCita);
-        //getCitaBo().addCita(citaNueva);
+        newFechayHora(fecha.getDate(), fecha.getMonth(), fecha.getYear(), fecha.getHours(), fecha.getMinutes());
+        Citamedica citaNueva = new Citamedica(estudiante, getDoctorBo().getDoctor(doctorUsername), fechaBase, fechaBase);
+        getCitaBo().addCita(citaNueva);
         return "succes.xhtml";
     }
     
-    /*
-    private Calendar newFechayHora(int dia, int mes, int anio, int hora, int minuto) {
-        Calendar t = (Calendar) today().clone();
-        //t.set(Calendar.AM_PM, ampm);
-        t.set(Calendar.DATE, dia);
-        //t.set(Calendar.DAY_OF_MONTH, dia);
-        t.set(Calendar.MONTH, mes);
-        t.set(Calendar.YEAR, anio);
-        t.set(Calendar.HOUR, hora);
-        t.set(Calendar.MINUTE, minuto);
-        
-        return t;
-    }*/
     
-    private Calendar today() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 0, 0, 0);
-        
-        return calendar;
+    public void newFechayHora(int dia, int mes, int anio, int hora, int minuto) {
+        //Calendar t = (Calendar) today().clone();
+        //t.set(Calendar.AM_PM, ampm);
+        fechaBase.set(Calendar.DATE, dia);
+        //t.set(Calendar.DAY_OF_MONTH, dia);
+        fechaBase.set(Calendar.MONTH, mes);
+        fechaBase.set(Calendar.YEAR, anio);
+        fechaBase.set(Calendar.HOUR, hora);
+        fechaBase.set(Calendar.MINUTE, minuto);
     }
+    
+    
 }
