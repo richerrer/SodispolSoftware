@@ -30,4 +30,6 @@ public interface DoctorBo {
     public long getNumObservaciones(Estudiante estudiante);
     
     public ArrayList<Doctor> getAllDoctors() ;
+    
+    public int pruebaDoctor();
 }

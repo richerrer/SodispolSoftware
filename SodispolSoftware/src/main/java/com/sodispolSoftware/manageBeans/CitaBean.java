@@ -60,7 +60,8 @@ public class CitaBean {
     
     private ArrayList<Doctor> consultaDoctores;
     
-    private int numDoctores;
+    private int numDoctores=-2;
+    
     
     @Inject
     public CitaBean(CitaBo citaBo,UsuarioBean usuarioBean, EstudianteBo estudianteBo, DoctorBo doctorBo)
@@ -240,15 +241,16 @@ public class CitaBean {
     
     public void loadDoctores()
     {
-        consultaDoctores=new ArrayList<Doctor>();
+        //consultaDoctores=new ArrayList<Doctor>();
         ///ArrayList<Doctor> doctores = getDoctorBo().getAllDoctors();
         
         //for(Doctor doct : doctores)
         //{
         //    consultaDoctores.add(doct);
         //}
-        consultaDoctores.add(getDoctorBo().getDoctor("joanrome"));
-        //setConsultaDoctores(getDoctorBo().getAllDoctors());
+        //consultaDoctores.add(getDoctorBo().getDoctor("joanrome"));
+        setConsultaDoctores(getDoctorBo().getAllDoctors());
+        //setNumDoctores(getDoctorBo().pruebaDoctor());
     }
     
     public String guardarCita(ActionEvent actionEvent)

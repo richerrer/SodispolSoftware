@@ -182,7 +182,7 @@ public class CalendarioCitasBean implements Serializable {
     
     public void onEventSelect(SelectEvent selectEvent) {
         event = (ScheduleEvent) selectEvent.getObject();
-        Redireccionar.redirect("citas.xhtml");
+        com.sodispolSoftware.redirect.Redireccionar.redirect("citas.xhtml");
     }
     
     public void onDateSelect(SelectEvent selectEvent) {

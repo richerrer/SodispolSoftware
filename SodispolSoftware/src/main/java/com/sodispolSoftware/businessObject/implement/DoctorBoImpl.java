@@ -146,7 +146,13 @@ public class DoctorBoImpl implements DoctorBo{
 
     @Override
     public ArrayList<Doctor> getAllDoctors()  {
-        return getDoctorDao().getAllDoctors();
+        ArrayList<Doctor> doctores =getDoctorDao().getAllDoctors();
+        return doctores;
     }
-
+@Override
+    public int pruebaDoctor()
+    {
+        int p = getDoctorDao().pruebaDoctor();
+        return p;
+    }
 }

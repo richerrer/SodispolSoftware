@@ -18,4 +18,5 @@ public interface DoctorDao {
     public Doctor getDoctor(String username);
     public void addDoctor(Doctor doctor);
     public ArrayList<Doctor> getAllDoctors() ;
+    public int pruebaDoctor();
 }

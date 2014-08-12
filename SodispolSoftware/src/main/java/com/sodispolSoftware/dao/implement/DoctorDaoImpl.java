@@ -7,6 +7,7 @@
 package com.sodispolSoftware.dao.implement;
 
 import com.sodispolSoftware.dao.DoctorDao;
+import com.sodispolSoftware.model.Detallefichaestudiante;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Roleuser;
 import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
@@ -39,6 +40,8 @@ public class DoctorDaoImpl extends HibernateDaoSupport implements DoctorDao{
             return null;
         }
     }
+    
+    
  
 
     @Override
@@ -71,7 +74,7 @@ public class DoctorDaoImpl extends HibernateDaoSupport implements DoctorDao{
 
     @Override
     public ArrayList<Doctor> getAllDoctors() 
-    {
+    {/*
         try
         {
             Object[] paramsDoctor = new Object[]{false};
@@ -97,7 +100,7 @@ public class DoctorDaoImpl extends HibernateDaoSupport implements DoctorDao{
         
         
         
-        /*
+        
         try
         {
             ArrayList<Doctor> doctores = new ArrayList<Doctor>();
@@ -121,7 +124,8 @@ public class DoctorDaoImpl extends HibernateDaoSupport implements DoctorDao{
         */       
         
         /*
-        -------------------------------------------
+        -------------------------------------------*/
+        
         ArrayList<Doctor> doctores = new ArrayList<Doctor>();
         Session session = getHibernateTemplate().getSessionFactory().openSession();
         try{
@@ -131,16 +135,54 @@ public class DoctorDaoImpl extends HibernateDaoSupport implements DoctorDao{
            //query.setMaxResults(tamano_total);
            //query.setFirstResult(tamano_total * (pagina-1));
            query.setParameter("estado",false);
-           doctores =(ArrayList<Doctor>)query.list();
+           ArrayList<Object[]> consulta = (ArrayList<Object[]>) query.list();
+           //doctores =(ArrayList<Doctor>)query.list();
+           for(Object[] array: consulta){
+                Doctor d = (Doctor)array[0];
+                if(d.getNombre1()==null)
+                {
+                    WbServiceEspol.loadDataDoctorFromWebService(d);
+                }
+                doctores.add(d);
+            }
            session.beginTransaction().commit();
            session.close();
+           return doctores;
         }
         catch(Exception ex){
             return null;
         }
-        //session.close();
-        return doctores;
-                */
+       
+    }
+    @Override
+    public int pruebaDoctor()
+    {
+        ArrayList<Doctor> doctores = new ArrayList<Doctor>();
+        Session session = getHibernateTemplate().getSessionFactory().openSession();
+        try{
+           session.beginTransaction();
+           Query query = session.createQuery("select d from Doctor d where d.estadoborrado = :estado order by 1 desc");
+           //Query query = session.createQuery("select r from Restaurante r innerjoin r.menus m where m.idMenu=1 ");
+           //query.setMaxResults(tamano_total);
+           //query.setFirstResult(tamano_total * (pagina-1));
+           query.setParameter("estado",false);
+           ArrayList<Object[]> consulta = (ArrayList<Object[]>) query.list();
+           //doctores =(ArrayList<Doctor>)query.list();
+           for(Object[] array: consulta){
+                Doctor d = (Doctor)array[0];
+                if(d.getNombre1()==null)
+                {
+                    WbServiceEspol.loadDataDoctorFromWebService(d);
+                }
+                doctores.add(d);
+            }
+           session.beginTransaction().commit();
+           session.close();
+           return doctores.size();
+        }
+        catch(Exception ex){
+            return -1;
+        }
     }
     
 }

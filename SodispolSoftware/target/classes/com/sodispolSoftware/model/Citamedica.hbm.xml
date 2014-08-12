@@ -6,7 +6,7 @@
     <class name="com.sodispolSoftware.model.Citamedica" table="citamedica" schema="public">
         <id name="idcita" type="long">
             <column name="idcita" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <many-to-one name="estudiante" class="com.sodispolSoftware.model.Estudiante" fetch="select">
             <column name="idestudiante" not-null="true" />
