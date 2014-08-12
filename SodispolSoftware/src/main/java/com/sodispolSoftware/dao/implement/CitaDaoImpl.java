@@ -21,7 +21,9 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao{
 
     @Override
-    public ArrayList<Object[]> getCitas(Doctor doctor) {
+    public ArrayList<Citamedica> getCitas(Doctor doctor) 
+    {
+        /*
         Session session = getHibernateTemplate().getSessionFactory().openSession();
         try{
             session.beginTransaction();
@@ -35,21 +37,35 @@ public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao{
         }
         catch(IndexOutOfBoundsException ex){
             return null;
-        }
-    }
-    /*
-    @Override
-    public ArrayList<Object[]> getCitas(Doctor doctor) {
+        }*/
+        
+        
+        ArrayList<Citamedica> citas = new ArrayList<Citamedica>();
+        Session session = getHibernateTemplate().getSessionFactory().openSession();
         try{
-            Object[] paramsCitas = new Object[]{doctor,false};
-            ArrayList<Object[]> consulta = (ArrayList<Object[]>)getHibernateTemplate().find("select c.estadocita from Citamedica c where c.doctor = ? and c.estadoborrado = ?",paramsCitas); 
-            
-            return consulta;
+           session.beginTransaction();
+           Query query = session.createQuery("select c from Citamedica c where c.doctor = :doctor and c.estadoborrado = :estado order by 1 desc");
+           //Query query = session.createQuery("select r from Restaurante r innerjoin r.menus m where m.idMenu=1 ");
+           //query.setMaxResults(tamano_total);
+           //query.setFirstResult(tamano_total * (pagina-1));
+           query.setParameter("doctor",doctor); 
+           query.setParameter("estado",false);
+           ArrayList<Object> consulta = (ArrayList<Object>) query.list();
+           //doctores =(ArrayList<Doctor>)query.list();
+           for(Object cm: consulta)
+           {
+                Citamedica c = (Citamedica)cm;                
+                citas.add(c);
+            }
+           session.beginTransaction().commit();
+           session.close();
+           return citas;
         }
         catch(Exception ex){
             return null;
         }
-    }*/
+    }
+    
 
     @Override
     public int getncitas() {

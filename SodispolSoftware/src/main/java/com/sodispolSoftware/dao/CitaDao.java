@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * @author usuario
  */
 public interface CitaDao {
-    public ArrayList<Object[]> getCitas(Doctor doctor);
+    public ArrayList<Citamedica> getCitas(Doctor doctor) ;
     public void updateCita(Citamedica cita);
     public int getncitas();
     public void addCita(Citamedica cita);

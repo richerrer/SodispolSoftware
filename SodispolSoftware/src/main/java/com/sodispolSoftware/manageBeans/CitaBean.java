@@ -15,6 +15,7 @@ import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.redirect.Redireccionar;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -54,7 +55,7 @@ public class CitaBean {
     //private Doctor doctor;
     private String doctorUsername;
     
-    private Calendar fecha;
+    private Date fecha;
     
     private Calendar hora;
     
@@ -127,11 +128,11 @@ public class CitaBean {
         this.paciente = paciente;
     }
 
-    public Calendar getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(Calendar fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
@@ -200,13 +201,7 @@ public class CitaBean {
         
         return "";
     } */
-    
-    public Object[] nnams2()
-    {
-        ArrayList<Object[]> citasM;
-        citasM = getCitaBo().getCitas(getUsuarioBean().getDoctor());
-        return citasM.get(0);
-    } 
+   
            
     public void consultar() {
         setEstudiante(null);
@@ -240,23 +235,37 @@ public class CitaBean {
     }
     
     public void loadDoctores()
-    {
-        //consultaDoctores=new ArrayList<Doctor>();
-        ///ArrayList<Doctor> doctores = getDoctorBo().getAllDoctors();
-        
-        //for(Doctor doct : doctores)
-        //{
-        //    consultaDoctores.add(doct);
-        //}
-        //consultaDoctores.add(getDoctorBo().getDoctor("joanrome"));
-        setConsultaDoctores(getDoctorBo().getAllDoctors());
-        //setNumDoctores(getDoctorBo().pruebaDoctor());
+    {        
+        ArrayList<Doctor> doctores = getDoctorBo().getAllDoctors();
+        setConsultaDoctores(doctores);
     }
     
-    public String guardarCita(ActionEvent actionEvent)
+    public String guardarCita()
     {
-        Citamedica citaNueva = new Citamedica(estudiante, getDoctorBo().getDoctor(doctorUsername), fecha, fecha);
-        getCitaBo().addCita(citaNueva);
+        //Calendar fechaCita = newFechayHora(fecha.getDate(), fecha.getMonth(), fecha.getYear(), fecha.getHours(), fecha.getMinutes());
+        //Citamedica citaNueva = new Citamedica(estudiante, getDoctorBo().getDoctor(doctorUsername), fechaCita, fechaCita);
+        //getCitaBo().addCita(citaNueva);
         return "succes.xhtml";
+    }
+    
+    /*
+    private Calendar newFechayHora(int dia, int mes, int anio, int hora, int minuto) {
+        Calendar t = (Calendar) today().clone();
+        //t.set(Calendar.AM_PM, ampm);
+        t.set(Calendar.DATE, dia);
+        //t.set(Calendar.DAY_OF_MONTH, dia);
+        t.set(Calendar.MONTH, mes);
+        t.set(Calendar.YEAR, anio);
+        t.set(Calendar.HOUR, hora);
+        t.set(Calendar.MINUTE, minuto);
+        
+        return t;
+    }*/
+    
+    private Calendar today() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 0, 0, 0);
+        
+        return calendar;
     }
 }

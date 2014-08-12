@@ -41,7 +41,7 @@ public class CitaBoImpl implements CitaBo{
     
     
     @Override
-    public ArrayList<Object[]> getCitas(Doctor doctor) {
+    public ArrayList<Citamedica> getCitas(Doctor doctor) {
         return getCitaDao().getCitas(doctor);
     }
 

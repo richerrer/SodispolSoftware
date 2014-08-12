@@ -42,7 +42,7 @@ public class CalendarioCitasBean implements Serializable {
     private UsuarioBean usuarioBean;
     
     private ArrayList<Object[]> consultaCitas;
-    private ArrayList<Citamedica> citasCargadas=new ArrayList<Citamedica>();
+    private ArrayList<Citamedica> citasCargadas;
     
     private ScheduleModel eventModel;
     //private ScheduleModel lazyEventModel;
@@ -53,7 +53,8 @@ public class CalendarioCitasBean implements Serializable {
     {
         setUsuarioBean(usuarioBean);
         setCitaBo(citaBo);
-        setConsultaCitas(getCitaBo().getCitas(getUsuarioBean().getDoctor()));
+        //setConsultaCitas(getCitaBo().getCitas(getUsuarioBean().getDoctor()));
+        setCitasCargadas(getCitaBo().getCitas(getUsuarioBean().getDoctor()));
     }
     
     @PostConstruct
@@ -214,6 +215,14 @@ public class CalendarioCitasBean implements Serializable {
         this.citaBo = citaBo;
     }
 
+    public ArrayList<Citamedica> getCitasCargadas() {
+        return citasCargadas;
+    }
+
+    public void setCitasCargadas(ArrayList<Citamedica> citasCargadas) {
+        this.citasCargadas = citasCargadas;
+    }
+
     public UsuarioBean getUsuarioBean() {
         return usuarioBean;
     }
@@ -253,8 +262,12 @@ public class CalendarioCitasBean implements Serializable {
     
     public void loadCitas()
     {
-        for(Object[] obj : consultaCitas)
+        for(Citamedica c : citasCargadas)
         {
+            DefaultScheduleEvent ev = new DefaultScheduleEvent("  ID:"+c.getIdcita()+", Paciente:"+c.getEstudiante().getUsername(), c.getFechareg().getTime(), c.getFechareg().getTime());
+            eventModel.addEvent(ev);
+            
+            /*
             Estudiante est = (Estudiante) obj[0];
             String estadoCita = (String) obj[1];
             Calendar fechaReg = (Calendar) obj[2];
@@ -266,7 +279,7 @@ public class CalendarioCitasBean implements Serializable {
             //ev.setId(prueba);
             citasCargadas.add(new Citamedica(citaId.longValue(), est, getUsuarioBean().getDoctor(), fechaReg, fechaProg));
             
-            eventModel.addEvent(ev);
+            eventModel.addEvent(ev);*/
         }
         
     }
