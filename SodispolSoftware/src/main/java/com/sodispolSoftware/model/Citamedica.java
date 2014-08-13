@@ -41,6 +41,15 @@ public class Citamedica  implements java.io.Serializable {
         this.fechaprog = fechaprog;
     }
     
+    public Citamedica(Estudiante estudiante, Doctor doctor, Calendar fechareg, Calendar fechaprog, String estadocita, Boolean estadoborrado) {
+       //this.idcita = idcita;
+       this.estudiante = estudiante;
+       this.doctor = doctor;
+       this.fechareg = fechareg;
+       this.fechaprog = fechaprog;
+       this.estadocita = estadocita;
+       this.estadoborrado = estadoborrado;
+    }
     
     public Citamedica(/*long idcita, */Estudiante estudiante, Doctor doctor, Calendar fechareg, Calendar fechaprog, String estadocita, Boolean estadoborrado, Set<Detallefichaestudiante> detallefichaestudiantes) {
        //this.idcita = idcita;

@@ -244,9 +244,9 @@ public class CitaBean {
     
     public String guardarCita()
     {
-        newFechayHora(fecha.getDate(), fecha.getMonth(), fecha.getYear(), fecha.getHours(), fecha.getMinutes());
-        Citamedica citaNueva = new Citamedica(estudiante, getDoctorBo().getDoctor(doctorUsername), fechaBase, fechaBase);
-        getCitaBo().addCita(citaNueva);
+        ///newFechayHora(fecha.getDate(), fecha.getMonth(), fecha.getYear(), fecha.getHours(), fecha.getMinutes());
+        //Citamedica citaNueva = new Citamedica(estudiante, getDoctorBo().getDoctor(doctorUsername), fechaBase, fechaBase);
+        //getCitaBo().addCita(citaNueva);
         return "succes.xhtml";
     }
     
