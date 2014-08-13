@@ -63,6 +63,8 @@ public class CitaBean {
     
     private int numDoctores=-2;
     
+    private String nombrePaciente;
+    
     
     @Inject
     public CitaBean(CitaBo citaBo,UsuarioBean usuarioBean, EstudianteBo estudianteBo, DoctorBo doctorBo)
@@ -78,6 +80,14 @@ public class CitaBean {
         //setNcita(getUsuarioBean().getDoctor().getApellido1());
         //setO(nnams2());
         //setNcita((String) nnams2()[0]);
+    }
+
+    public String getNombrePaciente() {
+        return nombrePaciente;
+    }
+
+    public void setNombrePaciente(String nombrePaciente) {
+        this.nombrePaciente = nombrePaciente;
     }
 
     public String getDoctorUsername() {
@@ -215,6 +225,7 @@ public class CitaBean {
             setEstudiante(getEstudianteBo().getEstudianteByCedula(getParamBusqueda()));
             setEncontrado(getEstudiante() != null);
         }
+        setNombrePaciente(getEstudiante().getNombre1()+" "+getEstudiante().getApellido1());
         getUsuarioBean().setEstudiantePaciente(getEstudiante());
         HttpServletRequest origRequest = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
         origRequest.setAttribute("estudiante", getEstudiante() );
@@ -244,25 +255,23 @@ public class CitaBean {
     
     public String guardarCita()
     {
-        newFechayHora(fecha.getDate(), fecha.getMonth(), fecha.getYear(), fecha.getHours(), fecha.getMinutes());
-        Citamedica citaNueva = new Citamedica();
-        citaNueva.setEstudiante(estudiante);
-        citaNueva.setDoctor(getDoctorBo().getDoctor(doctorUsername));
-        citaNueva.setFechareg(fechaBase);
-        citaNueva.setFechaprog(fechaBase);
-        citaNueva.setEstadocita("P");
-        citaNueva.setEstadoborrado(false);
-        //Citamedica citaNuev = new Citamedica(estudiante, getDoctorBo().getDoctor(doctorUsername), fechaBase, fechaBase);
+        newFechayHora(fecha.getDate(), fecha.getMonth(), fecha.getYear()+1900, fecha.getHours(), fecha.getMinutes());
+        //Citamedica citaNueva = new Citamedica();
+        //citaNueva.setEstudiante(estudiante);
+        //citaNueva.setDoctor(getDoctorBo().getDoctor(doctorUsername));
+        //citaNueva.setFechareg(fechaBase);
+        //citaNueva.setFechaprog(fechaBase);
+        //citaNueva.setEstadocita("P");
+        //citaNueva.setEstadoborrado(false);
+        Citamedica citaNueva = new Citamedica(estudiante, getDoctorBo().getDoctor(doctorUsername), fechaBase, fechaBase,"P",false);
         getCitaBo().addCita(citaNueva);
         return "succes.xhtml";
-        ///newFechayHora(fecha.getDate(), fecha.getMonth(), fecha.getYear(), fecha.getHours(), fecha.getMinutes());
-        //Citamedica citaNueva = new Citamedica(estudiante, getDoctorBo().getDoctor(doctorUsername), fechaBase, fechaBase);
-        //getCitaBo().addCita(citaNueva);
-        //return "succes.xhtml";
+        
     }
     
     
-    public void newFechayHora(int dia, int mes, int anio, int hora, int minuto) {
+    public void newFechayHora(int dia, int mes, int anio, int hora, int minuto) 
+    {
         //Calendar t = (Calendar) today().clone();
         //t.set(Calendar.AM_PM, ampm);
         fechaBase.set(Calendar.DATE, dia);
