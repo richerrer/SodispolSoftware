@@ -60,5 +60,12 @@ public class CitaBoImpl implements CitaBo{
     {
         getCitaDao().addCita(cita);
     }
+
+    @Override
+    public ArrayList<Citamedica> getAllCitas() 
+    {
+        ArrayList<Citamedica> citas = getCitaDao().getAllCitas();
+        return citas;
+    }
    
 }

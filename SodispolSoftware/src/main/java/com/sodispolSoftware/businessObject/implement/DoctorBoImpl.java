@@ -149,10 +149,5 @@ public class DoctorBoImpl implements DoctorBo{
         ArrayList<Doctor> doctores =getDoctorDao().getAllDoctors();
         return doctores;
     }
-@Override
-    public int pruebaDoctor()
-    {
-        int p = getDoctorDao().pruebaDoctor();
-        return p;
-    }
+    
 }

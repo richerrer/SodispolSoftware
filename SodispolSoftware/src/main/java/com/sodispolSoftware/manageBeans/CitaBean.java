@@ -244,10 +244,21 @@ public class CitaBean {
     
     public String guardarCita()
     {
+        newFechayHora(fecha.getDate(), fecha.getMonth(), fecha.getYear(), fecha.getHours(), fecha.getMinutes());
+        Citamedica citaNueva = new Citamedica();
+        citaNueva.setEstudiante(estudiante);
+        citaNueva.setDoctor(getDoctorBo().getDoctor(doctorUsername));
+        citaNueva.setFechareg(fechaBase);
+        citaNueva.setFechaprog(fechaBase);
+        citaNueva.setEstadocita("P");
+        citaNueva.setEstadoborrado(false);
+        //Citamedica citaNuev = new Citamedica(estudiante, getDoctorBo().getDoctor(doctorUsername), fechaBase, fechaBase);
+        getCitaBo().addCita(citaNueva);
+        return "succes.xhtml";
         ///newFechayHora(fecha.getDate(), fecha.getMonth(), fecha.getYear(), fecha.getHours(), fecha.getMinutes());
         //Citamedica citaNueva = new Citamedica(estudiante, getDoctorBo().getDoctor(doctorUsername), fechaBase, fechaBase);
         //getCitaBo().addCita(citaNueva);
-        return "succes.xhtml";
+        //return "succes.xhtml";
     }
     
     

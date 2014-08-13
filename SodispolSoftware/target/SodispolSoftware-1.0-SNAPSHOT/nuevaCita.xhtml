@@ -91,16 +91,8 @@
                                 <p:calendar id="datetime" value="#{citaBean.fecha}" pattern="dd-MM-yyyy HH:mm" />
                             </div>
                         </div>
-                        <!--<div class="row ancho2 margen_top2" style="font-size: medium">
-                            <div class="col-md-3">
-                                <h:outputLabel for="hora" value="Hora:" />
-                            </div>
-                            <div class="col-md-9">
-                                <p:calendar id="time" value="#{citaBean.hora}" pattern="HH:mm a" timeOnly="true"  />
-                            </div>
-                        </div>-->
                         <div class="row ancho2 margen_top1" style="font-size: medium" >
-                            <p:commandButton  value="Guardar" id="saveCita" action="#{citaBean.guardarCita()}" styleClass="ui-priority-primary margen_top3" />
+                            <p:commandButton  value="Guardar" id="saveCita" action="#{citaBean.guardarCita()}" styleClass="ui-priority-primary margen_top3" ajax="false" />
 
                         </div>
                     </div>                                  

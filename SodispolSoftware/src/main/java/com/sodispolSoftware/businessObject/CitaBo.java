@@ -21,4 +21,5 @@ public interface CitaBo {
     public void updateCita(Citamedica cita);
     public int getncitas();
     public void addCita(Citamedica cita);
+    public ArrayList<Citamedica> getAllCitas();
 }

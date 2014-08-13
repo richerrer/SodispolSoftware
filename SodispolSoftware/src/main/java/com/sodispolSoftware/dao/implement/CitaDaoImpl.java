@@ -18,8 +18,32 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  *
  * @author usuario
  */
-public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao{
+public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao
+{
 
+    @Override
+    public ArrayList<Citamedica> getAllCitas() 
+    {
+        try
+        {
+            ArrayList<Citamedica> citas = new ArrayList<Citamedica>();
+            Object[] paramsCita = new Object[]{false};
+            
+            ArrayList<Object[]> consulta = (ArrayList<Object[]>) getHibernateTemplate().find("select c,e,d from Citamedica c join c.estudiante as e join c.doctor as d where c.estadoborrado = ?",paramsCita); 
+            
+            for(Object[] obj : consulta)
+            {
+                Citamedica cita = (Citamedica) obj[0];
+                citas.add(cita);
+            }
+            return citas;
+        }
+        catch(Exception ex)
+        {
+            return null;
+        }
+    }
+    
     @Override
     public ArrayList<Object[]> getCitas(Doctor doctor) 
     {
@@ -37,33 +61,8 @@ public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao{
         }
         catch(IndexOutOfBoundsException ex){
             return null;
-        }
+        }    
         
-        /*
-        ArrayList<Citamedica> citas = new ArrayList<Citamedica>();
-        Session session = getHibernateTemplate().getSessionFactory().openSession();
-        try{
-           session.beginTransaction();
-           Query query = session.createQuery("select c from Citamedica c where c.doctor = :doctor and c.estadoborrado = :estado order by 1 desc");
-           //Query query = session.createQuery("select r from Restaurante r innerjoin r.menus m where m.idMenu=1 ");
-           //query.setMaxResults(tamano_total);
-           //query.setFirstResult(tamano_total * (pagina-1));
-           query.setParameter("doctor",doctor); 
-           query.setParameter("estado",false);
-           ArrayList<Object> consulta = (ArrayList<Object>) query.list();
-           //doctores =(ArrayList<Doctor>)query.list();
-           for(Object cm: consulta)
-           {
-                Citamedica c = (Citamedica)cm;                
-                citas.add(c);
-            }
-           session.beginTransaction().commit();
-           session.close();
-           return citas;
-        }
-        catch(Exception ex){
-            return null;
-        }*/
     }
     
 
@@ -90,6 +89,8 @@ public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao{
     {
         getHibernateTemplate().save(cita);
     }
+
+    
      
     
 }
