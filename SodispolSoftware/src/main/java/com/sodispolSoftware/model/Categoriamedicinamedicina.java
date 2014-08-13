@@ -17,7 +17,12 @@ public class Categoriamedicinamedicina  implements java.io.Serializable {
     public Categoriamedicinamedicina() {
     }
 
-	
+    public Categoriamedicinamedicina(Boolean estadoborrado, Medicina medicina, Categoriamedicina categoriamedicina) {
+        this.estadoborrado=estadoborrado;
+        this.medicina = medicina;
+        this.categoriamedicina = categoriamedicina;
+    }
+    
     public Categoriamedicinamedicina(long idcategoriamedicinamedicina, Medicina medicina, Categoriamedicina categoriamedicina) {
         this.idcategoriamedicinamedicina = idcategoriamedicinamedicina;
         this.medicina = medicina;

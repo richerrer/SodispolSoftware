@@ -8,6 +8,7 @@ package com.sodispolSoftware.dao.implement;
 
 import com.sodispolSoftware.dao.MedicinaDao;
 import com.sodispolSoftware.model.Categoriamedicina;
+import com.sodispolSoftware.model.Categoriamedicinamedicina;
 import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Fichamedicaestudiante;
 import com.sodispolSoftware.model.Medicina;
@@ -25,21 +26,13 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 public class MedicinaDaoImpl extends HibernateDaoSupport implements MedicinaDao {
 
     @Override
-    public ArrayList<Object[]> getListaDeMedicinas() {
-        Session session = getHibernateTemplate().getSessionFactory().openSession();
-        
+    public ArrayList<Medicina> getListaDeMedicinas() {
         try{
-            session.beginTransaction();
-            Query query = session.createQuery("select m.idmedicina, m.descripcion, m.cajasdisponibles, m.estadodisponible from Medicina m where m.estadoborrado = :estado order by 1 desc");
-            query.setParameter("estado",false);
-            ArrayList<Object[]> lista = (ArrayList<Object[]>)query.list();
-            session.beginTransaction().commit();
-            session.close();
-            return lista;
-        }
-        catch(IndexOutOfBoundsException ex){
-            return null;
-        }
+            Object[] param = new Object[]{false};
+            ArrayList<Medicina> listaMedicinas = (ArrayList<Medicina>)getHibernateTemplate().find("from Medicina m where estadoborrado = ?",param);  
+            return listaMedicinas;
+        }catch(Exception ex)
+        {return null;}
     }
 
     @Override
@@ -59,31 +52,38 @@ public class MedicinaDaoImpl extends HibernateDaoSupport implements MedicinaDao 
         }
         catch(IndexOutOfBoundsException ex){
             return null;
-        }
-        
+        }        
     }
 
     @Override
-    public ArrayList<Object[]> getListaDeCategorias() {
-        Session session = getHibernateTemplate().getSessionFactory().openSession();
-        
+    public ArrayList<Categoriamedicina> getListaDeCategorias() {
         try{
-            session.beginTransaction();
-            Query query = session.createQuery("select c.idcategoriamedicina, c.descripcion from Categoriamedicina c where c.estadoborrado = :estado order by 1 desc");
-            query.setParameter("estado",false);
-            ArrayList<Object[]> lista = (ArrayList<Object[]>)query.list();
-            session.beginTransaction().commit();
-            session.close();
-            return lista;
+            Object[] param = new Object[]{false};
+            ArrayList<Categoriamedicina> listaCategorias = (ArrayList<Categoriamedicina>)getHibernateTemplate().find("from Categoriamedicina cm where estadoborrado = ?",param);  
+            return listaCategorias;
         }
-        catch(IndexOutOfBoundsException ex){
-            return null;
-        }
+        catch(Exception ex)
+        {return null;}
     }
 
     @Override
     public void addMedicina(Medicina medicina) {
          getHibernateTemplate().save(medicina);
+    }
+
+    @Override
+    public void addRelacionMedicinaCategoria(Categoriamedicinamedicina cm) {
+         getHibernateTemplate().save(cm);
+    }
+
+    @Override
+    public void addCategoria(Categoriamedicina c) {
+         getHibernateTemplate().save(c);
+    }
+
+    @Override
+    public void updateMedicina(Medicina med) {
+         updateMedicina(med);
     }
    
 }

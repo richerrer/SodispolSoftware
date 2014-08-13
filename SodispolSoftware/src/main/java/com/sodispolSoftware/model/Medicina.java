@@ -33,10 +33,11 @@ public class Medicina  implements java.io.Serializable {
         this.cajasdisponibles=cajasDisp;
         this.estadodisponible=estadoDisp;
     }
-    public Medicina( String descripcion, Integer cajasDisp, Boolean estadoDisp) {
+    public Medicina( String descripcion, Integer cajasDisp, Boolean estadoDisp, Boolean estadoBorrado) {
         this.descripcion = descripcion;
         this.cajasdisponibles=cajasDisp;
         this.estadodisponible=estadoDisp;
+        this.estadoborrado=estadoBorrado;
     }
     
     

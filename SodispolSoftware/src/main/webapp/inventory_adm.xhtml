@@ -39,9 +39,9 @@
                         <hr style="color: #000;" size="5" width="95%"/>
                    
                         
-          <p:growl id="growl" showDetail="true" /> 
-          
+        
           <h:form>
+          <p:growl id="growl" showDetail="true" sticky="false"  />
           
           <p:panel id="toggleable6" header="Ingresar nuevo medicamento" toggleable="true"  collapsed="true" toggleSpeed="500"   style="margin-bottom:20px"  styleClass="color6">
               <div style="height: 5em" >
@@ -64,7 +64,7 @@
                             <p:column colspan="4">
                                 <p:selectOneMenu id="categorias" value="#{medicinaBean.categoriaSeleccionada}">
                                     <f:selectItem itemLabel="Select One" itemValue="" />
-                                    <c:forEach items="#{medicinaBean.categoriasCargadas}" var="categoria">
+                                    <c:forEach items="#{medicinaBean.categorias}" var="categoria">
                                         <f:selectItem itemLabel="#{categoria.descripcion}" itemValue="#{categoria.descripcion}" />
                                     </c:forEach>
                                 </p:selectOneMenu>
@@ -73,7 +73,8 @@
                                 <p:spinner size="2" value="#{medicinaBean.cajasdisponibles}" /> 
                                 unidades</p:column>
                             <p:column style="font-weight: bold;">
-                            <p:commandButton value="Guardar" id="guardarMedicina" update="toggleable6" action="#{medicinaBean.guardarMedicina(actionEvent)}" />
+                             <p:commandButton  value="Guardar" id="guardarMedicina" update="growl" action="#{medicinaBean.guardarMedicina(actionEvent)}" />
+
 
                             </p:column>
                             </p:row> 
@@ -83,6 +84,8 @@
                     </p:panelGrid>           
            </div>                        
           </p:panel>
+              
+         
           
           <p:panel id="toggleable5" header="Lista de Medicamentos" toggleable="true"  collapsed="true" toggleSpeed="500"  widgetVar="panel5" style="margin-bottom:20px"  styleClass="color6">
               <div style="height: 25em" class="panelBarY">
@@ -93,23 +96,23 @@
                          <p:row>
                             <p:column colspan="4">Nombre</p:column>
                             <p:column colspan="4">Categoría</p:column>
-                            <p:column colspan="3">Unidades Disponibles</p:column>
+                            <p:column colspan="3">Cajas Disponibles</p:column>
                             <p:column colspan="3">Cantidad</p:column>
                             <p:column>Accion</p:column>
                          </p:row>
                        
                           
-                          <c:forEach items="#{medicinaBean.medicinasCargadas}" var="medicina">
+                          <c:forEach items="#{medicinaBean.medicinas}" var="medicina">
                             
                            <p:row>
                             <p:column colspan="4" style="font-weight: bold;">#{medicina.descripcion}</p:column>
-                            <p:column colspan="4">#{medicinaBean.categoria.descripcion}</p:column>
+                            <p:column colspan="4">#{medicinaBean.obtenerCategoria(medicina).descripcion}</p:column>
                             <p:column colspan="3">#{medicina.cajasdisponibles} unidades</p:column>
                             <p:column colspan="3"><p:spinner size="2" /></p:column>
                             <p:column style="font-weight: bold;">
                             <p:commandButton value="Agregar" oncomplete="PF('dlg1').show()"/>
                             <p:commandButton value="Quitar" oncomplete="PF('dlg2').show()" />
-                            <p:commandButton value="Eliminar medicamento" oncomplete="PF('dlg3').show()" />                                                                 
+                            <p:commandButton  value="Eliminar Medicamento" oncomplete="PF('dlg3').show()" />                                                                 
                             </p:column>
                         </p:row>
                              
@@ -117,8 +120,10 @@
                           
                     </f:facet>
                     </p:panelGrid> 
-              </div>                        
+              </div>  
+              
           </p:panel>
+               
           
           <br/> <br/> <br/> 
          
@@ -130,12 +135,10 @@
              <h:outputText value="Ha quitado medicamentos del inventario !" />
           </p:dialog>
           
-          
-          
-          
-          
            </h:form>
-</section>
+          
+         
+ </section>
         </div>
         <div id="footer">
         <footer class="margen_top2 color1">

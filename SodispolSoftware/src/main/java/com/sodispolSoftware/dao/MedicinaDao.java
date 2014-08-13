@@ -7,6 +7,7 @@
 package com.sodispolSoftware.dao;
 
 import com.sodispolSoftware.model.Categoriamedicina;
+import com.sodispolSoftware.model.Categoriamedicinamedicina;
 import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Medicina;
 import java.util.ArrayList;
@@ -19,10 +20,16 @@ public interface MedicinaDao {
  
    public Categoriamedicina getCategoria(Long medicinaId);
    
-   public ArrayList<Object[]> getListaDeMedicinas();
+   public ArrayList<Medicina> getListaDeMedicinas();
    
-   public ArrayList<Object[]> getListaDeCategorias();
+   public ArrayList<Categoriamedicina> getListaDeCategorias();
 
    public void addMedicina(Medicina medicina);
+
+    public void addRelacionMedicinaCategoria(Categoriamedicinamedicina cm);
+
+    public void addCategoria(Categoriamedicina c);
+
+    public void updateMedicina(Medicina med);
     
 }
