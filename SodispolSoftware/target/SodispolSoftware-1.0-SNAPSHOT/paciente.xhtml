@@ -104,16 +104,13 @@
                             </p:panelGrid>
                             <h:form id="botonesFicha" class="ancho60 centrar">
                                 <c:if test="#{pacienteBean.encontrado and (pacienteBean.estudiante!=null)}">
-                                    <p:commandButton  value="Nueva Observación" id="nuevaObservacion"  action="observacion.xhtml" styleClass="ui-priority-primary margen_top3 ">
+                                    <!--CommandButton envia por post-->
+                                    <p:button  value="Nueva Observación" id="nuevaObservacion" outcome="observacion.xhtml" styleClass="ui-priority-primary margen_top3 ">
                                         <f:param name="modificador" value="1" />
-                                        <f:param name="tipoBusqueda" value="#{pacienteBean.tipoBusqueda}"/>
-                                        <f:param name="paramBusqueda" value="#{pacienteBean.paramBusqueda}"/>
-                                    </p:commandButton>
-                                    <p:commandButton  value="Ver Observaciones" id="observaciones"  action="listObservacion.xhtml" styleClass="ui-priority-primary margen_top3 margen_izquierdo">
-                                        <f:param name="modificador" value="0" />
-                                        <f:param name="tipoBusqueda" value="#{pacienteBean.tipoBusqueda}"/>
-                                        <f:param name="paramBusqueda" value="#{pacienteBean.paramBusqueda}"/>
-                                    </p:commandButton>
+                                    </p:button>
+                                    <p:button  value="Ver Observaciones" id="observaciones"  outcome="listObservacion.xhtml" styleClass="ui-priority-primary margen_top3 margen_izquierdo">
+                                    
+                                    </p:button>
                                 </c:if>
                             </h:form>
                         </section>

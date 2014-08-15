@@ -32,7 +32,7 @@ public class DetallesFichaEstudianteBean {
 
     private long numButtons = 1;
 
-    private final int paginacion = 4;
+    private final int paginacion = 2000;
     
     private ArrayList<Detallefichaestudiante> detallesAnteriores;
 

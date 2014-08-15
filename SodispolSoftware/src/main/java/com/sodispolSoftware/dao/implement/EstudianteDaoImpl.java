@@ -3,7 +3,6 @@ package com.sodispolSoftware.dao.implement;
 
 import com.sodispolSoftware.dao.EstudianteDao;
 import com.sodispolSoftware.model.Estudiante;
-import com.sodispolSoftware.model.Roleuser;
 import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -13,14 +12,17 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  */
 public class EstudianteDaoImpl extends HibernateDaoSupport implements EstudianteDao{
 
-     @Override
+    private final String queryObtenerEstudianteAndRoleUser = "from Estudiante e left join fetch e.roleuser where e.username= ? and e.estadoborrado = ?";
+    private final String queryObtenerEstudianteByMatricula = "from Estudiante e where e.matricula= ? and e.estadoborrado = ?";
+    private final String queryObtenerEstudianteByCedula = "from Estudiante e where e.cedula= ? and estadoborrado = ?";
+    
+    @Override
     public Estudiante getEstudiante(String username) {
         try
         {
             Object[] paramsEstudiante = new Object[]{username,false};
             
-            Estudiante estudiante = (Estudiante)getHibernateTemplate().find("from Estudiante e where e.username= ? and estadoborrado = ?",paramsEstudiante).get(0); 
-            estudiante.setRoleuser((Roleuser)getHibernateTemplate().get(Roleuser.class, estudiante.getRoleuser().getIdroleuser()));
+            Estudiante estudiante = (Estudiante)getHibernateTemplate().find(queryObtenerEstudianteAndRoleUser,paramsEstudiante).get(0); 
             WbServiceEspol.loadDataEstudianteByUsernameFromWebService(estudiante);
             return estudiante;
         }
@@ -36,9 +38,9 @@ public class EstudianteDaoImpl extends HibernateDaoSupport implements Estudiante
         {
             Object[] paramsEstudiante = new Object[]{matricula,false};
             
-            Estudiante estudiante = (Estudiante)getHibernateTemplate().find("from Estudiante e where e.matricula= ? and estadoborrado = ?",paramsEstudiante).get(0); 
+            Estudiante estudiante = (Estudiante)getHibernateTemplate().find(queryObtenerEstudianteByMatricula,paramsEstudiante).get(0); 
             WbServiceEspol.loadDataEstudianteByMatriculaFromWebService(estudiante);
-             return estudiante;
+            return estudiante;
         }
         catch(Exception ex)//Cuando no se encuentra ningun objeto en la consulta
         {
@@ -52,7 +54,7 @@ public class EstudianteDaoImpl extends HibernateDaoSupport implements Estudiante
         {
             Object[] paramsEstudiante = new Object[]{cedula,false};
             
-            Estudiante estudiante = (Estudiante)getHibernateTemplate().find("from Estudiante e where e.cedula= ? and estadoborrado = ?",paramsEstudiante).get(0); 
+            Estudiante estudiante = (Estudiante)getHibernateTemplate().find(queryObtenerEstudianteByCedula,paramsEstudiante).get(0); 
             WbServiceEspol.loadDataEstudianteByCedulaFromWebService(estudiante);
              return estudiante;
         }

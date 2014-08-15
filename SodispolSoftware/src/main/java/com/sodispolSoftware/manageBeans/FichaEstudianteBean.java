@@ -9,6 +9,7 @@ import com.sodispolSoftware.redirect.Redireccionar;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
@@ -26,10 +27,13 @@ import org.springframework.context.annotation.Scope;
 @Scope("view")
 public class FichaEstudianteBean {
 
+    @Inject
     private UsuarioBean usuarioBean;
-
+    
+    @Inject
     private DoctorBo doctorBo;
-
+    
+    @Inject
     private EstudianteBo estudianteBo;
 
     private Estudiante estudiante;
@@ -79,33 +83,26 @@ public class FichaEstudianteBean {
     private Detallefichaestudiante detalleFicha;
 
     /**
-     * Constructor del bean, el cual se encarga de inicializar los parámetros.
-     *
-     * @param doctorBo
-     * @param estudianteBo Maneja la lógica de negocio del Estudiante
-     * @param usuarioBean
+     * Se ejecuta despues del Constructor del bean, el cual se encarga de inicializar los 
+     * parámetros.
      */
-    @Inject
-    public FichaEstudianteBean(DoctorBo doctorBo, EstudianteBo estudianteBo, UsuarioBean usuarioBean) {
+    @PostConstruct
+    public void init() {
         try {
-            inicializarParametros(doctorBo, estudianteBo, usuarioBean);
+            inicializarParametros();
             cargarEstudiante();
-            cargarFichaMedicaEstudiante();
+            cargarFichaMedicaEstudiante(getEstudiante());
             validarTipoFicha();
-        }catch (NumberFormatException ex) {//Si alguno de los parametros "modificador" o "iddetalleFicha"(si se lo va a usar) y no han sido seteados, hay una redireccion 
+        }catch (NumberFormatException ex) {//Si alguno de los parametros "modificador" o "iddetalleFicha"(si es que se lo usa) y no han sido seteados, hay una redireccion 
             Redireccionar.redirect("paciente.xhtml");
         }catch (NullPointerException ex) {
             Redireccionar.redirect("paciente.xhtml");
         }
     }
 
-    public void inicializarParametros(DoctorBo doctorBo, EstudianteBo estudianteBo, UsuarioBean usuarioBean) {
-            setModificador(Long.parseLong(getParametros().get("modificador")));
-            setFechaActualCalendar(Calendar.getInstance());
-            setDoctorBo(doctorBo);
-            setEstudianteBo(estudianteBo);
-            setUsuarioBean(usuarioBean);
-    
+    public void inicializarParametros() {
+        setModificador(Long.parseLong(getParametros().get("modificador")));
+        setFechaActualCalendar(Calendar.getInstance());
     }
 
     public void cargarEstudiante() {
@@ -113,14 +110,18 @@ public class FichaEstudianteBean {
         if(getEstudiante()==null){Redireccionar.redirect("paciente.xhtml");}
     }
 
-    public void cargarFichaMedicaEstudiante() {
-        setFichaMedica(getEstudianteBo().getFichaMedica(getEstudiante()));
+    public void cargarFichaMedicaEstudiante(Estudiante estudiante) {
+        setFichaMedica(getEstudianteBo().getFichaMedica(estudiante));
+    }
+    
+    public void cargarDetallesFichaMedicaEstudiante() {
+        setDetallesAnteriores(getDoctorBo().getDetallesFicha(getEstudiante(), 1, paginacion));
     }
 
     public void validarTipoFicha() {
         if (getModificador() == 1) {//Si se va a crear un nuevo detalle de ficha medica
             getNumObservaciones();
-            setDetallesAnteriores(getDoctorBo().getDetallesFicha(getEstudiante(), 1, paginacion));
+            cargarDetallesFichaMedicaEstudiante();
         } 
         else {//Si solo se va a cargar un detalle de ficha estudiante
             long iddetalleFicha = Long.parseLong(getParametros().get("iddetalleFicha"));

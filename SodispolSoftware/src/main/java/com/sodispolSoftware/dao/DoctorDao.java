@@ -8,7 +8,6 @@ package com.sodispolSoftware.dao;
 
 import com.sodispolSoftware.model.Doctor;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *

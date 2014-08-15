@@ -27,8 +27,8 @@
                 <ui:include src="/resources/templates/navMedico.xhtml"/>
             </nav>
 
-            <div class="container ancho1">
-                <div class="row">
+            <div class="container ancho2">
+                <div class="row ancho80" style="margin: auto">
                     <div class="col-xs-12 col-sm-5 col-md-5 col-lg-2">
                         <section class="margen_top4 margen_izquierdo2">
                             <c:if test="#{detallesFichaEstudianteBean.estudiante!=null}">
@@ -36,7 +36,7 @@
                             </c:if>
                         </section>
                     </div>
-                    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-5">
+                    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-6">
                         <section>
                             <h:form >
                                 <h:panelGrid columns="4" style="font-size: smaller" class=" ancho2 margen_top3">
@@ -57,60 +57,43 @@
                             </h:form>
                         </section>
                     </div>
-                </div>
-                <p:panel id="observacionesA" style="background-color: transparent!important;border: transparent">
-                    <div class="row margen_top2">
-                        <c:forEach items="#{detallesFichaEstudianteBean.detallesAnteriores}" var="observaciones">
-                            <div class="col-xs-12 col-sm-5 col-md-5 col-lg-6">
-
-                                <p:panel id="toggleable#{observaciones.iddetalleficha}" header="Observacion #{observaciones.fecha.time.toLocaleString()}" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel#{observaciones.iddetalleficha}" style="margin-bottom:20px">
-                                        <p:ajax event="close" listener="#{panelView.onClose}" />
-                                        <p:ajax event="toggle" listener="#{panelView.onToggle}"/>
-                                        <h:panelGrid columns="4" style="font-size: smaller" class="ancho2">
-                                        <h:outputLabel value="Doctor:"/>
-                                        <h:outputLabel value="#{observaciones.doctor}"/>
-                                        <h:outputLabel value="Estatura:"/>
-                                        <h:outputLabel value="#{observaciones.estatura} m"/>
-                                        <h:outputLabel value="Peso:"/>
-                                        <h:outputLabel value="#{observaciones.peso} Kg"/>
-                                        <h:outputLabel value="Presión Arterial:"/>
-                                        <h:outputLabel value="#{observaciones.presionarterial}"/>
-                                        <h:outputLabel value="Pulso:"/>
-                                        <h:outputLabel value="#{observaciones.pulso} p.p.m"/>
-
-                                    </h:panelGrid>
-                                    <!--<f:facet name="options">
-                                        <p:menu>
-                                            <p:submenu label="Settings">
-                                                <p:menuitem value="Abrir" url="nuevaObservacion.xhtml" icon="ui-icon-document">
-                                                    <f:param name="modificador" value="0" />
-                                                </p:menuitem>
-                                                <p:menuitem value="Toggle" url="#" icon="ui-icon-newwin" onclick="PF('panel').toggle()" />
-                                                <p:menuitem value="Remove" url="#" icon="ui-icon-close" onclick="PF('panel').close()" />
-                                            </p:submenu>
-                                         </p:menu>
-                                     </f:facet>-->
-                                    <f:facet name="actions">
-                                        <h:outputLink styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default" value="observacion.xhtml">
-                                            <h:outputText styleClass="ui-icon ui-icon-document" />
-                                            <f:param name="modificador" value="0" />
-                                            <f:param name="iddetalleFicha" value="#{observaciones.iddetalleficha}" />
-                                        </h:outputLink>
-                                    </f:facet>
-                                </p:panel>
-
-                            </div> 
-                        </c:forEach>
-                    </div>
-                </p:panel>
+                </div><br/>
                 <h:form>
-                    <c:forEach begin="1" end="#{detallesFichaEstudianteBean.numButtons}" var="num" >
+                    <p:dataGrid var="observaciones" value="#{detallesFichaEstudianteBean.detallesAnteriores}" columns="2"
+                                rows="6" paginator="true" id="cars"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                rowsPerPageTemplate="6,12,16" styleClass="ancho90 centrar3">
 
-                        <p:commandButton  value="#{num}" styleClass="paginacion_boton">
-                            <p:ajax process="@this" update=":observacionesA" listener="#{detallesFichaEstudianteBean.paginarObservacionesAnteriores(num)}"/>
-                        </p:commandButton>  
+                        <f:facet name="header">
+                            Observaciones del Estudiante #{detallesFichaEstudianteBean.estudiante}
+                        </f:facet>
 
-                    </c:forEach>
+                        <p:panel id="toggleable#{observaciones.iddetalleficha}" 
+                                 header="Observacion #{observaciones.fecha.time.toLocaleString()}" 
+                                 toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" 
+                                 widgetVar="panel#{observaciones.iddetalleficha}" style="margin-bottom:20px"
+                                 styleClass="margen_top2">
+                                <p:ajax event="close" listener="#{panelView.onClose}" />
+                                <p:ajax event="toggle" listener="#{panelView.onToggle}"/>
+                                <h:panelGrid columns="4" style="font-size: smaller" class="ancho2">
+                                <h:outputLabel value="Doctor:"/>
+                                <h:outputLabel value="#{observaciones.doctor}"/>
+                                <h:outputLabel value="Estatura:"/>
+                                <h:outputLabel value="#{observaciones.estatura} m"/>
+                                <h:outputLabel value="Peso:"/>
+                                <h:outputLabel value="#{observaciones.peso} Kg"/>
+                                <h:outputLabel value="Presión Arterial:"/>
+                                <h:outputLabel value="#{observaciones.presionarterial}"/>
+                                <h:outputLabel value="Pulso:"/>
+                                <h:outputLabel value="#{observaciones.pulso} p.p.m"/>
+
+                            </h:panelGrid>
+                            <p:button  value="Mostrar" outcome="observacion.xhtml" style="font-size: xx-small" styleClass="ui-priority-primary margen_top1 margen_izquierdo">
+                                <f:param name="modificador" value="0" />
+                                <f:param name="iddetalleFicha" value="#{observaciones.iddetalleficha}" />
+                            </p:button>
+                        </p:panel>
+                    </p:dataGrid>
                 </h:form>
             </div>
         </div>

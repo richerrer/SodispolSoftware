@@ -23,6 +23,8 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  */
 public class DoctorDaoImpl extends HibernateDaoSupport implements DoctorDao{
 
+    private final String queryObtenerDoctorAndRoleUser = "from Doctor d left join fetch d.roleuser where d.username= ? and d.estadoborrado = ?";
+
     @Override
     public Doctor getDoctor(String username)
     {
@@ -30,8 +32,7 @@ public class DoctorDaoImpl extends HibernateDaoSupport implements DoctorDao{
         {
             Object[] paramsDoctor = new Object[]{username,false};
             
-            Doctor doctor = (Doctor)getHibernateTemplate().find("from Doctor d where d.username= ? and estadoborrado = ?",paramsDoctor).get(0); 
-            doctor.setRoleuser((Roleuser)getHibernateTemplate().get(Roleuser.class, doctor.getRoleuser().getIdroleuser()));
+            Doctor doctor = (Doctor)getHibernateTemplate().find(queryObtenerDoctorAndRoleUser,paramsDoctor).get(0); 
             WbServiceEspol.loadDataDoctorFromWebService(doctor);
             return doctor;
         }
@@ -41,9 +42,6 @@ public class DoctorDaoImpl extends HibernateDaoSupport implements DoctorDao{
         }
     }
     
-    
- 
-
     @Override
     public void addDoctor(Doctor doctor) 
     {

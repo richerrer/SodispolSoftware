@@ -49,8 +49,8 @@ public class PacienteBean {
             setEncontrado(getEstudiante() != null);
         }
         getUsuarioBean().setEstudiantePaciente(getEstudiante());
-        HttpServletRequest origRequest = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        origRequest.setAttribute("estudiante", getEstudiante() );
+        //HttpServletRequest origRequest = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        //origRequest.setAttribute("estudiante", getEstudiante() );
 
     }
 

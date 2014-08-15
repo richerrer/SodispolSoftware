@@ -17,6 +17,12 @@
         <property name="estadoborrado" type="java.lang.Boolean">
             <column name="estadoborrado" not-null="true"/>
         </property>
+        <property name="horaentrada" type="time">
+            <column name="horaentrada" length="13" not-null="true"/>
+        </property>
+        <property name="horasalida" type="time">
+            <column name="horasalida" length="13" not-null="true"/>
+        </property>
         <set name="detalleabastecimientos" table="detalleabastecimiento" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="iddoctor" not-null="true" />

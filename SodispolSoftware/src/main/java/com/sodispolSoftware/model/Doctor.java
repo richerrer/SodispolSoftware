@@ -2,6 +2,8 @@ package com.sodispolSoftware.model;
 // Generated 18-jul-2014 18:32:52 by Hibernate Tools 3.6.0
 
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +17,8 @@ public class Doctor  implements java.io.Serializable,User {
      private Roleuser roleuser;
      private String username;
      private Boolean estadoborrado;
+     private Date horaentrada;
+     private Date horasalida;
      private Set<Detalleabastecimiento> detalleabastecimientos = new HashSet<Detalleabastecimiento>(0);
      private Set<Citamedica> citamedicas = new HashSet<Citamedica>(0);
      private Set<Detallefichaestudiante> detallefichaestudiantes = new HashSet<Detallefichaestudiante>(0);
@@ -100,6 +104,23 @@ public class Doctor  implements java.io.Serializable,User {
         this.detallefichaestudiantes = detallefichaestudiantes;
     }
 
+    public Date getHoraentrada() {
+        return horaentrada;
+    }
+
+    public void setHoraentrada(Date horaentrada) {
+        this.horaentrada = horaentrada;
+    }
+
+    public Date getHorasalida() {
+        return horasalida;
+    }
+
+    public void setHorasalida(Date horasalida) {
+        this.horasalida = horasalida;
+    }
+
+    
     public String getNombre1() {
         return nombre1;
     }
