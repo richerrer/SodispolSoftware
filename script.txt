@@ -22,6 +22,8 @@ CREATE TABLE doctor
 (
   iddoctor bigserial NOT NULL,
   username character varying(100) NOT NULL,
+  horaentrada time without time zone NOT NULL,
+  horasalida time without time zone NOT NULL,
   estadoborrado boolean NOT NULL,
   idroleuser bigint NOT NULL,
   CONSTRAINT doctor_pkey PRIMARY KEY (iddoctor),
@@ -390,8 +392,8 @@ ALTER TABLE patologiadetalleficha
 INSERT INTO roleuser(descripcion)
     VALUES ('ROLE_DOCTOR'),('ROLE_ENFERMERO'),('ROLE_ESTUDIANTE'),('ROLE_PROFESIONAL');
 
-	INSERT INTO doctor(username,estadoborrado, idroleuser)
-    VALUES ('rmaya',false,1);
+	INSERT INTO doctor(username, horaentrada, horasalida, estadoborrado, idroleuser)
+    VALUES ('rmaya','09:00:00','11:00:00',false,1);
 	
 	INSERT INTO medicina(descripcion,cajasdisponibles, estadodisponible, estadoborrado)
     VALUES ('Apronax 550mg',20,true,false);
@@ -406,16 +408,16 @@ INSERT INTO roleuser(descripcion)
     VALUES ('Voltaren 220mg',20,true,false);
 	
 	INSERT INTO categoriamedicina(estadoborrado, descripcion)
-    VALUES (false, analgesico);
+    VALUES (false, 'analgesico');
 	
 	INSERT INTO categoriamedicina(estadoborrado, descripcion)
-    VALUES (false, desinflamatorio);
+    VALUES (false, 'desinflamatorio');
 	
 	INSERT INTO categoriamedicina(estadoborrado, descripcion)
-    VALUES (false, mucolitico);
+    VALUES (false, 'mucolitico');
 	
 	INSERT INTO categoriamedicina(estadoborrado, descripcion)
-    VALUES (false, antibiotico);
+    VALUES (false, 'antibiotico');
 	
 	INSERT INTO categoriamedicinamedicina(estadoborrado, idmedicina, idcategoriamedicina)
     VALUES (false, 1, 1);
