@@ -14,6 +14,11 @@ public class EstudianteDaoImpl extends HibernateDaoSupport implements Estudiante
 
     private final String queryObtenerEstudianteAndRoleUser = "from Estudiante e left join fetch e.roleuser where e.username= ? and e.estadoborrado = ?";
     private final String queryObtenerEstudianteByMatricula = "from Estudiante e where e.matricula= ? and e.estadoborrado = ?";
+    
+    /*private final String queryObtenerEstudianteByMatricula = "from Estudiante e left join fetch e.fichamedicaestudiantes f "
+            + "                                               left join fetch f.detallefichaestudiantes d where e.matricula= ? and e.estadoborrado = ? "
+            + "                                               order by 1 e.fecha desc";
+    */
     private final String queryObtenerEstudianteByCedula = "from Estudiante e where e.cedula= ? and estadoborrado = ?";
     
     @Override

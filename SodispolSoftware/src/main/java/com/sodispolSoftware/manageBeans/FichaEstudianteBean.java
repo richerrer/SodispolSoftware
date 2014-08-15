@@ -112,16 +112,22 @@ public class FichaEstudianteBean {
 
     public void cargarFichaMedicaEstudiante(Estudiante estudiante) {
         setFichaMedica(getEstudianteBo().getFichaMedica(estudiante));
+        /*ArrayList<Fichamedicaestudiante> fichas = new ArrayList<Fichamedicaestudiante>(estudiante.getFichamedicaestudiantes());
+        for(Fichamedicaestudiante f: fichas){
+            setFichaMedica(f);
+        }
+        if(getFichaMedica()==null){setFichaMedica(new Fichamedicaestudiante());}*/
     }
     
-    public void cargarDetallesFichaMedicaEstudiante() {
+    public void cargarDetallesFichaMedicaEstudiante(Fichamedicaestudiante fichaEstudiante) {
         setDetallesAnteriores(getDoctorBo().getDetallesFicha(getEstudiante(), 1, paginacion));
+        
     }
 
     public void validarTipoFicha() {
         if (getModificador() == 1) {//Si se va a crear un nuevo detalle de ficha medica
             getNumObservaciones();
-            cargarDetallesFichaMedicaEstudiante();
+            cargarDetallesFichaMedicaEstudiante(getFichaMedica());
         } 
         else {//Si solo se va a cargar un detalle de ficha estudiante
             long iddetalleFicha = Long.parseLong(getParametros().get("iddetalleFicha"));
@@ -141,6 +147,7 @@ public class FichaEstudianteBean {
     }
 
     public void guardarEstudiante() {
+         
         getEstudianteBo().updateEstudiante(getEstudiante());
     }
 

@@ -224,7 +224,7 @@ public class EstudianteBoImpl implements EstudianteBo{
         if(ficha != null){
             return ficha;
         }
-        ficha = new Fichamedicaestudiante(false);
+        ficha = new Fichamedicaestudiante();
         return ficha;
     }
  

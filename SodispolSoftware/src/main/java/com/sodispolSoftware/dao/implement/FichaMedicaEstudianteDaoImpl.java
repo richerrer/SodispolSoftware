@@ -18,9 +18,9 @@ public class FichaMedicaEstudianteDaoImpl extends HibernateDaoSupport implements
     public Fichamedicaestudiante getFicha(Estudiante estudiante) {
         try
         {
-            Object[] paramsFicha = new Object[]{estudiante,false};
+            Object[] paramsFicha = new Object[]{estudiante};
             
-            Fichamedicaestudiante ficha = (Fichamedicaestudiante)getHibernateTemplate().find("from Fichamedicaestudiante f where f.estudiante= ? and estadoborrado = ?",paramsFicha).get(0);  
+            Fichamedicaestudiante ficha = (Fichamedicaestudiante)getHibernateTemplate().find("from Fichamedicaestudiante f where f.estudiante= ?",paramsFicha).get(0);  
             return ficha;
         }
         catch(Exception ex)//Cuando no se encuentra ningun objeto en la consulta

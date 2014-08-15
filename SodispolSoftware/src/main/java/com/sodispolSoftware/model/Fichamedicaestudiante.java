@@ -16,23 +16,17 @@ public class Fichamedicaestudiante  implements java.io.Serializable {
      private String antecedentespatologicos;
      private String enfermedadesinfancia;
      private String vacunasrecibidas;
-     private Boolean estadoborrado;
      private Set<Detallefichaestudiante> detallefichaestudiantes = new HashSet<Detallefichaestudiante>(0);
 
     public Fichamedicaestudiante() {
     }
 
-	
-    public Fichamedicaestudiante(boolean estadoborrado) {
-        this.estadoborrado = estadoborrado;
-    }
     public Fichamedicaestudiante(Estudiante estudiante, String antecedentespatologicos, String enfermedadesinfancia, String vacunasrecibidas, Boolean estadoborrado, Set<Detallefichaestudiante> detallefichaestudiantes) {
        
        this.estudiante = estudiante;
        this.antecedentespatologicos = antecedentespatologicos;
        this.enfermedadesinfancia = enfermedadesinfancia;
        this.vacunasrecibidas = vacunasrecibidas;
-       this.estadoborrado = estadoborrado;
        this.detallefichaestudiantes = detallefichaestudiantes;
     }
    
@@ -71,13 +65,7 @@ public class Fichamedicaestudiante  implements java.io.Serializable {
     public void setVacunasrecibidas(String vacunasrecibidas) {
         this.vacunasrecibidas = vacunasrecibidas;
     }
-    public Boolean getEstadoborrado() {
-        return this.estadoborrado;
-    }
     
-    public void setEstadoborrado(Boolean estadoborrado) {
-        this.estadoborrado = estadoborrado;
-    }
     public Set<Detallefichaestudiante> getDetallefichaestudiantes() {
         return this.detallefichaestudiantes;
     }
