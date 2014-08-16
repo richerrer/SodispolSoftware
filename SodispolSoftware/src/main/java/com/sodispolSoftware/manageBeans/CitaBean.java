@@ -44,7 +44,11 @@ public class CitaBean {
     
     private Estudiante estudiante;
 
+    private Doctor doctor;
+    
     private boolean encontrado = false;
+    
+    private boolean doctorSeleccionado = false;
 
     private String paramBusqueda;
 
@@ -80,6 +84,22 @@ public class CitaBean {
         //setNcita(getUsuarioBean().getDoctor().getApellido1());
         //setO(nnams2());
         //setNcita((String) nnams2()[0]);
+    }
+
+    public boolean isDoctorSeleccionado() {
+        return doctorSeleccionado;
+    }
+
+    public void setDoctorSeleccionado(boolean doctorSeleccionado) {
+        this.doctorSeleccionado = doctorSeleccionado;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 
     public String getNombrePaciente() {
@@ -241,6 +261,23 @@ public class CitaBean {
             addMessage("No se encontro el paciente " + getParamBusqueda());
         }
     }
+    
+        public void consultar2() 
+        {
+            setDoctor(null);
+            
+            setDoctor(getDoctorBo().getDoctor(doctorUsername));
+            setDoctorSeleccionado(getDoctor() != null);
+        
+    }
+    /*
+    public void buttonAction2(ActionEvent actionEvent) {
+        if (isEncontrado()) {
+            addMessage("Si se encontro el paciente " + getEstudiante());
+        } else {
+            addMessage("No se encontro el paciente " + getParamBusqueda());
+        }
+    }*/
     
     public void addMessage(String mensaje) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje, null);

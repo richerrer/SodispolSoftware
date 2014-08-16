@@ -44,60 +44,77 @@
                                 <p:focus for="paramBusqueda" />
                                 <p:inputText id="paramBusqueda" maxlength="15" style="width: 60%" value="#{citaBean.paramBusqueda}" required="true"/>
                                 <p:commandButton  value="Buscar Paciente" id="buscarPaciente" update="growl" actionListener="#{citaBean.buttonAction}" styleClass="ui-priority-primary margen_top3">
-                                    <p:ajax process="@this,paramBusqueda,tipoBusqueda" update=":infoCita" listener="#{citaBean.consultar()}" />
+                                    <p:ajax process="@this,paramBusqueda,tipoBusqueda" update=":doctor" listener="#{citaBean.consultar()}" />
                                 </p:commandButton>
 
+                            </h:panelGrid>
+                            <h:panelGrid id="doctor" columns="1" class=" ancho2 margen_top3" >
+                                <c:if test="#{citaBean.encontrado}">
+                                    <h:outputLabel for="medico" value="Médico:" />
+                                    <p:selectOneMenu id="selectMedico" value="#{citaBean.doctorUsername}">
+                                        <f:selectItem itemLabel="-- Escoja un Médico --" itemValue="" />
+                                        <c:forEach items="#{citaBean.consultaDoctores}" var="doctor" >
+                                            <f:selectItem itemLabel="#{doctor.username}" itemValue="#{doctor.username}" />
+                                        </c:forEach>
+                                    </p:selectOneMenu>
+                                    <p:commandButton  value="Buscar Paciente" id="seleccionarDoctor" update="growl" styleClass="ui-priority-primary margen_top3">
+                                        <p:ajax process="@this,selectMedico" update=":infoCita" listener="#{citaBean.consultar2()}" />
+                                    </p:commandButton>
+                                </c:if>
                             </h:panelGrid>
 
                         </h:form>
 
                     </section>
                 </div>
+                
+                
                 <h:form id="infoCita">
-                    
-                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 ">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-9">
-                        <div class="row ancho2 margen_top3" style="font-size: x-large" >
-                            <h:outputLabel value="Datos de la Cita Médica:" />
-                        </div>
-                        <div class="row ancho2 margen_top4" style="font-size: medium" >
-                            <div class="col-md-3">
-                                <h:outputLabel value="Datos de la Cita Médica:" />
-                            </div>
+                    <c:if test="#{citaBean.doctorSeleccionado}">
+                        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 ">
+                            <div class="col-md-1"></div>
                             <div class="col-md-9">
-                                <p:inputText value="#{citaBean.estudiante.nombre1}" maxlength="15" style="width: 60%" /> 
-                            </div>
-                        </div>
-                        <div class="row ancho2 margen_top2" style="font-size: medium">
-                            <div class="col-md-3">
-                                <h:outputLabel for="medico" value="Médico:" />
-                            </div>
-                            <div class="col-md-9">
-                                <p:selectOneMenu id="selectMedico" value="#{citaBean.doctorUsername}">
-                                    <f:selectItem itemLabel="-- Escoja un Médico --" itemValue="" />
-                                    <c:forEach items="#{citaBean.consultaDoctores}" var="doctor" >
-                                        <f:selectItem itemLabel="#{doctor.username}" itemValue="#{doctor.username}" />
-                                    </c:forEach>
-                                </p:selectOneMenu>
-                                <!--<p:inputText  maxlength="15" style="width: 60%"/>-->
-                            </div>
-                        </div>
-                        <div class="row ancho2 margen_top2" style="font-size: medium">
-                            <div class="col-md-3">
-                                <h:outputLabel for="fecha" value="Fecha:" />
-                            </div>
-                            <div class="col-md-9">
-                                <p:calendar id="datetime" value="#{citaBean.fecha}" pattern="dd-MM-yyyy HH:mm" />
-                            </div>
-                        </div>
-                        <div class="row ancho2 margen_top1" style="font-size: medium" >
-                            <p:commandButton  value="Guardar" id="saveCita" action="#{citaBean.guardarCita()}" styleClass="ui-priority-primary margen_top3" ajax="false" />
+                                <div class="row ancho2 margen_top3" style="font-size: x-large" >
+                                    <h:outputLabel value="Datos de la Cita Médica:" />
+                                </div>
+                                <div class="row ancho2 margen_top4" style="font-size: medium" >
+                                    <div class="col-md-3">
+                                        <h:outputLabel value="Datos de la Cita Médica:" />
+                                    </div>
+                                    <div class="col-md-9">
+                                        <p:inputText value="#{citaBean.estudiante.nombre1}" maxlength="15" style="width: 60%" /> 
+                                    </div>
+                                </div>
+                                <div class="row ancho2 margen_top2" style="font-size: medium">
+                                    <div class="col-md-3">
+                                        <h:outputLabel for="medico" value="Médico:" />
+                                    </div>
+                                    <div class="col-md-9">
+                                        <p:selectOneMenu id="selectMedico" value="#{citaBean.doctorUsername}">
+                                            <f:selectItem itemLabel="-- Escoja un Médico --" itemValue="" />
+                                            <c:forEach items="#{citaBean.consultaDoctores}" var="doctor" >
+                                                <f:selectItem itemLabel="#{doctor.username}" itemValue="#{doctor.username}" />
+                                            </c:forEach>
+                                        </p:selectOneMenu>
+                                        <!--<p:inputText  maxlength="15" style="width: 60%"/>-->
+                                    </div>
+                                </div>
+                                <div class="row ancho2 margen_top2" style="font-size: medium">
+                                    <div class="col-md-3">
+                                        <h:outputLabel for="fecha" value="Fecha:" />
+                                    </div>
+                                    <div class="col-md-9">
+                                        <p:calendar id="datetime" value="#{citaBean.fecha}" pattern="dd-MM-yyyy HH:mm" />
+                                    </div>
+                                </div>
+                                <div class="row ancho2 margen_top1" style="font-size: medium" >
+                                    <p:commandButton  value="Guardar" id="saveCita" action="#{citaBean.guardarCita()}" styleClass="ui-priority-primary margen_top3" ajax="false" />
 
+                                </div>
+                            </div>                                  
+                            <div class="col-md-1"></div>
                         </div>
-                    </div>                                  
-                    <div class="col-md-1"></div>
-                </div>
+                    </c:if>                        
                 </h:form>
             </div>
         </div>
