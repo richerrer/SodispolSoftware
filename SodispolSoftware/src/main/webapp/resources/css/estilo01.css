@@ -91,6 +91,9 @@ body{
 .margen_top4{
     margin-top: 8%;
 }
+.margen_bottom1{
+    margin-bottom: 5%;
+}
 .adaptar{
     width: 100%;
     border-radius: 10px;

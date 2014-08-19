@@ -33,6 +33,7 @@
                         <h3 class="margen_top4"><p>Buscar Paciente</p></h3>
 
                         <h:form>
+                            
                             <p:growl id="growl" life="2000" />
                             <h:panelGrid columns="1" class=" ancho2 margen_top3">
                                 <p:selectOneRadio  id="tipoBusqueda" style="width: 40%" value="#{citaBean.tipoBusqueda}" required="true">
@@ -40,26 +41,28 @@
                                     <f:selectItem itemLabel="Cédula" itemValue="cedula" />
                                 </p:selectOneRadio>
                             </h:panelGrid>
-                            <h:panelGrid columns="1" class=" ancho2 margen_top3" >
+                            
+                            <h:panelGrid columns="1" class=" ancho2 margen_top1 margen_bottom1" >
                                 <p:focus for="paramBusqueda" />
                                 <p:inputText id="paramBusqueda" maxlength="15" style="width: 60%" value="#{citaBean.paramBusqueda}" required="true"/>
-                                <p:commandButton  value="Buscar Paciente" id="buscarPaciente" update="growl" actionListener="#{citaBean.buttonAction}" styleClass="ui-priority-primary margen_top3">
-                                    <p:ajax process="@this,paramBusqueda,tipoBusqueda" update=":doctor" listener="#{citaBean.consultar()}" />
+                                <p:commandButton  value="Buscar Paciente" id="buscarPaciente" update="growl" actionListener="#{citaBean.buttonAction}" styleClass="ui-priority-primary margen_top1">
+                                    <p:ajax process="@this,paramBusqueda,tipoBusqueda" update="doctor1,:infoCita" listener="#{citaBean.consultar()}" />
                                 </p:commandButton>
-
                             </h:panelGrid>
-                            <h:panelGrid id="doctor" columns="1" class=" ancho2 margen_top3" >
+                            
+                            <h:panelGrid id="doctor1" columns="1" class=" ancho2 margen_top3" >
                                 <c:if test="#{citaBean.encontrado}">
-                                    <h:outputLabel for="medico" value="Médico:" />
+                                    <h:outputLabel for="medico" value="Médico:"  style="font-size: medium" />
                                     <p:selectOneMenu id="selectMedico" value="#{citaBean.doctorUsername}">
+                                        <p:ajax process="@this" update=":infoCita" listener="#{citaBean.consultar2()}" />
                                         <f:selectItem itemLabel="-- Escoja un Médico --" itemValue="" />
                                         <c:forEach items="#{citaBean.consultaDoctores}" var="doctor" >
                                             <f:selectItem itemLabel="#{doctor.username}" itemValue="#{doctor.username}" />
                                         </c:forEach>
                                     </p:selectOneMenu>
-                                    <p:commandButton  value="Buscar Paciente" id="seleccionarDoctor" update="growl" styleClass="ui-priority-primary margen_top3">
+                                    <!--<p:commandButton  value="Seleccionar" id="seleccionarDoctor" update="growl" styleClass="ui-priority-primary margen_top3 margen_bottom1">
                                         <p:ajax process="@this,selectMedico" update=":infoCita" listener="#{citaBean.consultar2()}" />
-                                    </p:commandButton>
+                                    </p:commandButton>-->
                                 </c:if>
                             </h:panelGrid>
 
@@ -70,51 +73,68 @@
                 
                 
                 <h:form id="infoCita">
-                    <c:if test="#{citaBean.doctorSeleccionado}">
+                    
+                    
+                    
+                    
                         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 ">
                             <div class="col-md-1"></div>
                             <div class="col-md-9">
-                                <div class="row ancho2 margen_top3" style="font-size: x-large" >
-                                    <h:outputLabel value="Datos de la Cita Médica:" />
-                                </div>
+                                
+                                
+                                <c:if test="#{citaBean.encontrado}">
                                 <div class="row ancho2 margen_top4" style="font-size: medium" >
                                     <div class="col-md-3">
-                                        <h:outputLabel value="Datos de la Cita Médica:" />
+                                        <h:outputLabel value="Paciente:" />
                                     </div>
                                     <div class="col-md-9">
-                                        <p:inputText value="#{citaBean.estudiante.nombre1}" maxlength="15" style="width: 60%" /> 
+                                        <p:inputText value="#{citaBean.estudiante.nombre1} #{citaBean.estudiante.apellido1}" style="width: 60%" /> 
                                     </div>
                                 </div>
-                                <div class="row ancho2 margen_top2" style="font-size: medium">
-                                    <div class="col-md-3">
-                                        <h:outputLabel for="medico" value="Médico:" />
-                                    </div>
-                                    <div class="col-md-9">
-                                        <p:selectOneMenu id="selectMedico" value="#{citaBean.doctorUsername}">
-                                            <f:selectItem itemLabel="-- Escoja un Médico --" itemValue="" />
-                                            <c:forEach items="#{citaBean.consultaDoctores}" var="doctor" >
-                                                <f:selectItem itemLabel="#{doctor.username}" itemValue="#{doctor.username}" />
-                                            </c:forEach>
-                                        </p:selectOneMenu>
-                                        <!--<p:inputText  maxlength="15" style="width: 60%"/>-->
-                                    </div>
-                                </div>
-                                <div class="row ancho2 margen_top2" style="font-size: medium">
+                                </c:if>
+                                
+                                
+                                <c:if test="#{citaBean.doctorSeleccionado}">    
+                                <div class="row ancho2 margen_top2 margen_bottom1" style="font-size: medium">
                                     <div class="col-md-3">
                                         <h:outputLabel for="fecha" value="Fecha:" />
                                     </div>
                                     <div class="col-md-9">
-                                        <p:calendar id="datetime" value="#{citaBean.fecha}" pattern="dd-MM-yyyy HH:mm" />
+                                        <!--<p:calendar id="datetime" value="#{citaBean.fecha}" pattern="dd-MM-yyyy HH:mm" />-->
+                                        <p:calendar id="datetime" value="#{citaBean.fecha}">
+                                            <p:ajax process="@this" event="dateSelect" update=":infoCita" />
+                                        </p:calendar>
                                     </div>
                                 </div>
+                                
+                                <div class="row ancho2 margen_top3" style="font-size: small" >
+                                    <p:dataTable var="p" value="#{ejemplo.personas}" id="seded">  
+                                        <p:column headerText="Horario">  
+                                            <h:outputText value="#{citaBean.fecha}" />  
+                                        </p:column>  
+
+                                        <p:column headerText="Nombre">  
+                                            <h:outputText value="#{p.nombre}" />  
+                                        </p:column>  
+
+                                        <p:column headerText="Ocupacion" >  
+                                            <h:outputText value="#{p.carrera}" />  
+                                        </p:column>  
+
+                                    </p:dataTable>  
+                                </div>
+                                
+                                
                                 <div class="row ancho2 margen_top1" style="font-size: medium" >
                                     <p:commandButton  value="Guardar" id="saveCita" action="#{citaBean.guardarCita()}" styleClass="ui-priority-primary margen_top3" ajax="false" />
 
                                 </div>
+                                
+                                </c:if>
+                                
                             </div>                                  
                             <div class="col-md-1"></div>
-                        </div>
-                    </c:if>                        
+                        </div>                
                 </h:form>
             </div>
         </div>

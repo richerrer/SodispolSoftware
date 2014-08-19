@@ -262,12 +262,12 @@ public class CitaBean {
         }
     }
     
-        public void consultar2() 
-        {
-            setDoctor(null);
-            
-            setDoctor(getDoctorBo().getDoctor(doctorUsername));
-            setDoctorSeleccionado(getDoctor() != null);
+    public void consultar2() 
+    {
+        setDoctor(null);
+
+        setDoctor(getDoctorBo().getDoctor(doctorUsername));
+        setDoctorSeleccionado(getDoctor() != null);
         
     }
     /*
