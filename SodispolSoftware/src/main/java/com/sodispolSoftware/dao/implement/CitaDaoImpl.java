@@ -9,6 +9,7 @@ import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Roleuser;
 import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
 import java.util.ArrayList;
+import java.util.Calendar;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.dao.DataAccessException;
@@ -30,6 +31,29 @@ public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao
             Object[] paramsCita = new Object[]{false};
             
             ArrayList<Object[]> consulta = (ArrayList<Object[]>) getHibernateTemplate().find("select c,e,d from Citamedica c join c.estudiante as e join c.doctor as d where c.estadoborrado = ?",paramsCita); 
+            
+            for(Object[] obj : consulta)
+            {
+                Citamedica cita = (Citamedica) obj[0];
+                citas.add(cita);
+            }
+            return citas;
+        }
+        catch(Exception ex)
+        {
+            return null;
+        }
+    }
+    
+    @Override
+    public ArrayList<Citamedica> getCitasByFecha(Calendar fecha) 
+    {
+        try
+        {
+            ArrayList<Citamedica> citas = new ArrayList<Citamedica>();
+            Object[] paramsCita = new Object[]{fecha,false};
+            
+            ArrayList<Object[]> consulta = (ArrayList<Object[]>) getHibernateTemplate().find("select c,e,d from Citamedica c join c.estudiante as e join c.doctor as d where c.fechareg = ? and c.estadoborrado = ?",paramsCita); 
             
             for(Object[] obj : consulta)
             {

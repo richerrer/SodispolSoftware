@@ -12,6 +12,7 @@ import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Fichamedicaestudiante;
 import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.springframework.context.annotation.Scope;
@@ -67,5 +68,11 @@ public class CitaBoImpl implements CitaBo{
         ArrayList<Citamedica> citas = getCitaDao().getAllCitas();
         return citas;
     }
-   
+    
+    @Override
+    public ArrayList<Citamedica> getCitasByFecha(Calendar fecha) 
+    {
+        ArrayList<Citamedica> citas = getCitaDao().getCitasByFecha(fecha);
+        return citas;
+    }
 }

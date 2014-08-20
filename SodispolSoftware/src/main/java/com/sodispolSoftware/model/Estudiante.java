@@ -34,6 +34,13 @@ public class Estudiante implements java.io.Serializable, User {
 
     public Estudiante() {
     }
+    
+    public Estudiante(String vacio) {
+        this.nombre1 = vacio;
+        this.nombre2 = vacio;
+        this.apellido1 = vacio;
+        this.apellido2 = vacio;
+    }
 
     public Estudiante(Roleuser roleuser, boolean estadoborrado) {
         this.roleuser = roleuser;

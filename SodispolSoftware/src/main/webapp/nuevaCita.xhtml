@@ -102,19 +102,19 @@
                                     <div class="col-md-9">
                                         <!--<p:calendar id="datetime" value="#{citaBean.fecha}" pattern="dd-MM-yyyy HH:mm" />-->
                                         <p:calendar id="datetime" value="#{citaBean.fecha}">
-                                            <p:ajax process="@this" event="dateSelect" update=":infoCita" />
+                                            <p:ajax process="@this" event="dateSelect" update=":infoCita" listener="#{citaBean.llenarCitasDataTable()}"/>
                                         </p:calendar>
                                     </div>
                                 </div>
                                 
                                 <div class="row ancho2 margen_top3" style="font-size: small" >
-                                    <p:dataTable var="p" value="#{ejemplo.personas}" id="seded">  
+                                    <p:dataTable var="cita" value="#{citaBean.citasDataTable}" id="seded">  
                                         <p:column headerText="Horario">  
-                                            <h:outputText value="#{citaBean.fecha}" />  
+                                            <h:outputText value="#{cita.fechareg.time}" />  
                                         </p:column>  
 
                                         <p:column headerText="Nombre">  
-                                            <h:outputText value="#{p.nombre}" />  
+                                            <h:outputText value="#{cita.estudiante.nombre1} #{cita.estudiante.apellido1}" />  
                                         </p:column>  
 
                                         <p:column headerText="Ocupacion" >  

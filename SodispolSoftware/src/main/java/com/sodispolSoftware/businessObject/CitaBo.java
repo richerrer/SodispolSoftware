@@ -11,6 +11,7 @@ import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Fichamedicaestudiante;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  *
@@ -22,4 +23,5 @@ public interface CitaBo {
     public int getncitas();
     public void addCita(Citamedica cita);
     public ArrayList<Citamedica> getAllCitas();
+    public ArrayList<Citamedica> getCitasByFecha(Calendar fecha);
 }

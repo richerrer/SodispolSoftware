@@ -69,6 +69,9 @@ public class CitaBean {
     
     private String nombrePaciente;
     
+    private ArrayList<Citamedica> citasCargadas = new ArrayList<Citamedica>();
+    
+    private ArrayList<Citamedica> citasDataTable = new ArrayList<Citamedica>();
     
     @Inject
     public CitaBean(CitaBo citaBo,UsuarioBean usuarioBean, EstudianteBo estudianteBo, DoctorBo doctorBo)
@@ -78,12 +81,23 @@ public class CitaBean {
         setEstudianteBo(estudianteBo);
         setDoctorBo(doctorBo);
         
-        
-        // setNumDoctores(consultaDoctores.size());
-        //setNcita(getUsuarioBean().getDoctor().getCitamedicas().iterator().next().getFechareg().toString());
-        //setNcita(getUsuarioBean().getDoctor().getApellido1());
-        //setO(nnams2());
-        //setNcita((String) nnams2()[0]);
+        setFecha(Calendar.getInstance().getTime());
+    }
+
+    public ArrayList<Citamedica> getCitasCargadas() {
+        return citasCargadas;
+    }
+
+    public void setCitasCargadas(ArrayList<Citamedica> citasCargadas) {
+        this.citasCargadas = citasCargadas;
+    }
+
+    public ArrayList<Citamedica> getCitasDataTable() {
+        return citasDataTable;
+    }
+
+    public void setCitasDataTable(ArrayList<Citamedica> citasDataTable) {
+        this.citasDataTable = citasDataTable;
     }
 
     public boolean isDoctorSeleccionado() {
@@ -268,7 +282,7 @@ public class CitaBean {
 
         setDoctor(getDoctorBo().getDoctor(doctorUsername));
         setDoctorSeleccionado(getDoctor() != null);
-        
+        llenarCitasDataTable();
     }
     /*
     public void buttonAction2(ActionEvent actionEvent) {
@@ -293,13 +307,6 @@ public class CitaBean {
     public String guardarCita()
     {
         newFechayHora(fecha.getDate(), fecha.getMonth(), fecha.getYear()+1900, fecha.getHours(), fecha.getMinutes());
-        //Citamedica citaNueva = new Citamedica();
-        //citaNueva.setEstudiante(estudiante);
-        //citaNueva.setDoctor(getDoctorBo().getDoctor(doctorUsername));
-        //citaNueva.setFechareg(fechaBase);
-        //citaNueva.setFechaprog(fechaBase);
-        //citaNueva.setEstadocita("P");
-        //citaNueva.setEstadoborrado(false);
         Citamedica citaNueva = new Citamedica(estudiante, getDoctorBo().getDoctor(doctorUsername), fechaBase, fechaBase,"P",false);
         getCitaBo().addCita(citaNueva);
         return "succes.xhtml";
@@ -309,15 +316,51 @@ public class CitaBean {
     
     public void newFechayHora(int dia, int mes, int anio, int hora, int minuto) 
     {
-        //Calendar t = (Calendar) today().clone();
-        //t.set(Calendar.AM_PM, ampm);
         fechaBase.set(Calendar.DATE, dia);
-        //t.set(Calendar.DAY_OF_MONTH, dia);
         fechaBase.set(Calendar.MONTH, mes);
         fechaBase.set(Calendar.YEAR, anio);
         fechaBase.set(Calendar.HOUR, hora);
         fechaBase.set(Calendar.MINUTE, minuto);
     }
     
+    public void llenarCitasDataTable()
+    {
+        //Calendar fechaProvisional = Calendar.getInstance();
+        ArrayList<Citamedica> citasProvisional = getCitaBo().getAllCitas();
+        citasCargadas.removeAll(citasCargadas); 
+        citasDataTable.removeAll(citasDataTable); 
+        
+        for(Citamedica cm : citasProvisional)
+        {
+            if((cm.getFechareg().getTime().getDate() == fecha.getDate()) && (cm.getFechareg().getTime().getMonth() == fecha.getMonth()) && ((cm.getFechareg().getTime().getYear())+1900 == fecha.getYear()))
+            {
+                citasCargadas.add(cm);
+            }
+        }
+        int entrada = (getDoctor().getHoraentrada().getHours() *60) + getDoctor().getHoraentrada().getMinutes();
+        int salida = (getDoctor().getHorasalida().getHours() *60) + getDoctor().getHorasalida().getMinutes();
+        int numCitasDia = (salida - entrada)/15;
+        
+        for(int i=0; i<numCitasDia; i++)
+        {
+            int horaInicio = (entrada + (i*15))/60;
+            int minutoInicio = (entrada + (i*15)) - (horaInicio*60);
+            int horaFin = (entrada + (i*15) + 15)/60;
+            int minutoFin = (entrada + (i*15) + 15) - (horaFin*60);
+            
+            if((citasCargadas.get(i).getFechareg().getTime().getHours()==horaInicio) && (citasCargadas.get(i).getFechareg().getTime().getMinutes()==minutoInicio))
+            {
+                Citamedica cita= citasCargadas.get(i);
+                citasDataTable.add(cita);
+            }
+            else
+            {
+                setFechaBase(Calendar.getInstance());
+                newFechayHora(fecha.getDate(), fecha.getMonth(), fecha.getYear()+1900, horaInicio, minutoInicio);
+                Citamedica cita = new Citamedica(fechaBase);
+                citasDataTable.add(cita);
+            }
+        }
+    }
     
 }
