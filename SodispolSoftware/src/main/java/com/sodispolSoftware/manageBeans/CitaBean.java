@@ -13,6 +13,7 @@ import com.sodispolSoftware.model.Citamedica;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.redirect.Redireccionar;
+import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -319,7 +320,7 @@ public class CitaBean {
         fechaBase.set(Calendar.DATE, dia);
         fechaBase.set(Calendar.MONTH, mes);
         fechaBase.set(Calendar.YEAR, anio);
-        fechaBase.set(Calendar.HOUR, hora);
+        fechaBase.set(Calendar.HOUR_OF_DAY, hora);
         fechaBase.set(Calendar.MINUTE, minuto);
     }
     
@@ -362,15 +363,20 @@ public class CitaBean {
                 //if((cm2.getFechareg().getTime().getHours()==horaInicio) && (cm2.getFechareg().getTime().getMinutes()==minutoInicio))
                 if((hora1==horaInicio) && (min1==minutoInicio))
                 {
-                    Citamedica cita= citasCargadas.get(i);
+                    Citamedica cita= cm2;
                     int hora2= cita.getFechareg().get(Calendar.HOUR_OF_DAY);
                     int min2 = cita.getFechareg().get(Calendar.MINUTE);
+                    Object[] atributos = WbServiceEspol.loadEstudinateAttributesByMatricula(cita.getEstudiante().getMatricula());
+                    cita.getEstudiante().setNombre1((String) atributos[7]);
+                    cita.getEstudiante().setNombre2((String) atributos[8]);
+                    cita.getEstudiante().setApellido1((String) atributos[9]);
+                    cita.getEstudiante().setApellido2((String) atributos[10]);
                     citasDataTable.add(cita);
                     agregoCita = true;
                     //break;
                 }
             }
-            if(agregoCita = false)
+            if(agregoCita == false)
             {
                 setFechaBase(Calendar.getInstance());
                 newFechayHora(fecha.getDate(), fecha.getMonth(), fecha.getYear()+1900, horaInicio, minutoInicio);
