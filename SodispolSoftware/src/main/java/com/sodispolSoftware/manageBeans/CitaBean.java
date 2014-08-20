@@ -276,7 +276,7 @@ public class CitaBean {
         }
     }
     
-    public void consultar2() 
+    public void consultarCitas() 
     {
         setDoctor(null);
 
@@ -332,7 +332,7 @@ public class CitaBean {
         
         for(Citamedica cm : citasProvisional)
         {
-            if((cm.getFechareg().getTime().getDate() == fecha.getDate()) && (cm.getFechareg().getTime().getMonth() == fecha.getMonth()) && ((cm.getFechareg().getTime().getYear())+1900 == fecha.getYear()))
+            if((cm.getFechareg().getTime().getDate() == fecha.getDate()) && (cm.getFechareg().getTime().getMonth() == fecha.getMonth()) && ((cm.getFechareg().getTime().getYear()) == fecha.getYear()))
             {
                 citasCargadas.add(cm);
             }
@@ -347,19 +347,39 @@ public class CitaBean {
             int minutoInicio = (entrada + (i*15)) - (horaInicio*60);
             int horaFin = (entrada + (i*15) + 15)/60;
             int minutoFin = (entrada + (i*15) + 15) - (horaFin*60);
+            boolean agregoCita = false;
+//*********************************************************************************
+//             ESTA MAL XQ SOLO VERIFICA EL PRIMERO ELEMENTO DE CITASCARGADAS
+//**************************************************************************************
             
-            if((citasCargadas.get(i).getFechareg().getTime().getHours()==horaInicio) && (citasCargadas.get(i).getFechareg().getTime().getMinutes()==minutoInicio))
+            
+            
+            
+            for(Citamedica cm2 : citasCargadas)
             {
-                Citamedica cita= citasCargadas.get(i);
-                citasDataTable.add(cita);
+                int hora1 =cm2.getFechareg().get(Calendar.HOUR_OF_DAY);
+                int min1 = cm2.getFechareg().get(Calendar.MINUTE);
+                //if((cm2.getFechareg().getTime().getHours()==horaInicio) && (cm2.getFechareg().getTime().getMinutes()==minutoInicio))
+                if((hora1==horaInicio) && (min1==minutoInicio))
+                {
+                    Citamedica cita= citasCargadas.get(i);
+                    int hora2= cita.getFechareg().get(Calendar.HOUR_OF_DAY);
+                    int min2 = cita.getFechareg().get(Calendar.MINUTE);
+                    citasDataTable.add(cita);
+                    agregoCita = true;
+                    //break;
+                }
             }
-            else
+            if(agregoCita = false)
             {
                 setFechaBase(Calendar.getInstance());
                 newFechayHora(fecha.getDate(), fecha.getMonth(), fecha.getYear()+1900, horaInicio, minutoInicio);
                 Citamedica cita = new Citamedica(fechaBase);
+                int hora2= cita.getFechareg().get(Calendar.HOUR_OF_DAY);
+                int min2 = cita.getFechareg().get(Calendar.MINUTE);
                 citasDataTable.add(cita);
             }
+                
         }
     }
     

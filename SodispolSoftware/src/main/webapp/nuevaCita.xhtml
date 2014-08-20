@@ -54,15 +54,13 @@
                                 <c:if test="#{citaBean.encontrado}">
                                     <h:outputLabel for="medico" value="Médico:"  style="font-size: medium" />
                                     <p:selectOneMenu id="selectMedico" value="#{citaBean.doctorUsername}">
-                                        <p:ajax process="@this" update=":infoCita" listener="#{citaBean.consultar2()}" />
+                                        <p:ajax process="@this" update=":infoCita" listener="#{citaBean.consultarCitas()}" />
                                         <f:selectItem itemLabel="-- Escoja un Médico --" itemValue="" />
                                         <c:forEach items="#{citaBean.consultaDoctores}" var="doctor" >
                                             <f:selectItem itemLabel="#{doctor.username}" itemValue="#{doctor.username}" />
                                         </c:forEach>
                                     </p:selectOneMenu>
-                                    <!--<p:commandButton  value="Seleccionar" id="seleccionarDoctor" update="growl" styleClass="ui-priority-primary margen_top3 margen_bottom1">
-                                        <p:ajax process="@this,selectMedico" update=":infoCita" listener="#{citaBean.consultar2()}" />
-                                    </p:commandButton>-->
+                                    
                                 </c:if>
                             </h:panelGrid>
 
