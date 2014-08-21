@@ -65,14 +65,12 @@ public class CitaBean {
     private Calendar fechaBase=Calendar.getInstance();
     
     private ArrayList<Doctor> consultaDoctores;
-    
-    private int numDoctores=-2;
-    
-    private String nombrePaciente;
-    
+        
     private ArrayList<Citamedica> citasCargadas = new ArrayList<Citamedica>();
     
     private ArrayList<Citamedica> citasDataTable = new ArrayList<Citamedica>();
+    
+    private String cadenaVacia = "";
     
     @Inject
     public CitaBean(CitaBo citaBo,UsuarioBean usuarioBean, EstudianteBo estudianteBo, DoctorBo doctorBo)
@@ -117,14 +115,6 @@ public class CitaBean {
         this.doctor = doctor;
     }
 
-    public String getNombrePaciente() {
-        return nombrePaciente;
-    }
-
-    public void setNombrePaciente(String nombrePaciente) {
-        this.nombrePaciente = nombrePaciente;
-    }
-
     public String getDoctorUsername() {
         return doctorUsername;
     }
@@ -133,20 +123,20 @@ public class CitaBean {
         this.doctorUsername = doctorUsername;
     }
 
+    public String getCadenaVacia() {
+        return cadenaVacia;
+    }
+
+    public void setCadenaVacia(String cadenaVacia) {
+        this.cadenaVacia = cadenaVacia;
+    }
+
     public ArrayList<Doctor> getConsultaDoctores() {
         return consultaDoctores;
     }
 
     public void setConsultaDoctores(ArrayList<Doctor> consultaDoctores) {
         this.consultaDoctores = consultaDoctores;
-    }
-
-    public int getNumDoctores() {
-        return numDoctores;
-    }
-
-    public void setNumDoctores(int numDoctores) {
-        this.numDoctores = numDoctores;
     }
 
     public Calendar getFechaBase() {
@@ -260,7 +250,6 @@ public class CitaBean {
             setEstudiante(getEstudianteBo().getEstudianteByCedula(getParamBusqueda()));
             setEncontrado(getEstudiante() != null);
         }
-        setNombrePaciente(getEstudiante().getNombre1()+" "+getEstudiante().getApellido1());
         getUsuarioBean().setEstudiantePaciente(getEstudiante());
         HttpServletRequest origRequest = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
         origRequest.setAttribute("estudiante", getEstudiante() );
@@ -362,6 +351,7 @@ public class CitaBean {
                     //int min2 = cita.getFechareg().get(Calendar.MINUTE);
                     WbServiceEspol.loadDataEstudianteByMatriculaFromWebService(cita.getEstudiante());
                     agregarHoraACita(cita, horaInicio, minutoInicio, horaFin, minutoFin);
+                    cita.setVacio(0);
                     citasDataTable.add(cita);
                     agregoCita = true;
                 }
@@ -375,6 +365,7 @@ public class CitaBean {
                 //int hora2= cita.getFechareg().get(Calendar.HOUR_OF_DAY);
                 //int min2 = cita.getFechareg().get(Calendar.MINUTE);
                 agregarHoraACita(cita, horaInicio, minutoInicio, horaFin, minutoFin);
+                cita.setVacio(1);
                 citasDataTable.add(cita);
             }
                 

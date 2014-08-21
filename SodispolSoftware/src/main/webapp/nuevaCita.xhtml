@@ -118,6 +118,22 @@
                                         <p:column headerText="Ocupacion" >  
                                             <h:outputText value="#{p.carrera}" />  
                                         </p:column>  
+                                        
+                                        <p:column style="width: 5%">
+                                            
+                                            <c:if test="#{cita.vacio==1}">
+                                                <p:commandButton  update=":infoCita" value="" id="agregar" styleClass="icon-modificar" image="ui-icon-check">
+                                                    <f:setPropertyActionListener value="" target="" />
+                                                </p:commandButton>
+                                            </c:if>
+                                            <c:if test="#{cita.vacio==0}">
+                                                <p:commandButton  update=":infoCita" value="" id="eliminar" styleClass="icon-modificar" image="ui-icon-trash">
+                                                    <f:setPropertyActionListener value="" target="" />
+                                                </p:commandButton>
+                                            </c:if>    
+                                                
+
+                                        </p:column>
 
                                     </p:dataTable>  
                                 </div>
