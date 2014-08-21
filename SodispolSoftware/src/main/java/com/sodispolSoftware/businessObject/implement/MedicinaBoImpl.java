@@ -73,6 +73,9 @@ public class MedicinaBoImpl implements MedicinaBo {
         getMedicinaDao().updateMedicina(med);
     }
 
-    
+    @Override
+    public Categoriamedicina obtenerCategoria(String categoria) {
+        return getMedicinaDao().obtenerPorNombre(categoria); 
+    }
     
 }

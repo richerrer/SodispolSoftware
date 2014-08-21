@@ -35,14 +35,15 @@ public class MedicinaBean{
     private Categoriamedicina categoria;
   
     
-    private MedicinaBo medicinaBo;
-    
+     private MedicinaBo medicinaBo;
+     
+     private Medicina medicinaSeleccionada;
      private long idmedicina;
      private String descripcion;
-     private Integer cajasdisponibles;
+     private Integer cajasdisponibles=1;
      private Boolean estadodisponible;
-     private String categoriaSeleccionada;
-     
+     private Categoriamedicina categoriaSeleccionada;
+     private String catSeleccionada;
      private ArrayList<Medicina> medicinas;
      private ArrayList<Categoriamedicina> categorias;
      private ArrayList<Medicina> medicinasCargadas=new ArrayList<Medicina>();
@@ -71,7 +72,6 @@ public class MedicinaBean{
         this.medicinaBo = medicinaBo;
     }
 
-
     public Categoriamedicina getCategoria() {
         return categoria;
     }
@@ -90,6 +90,22 @@ public class MedicinaBean{
 
     public String getDescripcion() {
         return descripcion;
+    }
+
+    public Medicina getMedicinaSeleccionada() {
+        return medicinaSeleccionada;
+    }
+
+    public String getCatSeleccionada() {
+        return catSeleccionada;
+    }
+
+    public void setCatSeleccionada(String catSeleccionada) {
+        this.catSeleccionada = catSeleccionada;
+    }
+
+    public void setMedicinaSeleccionada(Medicina medicinaSeleccionada) {
+        this.medicinaSeleccionada = medicinaSeleccionada;
     }
 
     public void setDescripcion(String descripcion) {
@@ -144,24 +160,19 @@ public class MedicinaBean{
         this.categoriasCargadas = categoriasCargadas;
     }
 
-    public String getCategoriaSeleccionada() {
+    public Categoriamedicina getCategoriaSeleccionada() {
         return categoriaSeleccionada;
     }
 
-    public void setCategoriaSeleccionada(String categoriaSeleccionada) {
+    public void setCategoriaSeleccionada(Categoriamedicina categoriaSeleccionada) {
         this.categoriaSeleccionada = categoriaSeleccionada;
     }
     
-   
-    
-     public void cargarMedicinas(){
+    public void cargarMedicinas(){
        
-        setMedicinas(getMedicinaBo().obtenerListaDeMedicinas());
-        
+        setMedicinas(getMedicinaBo().obtenerListaDeMedicinas());        
         for(Medicina med : medicinas)
-        {
-             medicinasCargadas.add(med);
-        }
+        { medicinasCargadas.add(med);}
          
     }
 
@@ -177,29 +188,42 @@ public class MedicinaBean{
         }
     }
     
-    public String eliminarMedicina(Medicina medicina)
+    public String eliminarMedicina(ActionEvent actionEvent)
     {
-       // deleteMedicina(medicina);
+        deleteMedicina();
         return "succes.xhtml";
     }
 
-    public void deleteMedicina(Medicina med) {
+    public void deleteMedicina() {
+        Medicina med = (Medicina)getMedicinaSeleccionada();
         med.setEstadoborrado(true);
         getMedicinaBo().updateMedicina(med);
         //agregarCategoria(medicina);        
     }
     
-    
     public String guardarMedicina(ActionEvent actionEvent)
     {
         agregarNuevaMedicina();
+        addMessage("Medicina agregada correctamente");
         return "succes.xhtml";
     }
 
+    public void addMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    
     public void agregarNuevaMedicina() {
-        Medicina medicina = new Medicina(getDescripcion(), getCajasdisponibles(), true, false);       
+        Medicina medicina = new Medicina(getDescripcion(),getCajasdisponibles(), true, false); 
         getMedicinaBo().agregarMedicina(medicina);
+        setCategoria(medicina);    
         //agregarCategoria(medicina);        
+    }
+    
+    public void setCategoria(Medicina med){
+        Categoriamedicina cat = (Categoriamedicina)obtenerCategoriaPorNombre(catSeleccionada);
+        Categoriamedicinamedicina cmm = new Categoriamedicinamedicina(false, med, cat);
+        getMedicinaBo().agregarRelacionMedicinaCategoria(cmm);
     }
     
     public void agregarCategoria(Medicina m) {
@@ -207,6 +231,10 @@ public class MedicinaBean{
         getMedicinaBo().agregarCategoria(c);     
         Categoriamedicinamedicina cm = new Categoriamedicinamedicina(false,m,c);
         getMedicinaBo().agregarRelacionMedicinaCategoria(cm);        
+    }
+
+    private Categoriamedicina obtenerCategoriaPorNombre( String categoria) {
+        return getMedicinaBo().obtenerCategoria(categoria);
     }
     
 }

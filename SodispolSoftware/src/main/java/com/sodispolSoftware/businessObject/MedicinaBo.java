@@ -32,4 +32,5 @@ public interface MedicinaBo {
 
     public void updateMedicina(Medicina med);
     
+    public Categoriamedicina obtenerCategoria(String categoria);
 }

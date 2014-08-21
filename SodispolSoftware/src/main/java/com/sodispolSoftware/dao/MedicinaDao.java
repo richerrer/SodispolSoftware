@@ -32,4 +32,5 @@ public interface MedicinaDao {
 
     public void updateMedicina(Medicina med);
     
+    public Categoriamedicina obtenerPorNombre(String categoria);
 }

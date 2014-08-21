@@ -83,7 +83,19 @@ public class MedicinaDaoImpl extends HibernateDaoSupport implements MedicinaDao 
 
     @Override
     public void updateMedicina(Medicina med) {
-         updateMedicina(med);
+         getHibernateTemplate().update(med);
     }
    
+    @Override
+    public Categoriamedicina obtenerPorNombre(String categoria) {
+        try{
+            Object[] paramsCategoria = new Object[]{categoria,false};
+            Categoriamedicina cat = (Categoriamedicina)getHibernateTemplate().find("from Categoriamedicina c where c.descripcion= ? and estadoborrado = ?",paramsCategoria).get(0); 
+            return cat;
+        }
+        catch(IndexOutOfBoundsException ex){
+            return null;
+        }  
+    }
+    
 }

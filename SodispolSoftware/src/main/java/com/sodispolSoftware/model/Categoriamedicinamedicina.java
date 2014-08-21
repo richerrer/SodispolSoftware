@@ -23,6 +23,7 @@ public class Categoriamedicinamedicina  implements java.io.Serializable {
         this.categoriamedicina = categoriamedicina;
     }
     
+    
     public Categoriamedicinamedicina(long idcategoriamedicinamedicina, Medicina medicina, Categoriamedicina categoriamedicina) {
         this.idcategoriamedicinamedicina = idcategoriamedicinamedicina;
         this.medicina = medicina;
