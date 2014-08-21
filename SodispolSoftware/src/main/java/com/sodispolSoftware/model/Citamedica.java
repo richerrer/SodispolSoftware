@@ -21,6 +21,9 @@ public class Citamedica  implements java.io.Serializable {
      private String estadocita;
      private Boolean estadoborrado;
      private Set<Detallefichaestudiante> detallefichaestudiantes = new HashSet<Detallefichaestudiante>(0);
+     
+     //atributo para guardar la hora de la cita que se mostrara en el dataTable
+     private String hora;
 
     public Citamedica() {
     }
@@ -119,6 +122,14 @@ public class Citamedica  implements java.io.Serializable {
     
     public void setDetallefichaestudiantes(Set<Detallefichaestudiante> detallefichaestudiantes) {
         this.detallefichaestudiantes = detallefichaestudiantes;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
     }
 
 

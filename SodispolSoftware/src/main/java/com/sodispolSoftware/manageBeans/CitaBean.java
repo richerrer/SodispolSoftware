@@ -349,12 +349,6 @@ public class CitaBean {
             int horaFin = (entrada + (i*15) + 15)/60;
             int minutoFin = (entrada + (i*15) + 15) - (horaFin*60);
             boolean agregoCita = false;
-//*********************************************************************************
-//             ESTA MAL XQ SOLO VERIFICA EL PRIMERO ELEMENTO DE CITASCARGADAS
-//**************************************************************************************
-            
-            
-            
             
             for(Citamedica cm2 : citasCargadas)
             {
@@ -364,29 +358,49 @@ public class CitaBean {
                 if((hora1==horaInicio) && (min1==minutoInicio))
                 {
                     Citamedica cita= cm2;
-                    int hora2= cita.getFechareg().get(Calendar.HOUR_OF_DAY);
-                    int min2 = cita.getFechareg().get(Calendar.MINUTE);
-                    Object[] atributos = WbServiceEspol.loadEstudinateAttributesByMatricula(cita.getEstudiante().getMatricula());
-                    cita.getEstudiante().setNombre1((String) atributos[7]);
-                    cita.getEstudiante().setNombre2((String) atributos[8]);
-                    cita.getEstudiante().setApellido1((String) atributos[9]);
-                    cita.getEstudiante().setApellido2((String) atributos[10]);
+                    //int hora2= cita.getFechareg().get(Calendar.HOUR_OF_DAY);
+                    //int min2 = cita.getFechareg().get(Calendar.MINUTE);
+                    WbServiceEspol.loadDataEstudianteByMatriculaFromWebService(cita.getEstudiante());
+                    agregarHoraACita(cita, horaInicio, minutoInicio, horaFin, minutoFin);
                     citasDataTable.add(cita);
                     agregoCita = true;
-                    //break;
                 }
             }
+            
             if(agregoCita == false)
             {
                 setFechaBase(Calendar.getInstance());
                 newFechayHora(fecha.getDate(), fecha.getMonth(), fecha.getYear()+1900, horaInicio, minutoInicio);
                 Citamedica cita = new Citamedica(fechaBase);
-                int hora2= cita.getFechareg().get(Calendar.HOUR_OF_DAY);
-                int min2 = cita.getFechareg().get(Calendar.MINUTE);
+                //int hora2= cita.getFechareg().get(Calendar.HOUR_OF_DAY);
+                //int min2 = cita.getFechareg().get(Calendar.MINUTE);
+                agregarHoraACita(cita, horaInicio, minutoInicio, horaFin, minutoFin);
                 citasDataTable.add(cita);
             }
                 
         }
     }
     
+    public void agregarHoraACita(Citamedica cita, int horaInicio, int minInicio, int horaFin, int minFin)
+    {
+        String horaInicioCita = obtenerHoraCorregida(horaInicio, minInicio);
+        String horaFinCita = obtenerHoraCorregida(horaFin, minFin);
+        
+        cita.setHora(horaInicioCita+" - "+horaFinCita);
+    }
+    
+    public String obtenerHoraCorregida(int hora, int minuto)
+    {
+         String horaCita = "";
+//        if((hora<10) && (minuto<10))
+//            horaCita = "0"+Integer.toString(hora)+":"+"0"+Integer.toString(minuto);
+//        if((hora<10) && (minuto>=10))
+//            horaCita = "0"+Integer.toString(hora)+":"+Integer.toString(minuto);
+        if(minuto<10)
+            horaCita = Integer.toString(hora)+":"+"0"+Integer.toString(minuto);
+        else
+            horaCita = Integer.toString(hora)+":"+Integer.toString(minuto);
+        
+        return horaCita;
+    }
 }
