@@ -193,6 +193,19 @@ public class MedicinaBean{
         deleteMedicina();
         return "succes.xhtml";
     }
+    
+    public String sumarMedicina(ActionEvent actionEvent)
+    {
+        sumaMedicina();
+        return "succes.xhtml";
+    }
+    
+    public String restarMedicina(ActionEvent actionEvent)
+    {
+        restaMedicina();
+        return "succes.xhtml";
+    }
+    
 
     public void deleteMedicina() {
         Medicina med = (Medicina)getMedicinaSeleccionada();
@@ -200,14 +213,30 @@ public class MedicinaBean{
         getMedicinaBo().updateMedicina(med);
         //agregarCategoria(medicina);        
     }
+    public void sumaMedicina() {
+        Medicina med = (Medicina)getMedicinaSeleccionada();
+        med.setCajasdisponibles(med.getCajasdisponibles()+getCajasdisponibles());
+        getMedicinaBo().updateMedicina(med);
+        //agregarCategoria(medicina);        
+    }
+    public void restaMedicina() {
+        Medicina med = (Medicina)getMedicinaSeleccionada();
+        med.setCajasdisponibles(med.getCajasdisponibles()-getCajasdisponibles());
+        getMedicinaBo().updateMedicina(med);
+        //agregarCategoria(medicina);        
+    }
     
     public String guardarMedicina(ActionEvent actionEvent)
     {
         agregarNuevaMedicina();
-        addMessage("Medicina agregada correctamente");
+        //addMessage("Medicina agregada correctamente");
         return "succes.xhtml";
     }
 
+    public void buttonAction(ActionEvent actionEvent) {
+        addMessage("Medicina eliminada correctamente");
+    }
+    
     public void addMessage(String summary) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
         FacesContext.getCurrentInstance().addMessage(null, message);

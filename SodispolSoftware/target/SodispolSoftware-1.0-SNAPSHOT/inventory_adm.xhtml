@@ -28,8 +28,6 @@
         <div id="content" class="container slider ancho1 margen_top2">
                     
         <section>
-            <h2 class="texto" style="text-align: center">Administrar Inventario</h2>
-            <hr style="color: #440706;" size="5" width="95%"/>
             <p><b>En esta sección usted dispone del inventario del dispensario médico, usted puede agregar, eliminar y modificar medicamentos</b> </p>
             <hr style="color: #000;" size="5" width="95%"/>
                    
@@ -64,8 +62,7 @@
                                 </p:selectOneMenu>
                             </p:column>
                             <p:column colspan="3">
-                                <p:spinner size="2" value="#{medicinaBean.cajasdisponibles}">
-                                    <f:validateLongRange minimum="1" />
+                                <p:spinner size="2" value="#{medicinaBean.cajasdisponibles}" min="1" >
                                 </p:spinner>
                                 unidades</p:column>
                             <p:column style="font-weight: bold;">
@@ -86,6 +83,7 @@
               
            <p:panel id="toggleable5" header="Lista de Medicamentos" toggleable="true"  collapsed="true" toggleSpeed="500"  style="margin-bottom:20px"  styleClass="color6">
               <div style="height: 25em" class="panelBarY">
+                 
                   <p:panelGrid id="listaMed" style="width: 99%">
                       <f:facet name="header" >
                          
@@ -93,8 +91,8 @@
                             <p:column colspan="4">Nombre</p:column>
                             <p:column colspan="4">Categoría</p:column>
                             <p:column colspan="3">Cajas Disponibles</p:column>
-                            <p:column colspan="3">Cantidad</p:column>
-                            <p:column>Accion</p:column>
+                            <p:column colspan="4">Cantidad</p:column>
+                            <p:column colspan="2">Eliminar Medicina</p:column>
                          </p:row>
                        
                           
@@ -105,14 +103,27 @@
                                 <p:column colspan="4" style="font-weight: bold;">#{medicina.descripcion}</p:column>
                                 <p:column colspan="4">#{medicinaBean.obtenerCategoria(medicina).descripcion}</p:column>
                                 <p:column colspan="3">#{medicina.cajasdisponibles} unidades</p:column>
-                                <p:column colspan="3"><p:spinner size="2" value="1"><f:validateLongRange minimum="1" /></p:spinner></p:column>
-                                <p:column style="font-weight: bold;">
-                                    <p:commandButton value="Agregar" oncomplete="PF('dlg1').show()"/>
-                                    <p:commandButton value="Quitar" oncomplete="PF('dlg2').show()" />
-                                    <p:commandButton value="Eliminar" action="#{medicinaBean.eliminarMedicina(actionEvent)}">
+                                <p:column colspan="4">
+                                    <p:spinner size="2" value="#{medicinaBean.cajasdisponibles}" min="1"></p:spinner>
+                                    <p:commandButton value="Agregar cajas" action="#{medicinaBean.sumarMedicina(actionEvent)}">
+                                        <f:setPropertyActionListener value="#{medicina}" target="#{medicinaBean.medicinaSeleccionada}"/>
+                                    </p:commandButton>
+                                    <p:commandButton value="Quitar cajas" action="#{medicinaBean.restarMedicina(actionEvent)}">
                                         <f:setPropertyActionListener value="#{medicina}" target="#{medicinaBean.medicinaSeleccionada}"/>
                                     </p:commandButton>
                                 </p:column>
+                                <p:column colspan="2">
+                                    <p:commandButton value="Eliminar" action="#{medicinaBean.eliminarMedicina(actionEvent)}">
+                                        <f:setPropertyActionListener value="#{medicina}" target="#{medicinaBean.medicinaSeleccionada}"/>
+                                    </p:commandButton>
+                                    
+                                    
+                                </p:column>
+                                
+                                
+                                
+                                
+                                
                             </p:row>
                              
                          </c:forEach>
@@ -125,17 +136,6 @@
           </h:form>
           
           <br/> <br/> <br/> 
-         
-          
-            <p:dialog header="Agregado" widgetVar="dlg1" minHeight="40" resizable="false">
-              <h:outputText value="Ha agregado medicamentos al inventario!" />
-            </p:dialog>
-            <p:dialog header="Quitado" widgetVar="dlg2" minHeight="40" resizable="false">
-               <h:outputText value="Ha quitado medicamentos del inventario !" />
-            </p:dialog>
-          
-          
-          
          
     </section>
         </div>
