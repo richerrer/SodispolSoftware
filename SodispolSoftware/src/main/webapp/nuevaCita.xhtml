@@ -119,27 +119,20 @@
                                         </p:column>  
                                         
                                         <p:column style="width: 17%">
-                                            <p:commandButton  type="button" id="agregar" styleClass="icon-botones" image="ui-icon-check" onclick="#{citaBean.verificarAccionDelBotonCrear()}" >
-                                            <!--<p:commandButton  update=":infoCita" value="" id="agregar" styleClass="icon-botones" image="ui-icon-check"/>-->
-                                            <f:setPropertyActionListener value="#{cita.vacio}" target="#{citaBean.citaVacia}" />
-                                            </p:commandButton>
-
-
-                                            <p:commandButton  update=":infoCita" value="" id="eliminar" action="#{citaBean.eliminarCita()}" styleClass="icon-botones" image="ui-icon-trash" ajax="false">
+                                            <p:commandButton update=":infoCita" id="agregar" action="#{citaBean.guardarCita()}" styleClass="icon-botones" image="ui-icon-check" ajax="false" >                                            
                                                 <f:setPropertyActionListener value="#{cita}" target="#{citaBean.citaSeleccionada}" />
                                             </p:commandButton>
 
-
-
+                                            <p:commandButton update=":infoCita" id="eliminar" action="#{citaBean.eliminarCita()}" styleClass="icon-botones" image="ui-icon-trash" ajax="false">
+                                                <f:setPropertyActionListener value="#{cita}" target="#{citaBean.citaSeleccionada}" />
+                                            </p:commandButton>
                                         </p:column>
 
                                     </p:dataTable>  
                                 </div>
                                 
-                                <p:dialog header="Crear Cita" widgetVar="dlgCrearCita" minHeight="40">
-                                    <c:if test="#{citaBean.citaVacia}">
-                                        <h:outputText value="Crear Cita" />
-                                    </c:if>
+                                <p:dialog header="Datos de la Cita" widgetVar="dlgCrearCita" minHeight="40">                                    
+                                    <h:outputText value="Crear Cita" />
                                     
                                 </p:dialog>
                                     

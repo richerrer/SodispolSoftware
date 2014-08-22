@@ -308,16 +308,6 @@ public class CitaBean {
         setConsultaDoctores(doctores);
     }
     
-    public String guardarCita()
-    {
-        newFechayHora(fecha.getDate(), fecha.getMonth(), fecha.getYear()+1900, fecha.getHours(), fecha.getMinutes());
-        Citamedica citaNueva = new Citamedica(estudiante, getDoctorBo().getDoctor(doctorUsername), fechaBase, fechaBase,"P",false);
-        getCitaBo().addCita(citaNueva);
-        return "succes.xhtml";
-        
-    }
-    
-    
     public void newFechayHora(int dia, int mes, int anio, int hora, int minuto) 
     {
         fechaBase.set(Calendar.DATE, dia);
@@ -434,5 +424,12 @@ public class CitaBean {
         getCitaBo().deleteCita(getCitaSeleccionada());
         return "succes.xhtml";
         
+    }
+    
+    public String guardarCita()
+    {
+        Citamedica citaNueva = new Citamedica("P", getEstudiante(), false, getDoctor(), citaSeleccionada.getFechareg(), citaSeleccionada.getFechareg());
+        getCitaBo().addCita(citaNueva);
+        return "succes.xhtml";
     }
 }
