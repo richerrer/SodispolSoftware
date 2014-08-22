@@ -114,7 +114,10 @@ public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao
         getHibernateTemplate().save(cita);
     }
 
-    
+    @Override
+    public void deleteCita(Citamedica cita) {
+        getHibernateTemplate().update(cita);
+    }
      
     
 }

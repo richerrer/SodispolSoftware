@@ -196,9 +196,9 @@ body{
 .espacioSuperior{
     margin-top: 60%;
 }
-.icon-modificar {
+.icon-botones {
     width: 30px;   
-    height: 30px; 
+    height: 26px; 
 }
 .wrapper{
     min-height: 79%;

@@ -31,6 +31,7 @@ public class Estudiante implements java.io.Serializable, User {
     private int edad;
     private String fechaNacimiento;
     private String foto;
+    private String ocupacion;
 
     public Estudiante() {
     }
@@ -227,4 +228,13 @@ public class Estudiante implements java.io.Serializable, User {
         return nombre1 + " " + apellido1;
     }
 
+    public String getOcupacion() {
+        return ocupacion;
+    }
+
+    public void setOcupacion(String ocupacion) {
+        this.ocupacion = ocupacion;
+    }
+
+    
 }

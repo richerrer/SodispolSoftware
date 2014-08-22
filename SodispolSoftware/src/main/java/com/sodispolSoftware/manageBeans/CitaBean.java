@@ -69,8 +69,12 @@ public class CitaBean {
     private ArrayList<Citamedica> citasCargadas = new ArrayList<Citamedica>();
     
     private ArrayList<Citamedica> citasDataTable = new ArrayList<Citamedica>();
+  
+    private boolean citaVacia;
     
-    private String cadenaVacia = "";
+    private Citamedica citaSeleccionada;
+    
+    private String nombreCompletoEstudiante;
     
     @Inject
     public CitaBean(CitaBo citaBo,UsuarioBean usuarioBean, EstudianteBo estudianteBo, DoctorBo doctorBo)
@@ -81,6 +85,30 @@ public class CitaBean {
         setDoctorBo(doctorBo);
         
         setFecha(Calendar.getInstance().getTime());
+    }
+
+    public String getNombreCompletoEstudiante() {
+        return nombreCompletoEstudiante;
+    }
+
+    public void setNombreCompletoEstudiante(String nombreCompletoEstudiante) {
+        this.nombreCompletoEstudiante = nombreCompletoEstudiante;
+    }
+
+    public Citamedica getCitaSeleccionada() {
+        return citaSeleccionada;
+    }
+
+    public void setCitaSeleccionada(Citamedica citaSeleccionada) {
+        this.citaSeleccionada = citaSeleccionada;
+    }
+
+    public boolean isCitaVacia() {
+        return citaVacia;
+    }
+
+    public void setCitaVacia(boolean citaVacia) {
+        this.citaVacia = citaVacia;
     }
 
     public ArrayList<Citamedica> getCitasCargadas() {
@@ -121,14 +149,6 @@ public class CitaBean {
 
     public void setDoctorUsername(String doctorUsername) {
         this.doctorUsername = doctorUsername;
-    }
-
-    public String getCadenaVacia() {
-        return cadenaVacia;
-    }
-
-    public void setCadenaVacia(String cadenaVacia) {
-        this.cadenaVacia = cadenaVacia;
     }
 
     public ArrayList<Doctor> getConsultaDoctores() {
@@ -244,10 +264,12 @@ public class CitaBean {
         setEstudiante(null);
         if (getTipoBusqueda().equals("matricula")) {
             setEstudiante(getEstudianteBo().getEstudianteByMatricula(getParamBusqueda()));
+            setNombreCompletoEstudiante(getEstudiante().getNombre1()+" "+getEstudiante().getApellido1());
             setEncontrado(getEstudiante() != null);
         }
         if (getTipoBusqueda().equals("cedula")) {
             setEstudiante(getEstudianteBo().getEstudianteByCedula(getParamBusqueda()));
+            setNombreCompletoEstudiante(getEstudiante().getNombre1()+" "+getEstudiante().getApellido1());
             setEncontrado(getEstudiante() != null);
         }
         getUsuarioBean().setEstudiantePaciente(getEstudiante());
@@ -274,14 +296,6 @@ public class CitaBean {
         setDoctorSeleccionado(getDoctor() != null);
         llenarCitasDataTable();
     }
-    /*
-    public void buttonAction2(ActionEvent actionEvent) {
-        if (isEncontrado()) {
-            addMessage("Si se encontro el paciente " + getEstudiante());
-        } else {
-            addMessage("No se encontro el paciente " + getParamBusqueda());
-        }
-    }*/
     
     public void addMessage(String mensaje) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje, null);
@@ -324,6 +338,8 @@ public class CitaBean {
         {
             if((cm.getFechareg().getTime().getDate() == fecha.getDate()) && (cm.getFechareg().getTime().getMonth() == fecha.getMonth()) && ((cm.getFechareg().getTime().getYear()) == fecha.getYear()))
             {
+                WbServiceEspol.loadDataEstudianteByMatriculaFromWebService(cm.getEstudiante());
+                setOcupacionEstudiante(cm.getEstudiante());
                 citasCargadas.add(cm);
             }
         }
@@ -349,9 +365,9 @@ public class CitaBean {
                     Citamedica cita= cm2;
                     //int hora2= cita.getFechareg().get(Calendar.HOUR_OF_DAY);
                     //int min2 = cita.getFechareg().get(Calendar.MINUTE);
-                    WbServiceEspol.loadDataEstudianteByMatriculaFromWebService(cita.getEstudiante());
+                    
                     agregarHoraACita(cita, horaInicio, minutoInicio, horaFin, minutoFin);
-                    cita.setVacio(0);
+                    cita.setVacio(false);
                     citasDataTable.add(cita);
                     agregoCita = true;
                 }
@@ -365,7 +381,7 @@ public class CitaBean {
                 //int hora2= cita.getFechareg().get(Calendar.HOUR_OF_DAY);
                 //int min2 = cita.getFechareg().get(Calendar.MINUTE);
                 agregarHoraACita(cita, horaInicio, minutoInicio, horaFin, minutoFin);
-                cita.setVacio(1);
+                cita.setVacio(true);
                 citasDataTable.add(cita);
             }
                 
@@ -393,5 +409,30 @@ public class CitaBean {
             horaCita = Integer.toString(hora)+":"+Integer.toString(minuto);
         
         return horaCita;
+    }
+    
+    public void setOcupacionEstudiante(Estudiante est)
+    {
+        String ocupacion = WbServiceEspol.getRoleByUsername(est.getUsername());
+        
+        if(ocupacion.equals("P"))
+            est.setOcupacion("Profesional");
+        if(ocupacion.equals("E"))
+            est.setOcupacion("Estudiante");        
+    }
+    
+    public String verificarAccionDelBotonCrear()
+    {        
+        //if(citaSeleccionada.isVacio())
+            return "PF('dlgCrearCita').show();";
+        //return "PF('dlgErrorCrearCita').show();";
+    }
+    
+    public String eliminarCita()
+    {
+        getCitaSeleccionada().setEstadoborrado(true);
+        getCitaBo().deleteCita(getCitaSeleccionada());
+        return "succes.xhtml";
+        
     }
 }

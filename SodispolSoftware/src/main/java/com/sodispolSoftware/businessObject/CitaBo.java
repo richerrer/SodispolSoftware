@@ -24,4 +24,5 @@ public interface CitaBo {
     public void addCita(Citamedica cita);
     public ArrayList<Citamedica> getAllCitas();
     public ArrayList<Citamedica> getCitasByFecha(Calendar fecha);
+    public void deleteCita(Citamedica cita);
 }

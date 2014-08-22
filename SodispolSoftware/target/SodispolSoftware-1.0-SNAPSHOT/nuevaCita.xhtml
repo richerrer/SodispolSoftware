@@ -71,10 +71,8 @@
                 
                 
                 <h:form id="infoCita">
-                    
-                    
-                    
-                    
+                        
+                        
                         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 ">
                             <div class="col-md-1"></div>
                             <div class="col-md-9">
@@ -86,7 +84,7 @@
                                         <h:outputLabel value="Paciente:" />
                                     </div>
                                     <div class="col-md-9">
-                                        <p:inputText value="#{citaBean.estudiante.nombre1} #{citaBean.estudiante.apellido1}" style="width: 60%" /> 
+                                        <p:inputText value="#{citaBean.nombreCompletoEstudiante}" style="width: 60%" /> 
                                     </div>
                                 </div>
                                 </c:if>
@@ -106,38 +104,48 @@
                                 </div>
                                 
                                 <div class="row ancho2 margen_top3" style="font-size: small" >
+                                     
                                     <p:dataTable var="cita" value="#{citaBean.citasDataTable}" id="seded">  
-                                        <p:column headerText="Horario">  
+                                        <p:column headerText="Horario" style="width: 21%">  
                                             <h:outputText value="#{cita.hora}" />  
                                         </p:column>  
 
-                                        <p:column headerText="Nombre">  
+                                        <p:column headerText="Nombre" style="width: 35%">  
                                             <h:outputText value="#{cita.estudiante.nombre1} #{cita.estudiante.apellido1}" />  
                                         </p:column>  
 
-                                        <p:column headerText="Ocupacion" >  
-                                            <h:outputText value="#{p.carrera}" />  
+                                        <p:column headerText="Ocupacion" style="width: 25%">  
+                                            <h:outputText value="#{cita.estudiante.ocupacion}" />  
                                         </p:column>  
                                         
-                                        <p:column style="width: 5%">
-                                            
-                                            <c:if test="#{cita.vacio==1}">
-                                                <p:commandButton  update=":infoCita" value="" id="agregar" styleClass="icon-modificar" image="ui-icon-check">
-                                                    <f:setPropertyActionListener value="" target="" />
-                                                </p:commandButton>
-                                            </c:if>
-                                            <c:if test="#{cita.vacio==0}">
-                                                <p:commandButton  update=":infoCita" value="" id="eliminar" styleClass="icon-modificar" image="ui-icon-trash">
-                                                    <f:setPropertyActionListener value="" target="" />
-                                                </p:commandButton>
-                                            </c:if>    
-                                                
+                                        <p:column style="width: 17%">
+                                            <p:commandButton  type="button" id="agregar" styleClass="icon-botones" image="ui-icon-check" onclick="#{citaBean.verificarAccionDelBotonCrear()}" >
+                                            <!--<p:commandButton  update=":infoCita" value="" id="agregar" styleClass="icon-botones" image="ui-icon-check"/>-->
+                                            <f:setPropertyActionListener value="#{cita.vacio}" target="#{citaBean.citaVacia}" />
+                                            </p:commandButton>
+
+
+                                            <p:commandButton  update=":infoCita" value="" id="eliminar" action="#{citaBean.eliminarCita()}" styleClass="icon-botones" image="ui-icon-trash" ajax="false">
+                                                <f:setPropertyActionListener value="#{cita}" target="#{citaBean.citaSeleccionada}" />
+                                            </p:commandButton>
+
+
 
                                         </p:column>
 
                                     </p:dataTable>  
                                 </div>
                                 
+                                <p:dialog header="Crear Cita" widgetVar="dlgCrearCita" minHeight="40">
+                                    <c:if test="#{citaBean.citaVacia}">
+                                        <h:outputText value="Crear Cita" />
+                                    </c:if>
+                                    
+                                </p:dialog>
+                                    
+                                <p:dialog header="ERROR" widgetVar="dlgErrorCrearCita" modal="true" height="100">
+                                    <h:outputText value="No se puede agregar cita debido a que ya existe una cita asignada a este horario" />
+                                </p:dialog>  
                                 
                                 <div class="row ancho2 margen_top1" style="font-size: medium" >
                                     <p:commandButton  value="Guardar" id="saveCita" action="#{citaBean.guardarCita()}" styleClass="ui-priority-primary margen_top3" ajax="false" />

@@ -28,6 +28,9 @@ public class WbServiceEspol {
         if (username.equals("gabapare")) {
             return "P";//Estudiante
         }
+        if (username.equals("kplaza")) {
+            return "E";//Estudiante
+        }
         return null;
     }
     /* Retorna el estado, es deir si esta activo o no*/

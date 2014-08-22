@@ -24,7 +24,7 @@ public class Citamedica  implements java.io.Serializable {
      
      //atributo para guardar la hora de la cita que se mostrara en el dataTable
      private String hora;
-     private int vacio;
+     private boolean vacio;
 
     public Citamedica() {
     }
@@ -134,15 +134,14 @@ public class Citamedica  implements java.io.Serializable {
         this.hora = hora;
     }
 
-    public int getVacio() {
+    public boolean isVacio() {
         return vacio;
     }
 
-    public void setVacio(int vacio) {
+    public void setVacio(boolean vacio) {
         this.vacio = vacio;
     }
 
-   
 
 
 }

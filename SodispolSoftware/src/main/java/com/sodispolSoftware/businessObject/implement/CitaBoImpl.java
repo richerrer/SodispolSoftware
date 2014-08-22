@@ -57,6 +57,11 @@ public class CitaBoImpl implements CitaBo{
     }
 
     @Override
+    public void deleteCita(Citamedica cita) {
+        getCitaDao().deleteCita(cita);
+    }
+    
+    @Override
     public void addCita(Citamedica cita)
     {
         getCitaDao().addCita(cita);
