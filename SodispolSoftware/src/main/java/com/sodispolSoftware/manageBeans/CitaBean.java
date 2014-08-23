@@ -331,7 +331,7 @@ public class CitaBean {
         {
             if((cm.getFechareg().getTime().getDate() == fecha.getDate()) && (cm.getFechareg().getTime().getMonth() == fecha.getMonth()) && ((cm.getFechareg().getTime().getYear()) == fecha.getYear()))
             {
-                WbServiceEspol.loadDataEstudianteByMatriculaFromWebService(cm.getEstudiante());
+                //WbServiceEspol.loadDataEstudianteByMatriculaFromWebService(cm.getEstudiante());
                 setOcupacionEstudiante(cm.getEstudiante());
                 citasCargadas.add(cm);
             }
@@ -406,12 +406,12 @@ public class CitaBean {
     
     public void setOcupacionEstudiante(Estudiante est)
     {
-        String ocupacion = WbServiceEspol.getRoleByUsername(est.getUsername());
+        String rolUser = est.getRoleuser().getDescripcion();
         
-        if(ocupacion.equals("P"))
-            est.setOcupacion("Profesional");
-        if(ocupacion.equals("E"))
-            est.setOcupacion("Estudiante");        
+        if(rolUser.equals("ROLE_ESTUDIANTE"))
+            est.setOcupacion("Esttudiante");
+        else
+            est.setOcupacion("Profesional");        
     }
     
     public String verificarAccionDelBotonCrear()

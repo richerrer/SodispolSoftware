@@ -30,6 +30,9 @@ public class CitaBoImpl implements CitaBo{
 
     @Inject
     private CitaDao citaDao;
+    
+    @Inject
+    private RoleUserBo roleUserBo;
 
     public CitaDao getCitaDao() {
         return citaDao;
@@ -39,8 +42,14 @@ public class CitaBoImpl implements CitaBo{
         this.citaDao = citaDao;
     }
 
-    
-    
+    public RoleUserBo getRoleUserBo() {
+        return roleUserBo;
+    }
+
+    public void setRoleUserBo(RoleUserBo roleUserBo) {
+        this.roleUserBo = roleUserBo;
+    }
+
     @Override
     public ArrayList<Object[]> getCitas(Doctor doctor) {
         return getCitaDao().getCitas(doctor);
@@ -85,6 +94,11 @@ public class CitaBoImpl implements CitaBo{
     public ArrayList<Citamedica> getCitasByDoctor(Doctor doctor)
     {
         ArrayList<Citamedica> citas = getCitaDao().getCitasByDoctor(doctor);
+        for(Citamedica c : citas)
+        {
+            String autority = "ROLE_ESTUDIANTE";
+            c.getEstudiante().setRoleuser(getRoleUserBo().getRoleUser(autority));
+        }
         return citas;
     }
 }

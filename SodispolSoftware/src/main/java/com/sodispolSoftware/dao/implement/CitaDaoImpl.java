@@ -35,6 +35,7 @@ public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao
             for(Object[] obj : consulta)
             {
                 Citamedica cita = (Citamedica) obj[0];
+                WbServiceEspol.loadDataEstudianteByMatriculaFromWebService(cita.getEstudiante());
                 citas.add(cita);
             }
             return citas;
@@ -58,6 +59,7 @@ public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao
             for(Object[] obj : consulta)
             {
                 Citamedica cita = (Citamedica) obj[0];
+                WbServiceEspol.loadDataEstudianteByMatriculaFromWebService(cita.getEstudiante());
                 citas.add(cita);
             }
             return citas;
