@@ -423,22 +423,51 @@ public class CitaBean {
     
     public String eliminarCita()
     {
-        getCitaSeleccionada().setEstadoborrado(true);
-        getCitaBo().deleteCita(getCitaSeleccionada());
-        return "citas.xhtml";
-        
+        if(citaSeleccionada.isVacio())
+        {
+            addMessageByType("No existe ninguna cita que eliminar en este horario", 0);
+        }
+        else
+        {
+            getCitaSeleccionada().setEstadoborrado(true);
+            getCitaBo().deleteCita(getCitaSeleccionada());      
+            addMessageByType("La cita se eliminó correctamente.", 1);
+        }
+        return "citas.xhtml";        
     }
     
     public String guardarCita()
     {
-        Citamedica citaNueva = new Citamedica("P", getEstudiante(), false, getUsuarioBean().getDoctorConsulta(), citaSeleccionada.getFechareg(), citaSeleccionada.getFechareg());
-        getCitaBo().addCita(citaNueva);
+        if(citaSeleccionada.isVacio())
+        {
+            Citamedica citaNueva = new Citamedica("P", getEstudiante(), false, getUsuarioBean().getDoctorConsulta(), citaSeleccionada.getFechareg(), citaSeleccionada.getFechareg());
+            getCitaBo().addCita(citaNueva);
+            addMessageByType("La cita se agregó correctamente.", 1);
+        }
+        else
+        {
+            addMessageByType("No se pudo agregar la cita, debido a que ya existe una en este horario", 0);
+        }
+        
         return "citas.xhtml";
     }
     
     public String llenarDataTablePagina2()
     {
+        //addMessage("Hola hola");
         llenarCitasDataTable();
         return getUsuarioBean().getDoctorConsulta().getApellido1();
+    }
+    
+    /*
+    *    @param tipo, es 1 si la transaccion es exitosa; o 0 si no lo es
+    */
+    
+    public void addMessageByType(String msj, int tipo)
+    {
+        if(tipo==1)
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, msj, ""));
+        else
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msj, ""));
     }
 }

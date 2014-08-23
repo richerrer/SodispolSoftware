@@ -103,8 +103,9 @@
                                     </div>
                                 </div>
                                 
-                                <div class="row ancho2 margen_top3" style="font-size: small" >
-                                     
+                                <div id="tabla" class="row ancho2 margen_top3" style="font-size: small" >
+                                    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                                    <p:separator />
                                     <p:dataTable var="cita" value="#{citaBean.citasDataTable}" id="seded">  
                                         <p:column headerText="Horario" style="width: 21%">  
                                             <h:outputText value="#{cita.hora}" />  
@@ -119,6 +120,7 @@
                                         </p:column>  
                                         
                                         <p:column style="width: 17%">
+                                            
                                             <p:commandButton update=":infoCita" id="agregar" action="#{citaBean.guardarCita()}" styleClass="icon-botones" image="ui-icon-check" ajax="false" >                                            
                                                 <f:setPropertyActionListener value="#{cita}" target="#{citaBean.citaSeleccionada}" />
                                             </p:commandButton>

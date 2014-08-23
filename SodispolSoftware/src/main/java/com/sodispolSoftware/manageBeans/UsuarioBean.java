@@ -24,6 +24,8 @@ public class UsuarioBean{
     private Estudiante estudiantePaciente;
     
     private Doctor doctorConsulta;
+    
+    private String msgCreacionYEliminacion;
 
     /**
      * Get the value of estudiantePaciente
@@ -86,6 +88,14 @@ public class UsuarioBean{
 
     public void setDoctorConsulta(Doctor doctorConsulta) {
         this.doctorConsulta = doctorConsulta;
+    }
+
+    public String getMsgCreacionYEliminacion() {
+        return msgCreacionYEliminacion;
+    }
+
+    public void setMsgCreacionYEliminacion(String msgCreacionYEliminacion) {
+        this.msgCreacionYEliminacion = msgCreacionYEliminacion;
     }
 
     /**

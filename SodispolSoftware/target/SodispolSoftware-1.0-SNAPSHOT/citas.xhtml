@@ -31,11 +31,12 @@
             <h3 class="centrar">Citas de: Dr. #{citaBean.llenarDataTablePagina2()}</h3>
             <br/>
             
-            <div id="content" class="container ancho1 margen_top2">
+            <div id="content" class="container ancho1 ">
                 <h:form id="infoCita">
+              
                 <div class="row">
                     <div class="col-lg-5">
-                        <div class="row ancho2 margen_top2 margen_bottom1 margen_izquierdo6" style="font-size: medium">
+                        <div class="row ancho2 margen_bottom1 margen_izquierdo6" style="font-size: medium">
                             
                             <p:panelGrid columns="1">
                                 <h:outputLabel for="datetime" value="Fecha:" />
@@ -50,7 +51,8 @@
                     <div class="col-lg-7">
                         <div class="col-md-9">
                            <div class="row ancho2" style="font-size: small" >
-
+                                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                                <p:separator />
                                 <p:dataTable var="cita" value="#{citaBean.citasDataTable}" id="seded">  
                                     <p:column headerText="Horario" style="width: 21%">  
                                         <h:outputText value="#{cita.hora}" />  
