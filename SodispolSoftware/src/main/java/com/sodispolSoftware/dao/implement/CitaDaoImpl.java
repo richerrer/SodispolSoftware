@@ -46,6 +46,29 @@ public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao
     }
     
     @Override
+    public ArrayList<Citamedica> getCitasByDoctor(Doctor doctor) 
+    {
+        try
+        {
+            ArrayList<Citamedica> citas = new ArrayList<Citamedica>();
+            Object[] paramsCita = new Object[]{doctor,false};
+            
+            ArrayList<Object[]> consulta = (ArrayList<Object[]>) getHibernateTemplate().find("select c,e,d from Citamedica c join c.estudiante as e join c.doctor as d where c.doctor = ? and c.estadoborrado = ?",paramsCita); 
+            
+            for(Object[] obj : consulta)
+            {
+                Citamedica cita = (Citamedica) obj[0];
+                citas.add(cita);
+            }
+            return citas;
+        }
+        catch(Exception ex)
+        {
+            return null;
+        }
+    }
+    
+    @Override
     public ArrayList<Citamedica> getCitasByFecha(Calendar fecha) 
     {
         try

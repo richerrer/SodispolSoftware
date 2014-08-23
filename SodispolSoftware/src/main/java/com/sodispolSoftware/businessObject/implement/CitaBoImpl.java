@@ -80,4 +80,11 @@ public class CitaBoImpl implements CitaBo{
         ArrayList<Citamedica> citas = getCitaDao().getCitasByFecha(fecha);
         return citas;
     }
+    
+    @Override
+    public ArrayList<Citamedica> getCitasByDoctor(Doctor doctor)
+    {
+        ArrayList<Citamedica> citas = getCitaDao().getCitasByDoctor(doctor);
+        return citas;
+    }
 }

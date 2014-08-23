@@ -57,7 +57,7 @@
                                         <p:ajax process="@this" update=":infoCita" listener="#{citaBean.consultarCitas()}" />
                                         <f:selectItem itemLabel="-- Escoja un Médico --" itemValue="" />
                                         <c:forEach items="#{citaBean.consultaDoctores}" var="doctor" >
-                                            <f:selectItem itemLabel="#{doctor.username}" itemValue="#{doctor.username}" />
+                                            <f:selectItem itemLabel="#{doctor.nombre1} #{doctor.apellido1}" itemValue="#{doctor.username}" />
                                         </c:forEach>
                                     </p:selectOneMenu>
                                     
@@ -104,8 +104,7 @@
                                 </div>
                                 
                                 <div id="tabla" class="row ancho2 margen_top3" style="font-size: small" >
-                                    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-                                    <p:separator />
+                                    
                                     <p:dataTable var="cita" value="#{citaBean.citasDataTable}" id="seded">  
                                         <p:column headerText="Horario" style="width: 21%">  
                                             <h:outputText value="#{cita.hora}" />  
@@ -133,19 +132,6 @@
                                     </p:dataTable>  
                                 </div>
                                 
-                                <p:dialog header="Datos de la Cita" widgetVar="dlgCrearCita" minHeight="40">                                    
-                                    <h:outputText value="Crear Cita" />
-                                    
-                                </p:dialog>
-                                    
-                                <p:dialog header="ERROR" widgetVar="dlgErrorCrearCita" modal="true" height="100">
-                                    <h:outputText value="No se puede agregar cita debido a que ya existe una cita asignada a este horario" />
-                                </p:dialog>  
-                                
-                                <div class="row ancho2 margen_top1" style="font-size: medium" >
-                                    <p:commandButton  value="Guardar" id="saveCita" action="#{citaBean.guardarCita()}" styleClass="ui-priority-primary margen_top3" ajax="false" />
-
-                                </div>
                                 
                                 </c:if>
                                 

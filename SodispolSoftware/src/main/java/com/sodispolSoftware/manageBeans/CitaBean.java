@@ -323,7 +323,7 @@ public class CitaBean {
     public void llenarCitasDataTable()
     {
         //Calendar fechaProvisional = Calendar.getInstance();
-        ArrayList<Citamedica> citasProvisional = getCitaBo().getAllCitas();
+        ArrayList<Citamedica> citasProvisional = getCitaBo().getCitasByDoctor(getUsuarioBean().getDoctorConsulta());
         citasCargadas.removeAll(citasCargadas); 
         citasDataTable.removeAll(citasDataTable); 
         

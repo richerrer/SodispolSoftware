@@ -31,6 +31,9 @@ public class WbServiceEspol {
         if (username.equals("kplaza")) {
             return "E";//Estudiante
         }
+        if (username.equals("rivera")) {
+            return "P";//Profesional
+        }
         return null;
     }
     /* Retorna el estado, es deir si esta activo o no*/
@@ -84,6 +87,9 @@ public class WbServiceEspol {
         }
         if (matricula.equals("201045878")) {
             return new Object[]{"0994563999", "kplaza", "24 y cuenca", "Soltero", "2338227", 22, "Ing. en Electronica y Telecomunicaciones", "Karla", "Denisse", "Plaza", "Paguay", "1 de Mayo de 1992 ", "resources/images/raeul.png"};
+        }
+        if (matricula.equals("123456789")) {
+            return new Object[]{"0997773999", "rivera", "24 y cuenca", "Soltero", "2666227", 27, "Ing. en Minas", "Renato", "Jhalmar", "Rivera", "Triviño", "1 de Mayo de 1992 ", "resources/images/raeul.png"};
         }
         return null;
     }
@@ -140,6 +146,9 @@ public class WbServiceEspol {
         if (matricula.equals("201045878")) {
             return true;
         }
+        if (matricula.equals("123456789")) {
+            return true;
+        }
         return false;
     }
 
@@ -158,6 +167,7 @@ public class WbServiceEspol {
         if (cedula.equals("0999999999")) {
             return true;
         }
+        
         
         return false;
     }
