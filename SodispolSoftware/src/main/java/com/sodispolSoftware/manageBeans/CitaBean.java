@@ -290,10 +290,13 @@ public class CitaBean {
     
     public void consultarCitas() 
     {
-        setDoctor(null);
-
-        setDoctor(getDoctorBo().getDoctor(doctorUsername));
-        setDoctorSeleccionado(getDoctor() != null);
+        //setDoctor(null);
+        
+        getUsuarioBean().setDoctorConsulta(null);
+        
+        getUsuarioBean().setDoctorConsulta(getDoctorBo().getDoctor(doctorUsername));
+        //setDoctor(getDoctorBo().getDoctor(doctorUsername));
+        setDoctorSeleccionado(getUsuarioBean().getDoctorConsulta() != null);
         llenarCitasDataTable();
     }
     
@@ -333,8 +336,8 @@ public class CitaBean {
                 citasCargadas.add(cm);
             }
         }
-        int entrada = (getDoctor().getHoraentrada().getHours() *60) + getDoctor().getHoraentrada().getMinutes();
-        int salida = (getDoctor().getHorasalida().getHours() *60) + getDoctor().getHorasalida().getMinutes();
+        int entrada = (getUsuarioBean().getDoctorConsulta().getHoraentrada().getHours() *60) + getUsuarioBean().getDoctorConsulta().getHoraentrada().getMinutes();
+        int salida = (getUsuarioBean().getDoctorConsulta().getHorasalida().getHours() *60) + getUsuarioBean().getDoctorConsulta().getHorasalida().getMinutes();
         int numCitasDia = (salida - entrada)/15;
         
         for(int i=0; i<numCitasDia; i++)
@@ -422,14 +425,20 @@ public class CitaBean {
     {
         getCitaSeleccionada().setEstadoborrado(true);
         getCitaBo().deleteCita(getCitaSeleccionada());
-        return "succes.xhtml";
+        return "citas.xhtml";
         
     }
     
     public String guardarCita()
     {
-        Citamedica citaNueva = new Citamedica("P", getEstudiante(), false, getDoctor(), citaSeleccionada.getFechareg(), citaSeleccionada.getFechareg());
+        Citamedica citaNueva = new Citamedica("P", getEstudiante(), false, getUsuarioBean().getDoctorConsulta(), citaSeleccionada.getFechareg(), citaSeleccionada.getFechareg());
         getCitaBo().addCita(citaNueva);
-        return "succes.xhtml";
+        return "citas.xhtml";
+    }
+    
+    public String llenarDataTablePagina2()
+    {
+        llenarCitasDataTable();
+        return getUsuarioBean().getDoctorConsulta().getApellido1();
     }
 }

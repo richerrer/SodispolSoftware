@@ -22,6 +22,8 @@ public class UsuarioBean{
     private Estudiante estudiante;
    
     private Estudiante estudiantePaciente;
+    
+    private Doctor doctorConsulta;
 
     /**
      * Get the value of estudiantePaciente
@@ -76,6 +78,14 @@ public class UsuarioBean{
      */
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
+    }
+
+    public Doctor getDoctorConsulta() {
+        return doctorConsulta;
+    }
+
+    public void setDoctorConsulta(Doctor doctorConsulta) {
+        this.doctorConsulta = doctorConsulta;
     }
 
     /**

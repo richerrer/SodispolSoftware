@@ -17,7 +17,7 @@
         <script src="resources/js/main.js"></script>
     </h:head>
     <h:body>
-        <div class="wrapper">   
+           
             <header >
                 <ui:include src="/resources/templates/header.xhtml"/>
             </header>
@@ -26,8 +26,65 @@
             <nav class="navbar navbar-default color1 ancho1 center" role="navigation">
                 <ui:include src="/resources/templates/navMedico.xhtml"/>
             </nav>
+            
+            
+            <h3 class="centrar">Citas de: Dr. #{citaBean.llenarDataTablePagina2()}</h3>
+            <br/>
+            
+            <div id="content" class="container ancho1 margen_top2">
+                <h:form id="infoCita">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="row ancho2 margen_top2 margen_bottom1 margen_izquierdo6" style="font-size: medium">
+                            
+                            <p:panelGrid columns="1">
+                                <h:outputLabel for="datetime" value="Fecha:" />
+                                <p:calendar id="datetime" value="#{citaBean.fecha}"  >
+                                    <p:ajax process="@this" event="dateSelect" update=":infoCita" listener="#{citaBean.llenarCitasDataTable()}"/>
+                                </p:calendar>
+                            </p:panelGrid>
+                           
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-7">
+                        <div class="col-md-9">
+                           <div class="row ancho2" style="font-size: small" >
 
-            <div id="content" class="container slider ancho1 margen_top2">
+                                <p:dataTable var="cita" value="#{citaBean.citasDataTable}" id="seded">  
+                                    <p:column headerText="Horario" style="width: 21%">  
+                                        <h:outputText value="#{cita.hora}" />  
+                                    </p:column>  
+
+                                    <p:column headerText="Nombre" style="width: 35%">  
+                                        <h:outputText value="#{cita.estudiante.nombre1} #{cita.estudiante.apellido1}" />  
+                                    </p:column>  
+
+                                    <p:column headerText="Ocupacion" style="width: 25%">  
+                                        <h:outputText value="#{cita.estudiante.ocupacion}" />  
+                                    </p:column>  
+
+                                    <p:column style="width: 8%">
+
+                                        <p:commandButton update=":infoCita" id="eliminar" action="#{citaBean.eliminarCita()}" styleClass="icon-botones" image="ui-icon-trash" ajax="false">
+                                            <f:setPropertyActionListener value="#{cita}" target="#{citaBean.citaSeleccionada}" />
+                                        </p:commandButton>
+                                    </p:column>
+
+                                </p:dataTable>  
+                            </div> 
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+                </div>
+                
+                
+                
+                
+                
+                        
+                        
+                <!--
                 <div class="row ancho50 centrar3">
 
 
@@ -65,9 +122,10 @@
                     </section>
 
 
-                </div>
+                </div>-->
+            </h:form>
             </div>
-        </div>
+        
         <div id="footer">
             <footer class="margen_top2 color1">
                 <ui:include src="/resources/templates/footer.xhtml"/>
