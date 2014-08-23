@@ -12,6 +12,10 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  */
 public class EstudianteDaoImpl extends HibernateDaoSupport implements EstudianteDao{
 
+    /*Consulta con fetch si quiero filtrar por un atributo, pero puede que sea null
+    "from Estudiante e left join fetch e.fichamedicaestudiantes f where (f.idfichamedica IS NULL or f.idfichamedica = 1) and e.matricula= ? and e.estadoborrado = ?";
+    
+    */
     private final String queryObtenerEstudianteAndRoleUser = "from Estudiante e left join fetch e.roleuser where e.username= ? and e.estadoborrado = ?";
     private final String queryObtenerEstudianteByMatricula = "from Estudiante e where e.matricula= ? and e.estadoborrado = ?";
     

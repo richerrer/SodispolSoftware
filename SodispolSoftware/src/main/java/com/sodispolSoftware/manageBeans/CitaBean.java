@@ -409,7 +409,7 @@ public class CitaBean {
         String rolUser = est.getRoleuser().getDescripcion();
         
         if(rolUser.equals("ROLE_ESTUDIANTE"))
-            est.setOcupacion("Esttudiante");
+            est.setOcupacion("Estudiante");
         else
             est.setOcupacion("Profesional");        
     }

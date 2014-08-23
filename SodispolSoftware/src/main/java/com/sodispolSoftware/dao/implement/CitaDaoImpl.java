@@ -54,7 +54,7 @@ public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao
             ArrayList<Citamedica> citas = new ArrayList<Citamedica>();
             Object[] paramsCita = new Object[]{doctor,false};
             
-            ArrayList<Object[]> consulta = (ArrayList<Object[]>) getHibernateTemplate().find("select c,e,d from Citamedica c join c.estudiante as e join c.doctor as d where c.doctor = ? and c.estadoborrado = ?",paramsCita); 
+            ArrayList<Object[]> consulta = (ArrayList<Object[]>) getHibernateTemplate().find("select c,e,d from Citamedica c join c.estudiante as e left join fetch e.roleuser join c.doctor as d where c.doctor = ? and c.estadoborrado = ?",paramsCita); 
             
             for(Object[] obj : consulta)
             {

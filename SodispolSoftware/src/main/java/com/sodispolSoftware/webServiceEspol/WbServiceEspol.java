@@ -19,7 +19,7 @@ public class WbServiceEspol {
         if (username.equals("rmaya")) {
             return "P";//Profesional
         }
-        if (username.equals("raualmir")) {
+        if (username.equals("raulalmir")) {
             return "P";//Profesional
         }
         if (username.equals("joanrome")) {
