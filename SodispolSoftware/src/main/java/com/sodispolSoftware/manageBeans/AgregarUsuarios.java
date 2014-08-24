@@ -34,6 +34,9 @@ public class AgregarUsuarios {
     @Inject
     private DoctorBo doctorBo;
 
+    @Inject
+    private UsuarioBean usuarioBean;
+
     private String username;
 
     private Date horaEntrada;
@@ -93,6 +96,14 @@ public class AgregarUsuarios {
         this.horaSalida = horaSalida;
     }
 
+    public UsuarioBean getUsuarioBean() {
+        return usuarioBean;
+    }
+
+    public void setUsuarioBean(UsuarioBean usuarioBean) {
+        this.usuarioBean = usuarioBean;
+    }
+
     public void agregarDoctor(ActionEvent actionEvent) {
         String msg;
         boolean succesGeneral = true;
@@ -114,7 +125,7 @@ public class AgregarUsuarios {
         }
 
         if (succesGeneral) {
-            boolean succes;
+            boolean succes, succesStateDelete;
             doctor = new Doctor();
             doctor.setUsername(username);
             doctor.setHoraentrada(horaEntrada);
@@ -128,16 +139,26 @@ public class AgregarUsuarios {
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", msg);
                 FacesContext.getCurrentInstance().addMessage(null, message);
             } else {
-                msg = "Error el username ya se encuentra en la base de datos";
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", msg);
-                FacesContext.getCurrentInstance().addMessage(null, message);
+                succesStateDelete = getDoctorBo().changeStateDeleteDoctor(doctor);
+                /*Si el usuario que se esta creando ya se encuentra en la base, pero en estado borrado
+                 *se lo habilita nuevamente
+                 */
+                if (succesStateDelete) {
+                    msg = "El doctor se creó correctamente";
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", msg);
+                    FacesContext.getCurrentInstance().addMessage(null, message);
+                } else {
+                    msg = "Error el username ya se encuentra en la base de datos";
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", msg);
+                    FacesContext.getCurrentInstance().addMessage(null, message);
+                }
             }
         }
         username = null;
         horaEntrada = null;
         horaSalida = null;
     }
-    
+
     public void modificarDoctor(ActionEvent actionEvent) {
         String msg;
         boolean succesGeneral = true;
@@ -160,11 +181,11 @@ public class AgregarUsuarios {
 
         if (succesGeneral) {
             boolean succes;
-            
+
             succes = getDoctorBo().updateDoctor(getSelectUsuario());
 
             if (succes) {
-                msg = "El doctor se creó correctamente";
+                msg = "El doctor se modificó correctamente";
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", msg);
                 FacesContext.getCurrentInstance().addMessage(null, message);
             } else {
@@ -176,7 +197,32 @@ public class AgregarUsuarios {
         username = null;
         horaEntrada = null;
         horaSalida = null;
-        
+
+    }
+
+    public void eliminarDoctor(ActionEvent actionEvent) {
+        String msg;
+        boolean succes;
+
+        if (!getSelectUsuario().getUsername().equals(getUsuarioBean().getDoctor().getUsername())) {
+            succes = getDoctorBo().eliminarDoctor(getSelectUsuario());
+
+            if (succes) {
+                msg = "El doctor se eliminó correctamente";
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", msg);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            } else {
+                msg = "Error el doctor no se eliminó correctamente";
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", msg);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }
+
+        } else {
+            msg = "Error no se puede eliminar el usuario que se encuentra en sesión";
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", msg);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+
     }
 
 }

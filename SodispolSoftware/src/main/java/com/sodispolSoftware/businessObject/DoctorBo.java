@@ -37,4 +37,8 @@ public interface DoctorBo {
     public boolean verifyUsername(String username);
     
     public boolean verifyTimes(Date horaEntrada,Date horaSalida);
+    
+    public boolean eliminarDoctor(Doctor doctor);
+    
+    public boolean changeStateDeleteDoctor(Doctor doctor);
 }

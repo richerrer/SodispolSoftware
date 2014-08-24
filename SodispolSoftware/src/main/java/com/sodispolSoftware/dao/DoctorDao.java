@@ -21,4 +21,6 @@ public interface DoctorDao {
     public ArrayList<Doctor> getAllDoctors();
 
     public boolean updateDoctor(Doctor doctor);
+    
+    public boolean changeStateDeleteDoctor(Doctor doctor);
 }

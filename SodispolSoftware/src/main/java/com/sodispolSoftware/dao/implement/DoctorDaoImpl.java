@@ -65,6 +65,27 @@ public class DoctorDaoImpl extends HibernateDaoSupport implements DoctorDao{
     }
     
     @Override
+    public boolean changeStateDeleteDoctor(Doctor doctor) 
+    {
+        boolean succes = false;
+        
+        try
+        {
+            Object[] paramsDoctor = new Object[]{doctor.getUsername(),true};
+            
+            Doctor doctorBase = (Doctor)getHibernateTemplate().find(queryObtenerDoctorAndRoleUser,paramsDoctor).get(0); 
+            if(doctorBase!=null){
+                doctorBase.setHoraentrada(doctor.getHoraentrada());
+                doctorBase.setHorasalida(doctor.getHorasalida());
+                doctorBase.setEstadoborrado(false);
+                getHibernateTemplate().update(doctorBase);
+               succes = true;
+            }
+        }catch(Exception ex){succes = false;}
+        return succes;
+    }
+    
+    @Override
     public ArrayList<Doctor> getAllDoctors() 
     {       
         /*ArrayList<Doctor> doctores = new ArrayList<Doctor>();

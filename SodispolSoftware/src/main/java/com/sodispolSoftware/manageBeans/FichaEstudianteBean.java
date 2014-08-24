@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
@@ -29,10 +30,10 @@ public class FichaEstudianteBean {
 
     @Inject
     private UsuarioBean usuarioBean;
-    
+
     @Inject
     private DoctorBo doctorBo;
-    
+
     @Inject
     private EstudianteBo estudianteBo;
 
@@ -83,8 +84,8 @@ public class FichaEstudianteBean {
     private Detallefichaestudiante detalleFicha;
 
     /**
-     * Se ejecuta despues del Constructor del bean, el cual se encarga de inicializar los 
-     * parámetros.
+     * Se ejecuta despues del Constructor del bean, el cual se encarga de
+     * inicializar los parámetros.
      */
     @PostConstruct
     public void init() {
@@ -93,9 +94,9 @@ public class FichaEstudianteBean {
             cargarEstudiante();
             cargarFichaMedicaEstudiante(getEstudiante());
             validarTipoFicha();
-        }catch (NumberFormatException ex) {//Si alguno de los parametros "modificador" o "iddetalleFicha"(si es que se lo usa) y no han sido seteados, hay una redireccion 
+        } catch (NumberFormatException ex) {//Si alguno de los parametros "modificador" o "iddetalleFicha"(si es que se lo usa) y no han sido seteados, hay una redireccion 
             Redireccionar.redirect("paciente.xhtml");
-        }catch (NullPointerException ex) {
+        } catch (NullPointerException ex) {
             Redireccionar.redirect("paciente.xhtml");
         }
     }
@@ -107,47 +108,50 @@ public class FichaEstudianteBean {
 
     public void cargarEstudiante() {
         setEstudiante(getUsuarioBean().getEstudiantePaciente());
-        if(getEstudiante()==null){Redireccionar.redirect("paciente.xhtml");}
+        if (getEstudiante() == null) {
+            Redireccionar.redirect("paciente.xhtml");
+        }
     }
 
     public void cargarFichaMedicaEstudiante(Estudiante estudiante) {
         setFichaMedica(getEstudianteBo().getFichaMedica(estudiante));
         /*ArrayList<Fichamedicaestudiante> fichas = new ArrayList<Fichamedicaestudiante>(estudiante.getFichamedicaestudiantes());
-        for(Fichamedicaestudiante f: fichas){
-            setFichaMedica(f);
-        }
-        if(getFichaMedica()==null){setFichaMedica(new Fichamedicaestudiante());}*/
+         for(Fichamedicaestudiante f: fichas){
+         setFichaMedica(f);
+         }
+         if(getFichaMedica()==null){setFichaMedica(new Fichamedicaestudiante());}*/
     }
-    
+
     public void cargarDetallesFichaMedicaEstudiante(Fichamedicaestudiante fichaEstudiante) {
         setDetallesAnteriores(getDoctorBo().getDetallesFicha(getEstudiante(), 1, paginacion));
-        
+
     }
 
     public void validarTipoFicha() {
         if (getModificador() == 1) {//Si se va a crear un nuevo detalle de ficha medica
             getNumObservaciones();
             cargarDetallesFichaMedicaEstudiante(getFichaMedica());
-        } 
-        else {//Si solo se va a cargar un detalle de ficha estudiante
+        } else {//Si solo se va a cargar un detalle de ficha estudiante
             long iddetalleFicha = Long.parseLong(getParametros().get("iddetalleFicha"));
-            setDetalleFicha(getEstudianteBo().getDetalleFichaEstudiante(iddetalleFicha,getEstudiante()));
+            setDetalleFicha(getEstudianteBo().getDetalleFichaEstudiante(iddetalleFicha, getEstudiante()));
             setFechaActualCalendar(getDetalleFicha().getFecha());
         }
     }
 
-    public String guardar(ActionEvent actionEvent) {
+    public void guardar(ActionEvent actionEvent) {
         guardarEstudiante();
         guardarFichaMedica();
         if (getModificador() == 1) {
             guardarDetalleFichaMedica();
         }
-
-        return "succes.xhmtl";
+        String msg = "Se agregó correctamente la observación";
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", msg);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+        //return "succes.xhmtl";
     }
 
     public void guardarEstudiante() {
-         
+
         getEstudianteBo().updateEstudiante(getEstudiante());
     }
 

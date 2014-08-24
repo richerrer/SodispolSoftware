@@ -123,8 +123,20 @@ public class DoctorBoImpl implements DoctorBo{
         return getDoctorDao().addDoctor(doctor);
     }
     
+    @Override
     public boolean updateDoctor(Doctor doctor) {
         return getDoctorDao().updateDoctor(doctor);
+    }
+    
+    @Override
+    public boolean eliminarDoctor(Doctor doctor) {
+        doctor.setEstadoborrado(true);
+        return getDoctorDao().updateDoctor(doctor);
+    }
+    
+    @Override
+    public boolean changeStateDeleteDoctor(Doctor doctor) {
+        return getDoctorDao().changeStateDeleteDoctor(doctor);
     }
 
     @Override
