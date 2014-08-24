@@ -5,8 +5,8 @@ $('.carousel').carousel({
 var i = 0; 
     var image = new Array();   
     // LIST OF IMAGES 
-    image[0] = "resources/images/evento1.png"; 
-    image[1] = "resources/images/evento2.jpg"; 
+    image[0] = "/SodispolSoftware/resources/images/evento1.png"; 
+    image[1] = "/SodispolSoftware/resources/images/evento2.jpg"; 
     var k = image.length-1;    
     var caption = new Array(); 
     // LIST OF CAPTİONS 

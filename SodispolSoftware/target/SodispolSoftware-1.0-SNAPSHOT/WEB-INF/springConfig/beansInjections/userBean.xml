@@ -7,6 +7,10 @@
     <bean id="doctorDao" class="com.sodispolSoftware.dao.implement.DoctorDaoImpl" scope="prototype">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
+    
+    <bean id="enfermeroDao" class="com.sodispolSoftware.dao.implement.EnfermeroDaoImpl" scope="prototype">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
         
     <bean id="roleUserDao" class="com.sodispolSoftware.dao.implement.RoleUserDaoImpl" scope="prototype">
         <property name="sessionFactory" ref="sessionFactory" />

@@ -103,12 +103,6 @@ public class DoctorBoImpl implements DoctorBo{
     @Override
     public Doctor getDoctor(String username) {
         Doctor doctor = getDoctorDao().getDoctor(username);
-        /*if(doctor==null){
-            String autority = "ROLE_DOCTOR";
-            doctor = new Doctor(username,roleUserBo.getRoleUser(autority),false);
-            this.addDoctor(doctor);
-            doctor = doctorDao.getDoctor(username);
-        }*/
         return doctor;
     }
     

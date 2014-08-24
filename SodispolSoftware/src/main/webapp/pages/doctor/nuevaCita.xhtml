@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Sodispol_Paciente - Dispensario Médico</title>
+        <link rel="stylesheet" href="/SodispolSoftware/resources/cssBoostrap/bootstrap.css"/>
+        <link rel="Stylesheet" href="/SodispolSoftware/resources/css/estilo01.css"/>
+        <link href="http://fonts.googleapis.com/css?family=Duru+Sans" rel="styleshee" type="text/css"/>
+        <!--<script src="http://code.jquery.com/jquery.js"></script>-->
+        <script src="/SodispolSoftware/resources/js/bootstrap.js"></script>
+        <script src="/SodispolSoftware/resources/js/main.js"></script>
+    </h:head>
+    <h:body>
+        <header >
+            <ui:include src="/resources/templates/header.xhtml"/>
+        </header>
+
+
+        <nav class="navbar navbar-default color1 ancho1 center" role="navigation">
+            <ui:include src="/resources/templates/navMedico.xhtml"/>
+        </nav>
+
+        <div class="container ancho1">
+            <div class="row">
+                <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5  alturaEjemplo">
+                    <section class="margen_izquierdo2">
+                        <h3 class="margen_top4"><p>Buscar Paciente</p></h3>
+
+                        <h:form>
+                            
+                            <p:growl id="growl" life="2000" />
+                            <h:panelGrid columns="1" class=" ancho2 margen_top3">
+                                <p:selectOneRadio  id="tipoBusqueda" style="width: 40%" value="#{citaBean.tipoBusqueda}" required="true">
+                                    <f:selectItem itemLabel="Matrícula" itemValue="matricula" />
+                                    <f:selectItem itemLabel="Cédula" itemValue="cedula" />
+                                </p:selectOneRadio>
+                            </h:panelGrid>
+                            
+                            <h:panelGrid columns="1" class=" ancho2 margen_top1 margen_bottom1" >
+                                <p:focus for="paramBusqueda" />
+                                <p:inputText id="paramBusqueda" maxlength="15" style="width: 60%" value="#{citaBean.paramBusqueda}" required="true"/>
+                                <p:commandButton  value="Buscar Paciente" id="buscarPaciente" update="growl" actionListener="#{citaBean.buttonAction}" styleClass="ui-priority-primary margen_top1">
+                                    <p:ajax process="@this,paramBusqueda,tipoBusqueda" update="doctor1,:infoCita" listener="#{citaBean.consultar()}" />
+                                </p:commandButton>
+                            </h:panelGrid>
+                            
+                            <h:panelGrid id="doctor1" columns="1" class=" ancho2 margen_top3" >
+                                <c:if test="#{citaBean.encontrado}">
+                                    <h:outputLabel for="medico" value="Médico:"  style="font-size: medium" />
+                                    <p:selectOneMenu id="selectMedico" value="#{citaBean.doctorUsername}">
+                                        <p:ajax process="@this" update=":infoCita" listener="#{citaBean.consultarCitas()}" />
+                                        <f:selectItem itemLabel="-- Escoja un Médico --" itemValue="" />
+                                        <c:forEach items="#{citaBean.consultaDoctores}" var="doctor" >
+                                            <f:selectItem itemLabel="#{doctor.nombre1} #{doctor.apellido1}" itemValue="#{doctor.username}" />
+                                        </c:forEach>
+                                    </p:selectOneMenu>
+                                    
+                                </c:if>
+                            </h:panelGrid>
+
+                        </h:form>
+
+                    </section>
+                </div>
+                
+                
+                <h:form id="infoCita">
+                        
+                        
+                        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 ">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-9">
+                                
+                                
+                                <c:if test="#{citaBean.encontrado}">
+                                <div class="row ancho2 margen_top4" style="font-size: medium" >
+                                    <div class="col-md-3">
+                                        <h:outputLabel value="Paciente:" />
+                                    </div>
+                                    <div class="col-md-9">
+                                        <p:inputText value="#{citaBean.nombreCompletoEstudiante}" style="width: 60%" /> 
+                                    </div>
+                                </div>
+                                </c:if>
+                                
+                                
+                                <c:if test="#{citaBean.doctorSeleccionado}">    
+                                <div class="row ancho2 margen_top2 margen_bottom1" style="font-size: medium">
+                                    <div class="col-md-3">
+                                        <h:outputLabel for="fecha" value="Fecha:" />
+                                    </div>
+                                    <div class="col-md-9">
+                                        <!--<p:calendar id="datetime" value="#{citaBean.fecha}" pattern="dd-MM-yyyy HH:mm" />-->
+                                        <p:calendar id="datetime" value="#{citaBean.fecha}">
+                                            <p:ajax process="@this" event="dateSelect" update=":infoCita" listener="#{citaBean.llenarCitasDataTable()}"/>
+                                        </p:calendar>
+                                    </div>
+                                </div>
+                                
+                                <div id="tabla" class="row ancho2 margen_top3" style="font-size: small" >
+                                    
+                                    <p:dataTable var="cita" value="#{citaBean.citasDataTable}" id="seded">  
+                                        <p:column headerText="Horario" style="width: 21%">  
+                                            <h:outputText value="#{cita.hora}" />  
+                                        </p:column>  
+
+                                        <p:column headerText="Nombre" style="width: 35%">  
+                                            <h:outputText value="#{cita.estudiante.nombre1} #{cita.estudiante.apellido1}" />  
+                                        </p:column>  
+
+                                        <p:column headerText="Ocupacion" style="width: 25%">  
+                                            <h:outputText value="#{cita.estudiante.ocupacion}" />  
+                                        </p:column>  
+                                        
+                                        <p:column style="width: 17%">
+                                            
+                                            <p:commandButton update=":infoCita" id="agregar" action="#{citaBean.guardarCita()}" styleClass="icon-botones" image="ui-icon-check" ajax="false" >                                            
+                                                <f:setPropertyActionListener value="#{cita}" target="#{citaBean.citaSeleccionada}" />
+                                            </p:commandButton>
+
+                                            <p:commandButton update=":infoCita" id="eliminar" action="#{citaBean.eliminarCita()}" styleClass="icon-botones" image="ui-icon-trash" ajax="false">
+                                                <f:setPropertyActionListener value="#{cita}" target="#{citaBean.citaSeleccionada}" />
+                                            </p:commandButton>
+                                        </p:column>
+
+                                    </p:dataTable>  
+                                </div>
+                                
+                                
+                                </c:if>
+                                
+                            </div>                                  
+                            <div class="col-md-1"></div>
+                        </div>                
+                </h:form>
+            </div>
+        </div>
+
+        <footer class="margen_top2 color1">
+            <ui:include src="/resources/templates/footer.xhtml"/>
+        </footer>
+
+    </h:body>
+</html>

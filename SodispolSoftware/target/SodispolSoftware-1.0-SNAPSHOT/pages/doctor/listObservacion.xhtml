@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Sodispol_Paciente - Dispensario Médico</title>
+        <link rel="stylesheet" href="/SodispolSoftware/resources/cssBoostrap/bootstrap.css"/>
+        <link rel="Stylesheet" href="/SodispolSoftware/resources/css/estilo01.css"/>
+        <link href="http://fonts.googleapis.com/css?family=Duru+Sans" rel="styleshee" type="text/css"/>
+        <!--<script src="http://code.jquery.com/jquery.js"></script>-->
+        <script src="/SodispolSoftware/resources/js/bootstrap.js"></script>
+        <script src="/SodispolSoftware/resources/js/main.js"></script>
+    </h:head>
+    <h:body>
+        <div class="wrapper">
+            <header>
+                <ui:include src="/resources/templates/header.xhtml"/>
+            </header>
+
+
+            <nav class="navbar navbar-default color1 ancho1 center" role="navigation">
+                <ui:include src="/resources/templates/navMedico.xhtml"/>
+            </nav>
+
+            <div class="container ancho2">
+                <div class="row ancho80" style="margin: auto">
+                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-2">
+                        <section class="margen_top4 margen_izquierdo2">
+                            <c:if test="#{detallesFichaEstudianteBean.estudiante!=null}">
+                                <p:graphicImage url="#{detallesFichaEstudianteBean.estudiante.foto}" width="120em"/>
+                            </c:if>
+                        </section>
+                    </div>
+                    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-6">
+                        <section>
+                            <h:form >
+                                <h:panelGrid columns="4" style="font-size: smaller" class=" ancho2 margen_top3">
+                                    <h:outputLabel value="Nombre:"/>
+                                    <h:outputLabel value="#{detallesFichaEstudianteBean.estudiante}"/>
+                                    <h:outputLabel value="Teléfono:"/>
+                                    <h:outputLabel value="#{detallesFichaEstudianteBean.estudiante.telefono}"/>
+                                    <h:outputLabel value="Matrícula:"/>
+                                    <h:outputLabel value="#{detallesFichaEstudianteBean.estudiante.matricula}"/>
+                                    <h:outputLabel value="Cédula:"/>
+                                    <h:outputLabel value="#{detallesFichaEstudianteBean.estudiante.cedula}"/>
+                                    <h:outputLabel value="Carrera:"/>
+                                    <h:outputLabel value="#{detallesFichaEstudianteBean.estudiante.carrera}"/>
+                                    <h:outputLabel value="Estado Civíl:"/>
+                                    <h:outputLabel value="#{detallesFichaEstudianteBean.estudiante.estadocivil}"/>
+                                </h:panelGrid>
+
+                            </h:form>
+                        </section>
+                    </div>
+                </div><br/>
+                <h:form>
+                    <p:dataGrid var="observaciones" value="#{detallesFichaEstudianteBean.detallesAnteriores}" columns="2"
+                                rows="6" paginator="true" id="cars"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                rowsPerPageTemplate="6,12,16" styleClass="ancho90 centrar3">
+
+                        <f:facet name="header">
+                            Observaciones del Estudiante #{detallesFichaEstudianteBean.estudiante}
+                        </f:facet>
+
+                        <p:panel id="toggleable#{observaciones.iddetalleficha}" 
+                                 header="Observacion #{observaciones.fecha.time.toLocaleString()}" 
+                                 toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" 
+                                 widgetVar="panel#{observaciones.iddetalleficha}" style="margin-bottom:20px"
+                                 styleClass="margen_top2">
+                                <p:ajax event="close" listener="#{panelView.onClose}" />
+                                <p:ajax event="toggle" listener="#{panelView.onToggle}"/>
+                                <h:panelGrid columns="4" style="font-size: smaller" class="ancho2">
+                                <h:outputLabel value="Doctor:"/>
+                                <h:outputLabel value="#{observaciones.doctor}"/>
+                                <h:outputLabel value="Estatura:"/>
+                                <h:outputLabel value="#{observaciones.estatura} m"/>
+                                <h:outputLabel value="Peso:"/>
+                                <h:outputLabel value="#{observaciones.peso} Kg"/>
+                                <h:outputLabel value="Presión Arterial:"/>
+                                <h:outputLabel value="#{observaciones.presionarterial}"/>
+                                <h:outputLabel value="Pulso:"/>
+                                <h:outputLabel value="#{observaciones.pulso} p.p.m"/>
+
+                            </h:panelGrid>
+                            <p:button  value="Mostrar" outcome="observacion.xhtml" style="font-size: xx-small" styleClass="ui-priority-primary margen_top1 margen_izquierdo">
+                                <f:param name="modificador" value="0" />
+                                <f:param name="iddetalleFicha" value="#{observaciones.iddetalleficha}" />
+                            </p:button>
+                        </p:panel>
+                    </p:dataGrid>
+                </h:form>
+            </div>
+        </div>
+        <footer class="margen_top2 color1">
+            <ui:include src="/resources/templates/footer.xhtml"/>
+        </footer>
+
+    </h:body>
+</html>

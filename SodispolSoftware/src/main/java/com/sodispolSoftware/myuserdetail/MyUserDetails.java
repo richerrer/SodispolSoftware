@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.sodispolSoftware.myuserdetail;
 
 import com.sodispolSoftware.model.User;
@@ -20,57 +19,61 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 public class MyUserDetails implements Serializable, UserDetails {
 
-	private static final long serialVersionUID = 1L;
-	private final String username;
-        private User user;
-	
-	public MyUserDetails(String username,User user) {
-		this.username=username;
-                this.user = user;
-	}
-	
-	@Override
-	public Collection<GrantedAuthority> getAuthorities() {
-		List<GrantedAuthority> l = new ArrayList<GrantedAuthority>();
-		l.add( new GrantedAuthority() {
-			private static final long serialVersionUID = 1L;
-			
-			@Override
-			public String getAuthority() {
-                            String autority = user.getRoleuser().getDescripcion();
-                            return autority;
-			}
-		});
-		return l;
-	}
+    private static final long serialVersionUID = 1L;
+    private final String username;
+    private User user;
 
-	@Override
-	public String getPassword() {
-		return null;
-	}
+    public MyUserDetails(String username, User user) {
+        this.username = username;
+        this.user = user;
+    }
 
-	@Override
-	public String getUsername() {
-		return username;
-	}
+    @Override
+    public Collection<GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> l = new ArrayList<GrantedAuthority>();
+        l.add(new GrantedAuthority() {
+            private static final long serialVersionUID = 1L;
 
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
+            @Override
+            public String getAuthority() {
+                try {
+                    String autority = user.getRoleuser().getDescripcion();
+                    return autority;
+                } catch (Exception exception) {
+                    return "ROLE_NORMAL";//para cuando tiene ningun de los otros roles
+                }
+            }
+        });
+        return l;
+    }
 
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
+    @Override
+    public String getPassword() {
+        return null;
+    }
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
+    @Override
+    public String getUsername() {
+        return username;
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title>Sodispol - Dispensario Médico</title>
+        <link rel="stylesheet" href="/SodispolSoftware/resources/cssBoostrap/bootstrap.css"/>
+        <link rel="Stylesheet" href="/SodispolSoftware/resources/css/estilo01.css"/>
+        <link href="http://fonts.googleapis.com/css?family=Duru+Sans" rel="styleshee" type="text/css"/>
+        <script src="/SodispolSoftware/resources/js/bootstrap.js"></script>
+         <script src="/SodispolSoftware/resources/js/main.js"></script>
+    </h:head>
+    <h:body>
+        
+        <div id="container">
+            <div id="header">    
+            <header >
+                    <ui:include src="/resources/templates/header.xhtml"/>
+                 </header>
+            
+                <nav class="navbar navbar-default color1 ancho1 center" role="navigation">
+                    <ui:include src="/resources/templates/navMedico.xhtml"/>
+                </nav>
+             </div>
+            
+        <div id="content" class="container slider ancho1 margen_top2">
+                    
+                    <section>
+                        <h2 class="texto" style="text-align: center">Inventario</h2>
+                        <hr style="color: #440706;" size="5" width="95%"/>
+                        <p><b> En esta sección usted dispone del inventario del dispensario médico, usted puede recetar a sus pacientes</b> </p>
+                        <br/>
+                        <hr style="color: #000;" size="5" width="95%"/>
+                   
+                        
+          <p:growl id="growl" showDetail="true" /> 
+          
+          <h:form>
+          <p:fieldset legend="Alka-Seltzer" toggleable="true" toggleSpeed="500" collapsed="true" >
+            <p:panelGrid>
+                <f:facet name="header">
+                    <p:row>
+                        <p:column colspan="6">Alka-Seltzer</p:column>
+                        <p:column colspan="1">Disponibles: 30</p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2">
+                             <p:graphicImage value="/resources/images/mAlka.png" />
+                        </p:column>           
+                        <p:column colspan="4" style="text-align : justify;">
+                            Antiácido, coadyuvante en el tratamiento de los transtornos 
+                            dispéticos agudos, analgésico. Adultos 1 o 2 tabletas en agua. No 
+                            deben tomarse más de 8 tabletas en 24 horas. Niños: la mitad de la 
+                            dosis de los adultos. Beneficios: Antiácido, coadyuvante en el tratamiento
+                            de los transtornos dispéticos agudos, analgésico
+                        </p:column>
+                        <p:column>
+                            <p:inputText style="text-align : center;"/> <br/>
+                            <p:commandButton value="Recetar" action="observacion" >
+                                <f:param name="modificador" value="1" />
+                            </p:commandButton>  
+                        </p:column>
+                    </p:row>
+                </f:facet>
+            </p:panelGrid>
+            </p:fieldset>
+          
+          <p:fieldset legend="Apronax 550mg" toggleable="true" toggleSpeed="500" collapsed="true" >
+            <p:panelGrid>
+                <f:facet name="header">
+                    <p:row>
+                        <p:column colspan="6">Apronax 550mg</p:column>
+                        <p:column colspan="1">Disponibles: 51</p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2">
+                             <p:graphicImage value="/resources/images/mApronax.png" />
+                        </p:column>           
+                        <p:column colspan="4" style="text-align : justify;">
+                            Apronax® (Naproxeno sódico), es un fármaco antiinflamatorio no esteroidal (AINE)
+                            , con propiedades analgésicas, antiinflamatorias y antipiréticas. El mecanismo de acción
+                            con Apronax® (Naproxeno sódico) es mediante bloqueo de cicloxigenasa consecuentemente se
+                            disminuye la síntesis de prostaglandinas, mediadoras de la inflamación. Sin embargo, como
+                            otros AINEs, el mecanismo exacto de acción aún no es suficientemente conocido. No deprime
+                            el sistema nervioso central, por no ser narcótico ni inductor del metabolismo enzimático.
+                            Apronax® por ser muy soluble en el agua, es rápida y completamente absorbido en el tracto 
+                            gastrointestinal luego de su administración oral y por ello se obtienen niveles plasmáticos
+                            adecuados que permiten iniciar el alivio del dolor dentro de 20 minutos de su administración oral.
+                        </p:column>
+                        <p:column>
+                            <p:inputText style="text-align : center;"/> <br/>
+                            <p:commandButton value="Recetar" action="observacion" >
+                                <f:param name="modificador" value="1" />
+                            </p:commandButton>  
+                        </p:column>
+                    </p:row>
+                </f:facet>
+            </p:panelGrid>
+            </p:fieldset>
+          
+          <p:fieldset legend="Bepanthol" toggleable="true" toggleSpeed="500" collapsed="true" >
+            <p:panelGrid>
+                <f:facet name="header">
+                    <p:row>
+                        <p:column colspan="6">Bepanthol</p:column>
+                        <p:column colspan="1">Disponibles: 19</p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2">
+                             <p:graphicImage value="/resources/images/mBephantol.png" />
+                        </p:column>           
+                        <p:column colspan="4" style="text-align : justify;">
+                            Emoliente que forma una delicada película que permanece en la piel del bebé,
+                            protegiéndolo /curándolo de la resequedad y quemaduras producidas por la orina o el 
+                            frecuente roce con el pañal. Por otra parte contribuye a proteger, prevenir, curar 
+                            y humectar las grietas que se producen alrededor de los pezones durante la lactancia.
+                            Beneficios: Emoliente que forma una delicada película que permanece en la piel del
+                            bebé, protegiéndolo /curándolo de la resequedad y quemaduras producidas por la orina 
+                            o el frecuente roce con el pañal. Por otra parte contribuye a proteger, prevenir, curar
+                            y humectar las grietas que se producen alrededor de los pezones durante la lactancia.
+                        </p:column>
+                        <p:column>
+                            <p:inputText style="text-align : center;"/> <br/>
+                            <p:commandButton value="Recetar" action="observacion" >
+                                <f:param name="modificador" value="1" />
+                            </p:commandButton>  
+                        </p:column>
+                    </p:row>
+                </f:facet>
+            </p:panelGrid>
+            </p:fieldset>
+            </h:form>
+          
+</section>
+        </div>
+        <div id="footer">
+        <footer class="margen_top2 color1">
+            <ui:include src="/resources/templates/footer.xhtml"/>
+        </footer>
+        </div>
+        </div>
+    </h:body>
+</html>

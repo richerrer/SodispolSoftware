@@ -12,10 +12,9 @@
     <sec:http entry-point-ref="casEntryPoint" auto-config="true" path-type="ant">
         <sec:custom-filter before="CAS_FILTER" ref="casSingleSignOutFilter"/>
         <sec:custom-filter after="CAS_FILTER"  ref="casFilter"/>
-        <sec:intercept-url pattern="/*" access="ROLE_DOCTOR,ROLE_ESTUDIANTE"/>
-        <sec:intercept-url pattern="/administradores/*" access="ROLE_ADMIN"/>
-        <sec:intercept-url pattern="/usuarios/*" access="ROLE_DOCTOR"/>
-        <sec:intercept-url pattern="/home.xhtml" access="ROLE_DOCTOR"/>
+        <sec:intercept-url pattern="/pages/all/*" access="ROLE_DOCTOR,ROLE_ENFERMERO,ROLE_ESTUDIANTE,ROLE_NORMAL"/>
+        <sec:intercept-url pattern="/pages/doctor/*" access="ROLE_DOCTOR,ROLE_ENFERMERO"/>
+        
         <!--<sec:logout logout-success-url="https://compa:8443/cas/logout" invalidate-session="true" logout-url="/logout" />-->
         <sec:logout logout-success-url="https://auth.espol.edu.ec/logout" invalidate-session="true" logout-url="/logout" />
     </sec:http>

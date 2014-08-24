@@ -1,6 +1,7 @@
 package com.sodispolSoftware.manageBeans;
 
 import com.sodispolSoftware.model.Doctor;
+import com.sodispolSoftware.model.Enfermero;
 import com.sodispolSoftware.model.Estudiante;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -20,6 +21,8 @@ public class UsuarioBean{
     private Doctor doctor;
     
     private Estudiante estudiante;
+    
+    private Enfermero enfermero;
    
     private Estudiante estudiantePaciente;
     
@@ -60,7 +63,7 @@ public class UsuarioBean{
      *
      * @param estudiante new value of estudiante
      */
-    public void setEstudiante(Estudiante estudiante) {
+    private void setEstudiante(Estudiante estudiante) {
         this.estudiante = estudiante;
     }
 
@@ -78,8 +81,16 @@ public class UsuarioBean{
      *
      * @param doctor new value of doctor
      */
-    public void setDoctor(Doctor doctor) {
+    private void setDoctor(Doctor doctor) {
         this.doctor = doctor;
+    }
+    
+    public Enfermero getEnfermero() {
+        return enfermero;
+    }
+
+    private void setEnfermero(Enfermero enfermero) {
+        this.enfermero = enfermero;
     }
 
     public Doctor getDoctorConsulta() {
@@ -107,10 +118,17 @@ public class UsuarioBean{
         if(object instanceof Doctor){
             setDoctor((Doctor)object);
             setEstudiante(null);
+            setEnfermero(null);
+        }
+        if(object instanceof Enfermero){
+            setEnfermero((Enfermero)object);
+            setEstudiante(null);
+            setDoctor(null);
         }
         if(object instanceof Estudiante){
             setEstudiante((Estudiante)object);
             setDoctor(null);
+            setEnfermero(null);
         }
     }
     

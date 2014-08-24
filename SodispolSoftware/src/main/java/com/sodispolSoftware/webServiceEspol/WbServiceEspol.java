@@ -6,6 +6,7 @@
 package com.sodispolSoftware.webServiceEspol;
 
 import com.sodispolSoftware.model.Doctor;
+import com.sodispolSoftware.model.Enfermero;
 import com.sodispolSoftware.model.Estudiante;
 
 /**
@@ -19,20 +20,20 @@ public class WbServiceEspol {
         if (username.equals("rmaya")) {
             return "P";//Profesional
         }
-        if (username.equals("raulalmir")) {
+        if (username.equals("gabapare")) {
             return "P";//Profesional
+        }
+        if (username.equals("raulalmir")) {
+            return "E";//Estudiante
         }
         if (username.equals("joanrome")) {
-            return "P";//Profesional
-        }
-        if (username.equals("gabapare")) {
-            return "P";//Estudiante
+            return "E";//Estudiante
         }
         if (username.equals("kplaza")) {
             return "E";//Estudiante
         }
         if (username.equals("rivera")) {
-            return "P";//Profesional
+            return "E";//Profesional
         }
         return null;
     }
@@ -54,21 +55,47 @@ public class WbServiceEspol {
         return false;
     }
 
-    public static Object[] loadDoctorAttributes(String username) {
+    public static Object[] loadProfesionalAttributes(String username) {
+        if (username.equals("rmaya")) {
+            return new Object[]{"ricardo", "david", "maya", "herrera"};
+        }
+        if (username.equals("gabapare")) {
+            return new Object[]{"gaby", "alejandra", "paredes", "torres"};
+        }
+        
+        /*if (username.equals("raualmir")) {
+            return new Object[]{"raul", "alberto", "mira", "rodriguez", "raualmir@espol.edu.ec", "Cardiologo"};
+        }
+        
+        if (username.equals("joanrome")) {
+            return new Object[]{"jose", "andres", "romero", "triviño", "joanrome@espol.edu.ec", "Cardiologo"};
+        }*/
+        return null;
+    }
+
+    /*public static Object[] loadDoctorAttributes(String username) {
         if (username.equals("rmaya")) {
             return new Object[]{"ricardo", "david", "maya", "herrera", "rmaya@espol.edu.ec", "Cardiologo"};
         }
         if (username.equals("raualmir")) {
             return new Object[]{"raul", "alberto", "mira", "rodriguez", "raualmir@espol.edu.ec", "Cardiologo"};
         }
-        if(username.equals("gabapare")){
-         return new Object[]{"gaby","alejandra","paredes","torres","gabapare@espol.edu.ec","Cardiologo"};
-         }
+        if (username.equals("gabapare")) {
+            return new Object[]{"gaby", "alejandra", "paredes", "torres", "gabapare@espol.edu.ec", "Cardiologo"};
+        }
         if (username.equals("joanrome")) {
             return new Object[]{"jose", "andres", "romero", "triviño", "joanrome@espol.edu.ec", "Cardiologo"};
         }
         return null;
-    }
+    }*/
+
+    /*public static Object[] loadEnfermeroAttributes(String username) {
+
+        if (username.equals("gabapare")) {
+            return new Object[]{"gaby", "alejandra", "paredes", "torres"};
+        }
+        return null;
+    }*/
 
     /**
      *
@@ -80,16 +107,19 @@ public class WbServiceEspol {
      */
     public static Object[] loadEstudinateAttributesByMatricula(String matricula) {
         if (matricula.equals("201013448")) {
-            return new Object[]{"1722904628", "raulalmir", "Villa Club", "Casado", "2246570", 21, "Ing. en Ciencias Computacionales Orientación Multimedia", "Raul", "Alberto", "Mira", "Rodriguez", "1 de Enero de 1991 ", "resources/images/raul.png"};
+            return new Object[]{"1722904628", "raulalmir", "Villa Club", "Casado", "2246570", 21, "Ing. en Ciencias Computacionales Orientación Multimedia", "Raul", "Alberto", "Mira", "Rodriguez", "1 de Enero de 1991 ", "../resources/images/raul.png"};
         }
-        if (matricula.equals("201011111")) {
+        /*if (matricula.equals("201011111")) {
             return new Object[]{"0999999999", "gabapare", "Leonidas Plaza y Oriente", "Soltero", "2338227", 22, "Ing. en Electronica y Telecomunicaciones", "Gabriela", "Alejandra", "Paredes", "Torres", "1 de Mayo de 1992 ", "resources/images/raeul.png"};
+        }*/
+        if (matricula.equals("201011111")) {
+            return new Object[]{"0999999999", "joanrome", "La joya", "Soltero", "2338227", 22, "Ing. en Electronica y Telecomunicaciones", "Jose", "Andres", "Triviño", "Romero", "1 de Mayo de 1992 ", "/SodispolSoftware/resources/images/raeul.png"};
         }
         if (matricula.equals("201045878")) {
-            return new Object[]{"0994563999", "kplaza", "24 y cuenca", "Soltero", "2338227", 22, "Ing. en Electronica y Telecomunicaciones", "Karla", "Denisse", "Plaza", "Paguay", "1 de Mayo de 1992 ", "resources/images/raeul.png"};
+            return new Object[]{"0994563999", "kplaza", "24 y cuenca", "Soltero", "2338227", 22, "Ing. en Electronica y Telecomunicaciones", "Karla", "Denisse", "Plaza", "Paguay", "1 de Mayo de 1992 ", "/SodispolSoftware/resources/images/raeul.png"};
         }
         if (matricula.equals("123456789")) {
-            return new Object[]{"0997773999", "rivera", "24 y cuenca", "Soltero", "2666227", 27, "Ing. en Minas", "Renato", "Jhalmar", "Rivera", "Triviño", "1 de Mayo de 1992 ", "resources/images/raeul.png"};
+            return new Object[]{"0997773999", "rivera", "24 y cuenca", "Soltero", "2666227", 27, "Ing. en Minas", "Renato", "Jhalmar", "Rivera", "Triviño", "1 de Mayo de 1992 ", "/SodispolSoftware/resources/images/raeul.png"};
         }
         return null;
     }
@@ -104,10 +134,19 @@ public class WbServiceEspol {
      */
     public static Object[] loadEstudinateAttributesByCedula(String cedula) {
         if (cedula.equals("1722904628")) {
-            return new Object[]{"201013448", "raulalmir", "Villa Club", "Casado", "2246570", 21, "Ing. en Ciencias Computacionales Orientación Multimedia", "Raul", "Alberto", "Mira", "Rodriguez", "1 de Enero de 1991 ", "resources/images/raul.png"};
+            return new Object[]{"201013448", "raulalmir", "Villa Club", "Casado", "2246570", 21, "Ing. en Ciencias Computacionales Orientación Multimedia", "Raul", "Alberto", "Mira", "Rodriguez", "1 de Enero de 1991 ", "/SodispolSoftware/resources/images/raul.png"};
         }
-        if (cedula.equals("0999999999")) {
+        /*if (cedula.equals("0999999999")) {
             return new Object[]{"201011111", "gabapare", "Leonidas Plaza y Oriente", "Soltero", "2338227", 22, "Ing. en Electronica y Telecomunicaciones", "Gabriela", "Alejandra", "Paredes", "Torres", "1 de Mayo de 1992 ", "resources/images/raeul.png"};
+        }*/
+        if (cedula.equals("0999999999")) {
+            return new Object[]{"201011111", "joanrome", "La joya", "Soltero", "2338227", 22, "Ing. en Electronica y Telecomunicaciones", "Jose", "Andres", "Triviño", "Romero", "1 de Mayo de 1992 ", "/SodispolSoftware/resources/images/raeul.png"};
+        }
+        if (cedula.equals("0994563999")) {
+            return new Object[]{"201045878", "kplaza", "24 y cuenca", "Soltero", "2338227", 22, "Ing. en Electronica y Telecomunicaciones", "Karla", "Denisse", "Plaza", "Paguay", "1 de Mayo de 1992 ", "/SodispolSoftware/resources/images/raeul.png"};
+        }
+        if (cedula.equals("0997773999")) {
+            return new Object[]{"123456789", "rivera", "24 y cuenca", "Soltero", "2666227", 27, "Ing. en Minas", "Renato", "Jhalmar", "Rivera", "Triviño", "1 de Mayo de 1992 ", "/SodispolSoftware/resources/images/raeul.png"};
         }
         return null;
     }
@@ -122,8 +161,20 @@ public class WbServiceEspol {
      */
     public static Object[] loadEstudianteAttributes(String username) {
 
-        if (username.equals("gabapare")) {
-            return new Object[]{"201011111", "0999999999", "Leonidas Plaza y Oriente", "Soltero", "2338227", 22, "Ing. en Electronica y Telecomunicaciones", "Gabriela", "Alejandra", "Paredes", "Torres", "1 de Mayo de 1992 ", "resources/images/raul.png"};
+        if (username.equals("raulalmir")) {
+            return new Object[]{"201013448", "1722904628", "Villa Club", "Casado", "2246570", 21, "Ing. en Ciencias Computacionales Orientación Multimedia", "Raul", "Alberto", "Mira", "Rodriguez", "1 de Enero de 1991 ", "/SodispolSoftware/resources/images/raul.png"};
+        }
+        /*if (cedula.equals("0999999999")) {
+            return new Object[]{"201011111", "gabapare", "Leonidas Plaza y Oriente", "Soltero", "2338227", 22, "Ing. en Electronica y Telecomunicaciones", "Gabriela", "Alejandra", "Paredes", "Torres", "1 de Mayo de 1992 ", "resources/images/raeul.png"};
+        }*/
+        if (username.equals("joanrome")) {
+            return new Object[]{"201011111", "0999999999", "La joya", "Soltero", "2338227", 22, "Ing. en Electronica y Telecomunicaciones", "Jose", "Andres", "Triviño", "Romero", "1 de Mayo de 1992 ", "/SodispolSoftware/resources/images/raeul.png"};
+        }
+        if (username.equals("kplaza")) {
+            return new Object[]{"201045878", "0994563999", "24 y cuenca", "Soltero", "2338227", 22, "Ing. en Electronica y Telecomunicaciones", "Karla", "Denisse", "Plaza", "Paguay", "1 de Mayo de 1992 ", "/SodispolSoftware/resources/images/raeul.png"};
+        }
+        if (username.equals("rivera")) {
+            return new Object[]{"123456789", "0997773999", "24 y cuenca", "Soltero", "2666227", 27, "Ing. en Minas", "Renato", "Jhalmar", "Rivera", "Triviño", "1 de Mayo de 1992 ", "/SodispolSoftware/resources/images/raeul.png"};
         }
         return null;
     }
@@ -168,7 +219,13 @@ public class WbServiceEspol {
             return true;
         }
         
-        
+        if (cedula.equals("0994563999")) {
+            return true;
+        }
+        if (cedula.equals("0997773999")) {
+            return true;
+        }
+
         return false;
     }
 
@@ -181,13 +238,21 @@ public class WbServiceEspol {
      * @param doctor
      */
     public static void loadDataDoctorFromWebService(Doctor doctor) {
-        Object[] attributes = WbServiceEspol.loadDoctorAttributes(doctor.getUsername());
+        Object[] attributes = WbServiceEspol.loadProfesionalAttributes(doctor.getUsername());
         doctor.setNombre1((String) attributes[0]);
         doctor.setNombre2((String) attributes[1]);
         doctor.setApellido1((String) attributes[2]);
         doctor.setApellido2((String) attributes[3]);
-        doctor.setCorreo((String) attributes[4]);
-        doctor.setEspecializacion((String) attributes[5]);
+       // doctor.setCorreo((String) attributes[4]);
+       // doctor.setEspecializacion((String) attributes[5]);
+    }
+
+    public static void loadDataEnfermeroFromWebService(Enfermero enfermero) {
+        Object[] attributes = WbServiceEspol.loadProfesionalAttributes(enfermero.getUsername());
+        enfermero.setNombre1((String) attributes[0]);
+        enfermero.setNombre2((String) attributes[1]);
+        enfermero.setApellido1((String) attributes[2]);
+        enfermero.setApellido2((String) attributes[3]);
     }
 
     /**
@@ -310,5 +375,5 @@ public class WbServiceEspol {
         estudiante.setEstadocivil((String) attributes[3]);
         estudiante.setTelefono((String) attributes[4]);
     }
-   
+
 }
