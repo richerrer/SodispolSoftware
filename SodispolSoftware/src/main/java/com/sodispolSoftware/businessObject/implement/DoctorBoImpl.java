@@ -8,7 +8,9 @@ import com.sodispolSoftware.model.Citamedica;
 import com.sodispolSoftware.model.Detallefichaestudiante;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
+import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -116,8 +118,13 @@ public class DoctorBoImpl implements DoctorBo{
      * @param doctor es el Doctor a ser agregado
      */
     @Override
-    public void addDoctor(Doctor doctor) {
-        getDoctorDao().addDoctor(doctor);
+    public boolean addDoctor(Doctor doctor) {
+        doctor.setRoleuser(getRoleUserBo().getRoleUser("ROLE_DOCTOR"));
+        return getDoctorDao().addDoctor(doctor);
+    }
+    
+    public boolean updateDoctor(Doctor doctor) {
+        return getDoctorDao().updateDoctor(doctor);
     }
 
     @Override
@@ -148,6 +155,17 @@ public class DoctorBoImpl implements DoctorBo{
     public ArrayList<Doctor> getAllDoctors()  {
         ArrayList<Doctor> doctores =getDoctorDao().getAllDoctors();
         return doctores;
+    }
+    
+    @Override
+    public boolean verifyUsername(String username){
+        String role = WbServiceEspol.getRoleByUsername(username);
+        return role!=null && role.equals("P");
+    }
+    
+    @Override
+    public boolean verifyTimes(Date horaEntrada,Date horaSalida){
+        return horaSalida.after(horaEntrada);
     }
     
 }

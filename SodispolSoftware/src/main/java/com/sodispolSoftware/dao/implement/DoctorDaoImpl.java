@@ -25,6 +25,8 @@ public class DoctorDaoImpl extends HibernateDaoSupport implements DoctorDao{
 
     private final String queryObtenerDoctorAndRoleUser = "from Doctor d left join fetch d.roleuser where d.username= ? and d.estadoborrado = ?";
 
+    private final String queryGetAllDoctors = "from Doctor d left join fetch d.roleuser where d.estadoborrado = ?";
+    
     @Override
     public Doctor getDoctor(String username)
     {
@@ -43,37 +45,29 @@ public class DoctorDaoImpl extends HibernateDaoSupport implements DoctorDao{
     }
     
     @Override
-    public void addDoctor(Doctor doctor) 
+    public boolean addDoctor(Doctor doctor) 
     {
-        getHibernateTemplate().save(doctor);
+        boolean succes = true;
+        try{
+            getHibernateTemplate().save(doctor);
+        }catch(Exception ex){succes = false;}
+        return succes;
     }
     
-    
-    
-       
-    //username = "r' or d.username like '%";
-            //Doctor doctor = (Doctor)getHibernateTemplate().find("from Doctor d where d.username='"+username+"' and estadoborrado = False").get(0);
-            
-    /*
-    Doctor doctor = null;
-        //long a = 1;
-        Session session = NewHibernateUtil.getSessionFactory().getCurrentSession();
+    @Override
+    public boolean updateDoctor(Doctor doctor) 
+    {
+        boolean succes = true;
         try{
-           session.beginTransaction();
-           doctor =(Doctor)session.createSQLQuery("select * from getDoctorByUsername(:username)").addEntity(Doctor.class).setParameter("username", username).uniqueResult();
-           //doctor =(Doctor)session.load(com.baseDatos.POJOS.Doctor.class,a);
-           session.beginTransaction().commit();
-       
-        }
-        catch(Exception ex){
-            session.beginTransaction().rollback();
-        }
-    */
-
+            getHibernateTemplate().update(doctor);
+        }catch(Exception ex){succes = false;}
+        return succes;
+    }
+    
     @Override
     public ArrayList<Doctor> getAllDoctors() 
     {       
-        ArrayList<Doctor> doctores = new ArrayList<Doctor>();
+        /*ArrayList<Doctor> doctores = new ArrayList<Doctor>();
         Session session = getHibernateTemplate().getSessionFactory().openSession();
         try{
            session.beginTransaction();
@@ -94,6 +88,19 @@ public class DoctorDaoImpl extends HibernateDaoSupport implements DoctorDao{
            return doctores;
         }
         catch(Exception ex){
+            return null;
+        }*/
+        try
+        {
+            Object[] paramsDoctor = new Object[]{false};
+            
+            ArrayList<Doctor> doctors = (ArrayList<Doctor>)getHibernateTemplate().find(queryGetAllDoctors,paramsDoctor); 
+            for(Doctor doctor: doctors)    
+                WbServiceEspol.loadDataDoctorFromWebService(doctor);
+            return doctors;
+        }
+        catch(Exception ex)//Cuando no se encuentra ningun objeto en la consulta
+        {
             return null;
         }
        

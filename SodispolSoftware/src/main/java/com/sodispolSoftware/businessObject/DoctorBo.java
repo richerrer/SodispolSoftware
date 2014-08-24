@@ -9,6 +9,7 @@ import com.sodispolSoftware.model.Detallefichaestudiante;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,7 +20,9 @@ public interface DoctorBo {
 
     public Doctor getDoctor(String username);
 
-    public void addDoctor(Doctor doctor);
+    public boolean addDoctor(Doctor doctor);
+    
+    public boolean updateDoctor(Doctor doctor) ;
 
     public void saveDetalleFichaEstudiante(Detallefichaestudiante detalleFicha);
 
@@ -31,4 +34,7 @@ public interface DoctorBo {
     
     public ArrayList<Doctor> getAllDoctors() ;
     
+    public boolean verifyUsername(String username);
+    
+    public boolean verifyTimes(Date horaEntrada,Date horaSalida);
 }
