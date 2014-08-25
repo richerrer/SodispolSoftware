@@ -26,14 +26,30 @@ public class Test1 {
   @Test
   public void test1() throws Exception {
     driver.get(baseUrl);
-    driver.findElement(By.linkText("Cita")).click();
-    driver.findElement(By.linkText("Nueva Cita")).click();
-    driver.findElement(By.id("j_idt10:paramBusqueda")).clear();
-    driver.findElement(By.id("j_idt10:paramBusqueda")).sendKeys("201045878");
-    driver.findElement(By.id("j_idt10:buscarPaciente")).click();
-    driver.findElement(By.id("j_idt10:selectMedico_label")).click();
-    driver.findElement(By.xpath("//div[@id='j_idt10:selectMedico_panel']/div/ul/li[2]")).click();
-    driver.findElement(By.id("infoCita:seded:0:agregar")).click();
+    Thread.sleep(2000);
+    driver.findElement(By.linkText("Paciente")).click();
+    Thread.sleep(2000);
+    driver.findElement(By.id("j_idt14:paramBusqueda")).clear();
+    driver.findElement(By.id("j_idt14:paramBusqueda")).sendKeys("201013448");
+    Thread.sleep(2000);
+    driver.findElement(By.id("j_idt14:buscarPaciente")).click();
+    Thread.sleep(2000);
+    driver.findElement(By.id("botonesFicha:nuevaObservacion")).click();
+    // ERROR: Caught exception [ERROR: Unsupported command [waitForPopUp | _self | 30000]]
+    driver.findElement(By.xpath("//a[@id='form:toggleable2_toggler']/span")).click();
+    Thread.sleep(2000);
+    driver.findElement(By.cssSelector("span.ui-icon.ui-icon-minusthick")).click();
+    Thread.sleep(2000);
+    driver.findElement(By.xpath("//a[@id='form:toggleable3_toggler']/span")).click();
+    Thread.sleep(2000);
+    driver.findElement(By.xpath("//a[@id='form:toggleable4_toggler']/span")).click();
+    Thread.sleep(2000);
+    driver.findElement(By.name("form:j_idt175")).clear();
+    driver.findElement(By.name("form:j_idt175")).sendKeys("buena");
+    Thread.sleep(2000);
+    driver.findElement(By.id("form:buscarPaciente")).click();
+    Thread.sleep(2000);
+    driver.findElement(By.id("form:j_idt173")).click();
   }
 
   @After
@@ -77,4 +93,5 @@ public class Test1 {
       acceptNextAlert = true;
     }
   }
-}*/
+}
+*/

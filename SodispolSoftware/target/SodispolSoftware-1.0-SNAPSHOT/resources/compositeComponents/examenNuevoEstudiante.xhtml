@@ -20,7 +20,8 @@
 
                 <div class="col-xs-12 col-sm-7 col-md-7 col-lg-6">
                     <c:if test="#{cc.attrs.verificador == 1}"> 
-                        <h:inputText value="#{fichaEstudianteBean.estatura}" class="ancho15" converterMessage="El campo estatura requiere solo de números"/>
+                        <h:inputText value="#{fichaEstudianteBean.estatura}" class="ancho15" converterMessage="El campo estatura requiere solo de números"
+                                     required="true" requiredMessage="Se requiere llenar el campo Estatura"/>
                         <h:outputLabel class="margen_izquierdo inline_block">m</h:outputLabel>
                     </c:if>
                     <c:if test="#{cc.attrs.verificador == 0}"> 
@@ -35,7 +36,8 @@
 
                 <div class="col-xs-12 col-sm-7 col-md-7 col-lg-2">
                     <c:if test="#{cc.attrs.verificador == 1}"> 
-                        <h:inputText value="#{fichaEstudianteBean.peso}" class="ancho60" converterMessage="El campo peso requiere solo de números"/>
+                        <h:inputText value="#{fichaEstudianteBean.peso}" class="ancho60" converterMessage="El campo peso requiere solo de números"
+                                     required="true" requiredMessage="Se requiere llenar el campo Peso"/>
                         <h:outputLabel class="margen_izquierdo inline_block">kg</h:outputLabel>
                     </c:if>
                     <c:if test="#{cc.attrs.verificador == 0}"> 
