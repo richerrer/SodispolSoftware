@@ -491,7 +491,7 @@ public class CitaBean {
         return "citas.xhtml";
     }
    
-    public String atenderCita()
+    public void atenderCita()
     {
         String nextPage = "";
         
@@ -504,16 +504,20 @@ public class CitaBean {
         int m2 = citaSeleccionada.getFechareg().get(Calendar.MONTH);
         int a2=citaSeleccionada.getFechareg().get(Calendar.YEAR);
         
-        if((d2==d) && (m2==m) && (a2==a))
+        getUsuarioBean().setEstudiantePaciente(citaSeleccionada.getEstudiante());
+        
+        if((citaSeleccionada.getEstadocita().equals("P")) && (d2==d) && (m2==m) && (a2==a))
         {
-            nextPage = "observacion.xhtml";
+            
+            Redireccionar.redirect("pages/doctor/observacion.xhtml?modificador=1");
+            //nextPage = "observacion.xhtml?modificador=1";
         }
         else
         {
             addMessageByType("Operacion Fallida: La cita ya fue atendida, o no existe cita en este horario", 0);
         }
        
-        return nextPage;
+        //return nextPage;
     }
     
     public String llenarDataTablePagina2()

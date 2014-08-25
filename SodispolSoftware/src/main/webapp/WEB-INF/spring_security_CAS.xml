@@ -14,7 +14,7 @@
         <sec:custom-filter after="CAS_FILTER"  ref="casFilter"/>
         <sec:intercept-url pattern="/pages/all/*" access="ROLE_DOCTOR,ROLE_ENFERMERO,ROLE_ESTUDIANTE,ROLE_NORMAL"/>
         <sec:intercept-url pattern="/pages/doctor/*" access="ROLE_DOCTOR"/>
-        <sec:intercept-url pattern="/pages/enfermero/*" access="ROLE_ENFERMERO,ROLE_DOCTOR"/>
+        <sec:intercept-url pattern="/pages/enfermero/*" access="ROLE_ENFERMERO"/>
         <sec:intercept-url pattern="/pages/dispensario/*" access="ROLE_DOCTOR,ROLE_ENFERMERO"/>
         <sec:intercept-url pattern="/pages/paciente/*" access="ROLE_ESTUDIANTE,ROLE_PROFESIONAL"/>
         <!--<sec:logout logout-success-url="https://compa:8443/cas/logout" invalidate-session="true" logout-url="/logout" />-->

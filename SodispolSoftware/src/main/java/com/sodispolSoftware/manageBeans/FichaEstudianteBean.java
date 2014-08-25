@@ -95,9 +95,9 @@ public class FichaEstudianteBean {
             cargarFichaMedicaEstudiante(getEstudiante());
             validarTipoFicha();
         } catch (NumberFormatException ex) {//Si alguno de los parametros "modificador" o "iddetalleFicha"(si es que se lo usa) y no han sido seteados, hay una redireccion 
-            Redireccionar.redirect("paciente.xhtml");
+            Redireccionar.redirect("pages/doctor/paciente.xhtml");
         } catch (NullPointerException ex) {
-            Redireccionar.redirect("paciente.xhtml");
+            Redireccionar.redirect("pages/doctor/paciente.xhtml");
         }
     }
 
@@ -109,7 +109,7 @@ public class FichaEstudianteBean {
     public void cargarEstudiante() {
         setEstudiante(getUsuarioBean().getEstudiantePaciente());
         if (getEstudiante() == null) {
-            Redireccionar.redirect("paciente.xhtml");
+            Redireccionar.redirect("pages/all/home.xhtml");
         }
     }
 

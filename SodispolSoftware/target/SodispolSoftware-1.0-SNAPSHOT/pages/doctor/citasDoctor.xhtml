@@ -12,8 +12,7 @@
         <link rel="stylesheet" href="/SodispolSoftware/resources/cssBoostrap/bootstrap.css"/>
         <link rel="Stylesheet" href="/SodispolSoftware/resources/css/estilo01.css"/>
         <link href="http://fonts.googleapis.com/css?family=Duru+Sans" rel="styleshee" type="text/css"/>
-        <script src="http://code.jquery.com/jquery.js"></script>
-        <script src="/SodispolSoftware/resources/js/bootstrap.js"></script>
+                <script src="/SodispolSoftware/resources/js/bootstrap.js"></script>
         <script src="/SodispolSoftware/resources/js/main.js"></script>
     </h:head>
     <h:body>
@@ -69,6 +68,7 @@
                                     <p:column style="width: 20%">
 
                                         <p:commandButton id="atender" value="Atender Cita" action="#{citaBean.atenderCita()}" ajax="false">
+                                            <!--<f:param name="modificador" value="1" />-->
                                             <f:setPropertyActionListener value="#{cita}" target="#{citaBean.citaSeleccionada}" />
                                         </p:commandButton>
                                             

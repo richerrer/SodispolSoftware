@@ -27,7 +27,7 @@
                     Cita <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-                    <c:if test="#{(usuarioBean.user.roleuser.descripcion == 'ROLE_DOCTOR')}">
+                    <c:if test="#{(usuarioBean.user.roleuser.descripcion == 'ROLE_ENFERMERO')}">
                         <li><a href="/SodispolSoftware/pages/enfermero/nuevaCita.xhtml">Crear/Eliminar Citas</a></li>
                     </c:if>
                     <c:if test="#{(usuarioBean.user.roleuser.descripcion == 'ROLE_DOCTOR')}">
@@ -48,7 +48,7 @@
                     <li><a href="/SodispolSoftware/pages/dispensario/mantenimientoEnfermero.xhtml">Enfermeros</a></li>                           
                 </ul>
             </li>
-            <li class="backgroungElementsNav anchoNavElement"><a href="/SodispolSoftware/pages/dispensario/statistics.xhtml" class="textoNav centerNav overflowHidden">Estadísticas</a></li>
+            <!--<li class="backgroungElementsNav anchoNavElement"><a href="/SodispolSoftware/pages/dispensario/statistics.xhtml" class="textoNav centerNav overflowHidden">Estadísticas</a></li>-->
             <li class="backgroungElementsNav anchoNavElement"><a href="/SodispolSoftware/pages/dispensario/inventory_adm.xhtml" class="textoNav centerNav overflowHidden">Inventario</a></li>
             <!--<li class="backgroungElementsNav anchoNavElement"><a href="help.xhtml" class="textoNav centerNav">Ayuda</a></li>-->
         </ul>

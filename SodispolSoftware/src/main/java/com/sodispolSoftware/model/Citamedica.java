@@ -54,7 +54,7 @@ public class Citamedica  implements java.io.Serializable {
        this.fechareg = fechareg;
        this.doctor=null;
        //this.fechaprog = fechareg;
-       //this.estadocita = estadocita;
+       this.estadocita = "";
        //this.estadoborrado = estadoborrado;
     }
     
