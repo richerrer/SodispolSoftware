@@ -351,13 +351,39 @@ public class CitaBean {
         }
     }
     
+    
+    public void agregarCitaEncontrada(Citamedica cm2, int horaInicio, int minutoInicio, int horaFin, int minutoFin)
+    {
+        Citamedica cita= cm2;
+        agregarHoraACita(cita, horaInicio, minutoInicio, horaFin, minutoFin);
+        cita.setVacio(false);
+        citasDataTable.add(cita);
+    }
+    
+    public void agregarCitaNoEncontrada(int horaInicio, int minutoInicio, int horaFin, int minutoFin)
+    {
+        setFechaBase(Calendar.getInstance());
+        newFechayHora(fecha.getDate(), fecha.getMonth(), fecha.getYear()+1900, horaInicio, minutoInicio);
+        Citamedica cita = new Citamedica(fechaBase);
+        //int hora2= cita.getFechareg().get(Calendar.HOUR_OF_DAY);
+        //int min2 = cita.getFechareg().get(Calendar.MINUTE);
+        agregarHoraACita(cita, horaInicio, minutoInicio, horaFin, minutoFin);
+        cita.setVacio(true);
+        citasDataTable.add(cita);
+    }
+    
+    public void vaciarListasCitas()
+    {
+        citasCargadas.removeAll(citasCargadas); 
+        citasDataTable.removeAll(citasDataTable); 
+    }
+    
     public void llenarCitasDataTable(int tipoPagina)
     {
         Doctor doctorPagina = obtenerDoctorRespectivo(tipoPagina);    
         ArrayList<Citamedica> citasProvisional = getCitaBo().getCitasByDoctor(doctorPagina);
             
-        citasCargadas.removeAll(citasCargadas); 
-        citasDataTable.removeAll(citasDataTable); 
+        vaciarListasCitas();
         
         llenarCitasCargadas(citasProvisional);
         
@@ -380,31 +406,19 @@ public class CitaBean {
                 //if((cm2.getFechareg().getTime().getHours()==horaInicio) && (cm2.getFechareg().getTime().getMinutes()==minutoInicio))
                 if((hora1==horaInicio) && (min1==minutoInicio))
                 {
-                    Citamedica cita= cm2;
-                    //int hora2= cita.getFechareg().get(Calendar.HOUR_OF_DAY);
-                    //int min2 = cita.getFechareg().get(Calendar.MINUTE);
-                    
-                    agregarHoraACita(cita, horaInicio, minutoInicio, horaFin, minutoFin);
-                    cita.setVacio(false);
-                    citasDataTable.add(cita);
+                    agregarCitaEncontrada(cm2, horaInicio, minutoInicio, horaFin, minutoFin);
                     agregoCita = true;
                 }
             }
             
             if(agregoCita == false)
             {
-                setFechaBase(Calendar.getInstance());
-                newFechayHora(fecha.getDate(), fecha.getMonth(), fecha.getYear()+1900, horaInicio, minutoInicio);
-                Citamedica cita = new Citamedica(fechaBase);
-                //int hora2= cita.getFechareg().get(Calendar.HOUR_OF_DAY);
-                //int min2 = cita.getFechareg().get(Calendar.MINUTE);
-                agregarHoraACita(cita, horaInicio, minutoInicio, horaFin, minutoFin);
-                cita.setVacio(true);
-                citasDataTable.add(cita);
+                agregarCitaNoEncontrada(horaInicio, minutoInicio, horaFin, minutoFin);
             }
                 
         }
     }
+    
     
     public void agregarHoraACita(Citamedica cita, int horaInicio, int minInicio, int horaFin, int minFin)
     {
@@ -475,6 +489,31 @@ public class CitaBean {
         }
         
         return "citas.xhtml";
+    }
+   
+    public String atenderCita()
+    {
+        String nextPage = "";
+        
+        //if((citaSeleccionada.getEstadocita().equals("P")) && (citaSeleccionada.getFechareg().getTime().equals(Calendar.getInstance().getTime())))
+        int d=Calendar.getInstance().get(Calendar.DATE);
+        int m=Calendar.getInstance().get(Calendar.MONTH);
+        int a=Calendar.getInstance().get(Calendar.YEAR);
+        
+        int d2=citaSeleccionada.getFechareg().get(Calendar.DATE);
+        int m2 = citaSeleccionada.getFechareg().get(Calendar.MONTH);
+        int a2=citaSeleccionada.getFechareg().get(Calendar.YEAR);
+        
+        if((d2==d) && (m2==m) && (a2==a))
+        {
+            nextPage = "observacion.xhtml";
+        }
+        else
+        {
+            addMessageByType("Operacion Fallida: La cita ya fue atendida, o no existe cita en este horario", 0);
+        }
+       
+        return nextPage;
     }
     
     public String llenarDataTablePagina2()

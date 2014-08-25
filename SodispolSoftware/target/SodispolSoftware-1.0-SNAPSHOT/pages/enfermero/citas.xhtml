@@ -28,7 +28,7 @@
             </nav>
             
             
-        <h3 class="centrar">Citas de: Dr. #{citaBean.llenarDatatablePaginaCitasDoctor()}</h3>
+            <h3 class="centrar">Citas de: Dr. #{citaBean.llenarDataTablePagina2()}</h3>
             <br/>
             
             <div id="content" class="container ancho1 ">
@@ -40,8 +40,8 @@
                             
                             <p:panelGrid columns="1">
                                 <h:outputLabel for="datetime" value="Fecha:" />
-                                <p:calendar id="datetime" value="#{citaBean.fecha}"  >
-                                    <p:ajax process="@this" event="dateSelect" update=":infoCita" listener="#{citaBean.llenarCitasDataTable(0)}"/>
+                                <p:calendar id="datetime" value="#{citaBean.fecha}">
+                                    <p:ajax process="@this" event="dateSelect" update=":infoCita" listener="#{citaBean.llenarCitasDataTable(1)}"/>
                                 </p:calendar>
                             </p:panelGrid>
                            
@@ -66,12 +66,11 @@
                                         <h:outputText value="#{cita.estudiante.ocupacion}" />  
                                     </p:column>  
 
-                                    <p:column style="width: 20%">
+                                    <p:column style="width: 8%">
 
-                                        <p:commandButton id="atender" value="Atender Cita" action="#{citaBean.atenderCita()}" ajax="false">
+                                        <p:commandButton update=":infoCita" id="eliminar" action="#{citaBean.eliminarCita()}" styleClass="icon-botones" image="ui-icon-trash" ajax="false">
                                             <f:setPropertyActionListener value="#{cita}" target="#{citaBean.citaSeleccionada}" />
                                         </p:commandButton>
-                                            
                                     </p:column>
 
                                 </p:dataTable>  
