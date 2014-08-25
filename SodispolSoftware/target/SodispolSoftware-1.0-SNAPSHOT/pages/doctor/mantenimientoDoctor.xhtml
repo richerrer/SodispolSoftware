@@ -112,7 +112,7 @@
                 <h:form id="formDelete">
                     <p:confirmDialog message="Estas seguro de eliminar?" header="Eliminar Usuario"
                                      severity="alert" widgetVar="dialogUsuarioDelete" showEffect="fade" styleClass="center">
-                        <p:commandButton  value="Aceptar" update=":formDataTable :msgs"  styleClass="margen_top4" oncomplete="dialogUsuarioDelete.hide()" actionListener="#{agregarDoctoreshh.eliminarDoctor(actionEvent)}"/>
+                        <p:commandButton  value="Aceptar" update=":formDataTable :msgs"  styleClass="margen_top4" oncomplete="dialogUsuarioDelete.hide()" actionListener="#{agregarDoctores.eliminarDoctor(actionEvent)}"/>
                         <p:commandButton value="Cancelar" styleClass="margen_izquierdo margen_top1"  onclick="dialogUsuarioDelete.hide()"/> 
 
                     </p:confirmDialog>
