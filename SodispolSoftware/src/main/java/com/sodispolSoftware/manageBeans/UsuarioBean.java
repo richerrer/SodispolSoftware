@@ -31,7 +31,7 @@ public class UsuarioBean{
     
     private Doctor doctorConsulta;
     
-    private String msgCreacionYEliminacion;
+    private int tipoPaginaConsultaCitas=0;//0->consulta de citas del doctor logueado; 1->consulta de citas luego de una transaccion
 
     /**
      * Get the value of estudiantePaciente
@@ -104,14 +104,14 @@ public class UsuarioBean{
         this.doctorConsulta = doctorConsulta;
     }
 
-    public String getMsgCreacionYEliminacion() {
-        return msgCreacionYEliminacion;
+    public int getTipoPaginaConsultaCitas() {
+        return tipoPaginaConsultaCitas;
     }
 
-    public void setMsgCreacionYEliminacion(String msgCreacionYEliminacion) {
-        this.msgCreacionYEliminacion = msgCreacionYEliminacion;
+    public void setTipoPaginaConsultaCitas(int tipoPaginaConsultaCitas) {
+        this.tipoPaginaConsultaCitas = tipoPaginaConsultaCitas;
     }
-    
+
     public User getUser(){
         return this.usuario;
     }

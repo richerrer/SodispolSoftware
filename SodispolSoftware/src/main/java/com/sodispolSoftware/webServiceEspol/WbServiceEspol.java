@@ -27,7 +27,7 @@ public class WbServiceEspol {
             return "E";//Estudiante
         }
         if (username.equals("joanrome")) {
-            return "E";//Estudiante
+            return "P";//Estudiante
         }
         if (username.equals("kplaza")) {
             return "E";//Estudiante
@@ -61,6 +61,9 @@ public class WbServiceEspol {
         }
         if (username.equals("gabapare")) {
             return new Object[]{"gaby", "alejandra", "paredes", "torres"};
+        }
+        if (username.equals("joanrome")) {
+            return new Object[]{"jose", "andres", "romero", "triviño"};
         }
         
         /*if (username.equals("raualmir")) {
@@ -111,10 +114,10 @@ public class WbServiceEspol {
         }
         /*if (matricula.equals("201011111")) {
             return new Object[]{"0999999999", "gabapare", "Leonidas Plaza y Oriente", "Soltero", "2338227", 22, "Ing. en Electronica y Telecomunicaciones", "Gabriela", "Alejandra", "Paredes", "Torres", "1 de Mayo de 1992 ", "resources/images/raeul.png"};
-        }*/
+        
         if (matricula.equals("201011111")) {
             return new Object[]{"0999999999", "joanrome", "La joya", "Soltero", "2338227", 22, "Ing. en Electronica y Telecomunicaciones", "Jose", "Andres", "Triviño", "Romero", "1 de Mayo de 1992 ", "/SodispolSoftware/resources/images/raeul.png"};
-        }
+        }}*/
         if (matricula.equals("201045878")) {
             return new Object[]{"0994563999", "kplaza", "24 y cuenca", "Soltero", "2338227", 22, "Ing. en Electronica y Telecomunicaciones", "Karla", "Denisse", "Plaza", "Paguay", "1 de Mayo de 1992 ", "/SodispolSoftware/resources/images/raeul.png"};
         }
@@ -138,10 +141,10 @@ public class WbServiceEspol {
         }
         /*if (cedula.equals("0999999999")) {
             return new Object[]{"201011111", "gabapare", "Leonidas Plaza y Oriente", "Soltero", "2338227", 22, "Ing. en Electronica y Telecomunicaciones", "Gabriela", "Alejandra", "Paredes", "Torres", "1 de Mayo de 1992 ", "resources/images/raeul.png"};
-        }*/
+        }
         if (cedula.equals("0999999999")) {
             return new Object[]{"201011111", "joanrome", "La joya", "Soltero", "2338227", 22, "Ing. en Electronica y Telecomunicaciones", "Jose", "Andres", "Triviño", "Romero", "1 de Mayo de 1992 ", "/SodispolSoftware/resources/images/raeul.png"};
-        }
+        }*/
         if (cedula.equals("0994563999")) {
             return new Object[]{"201045878", "kplaza", "24 y cuenca", "Soltero", "2338227", 22, "Ing. en Electronica y Telecomunicaciones", "Karla", "Denisse", "Plaza", "Paguay", "1 de Mayo de 1992 ", "/SodispolSoftware/resources/images/raeul.png"};
         }
@@ -166,10 +169,10 @@ public class WbServiceEspol {
         }
         /*if (cedula.equals("0999999999")) {
             return new Object[]{"201011111", "gabapare", "Leonidas Plaza y Oriente", "Soltero", "2338227", 22, "Ing. en Electronica y Telecomunicaciones", "Gabriela", "Alejandra", "Paredes", "Torres", "1 de Mayo de 1992 ", "resources/images/raeul.png"};
-        }*/
+        }
         if (username.equals("joanrome")) {
             return new Object[]{"201011111", "0999999999", "La joya", "Soltero", "2338227", 22, "Ing. en Electronica y Telecomunicaciones", "Jose", "Andres", "Triviño", "Romero", "1 de Mayo de 1992 ", "/SodispolSoftware/resources/images/raeul.png"};
-        }
+        }*/
         if (username.equals("kplaza")) {
             return new Object[]{"201045878", "0994563999", "24 y cuenca", "Soltero", "2338227", 22, "Ing. en Electronica y Telecomunicaciones", "Karla", "Denisse", "Plaza", "Paguay", "1 de Mayo de 1992 ", "/SodispolSoftware/resources/images/raeul.png"};
         }
