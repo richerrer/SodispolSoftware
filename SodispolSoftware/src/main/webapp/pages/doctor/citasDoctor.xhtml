@@ -28,7 +28,7 @@
             </nav>
             
             
-            <h3 class="centrar">Citas de: Dr. #{citaBean.llenarDataTablePagina2()}</h3>
+        <h3 class="centrar">Citas de: Dr. #{citaBean.llenarDatatablePaginaCitasDoctor()}</h3>
             <br/>
             
             <div id="content" class="container ancho1 ">
@@ -41,7 +41,7 @@
                             <p:panelGrid columns="1">
                                 <h:outputLabel for="datetime" value="Fecha:" />
                                 <p:calendar id="datetime" value="#{citaBean.fecha}"  >
-                                    <p:ajax process="@this" event="dateSelect" update=":infoCita" listener="#{citaBean.llenarCitasDataTable()}"/>
+                                    <p:ajax process="@this" event="dateSelect" update=":infoCita" listener="#{citaBean.llenarCitasDataTable(0)}"/>
                                 </p:calendar>
                             </p:panelGrid>
                            

@@ -297,7 +297,7 @@ public class CitaBean {
         getUsuarioBean().setDoctorConsulta(getDoctorBo().getDoctor(doctorUsername));
         //setDoctor(getDoctorBo().getDoctor(doctorUsername));
         setDoctorSeleccionado(getUsuarioBean().getDoctorConsulta() != null);
-        llenarCitasDataTable();
+        llenarCitasDataTable(1);
     }
     
     public void addMessage(String mensaje) {
@@ -320,10 +320,28 @@ public class CitaBean {
         fechaBase.set(Calendar.MINUTE, minuto);
     }
     
-    public void llenarCitasDataTable()
+    /*
+    *   @param tipoPagina 0 si la pagina de consulta es la del doctor logueado; 1 si es la pagina luego de alguna transaccion
+    *
+    */
+    
+    public void llenarCitasDataTable(int tipoPagina)
     {
         //Calendar fechaProvisional = Calendar.getInstance();
-        ArrayList<Citamedica> citasProvisional = getCitaBo().getCitasByDoctor(getUsuarioBean().getDoctorConsulta());
+        
+        Doctor doctorPagina = null;
+        
+        if(tipoPagina==0)
+        {
+            doctorPagina = getUsuarioBean().getDoctor();
+        }            
+        if(tipoPagina==1)
+        {
+            doctorPagina = getUsuarioBean().getDoctorConsulta();
+        }
+        
+        ArrayList<Citamedica> citasProvisional = getCitaBo().getCitasByDoctor(doctorPagina);
+            
         citasCargadas.removeAll(citasCargadas); 
         citasDataTable.removeAll(citasDataTable); 
         
@@ -336,8 +354,8 @@ public class CitaBean {
                 citasCargadas.add(cm);
             }
         }
-        int entrada = (getUsuarioBean().getDoctorConsulta().getHoraentrada().getHours() *60) + getUsuarioBean().getDoctorConsulta().getHoraentrada().getMinutes();
-        int salida = (getUsuarioBean().getDoctorConsulta().getHorasalida().getHours() *60) + getUsuarioBean().getDoctorConsulta().getHorasalida().getMinutes();
+        int entrada = (doctorPagina.getHoraentrada().getHours() *60) + doctorPagina.getHoraentrada().getMinutes();
+        int salida = (doctorPagina.getHorasalida().getHours() *60) + doctorPagina.getHorasalida().getMinutes();
         int numCitasDia = (salida - entrada)/15;
         
         for(int i=0; i<numCitasDia; i++)
@@ -455,11 +473,12 @@ public class CitaBean {
     public String llenarDataTablePagina2()
     {
         //addMessage("Hola hola");
-        llenarCitasDataTable();
+        llenarCitasDataTable(1);
         return getUsuarioBean().getDoctorConsulta().getApellido1();
     }
     
     /*
+    
     *    @param tipo, es 1 si la transaccion es exitosa; o 0 si no lo es
     */
     
@@ -469,5 +488,11 @@ public class CitaBean {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, msj, ""));
         else
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msj, ""));
+    }
+    
+    public String llenarDatatablePaginaCitasDoctor()
+    {
+        llenarCitasDataTable(0);
+        return getUsuarioBean().getDoctor().getApellido1();
     }
 }

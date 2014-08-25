@@ -98,7 +98,7 @@
                                     <div class="col-md-9">
                                         <!--<p:calendar id="datetime" value="#{citaBean.fecha}" pattern="dd-MM-yyyy HH:mm" />-->
                                         <p:calendar id="datetime" value="#{citaBean.fecha}">
-                                            <p:ajax process="@this" event="dateSelect" update=":infoCita" listener="#{citaBean.llenarCitasDataTable()}"/>
+                                            <p:ajax process="@this" event="dateSelect" update=":infoCita" listener="#{citaBean.llenarCitasDataTable(1)}"/>
                                         </p:calendar>
                                     </div>
                                 </div>
