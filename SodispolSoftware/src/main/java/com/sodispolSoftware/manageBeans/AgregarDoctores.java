@@ -204,7 +204,7 @@ public class AgregarDoctores {
         String msg;
         boolean succes;
 
-        if (!getSelectUsuario().getUsername().equals(getUsuarioBean().getDoctor().getUsername())) {
+        if (!getSelectUsuario().getUsername().equals(getUsuarioBean().getUser().getUsername())) {
             succes = getDoctorBo().eliminarDoctor(getSelectUsuario());
 
             if (succes) {

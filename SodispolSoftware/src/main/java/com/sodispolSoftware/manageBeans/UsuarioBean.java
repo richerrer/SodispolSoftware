@@ -3,6 +3,7 @@ package com.sodispolSoftware.manageBeans;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Enfermero;
 import com.sodispolSoftware.model.Estudiante;
+import com.sodispolSoftware.model.User;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Named;
@@ -19,6 +20,8 @@ import org.springframework.context.annotation.ScopedProxyMode;
 public class UsuarioBean{
 
     private Doctor doctor;
+    
+    private User usuario;
     
     private Estudiante estudiante;
     
@@ -108,6 +111,10 @@ public class UsuarioBean{
     public void setMsgCreacionYEliminacion(String msgCreacionYEliminacion) {
         this.msgCreacionYEliminacion = msgCreacionYEliminacion;
     }
+    
+    public User getUser(){
+        return this.usuario;
+    }
 
     /**
      * Setea el Usuario que se encuentra registrado en la aplicación.
@@ -116,6 +123,7 @@ public class UsuarioBean{
      */
     public void setUser(Object object){
         if(object instanceof Doctor){
+            
             setDoctor((Doctor)object);
             setEstudiante(null);
             setEnfermero(null);
@@ -130,6 +138,7 @@ public class UsuarioBean{
             setDoctor(null);
             setEnfermero(null);
         }
+        this.usuario = (User)object;
     }
     
     

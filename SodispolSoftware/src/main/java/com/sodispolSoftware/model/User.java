@@ -12,4 +12,5 @@ package com.sodispolSoftware.model;
  */
 public interface User {
     public Roleuser getRoleuser();
+    public String getUsername();
 }

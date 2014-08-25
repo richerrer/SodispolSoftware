@@ -167,7 +167,7 @@ public class AgregarEnfermeros {
         String msg;
         boolean succes;
 
-        if (!getSelectUsuario().getUsername().equals(getUsuarioBean().getDoctor().getUsername())) {
+        if (!getSelectUsuario().getUsername().equals(getUsuarioBean().getUser().getUsername())) {
             succes = getEnfermeroBo().eliminarEnfermero(getSelectUsuario());
 
             if (succes) {
