@@ -12,6 +12,7 @@ import com.sodispolSoftware.model.Categoriamedicinamedicina;
 import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Fichamedicaestudiante;
 import com.sodispolSoftware.model.Medicina;
+import com.sodispolSoftware.model.Medicinaepecifica;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
@@ -96,6 +97,11 @@ public class MedicinaDaoImpl extends HibernateDaoSupport implements MedicinaDao 
         catch(IndexOutOfBoundsException ex){
             return null;
         }  
+    }
+
+    @Override
+    public void addMedicinaEspecifica(Medicinaepecifica me) {
+        getHibernateTemplate().save(me);
     }
     
 }

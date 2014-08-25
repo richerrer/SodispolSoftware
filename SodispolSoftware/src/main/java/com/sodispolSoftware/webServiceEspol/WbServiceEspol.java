@@ -23,8 +23,8 @@ public class WbServiceEspol {
         if (username.equals("gabapare")) {
             return "P";//Profesional
         }
-        if (username.equals("raulalmir")) {
-            return "E";//Estudiante
+        if (username.equals("raualmir")) {
+            return "P";//Estudiante
         }
         if (username.equals("joanrome")) {
             return "P";//Estudiante
@@ -58,6 +58,9 @@ public class WbServiceEspol {
     public static Object[] loadProfesionalAttributes(String username) {
         if (username.equals("rmaya")) {
             return new Object[]{"ricardo", "david", "maya", "herrera"};
+        }
+        if (username.equals("raualmir")) {
+            return new Object[]{"raul", "alberto", "mira", "rodriguez"};
         }
         if (username.equals("gabapare")) {
             return new Object[]{"gaby", "alejandra", "paredes", "torres"};

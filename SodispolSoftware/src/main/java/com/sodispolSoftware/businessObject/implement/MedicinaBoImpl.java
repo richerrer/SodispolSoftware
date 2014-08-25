@@ -11,6 +11,7 @@ import com.sodispolSoftware.dao.MedicinaDao;
 import com.sodispolSoftware.model.Categoriamedicina;
 import com.sodispolSoftware.model.Categoriamedicinamedicina;
 import com.sodispolSoftware.model.Medicina;
+import com.sodispolSoftware.model.Medicinaepecifica;
 import java.util.ArrayList;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -77,5 +78,12 @@ public class MedicinaBoImpl implements MedicinaBo {
     public Categoriamedicina obtenerCategoria(String categoria) {
         return getMedicinaDao().obtenerPorNombre(categoria); 
     }
+
+    @Override
+    public void agregarMedicinaEspecifica(Medicinaepecifica me) {
+        getMedicinaDao().addMedicinaEspecifica(me);
+    }
+
+    
     
 }

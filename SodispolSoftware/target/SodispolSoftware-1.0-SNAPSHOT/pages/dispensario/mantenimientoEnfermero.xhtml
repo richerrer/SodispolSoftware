@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Sodispol - Dispensario Médico</title>
+        <link rel="stylesheet" href="/SodispolSoftware/resources/cssBoostrap/bootstrap.css"/>
+        <link rel="Stylesheet" href="/SodispolSoftware/resources/css/estilo01.css"/>
+        <link href="http://fonts.googleapis.com/css?family=Duru+Sans" rel="styleshee" type="text/css"/>
+        <script src="/SodispolSoftware/resources/js/bootstrap.js"></script>
+        <script src="/SodispolSoftware/resources/js/main.js"></script>
+    </h:head>
+    <h:body>
+        <div class="wrapper">  
+            <header>
+                <ui:include src="/resources/templates/header.xhtml"/>
+            </header>
+
+            <nav class="navbar navbar-default color1 ancho1 center" role="navigation">
+                <ui:include src="/resources/templates/navMedico.xhtml"/>
+            </nav>
+            <h3 class="centrar margen_top2">Lista de Enfermeros</h3>
+            <section class="ancho70 center margen_top2">
+
+                <p:growl id="msgs" showDetail="true" />
+                <h:form>
+                    <p:commandButton update=":formCreate" oncomplete="PF('dialogUsuarioCreate').show()" icon="ui-icon-document-b" title="Crear" value="Crear"/>
+                </h:form>
+                <h:form id="formDataTable">
+                    <p:dataTable id="basicDT" var="usuario" value="#{agregarEnfermeros.listaUsuarios}">
+
+                        <p:column headerText="Username">
+                            <h:outputText value="#{usuario.username}" />
+                        </p:column>
+                        <p:column headerText="Nombres">
+                            <h:outputText value="#{usuario.nombre1} #{usuario.nombre2}" />
+                        </p:column>
+                        <p:column headerText="Apellidos">
+                            <h:outputText value="#{usuario.apellido1} #{usuario.apellido2}" />
+                        </p:column>
+
+
+                        <p:column style="width:32px;text-align: center">
+                            <p:commandButton update=":formUpdate" oncomplete="PF('dialogUsuarioUpdate').show()" icon="ui-icon-pencil" title="Actualizar">
+                                <f:setPropertyActionListener value="#{usuario}" target="#{agregarEnfermeros.selectUsuario}" />
+                            </p:commandButton>
+                        </p:column>
+                        <p:column style="width:32px;text-align: center">
+                            <p:commandButton update=":formDelete" oncomplete="PF('dialogUsuarioDelete').show()" icon="ui-icon-closethick" title="Eliminar">
+                                <f:setPropertyActionListener value="#{usuario}" target="#{agregarEnfermeros.selectUsuario}" />
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+                <h:form id="formUpdate">
+                    <p:dialog id="dlgUsuario" header="Modificar Usuario" widgetVar="dialogUsuarioUpdate" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel id="usuarioDetail" style="text-align:center;">
+                            <h:panelGrid  columns="2" cellpadding="4">
+
+                                <h:outputText class="negritas" value="Username:" />
+                                <p:inputText value="#{agregarEnfermeros.selectUsuario.username}" required="true" requiredMessage="Se requiere username" />
+                            
+                            </h:panelGrid>
+
+                            <p:commandButton  value="Aceptar" update=":formDataTable :msgs"  styleClass="margen_top4" oncomplete="dialogUsuarioUpdate.hide()" actionListener="#{agregarEnfermeros.modificarEnfermero(actionEvent)}"/>
+
+                            <p:commandButton value="Cancelar" styleClass="margen_izquierdo margen_top1" onclick="dialogUsuarioUpdate.hide()" /> 
+
+                        </p:outputPanel>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formCreate">
+                    <p:dialog id="dlgUsuarioCreate" header="Crear Usuario" widgetVar="dialogUsuarioCreate" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel id="usuarioCreate" style="text-align:center;">
+                            <h:panelGrid  columns="2" cellpadding="4">
+
+                                <h:outputText class="negritas" value="Username:" />
+                                <p:inputText value="#{agregarEnfermeros.username}" required="true" requiredMessage="Se requiere username"/>
+
+                               </h:panelGrid>
+
+                            <p:commandButton  value="Aceptar" update=":formDataTable :msgs"  styleClass="margen_top4" oncomplete="dialogUsuarioCreate.hide()" actionListener="#{agregarEnfermeros.agregarEnfermero(actionEvent)}"/>
+                            <p:commandButton value="Cancelar" styleClass="margen_izquierdo margen_top1"  onclick="dialogUsuarioCreate.hide()"/> 
+
+                        </p:outputPanel>
+                    </p:dialog>
+                </h:form>
+
+
+
+                <h:form id="formDelete">
+                    <p:confirmDialog message="Estas seguro de eliminar?" header="Eliminar Usuario"
+                                     severity="alert" widgetVar="dialogUsuarioDelete" showEffect="fade" styleClass="center">
+                        <p:commandButton  value="Aceptar" update=":formDataTable :msgs"  styleClass="margen_top4" oncomplete="dialogUsuarioDelete.hide()" actionListener="#{agregarEnfermeros.eliminarEnfermero(actionEvent)}"/>
+                        <p:commandButton value="Cancelar" styleClass="margen_izquierdo margen_top1"  onclick="dialogUsuarioDelete.hide()"/> 
+
+                    </p:confirmDialog>
+                </h:form>
+            </section>   
+        </div>
+        <div id="footer">
+            <ui:include src="/resources/templates/footer.xhtml"/>
+        </div>
+
+    </h:body>
+</html>

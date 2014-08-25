@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Sodispol - Dispensario Médico</title>
+        <link rel="stylesheet" href="/SodispolSoftware/resources/cssBoostrap/bootstrap.css"/>
+        <link rel="Stylesheet" href="/SodispolSoftware/resources/css/estilo01.css"/>
+        <link href="http://fonts.googleapis.com/css?family=Duru+Sans" rel="styleshee" type="text/css"/>
+        <script src="/SodispolSoftware/resources/js/bootstrap.js"></script>
+         <script src="/SodispolSoftware/resources/js/main.js"></script>
+    </h:head>
+    <h:body>
+        <div id="container">
+            <div id="header">    
+            <header >
+                    <ui:include src="/resources/templates/header.xhtml"/>
+                 </header>
+            
+                <nav class="navbar navbar-default color1 ancho1 center" role="navigation">
+                    <ui:include src="/resources/templates/navMedico.xhtml"/>
+                </nav>
+             </div>
+            
+        <div id="content" class="container slider ancho1 margen_top2">
+                    
+            <section>
+                <h2 class="texto" style="text-align: left; margin-left: 5%;">Preguntas Frecuentes </h2>
+                <hr style="color: #440706;" size="5" width="95%"/>
+                
+                <div style="width: 50%; margin-left: 5%;">
+               
+                    <p style="font: 120% sans-serif; float: left;">
+               <b>¿Donde encuentro el dispensario médico?</b><br/>
+               En el Campus Gustavo Galindo existen dos dispensarios médicos,
+               uno en el área de la Oficina de Bienestar Estudiantil y otro 
+               en la Facultad de Economía y Negocios<br/><br/>
+               
+               <b>¿Cual es el horario de Atención?</b><br/>
+               Atienden tres médicos en un horario de 08h00 a 22h00 con el auxilio de dos enfermeras. <br/><br/>
+
+               <b>¿Quienes pueden recibir atención?</b><br/>
+               Todos los miembros de la comunidad politécnica, estudiantes, profesores,
+               y personal administrativo y de servicio<br/><br/>
+                              
+               <b>¿Que tipo de servicio ofrece el dispensario?</b><br/>
+               
+                *Asistencia Médica<br/>
+                *Campañas de Vacunación<br/>
+                *Campañas de Desparasitación<br/>
+                *Tomas de Electrocardiogramas<br/>
+                *Terapia Respiratoria<br/>
+                *Hemoglucotest<br/>
+                *Asesoría y Consejería sobre VIH – SIDA<br/>
+                *Publicaciones Médicas en la Revista Focus<br/>
+                *Charlas Médicas<br/>
+                *Charlas Psicológicas<br/>
+                *Visitas Médicas a Pacientes Hospitalizados<br/>
+                *Visitas Psicológicas a Pacientes Hospitalizados<br/><br/>
+               </p>
+            </div>   
+            <div style="width: 30%; float: right; font: 120% sans-serif; background-color: #CCCCCC;" >
+
+                <h4 style="text-align: center;"><b>PERSONAL</b></h4><br/>
+                <div style=" margin-left: 5%">
+                    Nuestro personal está conformado por:<br/>
+                    Dra. Patricia Poveda<br/>
+                    Dr. Napoleón Molina<br/>
+                    Dr. Manuel Marcillo<br/>
+                    Dr. Kléber Villacrés<br/>
+                    Dr. Jorge Crusellas ( Atención Psicológica)<br/>
+                    Lic. Carmen Trujillo <br/>
+                    Sra. Raquel Vargas <br/><br/>
+                </div>
+                
+                <h4 style="text-align: center;"><b>CONTACTOS</b></h4><br/>
+                <div style=" margin-left: 5%">
+                    Para comunicarse con el dispensario<br/>
+                    Usted dispone de los siguientes números:<br/>
+                    (04) 2620554<br/>
+                    (04) 2620555<br/>
+                    <br/>
+                </div>
+            </div>
+                
+                
+            <hr style="color: #000;" size="5" width="95%"/>
+            </section>
+        </div>
+               
+        
+        <div id="footer">
+        <footer class="margen_top2 color1">
+            <ui:include src="/resources/templates/footer.xhtml"/>
+        </footer>
+        </div>
+        </div>
+    </h:body>
+</html>

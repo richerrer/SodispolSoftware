@@ -62,7 +62,7 @@
 
                 <div class="row margen_top2">
                     <div class="ancho70" style="margin: auto">
-                        <h:form>
+                        <h:form id="form">
                             <p:growl id="growl" showDetail="true" sticky="false"  />
                             <!--    Ficha     -->
                             <p:panel id="toggleable1" collapsed="true" header="Ficha Médica" toggleable="true"  toggleSpeed="500" widgetVar="panel1" style="margin-bottom:20px"  styleClass="color6">
@@ -112,64 +112,55 @@
 
                             <!--     Recetas     -->
                             <c:if test="#{fichaEstudianteBean.modificador==1}">
+                               
                                 <p:panel id="toggleable5" header="Recetar" toggleable="true"  collapsed="true" toggleSpeed="500"  widgetVar="panel5" style="margin-bottom:20px"  styleClass="color6">
                                     <div style="height: 25em" class="panelBarY">
+                                        
+                                 <p:dataTable id="medicinas"  var="medicina" value="#{medicinaBean.medicinas}" widgetVar="medicinaTable" filteredValue="#{medicinaBean.medicinasFiltradas}">                    
+                                    <p:columns value="#{medicinaBean.columnas}" var="column" columnIndexVar="colIndex" sortBy="#{medicina[column.property]}" filterBy="#{medicina[column.property]}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{column.header}" />
+                                        </f:facet>
+                                        <h:outputText value="#{medicina[column.property]}" />
+                                    </p:columns>    
+                                    <p:column>  
+                                        <f:facet name="header">
+                                            <h:outputText value="CATEGORIA" />
+                                        </f:facet>
+                                       <h:outputText value="#{medicinaBean.obtenerCategoria(medicina).descripcion}" />
+                                    </p:column>
 
-                                        <p:panelGrid columns="4" >
-                                            <h:outputLabel class="" value="Apronax 550mg: "/>
-                                            <p:spinner size="2" />
-                                            <h:outputLabel value="5 unidades disponibles"/>
-                                            <h:outputText value="Emoliente que forma una delicada película que permanece en la piel del bebé,
-                                                          protegiéndolo /curándolo de la resequedad y quemaduras producidas por la orina o el 
-                                                          frecuente roce con el pañal. Por otra parte contribuye a proteger, prevenir, curar 
-                                                          y humectar las grietas que se producen alrededor de los pezones durante la lactancia.
-                                                          Beneficios: Emoliente que forma una delicada película que permanece en la piel del
-                                                          bebé, protegiéndolo /curándolo de la resequedad y quemaduras producidas por la orina 
-                                                          o el frecuente roce con el pañal. Por otra parte contribuye a proteger, prevenir, curar
-                                                          y humectar las grietas que se producen alrededor de los pezones durante la lactancia."/>
+                                    <p:column style="width:32px;text-align: center">
+                                       <f:facet name="header">
+                                            <h:outputText value="RECETAR" />
+                                        </f:facet>
+                                       <p:commandButton update=":form:display4" oncomplete="medicineDialog4.show()" icon="ui-icon-clipboard" title="View">
+                                           <f:setPropertyActionListener value="#{medicina}" target="#{medicinaBean.medicinaSeleccionada}" />
+                                       </p:commandButton>
+                                    </p:column> 
+                                   </p:dataTable>
+                                        
+                    <p:dialog header="Recetar Medicina" widgetVar="medicineDialog4" resizable="false" showEffect="fade" hideEffect="explode" modal= "true" appendTo="@(body)" id="medicineDlg4" >
+                    <h:panelGrid id="display4" columns="2" cellpadding="4" style="margin:0 auto;">
+                        
+                          <h:outputText value="Nombre:" />
+                          <h:outputText value="#{medicinaBean.medicinaSeleccionada.descripcion}" />
+                          <h:outputText value="Agregar a Receta:" />
+                          <p:commandButton id="addButton4" process="@this" actionListener="#{medicinaBean.agregarReceta(actionEvent)}"  
+                            update=":form:medicinas" icon="ui-icon-plusthick"/>
+                          <h:outputText value="Quitar de Receta:" />
+                          <p:commandButton id="restButton4" process="@this" actionListener="#{medicinaBean.quitarReceta(actionEvent)}"  
+                            update=":form:medicinas" icon="ui-icon-minusthick"/>
+                          <f:facet name="footer">   
+                                <p:messages autoUpdate="true" />
+                          </f:facet>  
+                    </h:panelGrid>
+                    </p:dialog>     
+                                            
 
-                                            <h:outputLabel class="" value="Bepanthol: "/>
-                                            <p:spinner size="2" />
-                                            <h:outputLabel value="5 unidades disponibles"/>
-                                            <h:outputText value="Apronax® (Naproxeno sódico), es un fármaco antiinflamatorio no esteroidal (AINE)
-                                                          , con propiedades analgésicas, antiinflamatorias y antipiréticas. El mecanismo de acción
-                                                          con Apronax® (Naproxeno sódico) es mediante bloqueo de cicloxigenasa consecuentemente se
-                                                          disminuye la síntesis de prostaglandinas, mediadoras de la inflamación. Sin embargo, como
-                                                          otros AINEs, el mecanismo exacto de acción aún no es suficientemente conocido. No deprime
-                                                          el sistema nervioso central, por no ser narcótico ni inductor del metabolismo enzimático.
-                                                          Apronax® por ser muy soluble en el agua, es rápida y completamente absorbido en el tracto 
-                                                          gastrointestinal luego de su administración oral y por ello se obtienen niveles plasmáticos
-                                                          adecuados que permiten iniciar el alivio del dolor dentro de 20 minutos de su administración oral."/>
-
-                                            <h:outputLabel class="" value="Alka-Seltzer: "/>
-                                            <p:spinner size="2" />
-                                            <h:outputLabel value="5 unidades disponibles"/>
-                                            <h:outputText value="Antiácido, coadyuvante en el tratamiento de los transtornos 
-                                                          dispéticos agudos, analgésico. Adultos 1 o 2 tabletas en agua. No 
-                                                          deben tomarse más de 8 tabletas en 24 horas. Niños: la mitad de la 
-                                                          dosis de los adultos. Beneficios: Antiácido, coadyuvante en el tratamiento
-                                                          de los transtornos dispéticos agudos, analgésico"/>
-
-                                            <h:outputLabel class="" value="Apronax: "/>
-                                            <p:spinner size="2" />
-                                            <h:outputLabel value="5 unidades disponibles"/>
-                                            <h:outputText value="Emoliente que forma una delicada película que permanece en la piel del bebé,
-                                                          protegiéndolo /curándolo de la resequedad y quemaduras producidas por la orina o el 
-                                                          frecuente roce con el pañal. Por otra parte contribuye a proteger, prevenir, curar 
-                                                          y humectar las grietas que se producen alrededor de los pezones durante la lactancia.
-                                                          Beneficios: Emoliente que forma una delicada película que permanece en la piel del
-                                                          bebé, protegiéndolo /curándolo de la resequedad y quemaduras producidas por la orina 
-                                                          o el frecuente roce con el pañal. Por otra parte contribuye a proteger, prevenir, curar
-                                                          y humectar las grietas que se producen alrededor de los pezones durante la lactancia."/>
-
-                                        </p:panelGrid>
-                                        <p:commandButton styleClass="margen_top1" value="Validar Disponibilidad"/>
-                                        <p:commandButton styleClass="margen_top1" value="Reset"/>
-
-                                    </div>
-
-                                </p:panel>
-                            </c:if>
+                       </div>
+                   </p:panel>
+              </c:if>
 
 
 

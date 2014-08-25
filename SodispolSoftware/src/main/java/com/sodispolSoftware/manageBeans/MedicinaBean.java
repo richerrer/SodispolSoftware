@@ -5,21 +5,29 @@
  */
 
 package com.sodispolSoftware.manageBeans;
-import com.sodispolSoftware.businessObject.CitaBo;
 import com.sodispolSoftware.businessObject.MedicinaBo;
 import com.sodispolSoftware.model.Categoriamedicina;
 import com.sodispolSoftware.model.Categoriamedicinamedicina;
-import com.sodispolSoftware.model.Citamedica;
 import com.sodispolSoftware.model.Medicina;
+import com.sodispolSoftware.model.Medicinaepecifica;
+import java.io.Serializable;
 import javax.inject.Named;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.component.EditableValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
-import org.primefaces.model.DefaultScheduleModel;
 import org.springframework.context.annotation.Scope;
 
 /**
@@ -29,6 +37,7 @@ import org.springframework.context.annotation.Scope;
 @Named
 @ManagedBean
 @Scope("view")
+@RequestScoped
 public class MedicinaBean{
 
     //@Inject
@@ -41,13 +50,27 @@ public class MedicinaBean{
      private long idmedicina;
      private String descripcion;
      private Integer cajasdisponibles=1;
+     private Integer cajasdisponiblesAccion=1;
+     private Integer unidadesPorCaja=1;
      private Boolean estadodisponible;
+     private Date fechaCaducidad;
      private Categoriamedicina categoriaSeleccionada;
      private String catSeleccionada;
+     private String medicinaNuevoNombre;
+     
+     private Integer unidades;
+     private ArrayList<Medicina> receta;
      private ArrayList<Medicina> medicinas;
+      private ArrayList<Medicina> medicinasFiltradas;
      private ArrayList<Categoriamedicina> categorias;
      private ArrayList<Medicina> medicinasCargadas=new ArrayList<Medicina>();
      private ArrayList<Categoriamedicina> categoriasCargadas=new ArrayList<Categoriamedicina>();
+     private ArrayList<ColumnModel> columnas;
+     
+     
+    private final static List<String> VALID_COLUMN_KEYS = Arrays.asList("idmedicina", "descripcion", "cajasdisponibles", "estadodisponible", "estadoborrado");
+     
+    private String columnTemplate = "idmedicina descripcion cajasdisponibles";
     /*
      * Creates a new instance of MedicinaBean
      */
@@ -62,8 +85,62 @@ public class MedicinaBean{
     public void init(){
           cargarMedicinas();
           cargarCategorias();
+          createDynamicColumns();
+          
+          
     }
      
+    private void createDynamicColumns() {
+        String[] columnKeys = columnTemplate.split(" ");
+        columnas = new ArrayList<ColumnModel>();   
+         
+        for(String columnKey : columnKeys) {
+            String key = columnKey.trim();
+             
+            if(VALID_COLUMN_KEYS.contains(key)) {
+                columnas.add(new ColumnModel(columnKey.toUpperCase(), columnKey));
+            }
+        }
+        
+    }
+
+    public ArrayList<Medicina> getReceta() {
+        return receta;
+    }
+
+    public void setReceta(ArrayList<Medicina> receta) {
+        this.receta = receta;
+    }
+
+    
+    
+    public Integer getUnidades() {
+        return unidades;
+    }
+
+    public void setUnidades(Integer unidades) {
+        this.unidades = unidades;
+    }
+    
+    
+
+    public Date getFechaCaducidad() {
+        return fechaCaducidad;
+    }
+
+    public void setFechaCaducidad(Date fechaCaducidad) {
+        this.fechaCaducidad = fechaCaducidad;
+    }
+
+    public Integer getUnidadesPorCaja() {
+        return unidadesPorCaja;
+    }
+
+    public void setUnidadesPorCaja(Integer unidadesPorCaja) {
+        this.unidadesPorCaja = unidadesPorCaja;
+    }
+
+    
     public MedicinaBo getMedicinaBo() {
         return medicinaBo;
     }
@@ -128,6 +205,40 @@ public class MedicinaBean{
         this.estadodisponible = estadodisponible;
     }
 
+    public Integer getCajasdisponiblesAccion() {
+        return cajasdisponiblesAccion;
+    }
+
+    public void setCajasdisponiblesAccion(Integer cajasdisponiblesAccion) {
+        this.cajasdisponiblesAccion = cajasdisponiblesAccion;
+    }
+
+    public ArrayList<ColumnModel> getColumnas() {
+        return columnas;
+    }
+
+    public void setColumnas(ArrayList<ColumnModel> columnas) {
+        this.columnas = columnas;
+    }
+
+    public String getMedicinaNuevoNombre() {
+        return medicinaNuevoNombre;
+    }
+
+    public void setMedicinaNuevoNombre(String medicinaNuevoNombre) {
+        this.medicinaNuevoNombre = medicinaNuevoNombre;
+    }
+
+    public String getColumnTemplate() {
+        return columnTemplate;
+    }
+
+    public void setColumnTemplate(String columnTemplate) {
+        this.columnTemplate = columnTemplate;
+    }
+
+    
+    
     public ArrayList<Medicina> getMedicinas() {
         return medicinas;
     }
@@ -176,6 +287,23 @@ public class MedicinaBean{
          
     }
 
+    public ArrayList<Medicina> getMedicinasFiltradas() {
+        return medicinasFiltradas;
+    }
+
+    public void setMedicinasFiltradas(ArrayList<Medicina> medicinasFiltradas) {
+        this.medicinasFiltradas = medicinasFiltradas;
+    }
+
+    
+    
+    public void updateCajasdisponiblesAccion(ValueChangeEvent e) {
+        //Integer n = (Integer)((EditableValueHolder) e.getComponent().getParent()).getValue(); 
+        
+        setCajasdisponiblesAccion(1);
+     } 
+    
+     
     public Categoriamedicina obtenerCategoria(Medicina med){
         return getMedicinaBo().obtenerCategoria(med.getIdmedicina());
     }
@@ -188,49 +316,81 @@ public class MedicinaBean{
         }
     }
     
-    public String eliminarMedicina(ActionEvent actionEvent)
+    public void eliminarMedicina(ActionEvent actionEvent)
     {
         deleteMedicina();
-        return "succes.xhtml";
+        cargarMedicinas();
+        addMessage("Medicina Eliminada Correctamente");
     }
     
-    public String sumarMedicina(ActionEvent actionEvent)
+    public void agregarReceta(ActionEvent actionEvent)
+    {
+        sumaReceta();
+        restaMedicina();
+        cargarMedicinas();
+        addMessage("Agregado a la receta, restan"+medicinaSeleccionada.getCajasdisponibles());
+    }
+    public void quitarReceta(ActionEvent actionEvent)
+    {
+        restaReceta();
+        sumaMedicina();
+        cargarMedicinas();
+        addMessage("Quitado de la receta, restan"+medicinaSeleccionada.getCajasdisponibles());
+    }
+    
+    public void sumaReceta(){
+        Medicina med = (Medicina)getMedicinaSeleccionada();
+        //receta.add(med);
+    }
+    public void restaReceta(){
+        Medicina med = (Medicina)getMedicinaSeleccionada();
+        //getReceta().remove(med);
+    }
+    
+    public void agregarMedicina(ActionEvent actionEvent)
     {
         sumaMedicina();
-        return "succes.xhtml";
+        cargarMedicinas();
+        addMessage("Caja agregada,"+medicinaSeleccionada.getCajasdisponibles());
     }
-    
-    public String restarMedicina(ActionEvent actionEvent)
+    public void restarMedicina(ActionEvent actionEvent)
     {
         restaMedicina();
-        return "succes.xhtml";
+        cargarMedicinas();
+        addMessage("Caja restada,"+medicinaSeleccionada.getCajasdisponibles());
     }
-    
 
     public void deleteMedicina() {
         Medicina med = (Medicina)getMedicinaSeleccionada();
         med.setEstadoborrado(true);
         getMedicinaBo().updateMedicina(med);
-        //agregarCategoria(medicina);        
+        //agregarCategoria(medicina);  
     }
+   
     public void sumaMedicina() {
         Medicina med = (Medicina)getMedicinaSeleccionada();
-        med.setCajasdisponibles(med.getCajasdisponibles()+getCajasdisponibles());
+        
+        med.setCajasdisponibles(med.getCajasdisponibles()+ 1);
         getMedicinaBo().updateMedicina(med);
+        setUnidadesPorCaja(5);
+        setFechaCaducidad(new Date(2014, 10, 20));
+        crearMedicinasEspecificas(1,med);
         //agregarCategoria(medicina);        
     }
     public void restaMedicina() {
         Medicina med = (Medicina)getMedicinaSeleccionada();
-        med.setCajasdisponibles(med.getCajasdisponibles()-getCajasdisponibles());
+        med.setCajasdisponibles(med.getCajasdisponibles()- 1);
         getMedicinaBo().updateMedicina(med);
-        //agregarCategoria(medicina);        
+        //eliminarMedicinasEspecificas(1,med);
+//agregarCategoria(medicina);        
     }
     
-    public String guardarMedicina(ActionEvent actionEvent)
+    public void guardarMedicina(ActionEvent actionEvent)
     {
         agregarNuevaMedicina();
         //addMessage("Medicina agregada correctamente");
-        return "succes.xhtml";
+        //return "succes.xhtml";
+        cargarMedicinas();
     }
 
     public void buttonAction(ActionEvent actionEvent) {
@@ -246,7 +406,23 @@ public class MedicinaBean{
         Medicina medicina = new Medicina(getDescripcion(),getCajasdisponibles(), true, false); 
         getMedicinaBo().agregarMedicina(medicina);
         setCategoria(medicina);    
+        crearMedicinasEspecificas(getCajasdisponibles(),medicina);
         //agregarCategoria(medicina);        
+    }
+    
+    public void crearMedicinasEspecificas(Integer cajas,Medicina med) {
+        for (int i = 0; i < cajas; i++) {
+            Medicinaepecifica me = new Medicinaepecifica(getUnidadesPorCaja(), false, false, med, dateToCalendar(getFechaCaducidad()));
+            getMedicinaBo().agregarMedicinaEspecifica(me);
+        }
+    }
+    
+   
+    
+    public static Calendar dateToCalendar(Date date){ 
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(date);
+    return cal;
     }
     
     public void setCategoria(Medicina med){
@@ -265,5 +441,26 @@ public class MedicinaBean{
     private Categoriamedicina obtenerCategoriaPorNombre( String categoria) {
         return getMedicinaBo().obtenerCategoria(categoria);
     }
+    
+    static public class ColumnModel implements Serializable {
+ 
+        private String header;
+        private String property;
+ 
+        public ColumnModel(String header, String property) {
+            this.header = header;
+            this.property = property;
+        }
+ 
+        public String getHeader() {
+            return header;
+        }
+ 
+        public String getProperty() {
+            return property;
+        }
+    }
+    
+    
     
 }

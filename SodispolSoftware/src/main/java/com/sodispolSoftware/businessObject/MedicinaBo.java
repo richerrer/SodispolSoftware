@@ -9,6 +9,7 @@ package com.sodispolSoftware.businessObject;
 import com.sodispolSoftware.model.Categoriamedicina;
 import com.sodispolSoftware.model.Categoriamedicinamedicina;
 import com.sodispolSoftware.model.Medicina;
+import com.sodispolSoftware.model.Medicinaepecifica;
 import java.util.ArrayList;
 
 /**
@@ -33,4 +34,8 @@ public interface MedicinaBo {
     public void updateMedicina(Medicina med);
     
     public Categoriamedicina obtenerCategoria(String categoria);
+
+    public void agregarMedicinaEspecifica(Medicinaepecifica me);
+
+   
 }

@@ -10,6 +10,7 @@ import com.sodispolSoftware.model.Categoriamedicina;
 import com.sodispolSoftware.model.Categoriamedicinamedicina;
 import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Medicina;
+import com.sodispolSoftware.model.Medicinaepecifica;
 import java.util.ArrayList;
 
 /**
@@ -33,4 +34,6 @@ public interface MedicinaDao {
     public void updateMedicina(Medicina med);
     
     public Categoriamedicina obtenerPorNombre(String categoria);
+
+    public void addMedicinaEspecifica(Medicinaepecifica me);
 }

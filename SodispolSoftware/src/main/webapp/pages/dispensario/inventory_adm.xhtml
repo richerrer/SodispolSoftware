@@ -14,7 +14,7 @@
         <link rel="Stylesheet" href="/SodispolSoftware/resources/css/estilo01.css"/>
         <link href="http://fonts.googleapis.com/css?family=Duru+Sans" rel="styleshee" type="text/css"/>
         <script src="/SodispolSoftware/resources/js/bootstrap.js"></script>
-         <script src="/SodispolSoftware/resources/js/main.js"></script>
+        <script src="/SodispolSoftware/resources/js/main.js"></script>
     </h:head>
     <h:body>
         <div id="container">            
@@ -45,6 +45,8 @@
                             <p:column colspan="4">Nombre</p:column>
                             <p:column colspan="4">Categoría</p:column>
                             <p:column colspan="3">Unidades Disponibles</p:column>
+                            <p:column colspan="3">Unidades Por Caja</p:column>
+                            <p:column colspan="3">Fecha de Caducidad</p:column>
                             <p:column>Accion</p:column>
                          </p:row>
                        
@@ -64,11 +66,21 @@
                             <p:column colspan="3">
                                 <p:spinner size="2" value="#{medicinaBean.cajasdisponibles}" min="1" >
                                 </p:spinner>
-                                unidades</p:column>
+                                unidades
+                            </p:column>
+                            <p:column colspan="3">
+                                <p:spinner size="2" value="#{medicinaBean.unidadesPorCaja}" min="1" >
+                                </p:spinner>
+                                unidades
+                            </p:column>
+                            <p:column colspan="3">
+                                <p:calendar id="popup" value="#{medicinaBean.fechaCaducidad}" />
+                            </p:column>
+                               
                             <p:column style="font-weight: bold;">
-                            <p:commandButton  value="Guardar" id="guardarMedicina" update="growl" action="#{medicinaBean.guardarMedicina(actionEvent)}" />
-
-
+                            <p:commandButton update=":form:display3" oncomplete="medicineDialog3.show()" icon="ui-icon-check" title="View">
+                             <f:setPropertyActionListener value="#{medicina}" target="#{medicinaBean.medicinaSeleccionada}" />
+                            </p:commandButton>
                             </p:column>
                             </p:row> 
                              
@@ -76,65 +88,92 @@
                     </f:facet>
                  </p:panelGrid>           
             </div>                        
-          </p:panel>            
-            
+          </p:panel>   
           </h:form> 
-          <h:form>
+            
+            
+            
+          <h:form id="form">
+          <p:panel id="toggleable5" header="Lista de Medicamentos" toggleable="true"  collapsed="true" toggleSpeed="500"  style="margin-bottom:20px"  styleClass="color6">
+              <div style="height: 25em" class="panelBarY">   
+          <p:dataTable id="medicinas"  var="medicina" value="#{medicinaBean.medicinas}" widgetVar="medicinaTable" filteredValue="#{medicinaBean.medicinasFiltradas}">                    
+             <p:columns value="#{medicinaBean.columnas}" var="column" columnIndexVar="colIndex" sortBy="#{medicina[column.property]}" filterBy="#{medicina[column.property]}">
+                 <f:facet name="header">
+                     <h:outputText value="#{column.header}" />
+                 </f:facet>
+                 <h:outputText value="#{medicina[column.property]}" />
+             </p:columns>    
+             <p:column>  
+                 <f:facet name="header">
+                     <h:outputText value="CATEGORIA" />
+                 </f:facet>
+    		<h:outputText value="#{medicinaBean.obtenerCategoria(medicina).descripcion}" />
+             </p:column>
               
-           <p:panel id="toggleable5" header="Lista de Medicamentos" toggleable="true"  collapsed="true" toggleSpeed="500"  style="margin-bottom:20px"  styleClass="color6">
-              <div style="height: 25em" class="panelBarY">
-                 
-                  <p:panelGrid id="listaMed" style="width: 99%">
-                      <f:facet name="header" >
-                         
-                          <p:row>
-                            <p:column colspan="4">Nombre</p:column>
-                            <p:column colspan="4">Categoría</p:column>
-                            <p:column colspan="3">Cajas Disponibles</p:column>
-                            <p:column colspan="4">Cantidad</p:column>
-                            <p:column colspan="2">Eliminar Medicina</p:column>
-                         </p:row>
-                       
-                          
-                          <c:forEach items="#{medicinaBean.medicinas}" var="medicina">
-                            
-                           <p:row>
-                               
-                                <p:column colspan="4" style="font-weight: bold;">#{medicina.descripcion}</p:column>
-                                <p:column colspan="4">#{medicinaBean.obtenerCategoria(medicina).descripcion}</p:column>
-                                <p:column colspan="3">#{medicina.cajasdisponibles} unidades</p:column>
-                                <p:column colspan="4">
-                                    <p:spinner size="2" value="#{medicinaBean.cajasdisponibles}" min="1"></p:spinner>
-                                    <p:commandButton value="Agregar cajas" action="#{medicinaBean.sumarMedicina(actionEvent)}">
-                                        <f:setPropertyActionListener value="#{medicina}" target="#{medicinaBean.medicinaSeleccionada}"/>
-                                    </p:commandButton>
-                                    <p:commandButton value="Quitar cajas" action="#{medicinaBean.restarMedicina(actionEvent)}">
-                                        <f:setPropertyActionListener value="#{medicina}" target="#{medicinaBean.medicinaSeleccionada}"/>
-                                    </p:commandButton>
-                                </p:column>
-                                <p:column colspan="2">
-                                    <p:commandButton value="Eliminar" action="#{medicinaBean.eliminarMedicina(actionEvent)}">
-                                        <f:setPropertyActionListener value="#{medicina}" target="#{medicinaBean.medicinaSeleccionada}"/>
-                                    </p:commandButton>
-                                    
-                                    
-                                </p:column>
-                                
-                                
-                                
-                                
-                                
-                            </p:row>
-                             
-                         </c:forEach>
-                          
-                    </f:facet>
-                    </p:panelGrid> 
-              </div>  
-            </p:panel>
-          
-          </h:form>
-          
+             <p:column style="width:32px;text-align: center">
+                <f:facet name="header">
+                     <h:outputText value="ADMINISTRAR" />
+                 </f:facet>
+                <p:commandButton update=":form:display2" oncomplete="medicineDialog2.show()" icon="ui-icon-clipboard" title="View">
+                    <f:setPropertyActionListener value="#{medicina}" target="#{medicinaBean.medicinaSeleccionada}" />
+                </p:commandButton>
+             </p:column> 
+              
+              <p:column style="width:32px;text-align: center">
+                <f:facet name="header">
+                     <h:outputText value="ELIMINAR" />
+                 </f:facet>
+                  <p:commandButton update=":form:display" oncomplete="medicineDialog.show()" icon="ui-icon-closethick" title="View">
+                    <f:setPropertyActionListener value="#{medicina}" target="#{medicinaBean.medicinaSeleccionada}" />
+                </p:commandButton>
+              </p:column>
+             
+             
+            </p:dataTable>
+            
+                <p:dialog header="Eliminar Medicina" widgetVar="medicineDialog" resizable="false" showEffect="fade" hideEffect="explode" modal= "true" appendTo="@(body)" id="medicineDlg" >
+                           <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+                               <h:outputText value="Nombre:" />
+                               <h:outputText value="#{medicinaBean.medicinaSeleccionada.descripcion}" style="font-weight:bold"/>                                               
+                               <p:commandButton id="deleteButton" process="@this" actionListener="#{medicinaBean.eliminarMedicina(actionEvent)}" oncomplete="medicineDialog.hide()" 
+                                   update=":form:medicinas" value="Eliminar"/>
+                               <p:commandButton id="cancelButton" onclick="medicineDialog.hide()" value="Cancelar"/>
+
+                           </h:panelGrid>
+                </p:dialog> 
+                  
+                  <p:dialog header="Administrar Medicina" widgetVar="medicineDialog2" resizable="false" showEffect="fade" hideEffect="explode" modal= "true" appendTo="@(body)" id="medicineDlg2" >
+                    <h:panelGrid id="display2" columns="2" cellpadding="4" style="margin:0 auto;">
+                        
+                          <h:outputText value="Nombre:" />
+                          <h:outputText value="#{medicinaBean.medicinaSeleccionada.descripcion}" />
+                          <h:outputText value="Agregar:" />
+                          <p:commandButton id="addButton2" process="@this" actionListener="#{medicinaBean.agregarMedicina(actionEvent)}"  
+                            update=":form:medicinas" icon="ui-icon-plusthick"/>
+                          <h:outputText value="Restar:" />
+                          <p:commandButton id="restButton2" process="@this" actionListener="#{medicinaBean.restarMedicina(actionEvent)}"  
+                            update=":form:medicinas" icon="ui-icon-minusthick"/>
+                          <f:facet name="footer">   
+                                <p:messages autoUpdate="true" />
+                          </f:facet>  
+                    </h:panelGrid>
+                    </p:dialog> 
+                  
+                  <p:dialog header="Crear Medicina" widgetVar="medicineDialog3" resizable="false" showEffect="fade" hideEffect="explode" modal= "true" appendTo="@(body)" id="medicineDlg3" >
+                           <h:panelGrid id="display3" columns="2" cellpadding="4" style="margin:0 auto;">
+                               <h:outputText value="Nombre:" />
+                               <h:outputText value="#{medicinaBean.descripcion}" style="font-weight:bold"/>                                               
+                               <p:commandButton id="createButton" process="@this" actionListener="#{medicinaBean.guardarMedicina(actionEvent)}" oncomplete="medicineDialog3.hide()" 
+                                   update=":form:medicinas" value="Guardar"/>
+                               <p:commandButton id="cancelButton2" onclick="medicineDialog3.hide()" value="Cancelar"/>
+
+                           </h:panelGrid>
+                     </p:dialog> 
+              
+        </div>  
+       </p:panel>        
+       </h:form>
+            
           <br/> <br/> <br/> 
          
     </section>

@@ -29,6 +29,13 @@ public class Medicinaepecifica  implements java.io.Serializable {
         this.idmedicinaespecifica = idmedicinaespecifica;
         this.medicina = medicina;
     }
+    public Medicinaepecifica(Integer unidadesdisponibles, Boolean estadocaducado, Boolean estadoborrado, Medicina medicina, Calendar fechacaducidad ) {
+        this.unidadesdisponibles=unidadesdisponibles;
+        this.estadocaducado=estadocaducado;
+        this.estadoborrado=estadoborrado;
+        this.medicina=medicina;
+        this.fechacaducidad=fechacaducidad;
+    }
     public Medicinaepecifica(long idmedicinaespecifica, Medicina medicina, Integer unidadesdisponibles, Calendar fechacaducidad, Boolean estadocaducado, Boolean estadoborrado, Set<Receta> recetas) {
        this.idmedicinaespecifica = idmedicinaespecifica;
        this.medicina = medicina;
