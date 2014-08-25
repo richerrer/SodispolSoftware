@@ -325,35 +325,42 @@ public class CitaBean {
     *
     */
     
-    public void llenarCitasDataTable(int tipoPagina)
+    public Doctor obtenerDoctorRespectivo(int tipoPagina)
     {
-        //Calendar fechaProvisional = Calendar.getInstance();
-        
-        Doctor doctorPagina = null;
-        
+        Doctor doctor = null;
         if(tipoPagina==0)
         {
-            doctorPagina = getUsuarioBean().getDoctor();
+            doctor = getUsuarioBean().getDoctor();
         }            
         if(tipoPagina==1)
         {
-            doctorPagina = getUsuarioBean().getDoctorConsulta();
+            doctor = getUsuarioBean().getDoctorConsulta();
         }
-        
+        return doctor;
+    }
+    
+    public void llenarCitasCargadas(ArrayList<Citamedica> citasProvisional)
+    {
+        for(Citamedica cm : citasProvisional)
+        {
+            if((cm.getFechareg().getTime().getDate() == fecha.getDate()) && (cm.getFechareg().getTime().getMonth() == fecha.getMonth()) && ((cm.getFechareg().getTime().getYear()) == fecha.getYear()))
+            {
+                setOcupacionEstudiante(cm.getEstudiante());
+                citasCargadas.add(cm);
+            }
+        }
+    }
+    
+    public void llenarCitasDataTable(int tipoPagina)
+    {
+        Doctor doctorPagina = obtenerDoctorRespectivo(tipoPagina);    
         ArrayList<Citamedica> citasProvisional = getCitaBo().getCitasByDoctor(doctorPagina);
             
         citasCargadas.removeAll(citasCargadas); 
         citasDataTable.removeAll(citasDataTable); 
         
-        for(Citamedica cm : citasProvisional)
-        {
-            if((cm.getFechareg().getTime().getDate() == fecha.getDate()) && (cm.getFechareg().getTime().getMonth() == fecha.getMonth()) && ((cm.getFechareg().getTime().getYear()) == fecha.getYear()))
-            {
-                //WbServiceEspol.loadDataEstudianteByMatriculaFromWebService(cm.getEstudiante());
-                setOcupacionEstudiante(cm.getEstudiante());
-                citasCargadas.add(cm);
-            }
-        }
+        llenarCitasCargadas(citasProvisional);
+        
         int entrada = (doctorPagina.getHoraentrada().getHours() *60) + doctorPagina.getHoraentrada().getMinutes();
         int salida = (doctorPagina.getHorasalida().getHours() *60) + doctorPagina.getHorasalida().getMinutes();
         int numCitasDia = (salida - entrada)/15;
