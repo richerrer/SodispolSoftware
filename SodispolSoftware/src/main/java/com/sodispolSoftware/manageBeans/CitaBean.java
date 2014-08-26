@@ -475,49 +475,95 @@ public class CitaBean {
         return "citas.xhtml";        
     }
     
-    public String guardarCita()
+    public boolean fechaYHoraPermitidas(Calendar fechaCita)
     {
-        if(citaSeleccionada.isVacio())
+        if(esHoyOFechaFutura(fechaCita) && esHoraNoPasada(fechaCita))
+            return true;
+        return false;
+    }
+    
+    public boolean esHoraNoPasada(Calendar fechaCita)
+    {
+        float h=Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        float min=Calendar.getInstance().get(Calendar.MINUTE);
+        float horaTotal = h + (min/60);
+        
+        float h2=fechaCita.get(Calendar.HOUR_OF_DAY);
+        float min2=fechaCita.get(Calendar.MINUTE);
+        float horaTotal2 = h2 + (min2/60);
+        
+        if(horaTotal2 >= horaTotal)
+            return true;
+        return false;
+    }
+    
+    public String guardarCita()
+    {        
+        if(fechaYHoraPermitidas(citaSeleccionada.getFechareg()))
         {
-            Citamedica citaNueva = new Citamedica("P", getEstudiante(), false, getUsuarioBean().getDoctorConsulta(), citaSeleccionada.getFechareg(), citaSeleccionada.getFechareg());
-            getCitaBo().addCita(citaNueva);
-            addMessageByType("La cita se agregó correctamente.", 1);
+            if(citaSeleccionada.isVacio())
+            {
+                Citamedica citaNueva = new Citamedica("P", getEstudiante(), false, getUsuarioBean().getDoctorConsulta(), citaSeleccionada.getFechareg(), citaSeleccionada.getFechareg());
+                getCitaBo().addCita(citaNueva);
+                addMessageByType("La cita se agregó correctamente.", 1);
+            }
+            else
+            {
+                addMessageByType("No se pudo agregar la cita, debido a que ya existe una en este horario", 0);
+            }
         }
         else
         {
-            addMessageByType("No se pudo agregar la cita, debido a que ya existe una en este horario", 0);
+            addMessageByType("No se pudo agregar la cita, debido a la fecha u horario seleccionados ya son pasados", 0);            
         }
+            
         
         return "citas.xhtml";
     }
    
-    public void atenderCita()
+    public boolean esHoyOFechaFutura(Calendar fechaCita)
     {
-        String nextPage = "";
-        
-        //if((citaSeleccionada.getEstadocita().equals("P")) && (citaSeleccionada.getFechareg().getTime().equals(Calendar.getInstance().getTime())))
         int d=Calendar.getInstance().get(Calendar.DATE);
         int m=Calendar.getInstance().get(Calendar.MONTH);
         int a=Calendar.getInstance().get(Calendar.YEAR);
         
-        int d2=citaSeleccionada.getFechareg().get(Calendar.DATE);
-        int m2 = citaSeleccionada.getFechareg().get(Calendar.MONTH);
-        int a2=citaSeleccionada.getFechareg().get(Calendar.YEAR);
+        int d2=fechaCita.get(Calendar.DATE);
+        int m2 = fechaCita.get(Calendar.MONTH);
+        int a2=fechaCita.get(Calendar.YEAR);
         
+        if((d2>=d) && (m2>=m) && (a2>=a))
+            return true;
+        return false;
+    }
+    
+    public void atenderCita()
+    {
         getUsuarioBean().setEstudiantePaciente(citaSeleccionada.getEstudiante());
         
-        if((citaSeleccionada.getEstadocita().equals("P")) && (d2==d) && (m2==m) && (a2==a))
+        if(esHoyOFechaFutura(citaSeleccionada.getFechareg()))
         {
-            
-            Redireccionar.redirect("pages/doctor/observacion.xhtml?modificador=1");
-            //nextPage = "observacion.xhtml?modificador=1";
+            if(citaSeleccionada.getEstadocita().equals("P"))
+            {
+                Redireccionar.redirect("pages/doctor/observacion.xhtml?modificador=1");
+                cambiarEstadoDeCita(citaSeleccionada, "C");
+            }
+            else
+            {
+                if(citaSeleccionada.getEstadocita().equals("C"))
+                {
+                    addMessageByType("Operacion Fallida: La cita ya fue atendida", 0);
+                }
+                else
+                {
+                    addMessageByType("Operacion Fallida: No existe cita en este horario", 0);
+                }
+                
+            }
         }
         else
         {
-            addMessageByType("Operacion Fallida: La cita ya fue atendida, o no existe cita en este horario", 0);
+            addMessageByType("Operacion Fallida: La fecha de la cita seleccionada no coincide con la fecha actual", 0);
         }
-       
-        //return nextPage;
     }
     
     public String llenarDataTablePagina2()
@@ -544,5 +590,11 @@ public class CitaBean {
     {
         llenarCitasDataTable(0);
         return getUsuarioBean().getDoctor().getApellido1();
+    }
+    
+    public void cambiarEstadoDeCita(Citamedica cita, String estado)
+    {
+        cita.setEstadocita(estado);
+        citaBo.updateCita(cita);
     }
 }
