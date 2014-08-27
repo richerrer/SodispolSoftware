@@ -31,7 +31,7 @@
             <div class="row margen_top2">
                 <div class="ancho70" style="margin: auto">
                     <h:form>
-                        <p:panel id="toggleable1" header="Información del Médico" toggleable="true"  toggleSpeed="500" widgetVar="panel1" style="margin-bottom:20px"  styleClass="color6">
+                        <p:panel id="toggleable1" header="Información de los Médicos" toggleable="true"  toggleSpeed="500" widgetVar="panel1" style="margin-bottom:20px"  styleClass="color6">
                             <h:panelGrid columns="2" style="margin: auto">
                                 <p:graphicImage url="resources/images/espol1.png" width="90em"/>
                                 <h:panelGrid columns="1" style="text-align: center" class="margen_izquierdo2">
@@ -41,32 +41,34 @@
                             </h:panelGrid>
                             <div class="ancho70" style="margin: auto">
                             <div class="row ancho1 margen_top3" style="font-size: smaller">
-                                <div class="col-md-3"></div>
-                                <div class="col-md-9">
-                                    <p:panelGrid columns="2">
-    
-                                        <h:outputText style="font-weight: bold;" value="Nombre:" />
-                                        <h:outputText value="Dr. Renato Israel Rivera Noboa" />
- 
-                                        <h:outputText style="font-weight: bold;" value="Correo electrónico:" />
-                                        <h:outputText value="rerivera@espol.edu.ec" />
- 
-                                        <h:outputText style="font-weight: bold;" value="Título:" />
-                                        <h:outputText value="Médico" />
- 
-                                        <h:outputText style="font-weight: bold;" value="Area de Especialización:" />
-                                        <h:outputText value="Medicina General" />
-                                    </p:panelGrid>
-                                </div>
-                                
-                                 
+                               
+                                  
+                                        <p:carousel value="#{infoMedicoBean.listaDoctores}" headerText="" var="doctor" >
+                                            <h:panelGrid columns="2" style="width:100%" cellpadding="5" columnClasses="label,value">
+                                                <h:outputText style="font-weight: bold; width: 20%;" value="Nombre:" />
+                                                <h:outputText value="Dr. #{doctor.nombre1} #{doctor.apellido1}" style="width: 30%;"/>
+
+                                                <h:outputText style="font-weight: bold; width: 20%;" value="Correo electrónico:" />
+                                                <h:outputText value="#{doctor.username}@espol.edu.ec" style="width: 30%;"/>
+
+                                                <h:outputText style="font-weight: bold; width: 20%;" value="Título:" />
+                                                <h:outputText value="Médico General" style="width: 30%;"/>
+
+                                                 <h:outputText style="font-weight: bold; width: 20%;" value="Hora de Entrada:" />
+                                                 <h:outputText value="#{doctor.horaentrada}" style="width: 30%;"/>
+
+                                                 <h:outputText style="font-weight: bold; width: 20%;" value="Hora de Salida:" />
+                                                 <h:outputText value="#{doctor.horasalida}" style="width: 30%;"/>
+                                                
+                                            </h:panelGrid>
+                                        </p:carousel>
+       
+                                      
                                 
                              </div>
-                             
-                                
                             </div>
                         </p:panel>
-                        
+                        <!--
                         <p:commandButton styleClass="espacioIzq1" value="Enviar Correo" type="button" onclick="PF('enviarCorreo').show();" />
                         
                         <p:dialog header="Enviar Correo" widgetVar="enviarCorreo" modal="true" width="400" showEffect="clip" hideEffect="clip">
@@ -84,7 +86,7 @@
                                 <p:commandButton id="enviar" ajax="false" styleClass="espacioIzq2" value="Enviar" action="succes" oncomplete="PF('enviarCorreo').hide();" />
                             </h:panelGrid>
 
-                        </p:dialog>
+                        </p:dialog>-->
                     </h:form>
                 </div>
             </div>
