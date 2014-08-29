@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite tests="1" failures="0" name="com.sodispolSoftware.dao.implement.CitaDaoTransactionUnitTest" time="3.199" errors="1" skipped="0">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_05\jre\bin"/>
+    <property name="java.vm.version" value="25.5-b02"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="path.separator" value=";"/>
+    <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) Client VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.script" value=""/>
+    <property name="user.country" value="ES"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value="Service Pack 1"/>
+    <property name="test" value="com.sodispolSoftware.dao.implement.CitaDaoTransactionUnitTest"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="C:\Users\Jose\Documents\GitHub\SodispolSoftware\SodispolSoftware"/>
+    <property name="java.runtime.version" value="1.8.0_05-b13"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_05\jre\lib\endorsed"/>
+    <property name="os.arch" value="x86"/>
+    <property name="java.io.tmpdir" value="C:\Users\Jose\AppData\Local\Temp\"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.variant" value=""/>
+    <property name="os.name" value="Windows 7"/>
+    <property name="maven.ext.class.path" value="C:\Program Files\NetBeans 8.0\java\maven-nblib\netbeans-eventspy.jar"/>
+    <property name="classworlds.conf" value="C:\Program Files\NetBeans 8.0\java\maven\bin\m2.conf"/>
+    <property name="netbeansProjectMappings" value=""/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_05\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Python27\;C:\Python27\Scripts;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Microsoft SQL Server\110\DTS\Binn\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\ManagementStudio\;C:\Program Files\Microsoft Visual Studio 10.0\Common7\IDE\PrivateAssemblies\;C:\Program Files\Java\jdk1.8.0_05\bin;%MAVEN_HOME%\bin;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\;C:\Python27\;C:\Python27\Scripts;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Microsoft SQL Server\110\DTS\Binn\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\ManagementStudio\;C:\Program Files\Microsoft Visual Studio 10.0\Common7\IDE\PrivateAssemblies\;C:\Program Files\Java\jdk1.8.0_05\bin;C:\maven-1.0.2\bin;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\;C:\Users\Jose\AppData\Roaming\Python\Scripts;C:\maven-1.0.2\bin;C:\Program Files\Java\jdk1.8.0_05\bin;."/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="52.0"/>
+    <property name="sun.management.compiler" value="HotSpot Client Compiler"/>
+    <property name="os.version" value="6.1"/>
+    <property name="user.home" value="C:\Users\Jose"/>
+    <property name="user.timezone" value="America/Bogota"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="user.name" value="Jose"/>
+    <property name="java.class.path" value="C:\Program Files\NetBeans 8.0\java\maven\boot\plexus-classworlds-2.4.jar"/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="sun.arch.data.model" value="32"/>
+    <property name="java.home" value="C:\Program Files\Java\jdk1.8.0_05\jre"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=com.sodispolSoftware.dao.implement.CitaDaoTransactionUnitTest -DnetbeansProjectMappings= -Dmaven.ext.class.path=C:\Program Files\NetBeans 8.0\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8 surefire:test"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.language" value="es"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.8.0_05"/>
+    <property name="java.ext.dirs" value="C:\Program Files\Java\jdk1.8.0_05\jre\lib\ext;C:\Windows\Sun\Java\lib\ext"/>
+    <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.8.0_05\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_05\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_05\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.8.0_05\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_05\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_05\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_05\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_05\jre\classes"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="maven.home" value="C:\Program Files\NetBeans 8.0\java\maven"/>
+    <property name="file.separator" value="\"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.desktop" value="windows"/>
+    <property name="sun.cpu.isalist" value=""/>
+  </properties>
+  <testcase classname="com.sodispolSoftware.dao.implement.CitaDaoTransactionUnitTest" name="testGetAllCitas" time="2.969">
+    <error message="Failed to load ApplicationContext" type="java.lang.IllegalStateException">java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:157)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:109)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:75)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:321)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:211)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:288)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:290)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:47)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:231)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:60)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:50)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:222)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:300)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:53)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:123)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:104)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:164)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:110)
+	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
+	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;checker&apos;: Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: private com.sodispolSoftware.businessObject.DoctorBo com.sodispolSoftware.validator.Checker.doctorBo; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;doctorBoImpl&apos;: Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: private com.sodispolSoftware.dao.DoctorDao com.sodispolSoftware.businessObject.implement.DoctorBoImpl.doctorDao; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;doctorDao&apos; defined in URL [file:src/main/webapp/WEB-INF/springConfig/beansInjections/userBean.xml]: Cannot resolve reference to bean &apos;sessionFactory&apos; while setting bean property &apos;sessionFactory&apos;; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;sessionFactory&apos; defined in URL [file:src/main/webapp/WEB-INF/springConfig/database/HibernateSessionFactory.xml]: Invocation of init method failed; nested exception is java.lang.ClassFormatError: Absent Code attribute in method that is not native or abstract in class file javax/validation/Validation
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:292)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1185)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:537)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:475)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:228)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:703)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:760)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:482)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:103)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:1)
+	at org.springframework.test.context.support.DelegatingSmartContextLoader.loadContext(DelegatingSmartContextLoader.java:228)
+	at org.springframework.test.context.TestContext.loadApplicationContext(TestContext.java:124)
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:148)
+	... 30 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire field: private com.sodispolSoftware.businessObject.DoctorBo com.sodispolSoftware.validator.Checker.doctorBo; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;doctorBoImpl&apos;: Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: private com.sodispolSoftware.dao.DoctorDao com.sodispolSoftware.businessObject.implement.DoctorBoImpl.doctorDao; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;doctorDao&apos; defined in URL [file:src/main/webapp/WEB-INF/springConfig/beansInjections/userBean.xml]: Cannot resolve reference to bean &apos;sessionFactory&apos; while setting bean property &apos;sessionFactory&apos;; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;sessionFactory&apos; defined in URL [file:src/main/webapp/WEB-INF/springConfig/database/HibernateSessionFactory.xml]: Invocation of init method failed; nested exception is java.lang.ClassFormatError: Absent Code attribute in method that is not native or abstract in class file javax/validation/Validation
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:508)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:289)
+	... 45 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;doctorBoImpl&apos;: Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: private com.sodispolSoftware.dao.DoctorDao com.sodispolSoftware.businessObject.implement.DoctorBoImpl.doctorDao; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;doctorDao&apos; defined in URL [file:src/main/webapp/WEB-INF/springConfig/beansInjections/userBean.xml]: Cannot resolve reference to bean &apos;sessionFactory&apos; while setting bean property &apos;sessionFactory&apos;; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;sessionFactory&apos; defined in URL [file:src/main/webapp/WEB-INF/springConfig/database/HibernateSessionFactory.xml]: Invocation of init method failed; nested exception is java.lang.ClassFormatError: Absent Code attribute in method that is not native or abstract in class file javax/validation/Validation
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:292)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1185)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:537)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:475)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1017)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:960)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:858)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:480)
+	... 47 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire field: private com.sodispolSoftware.dao.DoctorDao com.sodispolSoftware.businessObject.implement.DoctorBoImpl.doctorDao; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;doctorDao&apos; defined in URL [file:src/main/webapp/WEB-INF/springConfig/beansInjections/userBean.xml]: Cannot resolve reference to bean &apos;sessionFactory&apos; while setting bean property &apos;sessionFactory&apos;; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;sessionFactory&apos; defined in URL [file:src/main/webapp/WEB-INF/springConfig/database/HibernateSessionFactory.xml]: Invocation of init method failed; nested exception is java.lang.ClassFormatError: Absent Code attribute in method that is not native or abstract in class file javax/validation/Validation
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:508)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:289)
+	... 56 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;doctorDao&apos; defined in URL [file:src/main/webapp/WEB-INF/springConfig/beansInjections/userBean.xml]: Cannot resolve reference to bean &apos;sessionFactory&apos; while setting bean property &apos;sessionFactory&apos;; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;sessionFactory&apos; defined in URL [file:src/main/webapp/WEB-INF/springConfig/database/HibernateSessionFactory.xml]: Invocation of init method failed; nested exception is java.lang.ClassFormatError: Absent Code attribute in method that is not native or abstract in class file javax/validation/Validation
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:336)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:108)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1456)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1197)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:537)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:475)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1017)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:960)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:858)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:480)
+	... 58 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name &apos;sessionFactory&apos; defined in URL [file:src/main/webapp/WEB-INF/springConfig/database/HibernateSessionFactory.xml]: Invocation of init method failed; nested exception is java.lang.ClassFormatError: Absent Code attribute in method that is not native or abstract in class file javax/validation/Validation
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:539)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:475)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:228)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:328)
+	... 69 more
+Caused by: java.lang.ClassFormatError: Absent Code attribute in method that is not native or abstract in class file javax/validation/Validation
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:760)
+	at java.security.SecureClassLoader.defineClass(SecureClassLoader.java:142)
+	at java.net.URLClassLoader.defineClass(URLClassLoader.java:455)
+	at java.net.URLClassLoader.access$100(URLClassLoader.java:73)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:367)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:340)
+	at org.hibernate.util.ReflectHelper.classForName(ReflectHelper.java:170)
+	at org.hibernate.cfg.beanvalidation.BeanValidationActivator.applyDDL(BeanValidationActivator.java:103)
+	at org.hibernate.cfg.Configuration.applyBeanValidationConstraintsOnDDL(Configuration.java:1704)
+	at org.hibernate.cfg.Configuration.applyConstraintsToDDL(Configuration.java:1654)
+	at org.hibernate.cfg.Configuration.secondPassCompile(Configuration.java:1445)
+	at org.hibernate.cfg.Configuration.buildMappings(Configuration.java:1375)
+	at org.springframework.orm.hibernate3.LocalSessionFactoryBean.buildSessionFactory(LocalSessionFactoryBean.java:658)
+	at org.springframework.orm.hibernate3.AbstractSessionFactoryBean.afterPropertiesSet(AbstractSessionFactoryBean.java:189)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1612)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1549)
+	... 76 more
+</error>
+    <system-err>log4j:WARN No appenders could be found for logger (org.springframework.test.context.junit4.SpringJUnit4ClassRunner).
+log4j:WARN Please initialize the log4j system properly.
+SLF4J: Failed to load class &quot;org.slf4j.impl.StaticLoggerBinder&quot;.
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+</system-err>
+  </testcase>
+</testsuite>
