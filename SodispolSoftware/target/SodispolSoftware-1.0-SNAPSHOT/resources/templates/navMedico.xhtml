@@ -27,7 +27,7 @@
                     Cita <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-                    <c:if test="#{(usuarioBean.user.roleuser.descripcion == 'ROLE_ENFERMERO')}">
+                    <c:if test="#{(usuarioBean.user.roleuser.descripcion == 'ROLE_DOCTOR')}">
                         <li><a href="/SodispolSoftware/pages/enfermero/nuevaCita.xhtml">Crear/Eliminar Citas</a></li>
                     </c:if>
                     <c:if test="#{(usuarioBean.user.roleuser.descripcion == 'ROLE_DOCTOR')}">
