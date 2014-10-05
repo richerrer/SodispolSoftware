@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://academico.espol.edu.ec/webservices/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://academico.espol.edu.ec/webservices/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://academico.espol.edu.ec/webservices/">
+      <s:element name="Ping">
+        <s:complexType />
+      </s:element>
+      <s:element name="PingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PingResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DatosUsuario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DatosUsuarioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DatosUsuarioResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DatosEstudianteUsuario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DatosEstudianteUsuarioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DatosEstudianteUsuarioResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DatosEstudianteCedula">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cedula" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DatosEstudianteCedulaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DatosEstudianteCedulaResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DatosEstudianteMatricula">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="matricula" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DatosEstudianteMatriculaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DatosEstudianteMatriculaResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DatosProfesionalUsuario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DatosProfesionalUsuarioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DatosProfesionalUsuarioResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DatosProfesionalCedula">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cedula" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DatosProfesionalCedulaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DatosProfesionalCedulaResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="PingSoapIn">
+    <wsdl:part name="parameters" element="tns:Ping" />
+  </wsdl:message>
+  <wsdl:message name="PingSoapOut">
+    <wsdl:part name="parameters" element="tns:PingResponse" />
+  </wsdl:message>
+  <wsdl:message name="DatosUsuarioSoapIn">
+    <wsdl:part name="parameters" element="tns:DatosUsuario" />
+  </wsdl:message>
+  <wsdl:message name="DatosUsuarioSoapOut">
+    <wsdl:part name="parameters" element="tns:DatosUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="DatosEstudianteUsuarioSoapIn">
+    <wsdl:part name="parameters" element="tns:DatosEstudianteUsuario" />
+  </wsdl:message>
+  <wsdl:message name="DatosEstudianteUsuarioSoapOut">
+    <wsdl:part name="parameters" element="tns:DatosEstudianteUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="DatosEstudianteCedulaSoapIn">
+    <wsdl:part name="parameters" element="tns:DatosEstudianteCedula" />
+  </wsdl:message>
+  <wsdl:message name="DatosEstudianteCedulaSoapOut">
+    <wsdl:part name="parameters" element="tns:DatosEstudianteCedulaResponse" />
+  </wsdl:message>
+  <wsdl:message name="DatosEstudianteMatriculaSoapIn">
+    <wsdl:part name="parameters" element="tns:DatosEstudianteMatricula" />
+  </wsdl:message>
+  <wsdl:message name="DatosEstudianteMatriculaSoapOut">
+    <wsdl:part name="parameters" element="tns:DatosEstudianteMatriculaResponse" />
+  </wsdl:message>
+  <wsdl:message name="DatosProfesionalUsuarioSoapIn">
+    <wsdl:part name="parameters" element="tns:DatosProfesionalUsuario" />
+  </wsdl:message>
+  <wsdl:message name="DatosProfesionalUsuarioSoapOut">
+    <wsdl:part name="parameters" element="tns:DatosProfesionalUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="DatosProfesionalCedulaSoapIn">
+    <wsdl:part name="parameters" element="tns:DatosProfesionalCedula" />
+  </wsdl:message>
+  <wsdl:message name="DatosProfesionalCedulaSoapOut">
+    <wsdl:part name="parameters" element="tns:DatosProfesionalCedulaResponse" />
+  </wsdl:message>
+  <wsdl:portType name="wsSODISSoap">
+    <wsdl:operation name="Ping">
+      <wsdl:input message="tns:PingSoapIn" />
+      <wsdl:output message="tns:PingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DatosUsuario">
+      <wsdl:input message="tns:DatosUsuarioSoapIn" />
+      <wsdl:output message="tns:DatosUsuarioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DatosEstudianteUsuario">
+      <wsdl:input message="tns:DatosEstudianteUsuarioSoapIn" />
+      <wsdl:output message="tns:DatosEstudianteUsuarioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DatosEstudianteCedula">
+      <wsdl:input message="tns:DatosEstudianteCedulaSoapIn" />
+      <wsdl:output message="tns:DatosEstudianteCedulaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DatosEstudianteMatricula">
+      <wsdl:input message="tns:DatosEstudianteMatriculaSoapIn" />
+      <wsdl:output message="tns:DatosEstudianteMatriculaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DatosProfesionalUsuario">
+      <wsdl:input message="tns:DatosProfesionalUsuarioSoapIn" />
+      <wsdl:output message="tns:DatosProfesionalUsuarioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DatosProfesionalCedula">
+      <wsdl:input message="tns:DatosProfesionalCedulaSoapIn" />
+      <wsdl:output message="tns:DatosProfesionalCedulaSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="wsSODISSoap" type="tns:wsSODISSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Ping">
+      <soap:operation soapAction="http://academico.espol.edu.ec/webservices/Ping" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DatosUsuario">
+      <soap:operation soapAction="http://academico.espol.edu.ec/webservices/DatosUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DatosEstudianteUsuario">
+      <soap:operation soapAction="http://academico.espol.edu.ec/webservices/DatosEstudianteUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DatosEstudianteCedula">
+      <soap:operation soapAction="http://academico.espol.edu.ec/webservices/DatosEstudianteCedula" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DatosEstudianteMatricula">
+      <soap:operation soapAction="http://academico.espol.edu.ec/webservices/DatosEstudianteMatricula" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DatosProfesionalUsuario">
+      <soap:operation soapAction="http://academico.espol.edu.ec/webservices/DatosProfesionalUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DatosProfesionalCedula">
+      <soap:operation soapAction="http://academico.espol.edu.ec/webservices/DatosProfesionalCedula" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="wsSODISSoap12" type="tns:wsSODISSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Ping">
+      <soap12:operation soapAction="http://academico.espol.edu.ec/webservices/Ping" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DatosUsuario">
+      <soap12:operation soapAction="http://academico.espol.edu.ec/webservices/DatosUsuario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DatosEstudianteUsuario">
+      <soap12:operation soapAction="http://academico.espol.edu.ec/webservices/DatosEstudianteUsuario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DatosEstudianteCedula">
+      <soap12:operation soapAction="http://academico.espol.edu.ec/webservices/DatosEstudianteCedula" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DatosEstudianteMatricula">
+      <soap12:operation soapAction="http://academico.espol.edu.ec/webservices/DatosEstudianteMatricula" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DatosProfesionalUsuario">
+      <soap12:operation soapAction="http://academico.espol.edu.ec/webservices/DatosProfesionalUsuario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DatosProfesionalCedula">
+      <soap12:operation soapAction="http://academico.espol.edu.ec/webservices/DatosProfesionalCedula" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="wsSODIS">
+    <wsdl:port name="wsSODISSoap" binding="tns:wsSODISSoap">
+      <soap:address location="https://ws.espol.edu.ec/saac/wsSODIS.asmx" />
+    </wsdl:port>
+    <wsdl:port name="wsSODISSoap12" binding="tns:wsSODISSoap12">
+      <soap12:address location="https://ws.espol.edu.ec/saac/wsSODIS.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
