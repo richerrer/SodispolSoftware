@@ -13,6 +13,7 @@ WITH (
 );
 ALTER TABLE roleuser
   OWNER TO postgres;
+
   
 -- Table: doctor
 
@@ -52,6 +53,15 @@ CREATE INDEX doctor_iddoctor
 -- DROP INDEX i_doctor_username;
 
 CREATE UNIQUE INDEX i_doctor_username
+  ON doctor
+  USING btree
+  (username COLLATE pg_catalog."default", estadoborrado);
+
+-- Index: i_doctor_username_estado
+
+-- DROP INDEX i_doctor_username_estado;
+
+CREATE UNIQUE INDEX i_doctor_username_estado
   ON doctor
   USING btree
   (username COLLATE pg_catalog."default", estadoborrado);
@@ -105,8 +115,27 @@ WITH (
 );
 ALTER TABLE enfermero
   OWNER TO postgres;
-  
-  -- Table: fichamedicaestudiante
+
+-- Index: i_enfermero_username
+
+-- DROP INDEX i_enfermero_username;
+
+CREATE UNIQUE INDEX i_enfermero_username
+  ON enfermero
+  USING btree
+  (username COLLATE pg_catalog."default", estadoborrado);
+
+-- Index: i_enfermero_username_estado
+
+-- DROP INDEX i_enfermero_username_estado;
+
+CREATE UNIQUE INDEX i_enfermero_username_estado
+  ON enfermero
+  USING btree
+  (username COLLATE pg_catalog."default", estadoborrado);
+
+
+-- Table: fichamedicaestudiante
 
 -- DROP TABLE fichamedicaestudiante;
 
@@ -117,6 +146,13 @@ CREATE TABLE fichamedicaestudiante
   enfermedadesinfancia text,
   vacunasrecibidas text,
   idestudiante bigint NOT NULL,
+  aparatorespiratorio character varying(255),
+  aparatocirculatorio character varying(255),
+  aparatodigestivo character varying(255),
+  aparatogenicourinario character varying(255),
+  sistemalinfatico character varying(255),
+  sistemanervioso character varying(255),
+  examenpiel character varying(255),
   CONSTRAINT fichamedicaestudiante_pkey PRIMARY KEY (idfichamedica),
   CONSTRAINT fkfichamedic220896 FOREIGN KEY (idestudiante)
       REFERENCES estudiante (idestudiante) MATCH SIMPLE
@@ -128,17 +164,8 @@ WITH (
 ALTER TABLE fichamedicaestudiante
   OWNER TO postgres;
 
--- Index: i_enfermero_username
-
--- DROP INDEX i_enfermero_username;
-
-CREATE UNIQUE INDEX i_enfermero_username
-  ON enfermero
-  USING btree
-  (username COLLATE pg_catalog."default", estadoborrado);
-
-
-  -- Table: citamedica
+  
+-- Table: citamedica
 
 -- DROP TABLE citamedica;
 
@@ -165,7 +192,8 @@ WITH (
 ALTER TABLE citamedica
   OWNER TO postgres;
 
-  -- Table: detallefichaestudiante
+  
+-- Table: detallefichaestudiante
 
 -- DROP TABLE detallefichaestudiante;
 
@@ -174,16 +202,9 @@ CREATE TABLE detallefichaestudiante
   iddetalleficha bigserial NOT NULL,
   estatura double precision,
   peso double precision,
-  examenpiel character varying(255),
-  aparatorespiratorio character varying(255),
-  apartocirculatorio character varying(255),
   presionarterial character varying(255),
   pulso character varying(255),
   ruidoscardiacos character varying(255),
-  aparatodigestivo character varying(255),
-  aparatogenicourinario character varying(255),
-  sitemalinfatico character varying(255),
-  sistemanervioso character varying(255),
   observaciones text,
   temperatura character varying(255),
   estadoborrado boolean NOT NULL,
@@ -208,7 +229,8 @@ WITH (
 ALTER TABLE detallefichaestudiante
   OWNER TO postgres;
 
-  -- Table: medicina
+  
+-- Table: medicina
 
 -- DROP TABLE medicina;
 
@@ -227,7 +249,8 @@ WITH (
 ALTER TABLE medicina
   OWNER TO postgres;
 
-  -- Table: medicinaepecifica
+  
+-- Table: medicinaepecifica
 
 -- DROP TABLE medicinaepecifica;
 
@@ -250,7 +273,8 @@ WITH (
 ALTER TABLE medicinaepecifica
   OWNER TO postgres;
 
-  -- Table: receta
+  
+-- Table: receta
 
 -- DROP TABLE receta;
 
@@ -275,7 +299,8 @@ WITH (
 ALTER TABLE receta
   OWNER TO postgres;
 
- -- Table: detalleabastecimiento
+  
+-- Table: detalleabastecimiento
 
 -- DROP TABLE detalleabastecimiento;
 
@@ -307,7 +332,8 @@ WITH (
 ALTER TABLE detalleabastecimiento
   OWNER TO postgres;
 
-  -- Table: categoriamedicina
+  
+-- Table: categoriamedicina
 
 -- DROP TABLE categoriamedicina;
 
@@ -325,7 +351,7 @@ ALTER TABLE categoriamedicina
   OWNER TO postgres;
 
   
-  -- Table: categoriamedicinamedicina
+-- Table: categoriamedicinamedicina
 
 -- DROP TABLE categoriamedicinamedicina;
 
@@ -349,7 +375,8 @@ WITH (
 ALTER TABLE categoriamedicinamedicina
   OWNER TO postgres;
 
-    -- Table: categoriapatologia
+  
+-- Table: categoriapatologia
 
 -- DROP TABLE categoriapatologia;
 
@@ -367,7 +394,7 @@ ALTER TABLE categoriapatologia
   OWNER TO postgres;
 
   
-  -- Table: patologia
+-- Table: patologia
 
 -- DROP TABLE patologia;
 
@@ -389,7 +416,8 @@ WITH (
 ALTER TABLE patologia
   OWNER TO postgres;
 
-  -- Table: patologiadetalleficha
+  
+-- Table: patologiadetalleficha
 
 -- DROP TABLE patologiadetalleficha;
 
@@ -412,6 +440,7 @@ WITH (
 );
 ALTER TABLE patologiadetalleficha
   OWNER TO postgres;
+
 
 INSERT INTO roleuser(descripcion)
     VALUES ('ROLE_DOCTOR'),('ROLE_ENFERMERO'),('ROLE_ESTUDIANTE'),('ROLE_PROFESIONAL');
@@ -456,5 +485,3 @@ INSERT INTO roleuser(descripcion)
     VALUES (false, 4, 1);
 	
 	
-create unique index I_doctor_username_estado on doctor(username,estadoborrado);
-create unique index I_enfermero_username_estado on enfermero(username,estadoborrado);
