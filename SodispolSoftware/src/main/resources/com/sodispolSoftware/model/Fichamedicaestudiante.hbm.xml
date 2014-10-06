@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 20-jul-2014 15:20:17 by Hibernate Tools 3.6.0 -->
+<!-- Generated 18/09/2014 05:04:43 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="com.sodispolSoftware.model.Fichamedicaestudiante" table="fichamedicaestudiante" schema="public">
         <id name="idfichamedica" type="long">
@@ -9,7 +9,7 @@
             <generator class="identity" />
         </id>
         <many-to-one name="estudiante" class="com.sodispolSoftware.model.Estudiante" fetch="select">
-            <column name="idestudiante" not-null="true" unique="true"/>
+            <column name="idestudiante" not-null="true" />
         </many-to-one>
         <property name="antecedentespatologicos" type="string">
             <column name="antecedentespatologicos" />
@@ -19,6 +19,27 @@
         </property>
         <property name="vacunasrecibidas" type="string">
             <column name="vacunasrecibidas" />
+        </property>
+        <property name="aparatorespiratorio" type="string">
+            <column name="aparatorespiratorio" />
+        </property>
+        <property name="aparatocirculatorio" type="string">
+            <column name="aparatocirculatorio" />
+        </property>
+        <property name="aparatodigestivo" type="string">
+            <column name="aparatodigestivo" />
+        </property>
+        <property name="aparatogenicourinario" type="string">
+            <column name="aparatogenicourinario" />
+        </property>
+        <property name="sistemalinfatico" type="string">
+            <column name="sistemalinfatico" />
+        </property>
+        <property name="sistemanervioso" type="string">
+            <column name="sistemanervioso" />
+        </property>
+        <property name="examenpiel" type="string">
+            <column name="examenpiel" />
         </property>
         <set name="detallefichaestudiantes" table="detallefichaestudiante" inverse="true" lazy="true" fetch="select">
             <key>

@@ -13,10 +13,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 
-@Named
 public class Checker {
     
-    @Inject
+    /*@Inject
     private DoctorBo doctorBo;
     
     @Inject
@@ -31,7 +30,7 @@ public class Checker {
     }
     
     
-    public Doctor verifyDoctorByUsername(String username){
+    public Doctor verifdyDoctorByUsername(String username){
         Doctor doctor = doctorBo.getDoctor(username);
         
         if(doctor==null){
@@ -41,5 +40,5 @@ public class Checker {
             doctor = doctorBo.getDoctor(username);
         }
         return doctor;
-    }
+    }*/
 }

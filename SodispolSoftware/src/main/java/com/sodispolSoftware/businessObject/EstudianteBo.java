@@ -32,4 +32,5 @@ public interface EstudianteBo {
     public void updateFichaMedica(Estudiante estudiante, Fichamedicaestudiante ficha);
     
     public Detallefichaestudiante getDetalleFichaEstudiante(long idDetalle,Estudiante estudiante);
+    
 }

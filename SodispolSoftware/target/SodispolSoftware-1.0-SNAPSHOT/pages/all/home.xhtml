@@ -26,7 +26,7 @@
                     <ui:include src="/resources/templates/navMedico.xhtml"/>
                 </nav>
             </c:if>
-
+            
             <c:if test="#{(usuarioBean.user.roleuser.descripcion == 'ROLE_ESTUDIANTE')}">
                 <nav class="navbar navbar-default color1 ancho1 center" role="navigation">
                     <ui:include src="/resources/templates/navEstudiante.xhtml"/>
@@ -38,7 +38,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8  alturaEjemplo">
                             <section>
-                                <h2 class="texto">Bienvenido #{usuarioBean.user}</h2>
+                                <h2 class="texto margen_izquierdo2">Bienvenido</h2>
 
                                 <table style="border:3px solid #282A2B; background-color:#282A2B; float: left;" > 
                                     <tr> 
@@ -66,18 +66,14 @@
                             <section style="font-size: smaller !important">
                                 <h3 class="centrar">Citas del día</h3>
                                 <br/>
-                                <h:form>  
+                                <h:form class=" altoFijo1">  
                                     <p:dataTable var="p" value="#{ejemplo.personas}" id="seded">  
-                                        <p:column headerText="Horario">  
+                                        <p:column headerText="Horario" styleClass="centrar">  
                                             <h:outputText value="#{p.horario}" />  
                                         </p:column>  
 
-                                        <p:column headerText="Nombre">  
+                                        <p:column headerText="Nombre" styleClass="centrar">  
                                             <h:outputText value="#{p.nombre}" />  
-                                        </p:column>  
-
-                                        <p:column headerText="Ocupacion" >  
-                                            <h:outputText value="#{p.carrera}" />  
                                         </p:column>  
 
                                     </p:dataTable>  

@@ -9,18 +9,19 @@ import com.sodispolSoftware.businessObject.EnfermeroBo;
 import com.sodispolSoftware.businessObject.RoleUserBo;
 import com.sodispolSoftware.dao.EnfermeroDao;
 import com.sodispolSoftware.model.Enfermero;
-import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
+import com.sodispolSoftware.webServiceEspol.WebServiceEspol;
 import java.util.ArrayList;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 
 /**
  *
  * @author usuario
  */
 @Named
-@Scope("prototype")
+@Scope("session")//,proxyMode = ScopedProxyMode.TARGET_CLASS
 public class EnfermeroBoImpl implements EnfermeroBo {
 
     @Inject
@@ -28,6 +29,18 @@ public class EnfermeroBoImpl implements EnfermeroBo {
 
     @Inject
     private RoleUserBo roleUserBo;
+    
+    @Inject
+    private WebServiceEspol webService;
+
+    
+    public WebServiceEspol getWebService() {
+        return webService;
+    }
+
+    public void setWebService(WebServiceEspol webService) {
+        this.webService = webService;
+    }
 
     @Override
     public Enfermero getEnfermero(String username) {
@@ -64,7 +77,7 @@ public class EnfermeroBoImpl implements EnfermeroBo {
     
     @Override
     public boolean verifyUsername(String username){
-        String role = WbServiceEspol.getRoleByUsername(username);
+        String role = webService.getRoleByUsername(username);
         return role!=null && role.equals("P");
     }
     

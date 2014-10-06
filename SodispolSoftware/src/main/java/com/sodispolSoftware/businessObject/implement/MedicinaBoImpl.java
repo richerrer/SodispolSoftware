@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Scope;
  * @author Usuario
  */
 @Named
-@Scope("prototype")
+@Scope("session")
 public class MedicinaBoImpl implements MedicinaBo {
 
     @Inject

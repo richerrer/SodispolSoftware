@@ -16,7 +16,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
  * @version: 1.0
  */
 @Named
-@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)//proxyMode = ScopedProxyMode.TARGET_CLASS se lo utiliza para poder inyectar este bean en MyUserDetails ver http://www.agile-works.com/blog/?p=254
+@Scope(value = "session")//proxyMode = ScopedProxyMode.TARGET_CLASS se lo utiliza cuando un singleton tiene referencia a un objeto session o prototype etc.. ver http://www.agile-works.com/blog/?p=254
 public class UsuarioBean{
 
     private Doctor doctor;
@@ -140,6 +140,5 @@ public class UsuarioBean{
         }
         this.usuario = (User)object;
     }
-    
     
 }

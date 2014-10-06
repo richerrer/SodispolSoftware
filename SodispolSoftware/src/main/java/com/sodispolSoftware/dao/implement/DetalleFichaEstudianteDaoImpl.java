@@ -10,8 +10,9 @@ import com.sodispolSoftware.dao.DetalleFichaEstudianteDao;
 import com.sodispolSoftware.model.Detallefichaestudiante;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
-import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
+import com.sodispolSoftware.webServiceEspol.WebServiceEspol;
 import java.util.ArrayList;
+import javax.inject.Inject;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -22,6 +23,9 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  */
 public class DetalleFichaEstudianteDaoImpl extends HibernateDaoSupport implements DetalleFichaEstudianteDao{
 
+    @Inject
+    private WebServiceEspol webService;
+    
     @Override
     public void addDetalleFicha(Detallefichaestudiante detalleFicha) {
         getHibernateTemplate().save(detalleFicha);
@@ -77,7 +81,7 @@ public class DetalleFichaEstudianteDaoImpl extends HibernateDaoSupport implement
                 */
                 if(((Doctor)array[1]).getNombre1()==null)
                 {
-                    WbServiceEspol.loadDataDoctorFromWebService((Doctor)array[1]);
+                    webService.loadDataDoctorFromWebService((Doctor)array[1]);
                 }
                 listaDetalle.add(d);
             }
@@ -115,13 +119,21 @@ public class DetalleFichaEstudianteDaoImpl extends HibernateDaoSupport implement
             
             Detallefichaestudiante detalle = (Detallefichaestudiante)getHibernateTemplate().find("select d from Detallefichaestudiante d inner join d.fichamedicaestudiante f where d.iddetalleficha= ? and f.estudiante = ?  and d.estadoborrado = ? and f.estudiante.estadoborrado = ?",paramsDetalle).get(0); 
             detalle.setDoctor((Doctor)getHibernateTemplate().get(Doctor.class, detalle.getDoctor().getIddoctor()));
-            WbServiceEspol.loadDataDoctorFromWebService(detalle.getDoctor());
+            webService.loadDataDoctorFromWebService(detalle.getDoctor());
             return detalle;
         }
         catch(Exception ex)//Cuando no se encuentra ningun objeto en la consulta
         {
             return null;
         }
+    }
+    
+    public WebServiceEspol getWebService() {
+        return webService;
+    }
+
+    public void setWebService(WebServiceEspol webService) {
+        this.webService = webService;
     }
     
 }

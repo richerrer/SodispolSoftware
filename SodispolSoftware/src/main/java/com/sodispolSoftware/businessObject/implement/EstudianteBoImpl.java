@@ -8,34 +8,46 @@ import com.sodispolSoftware.dao.EstudianteDao;
 import com.sodispolSoftware.model.Detallefichaestudiante;
 import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Fichamedicaestudiante;
-import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
+import com.sodispolSoftware.webServiceEspol.WebServiceEspol;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.springframework.context.annotation.Scope;
 
 /**
- * Esta clase es una implementación de  EstudianteBo, la cual define la lógica de 
+ * Esta clase es una implementación de EstudianteBo, la cual define la lógica de
  * negocio del objeto Estudiante
  *
  * @author: Ricardo D. Maya Herrera
  * @version: 1.0
  */
 @Named
-@Scope("prototype")
-public class EstudianteBoImpl implements EstudianteBo{
+@Scope(value = "session")//,proxyMode = ScopedProxyMode.TARGET_CLASS
+public class EstudianteBoImpl implements EstudianteBo {
 
     @Inject
     private EstudianteDao estudianteDao;
 
     @Inject
     private RoleUserBo roleUserBo;
-    
+
     @Inject
     private FichaMedicaEstudianteBo fichaMedicaEstudianteBo;
-    
+
     @Inject
     private DetalleFichaEstudianteBo detalleFichaEstudianteBo;
-     
+
+    @Inject
+    private WebServiceEspol webService;
+
+    
+    public WebServiceEspol getWebService() {
+        return webService;
+    }
+
+    public void setWebService(WebServiceEspol webService) {
+        this.webService = webService;
+    }
+
     /**
      * Get the value of detalleFichaEstudianteBo
      *
@@ -72,7 +84,6 @@ public class EstudianteBoImpl implements EstudianteBo{
         this.fichaMedicaEstudianteBo = fichaMedicaEstudianteBo;
     }
 
-
     /**
      * Get the value of roleUserBo
      *
@@ -108,11 +119,11 @@ public class EstudianteBoImpl implements EstudianteBo{
     public void setEstudianteDao(EstudianteDao estudianteDao) {
         this.estudianteDao = estudianteDao;
     }
-    
+
     /**
-     * Obtiene un Estudiante según su username, en el cual primero comprueba 
-     * si ese username se encuentra en la base de datos, y en caso de que no se encuentre
-     * en nuestra base de datos, se crea un nuevo Estudiante.
+     * Obtiene un Estudiante según su username, en el cual primero comprueba si
+     * ese username se encuentra en la base de datos, y en caso de que no se
+     * encuentre en nuestra base de datos, se crea un nuevo Estudiante.
      *
      * @param username matricula del estudiante
      * @return Estudiante según la matrícula
@@ -120,79 +131,82 @@ public class EstudianteBoImpl implements EstudianteBo{
     @Override
     public Estudiante getEstudiante(String username) {
         Estudiante estudiante = getEstudianteDao().getEstudiante(username);
-        if(estudiante == null)
-        {  
+        if (estudiante == null) {
             String autority = "ROLE_ESTUDIANTE";
-            estudiante = new Estudiante(getRoleUserBo().getRoleUser(autority),false);
-            WbServiceEspol.setDataEstudianteByUsernameFromWebService(estudiante, username);
+            estudiante = new Estudiante(getRoleUserBo().getRoleUser(autority), false);
+            webService.setDataEstudianteByUsernameFromWebService(estudiante, username);
             this.addEstudiante(estudiante);
             estudiante = getEstudianteDao().getEstudiante(username);
         }
-        
+
         return estudiante;
     }
 
     /**
-     * Obtiene un Estudiante según su matrícula, en el cual primero comprueba 
-     * si esa matrícula se encuentra en el servicio web de Espol para luego
-     * obtener el Estudiante de la base de datos, y en caso de que no se encuentre
-     * en nuestra base de datos, se crea un nuevo Estudiante.
+     * Obtiene un Estudiante según su matrícula, en el cual primero comprueba si
+     * esa matrícula se encuentra en el servicio web de Espol para luego obtener
+     * el Estudiante de la base de datos, y en caso de que no se encuentre en
+     * nuestra base de datos, se crea un nuevo Estudiante.
      *
      * @param matricula matricula del estudiante
      * @return Estudiante según la matrícula
      */
     @Override
     public Estudiante getEstudianteByMatricula(String matricula) {
-        
-        /*No se encuentra esa matrícula en la base de Espol*/
-        if(!WbServiceEspol.verifyMatricula(matricula)){
-            return null;
-        }
-        
-        Estudiante estudiante = getEstudianteDao().getEstudianteByMatricula(matricula);
+
+        Estudiante estudianteBaseDatos = getEstudianteDao().getEstudianteByMatricula(matricula);
         
         /*Si el estudiante no se encuentra en nuestra base de datos*/
-        if(estudiante==null){
+        if (estudianteBaseDatos == null) {
+            boolean validador;
             String autority = "ROLE_ESTUDIANTE";
-            estudiante = new Estudiante(getRoleUserBo().getRoleUser(autority),false);
-            WbServiceEspol.setDataEstudianteByMatriculaFromWebService(estudiante, matricula);
-            this.addEstudiante(estudiante);
-            estudiante = getEstudianteDao().getEstudianteByMatricula(matricula);
-        }
-        return estudiante;
+            Estudiante estudianteNuevo;
+            estudianteNuevo = new Estudiante(getRoleUserBo().getRoleUser(autority), false);
+            validador = webService.setDataEstudianteByMatriculaFromWebService(estudianteNuevo, matricula);
+            
+            /*Si la cédula sí se encontró en la base de espol, se lo guarda en 
+            la base de sodispol y se obtiene nuevamente al estudiante*/
+            if (validador) {
+                this.addEstudiante(estudianteNuevo);
+                estudianteBaseDatos = getEstudianteDao().getEstudianteByMatricula(matricula);
+            }
+       }
+        return estudianteBaseDatos;
     }
-    
-     /**
-     * Obtiene un Estudiante según su cédula, en el cual primero comprueba 
-     * si esa cédula se encuentra en el servicio web de Espol para luego
-     * obtener el Estudiante de la base de datos, y en caso de que no se encuentre
-     * en nuestra base de datos, se crea un nuevo Estudiante.
+
+    /**
+     * Obtiene un Estudiante según su cédula, en el cual primero comprueba si
+     * esa cédula se encuentra en el servicio web de Espol para luego obtener el
+     * Estudiante de la base de datos, y en caso de que no se encuentre en
+     * nuestra base de datos, se crea un nuevo Estudiante.
      *
      * @param cedula matricula del estudiante
      * @return Estudiante según la matrícula
      */
     @Override
     public Estudiante getEstudianteByCedula(String cedula) {
+
+        Estudiante estudianteBaseDatos = getEstudianteDao().getEstudianteByCedula(cedula);
         
-        /*No se encuentra esa matrícula en la base de Espol*/
-        if(!WbServiceEspol.verifyCedula(cedula)){
-            return null;
-        }
-        
-        Estudiante estudiante = getEstudianteDao().getEstudianteByCedula(cedula);
-        
-        /*Si el estudiante no se encuentra en nuestra base de datos*/
-        if(estudiante==null){
+        /*Si el estudiante no se encuentra en la base de datos Sodispol*/
+        if (estudianteBaseDatos == null) {
+            boolean validador;
             String autority = "ROLE_ESTUDIANTE";
-            estudiante = new Estudiante(getRoleUserBo().getRoleUser(autority),false);
-            WbServiceEspol.setDataEstudianteByCedulaFromWebService(estudiante, cedula);
-            this.addEstudiante(estudiante);
-            estudiante = getEstudianteDao().getEstudianteByCedula(cedula);
-        }
-        return estudiante;
+            Estudiante estudianteNuevo;
+            estudianteNuevo = new Estudiante(getRoleUserBo().getRoleUser(autority), false);
+            validador = webService.setDataEstudianteByCedulaFromWebService(estudianteNuevo, cedula);
+            
+            /*Si la cédula sí se encontró en la base de espol, se lo guarda en 
+            la base de sodispol y se obtiene nuevamente al estudiante*/
+            if (validador) {
+                this.addEstudiante(estudianteNuevo);
+                estudianteBaseDatos = getEstudianteDao().getEstudianteByCedula(cedula);
+            }
+       }
+        return estudianteBaseDatos;
     }
 
-     /**
+    /**
      * Agrega un nuevo estudiante a la base de datos.
      *
      * @param estudiante estudiante a agregar
@@ -201,7 +215,7 @@ public class EstudianteBoImpl implements EstudianteBo{
     public void addEstudiante(Estudiante estudiante) {
         getEstudianteDao().addEstudiante(estudiante);
     }
-    
+
     /**
      * Actualiza un estudiante en la base de datos.
      *
@@ -221,13 +235,12 @@ public class EstudianteBoImpl implements EstudianteBo{
     @Override
     public Fichamedicaestudiante getFichaMedica(Estudiante estudiante) {
         Fichamedicaestudiante ficha = getFichaMedicaEstudianteBo().getFicha(estudiante);
-        if(ficha != null){
+        if (ficha != null) {
             return ficha;
         }
         ficha = new Fichamedicaestudiante();
         return ficha;
     }
- 
 
     /**
      * Agrega una Ficha Médica del Estudiante.
@@ -252,10 +265,10 @@ public class EstudianteBoImpl implements EstudianteBo{
         ficha.setEstudiante(estudiante);
         getFichaMedicaEstudianteBo().updateFicha(ficha);
     }
-    
+
     @Override
-    public Detallefichaestudiante getDetalleFichaEstudiante(long idDetalle,Estudiante estudiante) {
-        return getDetalleFichaEstudianteBo().getDetalleFichaEstudiante(idDetalle,estudiante);
+    public Detallefichaestudiante getDetalleFichaEstudiante(long idDetalle, Estudiante estudiante) {
+        return getDetalleFichaEstudianteBo().getDetalleFichaEstudiante(idDetalle, estudiante);
     }
-  
+
 }

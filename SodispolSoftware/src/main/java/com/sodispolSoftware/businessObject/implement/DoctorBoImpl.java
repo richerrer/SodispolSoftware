@@ -8,13 +8,13 @@ import com.sodispolSoftware.model.Citamedica;
 import com.sodispolSoftware.model.Detallefichaestudiante;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
-import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
+import com.sodispolSoftware.webServiceEspol.WebServiceEspol;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 
 /**
  * Esta clase es una implementación de  DoctorBo, la cual define la lógica de 
@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Scope;
  * @version: 1.0
  */
 @Named
-@Scope("prototype")
+@Scope(value="session")
 public class DoctorBoImpl implements DoctorBo{
    
     @Inject
@@ -35,9 +35,19 @@ public class DoctorBoImpl implements DoctorBo{
     
     @Inject
     private DetalleFichaEstudianteBo detalleFichaEstudianteBo;
-  
+    
+    @Inject
+    private WebServiceEspol webService;
 
+    
+    public WebServiceEspol getWebService() {
+        return webService;
+    }
 
+    public void setWebService(WebServiceEspol webService) {
+        this.webService = webService;
+    }
+    
     /**
      * Get the value of detalleFichaEstudianteBo
      *
@@ -165,7 +175,7 @@ public class DoctorBoImpl implements DoctorBo{
     
     @Override
     public boolean verifyUsername(String username){
-        String role = WbServiceEspol.getRoleByUsername(username);
+        String role = webService.getRoleByUsername(username);
         return role!=null && role.equals("P");
     }
     

@@ -30,28 +30,21 @@
 
             <div class="container ancho2">
                 <div class="row ancho80" style="margin: auto">
-                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-2">
-                        <section class="margen_top4 margen_izquierdo2">
-                            <c:if test="#{fichaEstudianteBean.estudiante!=null}">
-                                <p:graphicImage url="#{fichaEstudianteBean.estudiante.foto}" width="120em"/>
-                            </c:if>
-                        </section>
-                    </div>
-                    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-6">
+                    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-10">
                         <section>
                             <h:form>
-                                <h:panelGrid columns="4" style="font-size: smaller" class=" ancho2 margen_top3">
-                                    <h:outputLabel value="Nombre:"/>
-                                    <h:outputLabel value="#{fichaEstudianteBean.estudiante.nombres}"/>
-                                    <h:outputLabel value="Teléfono:"/>
+                                <h:panelGrid columns="4" style="font-size: smaller" class=" ancho2 margen_top3 margen_izquierdo5">
+                                    <h:outputLabel styleClass="subrayar" value="Nombre:"/>
+                                    <h:outputLabel value="#{fichaEstudianteBean.estudiante}"/>
+                                    <h:outputLabel styleClass="subrayar" value="Teléfono:"/>
                                     <h:outputLabel value="#{fichaEstudianteBean.estudiante.telefono}"/>
-                                    <h:outputLabel value="Matrícula:"/>
+                                    <h:outputLabel styleClass="subrayar" value="Matrícula:"/>
                                     <h:outputLabel value="#{fichaEstudianteBean.estudiante.matricula}"/>
-                                    <h:outputLabel value="Cédula:"/>
+                                    <h:outputLabel styleClass="subrayar" value="Cédula:"/>
                                     <h:outputLabel value="#{fichaEstudianteBean.estudiante.cedula}"/>
-                                    <h:outputLabel value="Carrera:"/>
+                                    <h:outputLabel styleClass="subrayar" value="Carrera:"/>
                                     <h:outputLabel value="#{fichaEstudianteBean.estudiante.carrera}"/>
-                                    <h:outputLabel value="Estado Civíl:"/>
+                                    <h:outputLabel styleClass="subrayar" value="Estado Civíl:"/>
                                     <h:outputLabel value="#{fichaEstudianteBean.estudiante.estadocivil}"/>
                                 </h:panelGrid>
 
@@ -70,7 +63,7 @@
                             </p:panel>
 
                             <!--     Examen Observacion     -->
-                            <p:panel id="toggleable2" collapsed="true" header="Examén Físico #{fichaEstudianteBean.fechaActualCalendar.time.toLocaleString()}" toggleable="true"  toggleSpeed="500"  widgetVar="panel2" style="margin-bottom:20px"  styleClass="color6">
+                            <p:panel id="toggleable2" collapsed="true" header="Examen Físico #{fichaEstudianteBean.fechaActualCalendar.time.toLocaleString()}" toggleable="true"  toggleSpeed="500"  widgetVar="panel2" style="margin-bottom:20px"  styleClass="color6">
                                 <!--<ui:include src="/resources/templates/examenNuevoEstudiante.xhtml"/>-->
                                 <compositeComponents:examenNuevoEstudiante verificador="#{fichaEstudianteBean.modificador}"/>
                             </p:panel>
@@ -82,8 +75,10 @@
                                         <div class="color5 ancho2" style="height:15em;overflow-y: scroll ">
                                             <c:forEach items="#{fichaEstudianteBean.detallesAnteriores}" var="observaciones">
                                                 <div class="ancho1 margen_izquierdo2">
-                                                    <h5 class="negritas">Observación: #{observaciones.fecha.time.toLocaleString()} hecha por Dr. #{observaciones.doctor}</h5>
-                                                    <h5>#{observaciones.observaciones}</h5>
+                                                    <h5 class="negritas subrayar">Observación: #{observaciones.fecha.time.toLocaleString()} hecha por Dr. #{observaciones.doctor}</h5>
+                                                    <h5>Estatura: #{observaciones.estatura} m</h5>
+                                                    <h5>Peso: #{observaciones.peso} kg</h5>
+                                                    <h5 class="margen_top3">#{observaciones.observaciones}</h5>
                                                 </div><br/>
                                             </c:forEach>
                                         </div>
@@ -100,7 +95,7 @@
 
                             <c:if test="#{fichaEstudianteBean.modificador==1}">
                                 <p:panel id="toggleable4" header="Observación dada por Dr. #{usuarioBean.doctor}" collapsed="true" toggleable="true"  toggleSpeed="500"  widgetVar="panel4" style="margin-bottom:20px"  styleClass="color6">
-                                    <h:inputTextarea value="#{fichaEstudianteBean.observacion}" class="ancho2" rows="8" required="true" requiredMessage="Se requiere llenar el campo Observación"/>   
+                                    <h:inputTextarea value="#{fichaEstudianteBean.detalleFicha.observaciones}" class="ancho2" rows="8" required="true" requiredMessage="Se requiere llenar el campo Observación"/>   
                                 </p:panel>
                             </c:if>
                             <c:if test="#{fichaEstudianteBean.modificador==0}">
@@ -112,61 +107,56 @@
 
                             <!--     Recetas     -->
                             <c:if test="#{fichaEstudianteBean.modificador==1}">
-                               
+
                                 <p:panel id="toggleable5" header="Recetar" toggleable="true"  collapsed="true" toggleSpeed="500"  widgetVar="panel5" style="margin-bottom:20px"  styleClass="color6">
                                     <div style="height: 25em" class="panelBarY">
-                                        
-                                 <p:dataTable id="medicinas"  var="medicina" value="#{medicinaBean.medicinas}" widgetVar="medicinaTable" filteredValue="#{medicinaBean.medicinasFiltradas}">                    
-                                    <p:columns value="#{medicinaBean.columnas}" var="column" columnIndexVar="colIndex" sortBy="#{medicina[column.property]}" filterBy="#{medicina[column.property]}">
-                                        <f:facet name="header">
-                                            <h:outputText value="#{column.header}" />
-                                        </f:facet>
-                                        <h:outputText value="#{medicina[column.property]}" />
-                                    </p:columns>    
-                                    <p:column>  
-                                        <f:facet name="header">
-                                            <h:outputText value="CATEGORIA" />
-                                        </f:facet>
-                                       <h:outputText value="#{medicinaBean.obtenerCategoria(medicina).descripcion}" />
-                                    </p:column>
 
-                                    <p:column style="width:32px;text-align: center">
-                                       <f:facet name="header">
-                                            <h:outputText value="RECETAR" />
-                                        </f:facet>
-                                       <p:commandButton update=":form:display4" oncomplete="medicineDialog4.show()" icon="ui-icon-clipboard" title="View">
-                                           <f:setPropertyActionListener value="#{medicina}" target="#{medicinaBean.medicinaSeleccionada}" />
-                                       </p:commandButton>
-                                    </p:column> 
-                                   </p:dataTable>
-                                        
-                    <p:dialog header="Recetar Medicina" widgetVar="medicineDialog4" resizable="false" showEffect="fade" hideEffect="explode" modal= "true" appendTo="@(body)" id="medicineDlg4" >
-                    <h:panelGrid id="display4" columns="2" cellpadding="4" style="margin:0 auto;">
-                        
-                          <h:outputText value="Nombre:" />
-                          <h:outputText value="#{medicinaBean.medicinaSeleccionada.descripcion}" />
-                          <h:outputText value="Agregar a Receta:" />
-                          <p:commandButton id="addButton4" process="@this" actionListener="#{medicinaBean.agregarReceta(actionEvent)}"  
-                            update=":form:medicinas" icon="ui-icon-plusthick"/>
-                          <h:outputText value="Quitar de Receta:" />
-                          <p:commandButton id="restButton4" process="@this" actionListener="#{medicinaBean.quitarReceta(actionEvent)}"  
-                            update=":form:medicinas" icon="ui-icon-minusthick"/>
-                          <f:facet name="footer">   
-                                <p:messages autoUpdate="true" />
-                          </f:facet>  
-                    </h:panelGrid>
-                    </p:dialog>     
-                                            
+                                        <p:dataTable id="medicinas"  var="medicina" value="#{medicinaBean.medicinas}" widgetVar="medicinaTable" filteredValue="#{medicinaBean.medicinasFiltradas}">                    
+                                            <p:columns value="#{medicinaBean.columnas}" var="column" columnIndexVar="colIndex" sortBy="#{medicina[column.property]}" filterBy="#{medicina[column.property]}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{column.header}" />
+                                                </f:facet>
+                                                <h:outputText value="#{medicina[column.property]}" />
+                                            </p:columns>    
+                                            <p:column>  
+                                                <f:facet name="header">
+                                                    <h:outputText value="CATEGORIA" />
+                                                </f:facet>
+                                                <h:outputText value="#{medicinaBean.obtenerCategoria(medicina).descripcion}" />
+                                            </p:column>
 
-                       </div>
-                   </p:panel>
-              </c:if>
+                                            <p:column style="width:32px;text-align: center">
+                                                <f:facet name="header">
+                                                    <h:outputText value="RECETAR" />
+                                                </f:facet>
+                                                <p:commandButton update=":form:display4" oncomplete="medicineDialog4.show()" icon="ui-icon-clipboard" title="View">
+                                                    <f:setPropertyActionListener value="#{medicina}" target="#{medicinaBean.medicinaSeleccionada}" />
+                                                </p:commandButton>
+                                            </p:column> 
+                                        </p:dataTable>
+
+                                        <p:dialog header="Recetar Medicina" widgetVar="medicineDialog4" resizable="false" showEffect="fade" hideEffect="explode" modal= "true" appendTo="@(body)" id="medicineDlg4" >
+                                            <h:panelGrid id="display4" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                                                <h:outputText value="Nombre:" />
+                                                <h:outputText value="#{medicinaBean.medicinaSeleccionada.descripcion}" />
+                                                <h:outputText value="Agregar a Receta:" />
+                                                <p:commandButton id="addButton4" process="@this" actionListener="#{medicinaBean.agregarReceta(actionEvent)}"  
+                                                                 update=":form:medicinas" icon="ui-icon-plusthick"/>
+                                                <h:outputText value="Quitar de Receta:" />
+                                                <p:commandButton id="restButton4" process="@this" actionListener="#{medicinaBean.quitarReceta(actionEvent)}"  
+                                                                 update=":form:medicinas" icon="ui-icon-minusthick"/>
+                                                <f:facet name="footer">   
+                                                    <p:messages autoUpdate="true" />
+                                                </f:facet>  
+                                            </h:panelGrid>
+                                        </p:dialog>     
 
 
-
-                            <p:commandButton  value="Guardar" id="buscarPaciente" update="growl" actionListener="#{fichaEstudianteBean.guardar(actionEvent)}"/>
-
-
+                                    </div>
+                                </p:panel>
+                            </c:if>
+                            <p:commandButton value="Guardar" id="buscarPaciente" update="growl" actionListener="#{fichaEstudianteBean.guardar}"/>
                         </h:form>
                     </div>
                 </div>

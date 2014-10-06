@@ -30,7 +30,7 @@ public class Estudiante implements java.io.Serializable, User {
     private String carrera;
     private int edad;
     private String fechaNacimiento;
-    private String foto;
+    //private String foto;
     private String ocupacion;
 
     public Estudiante() {
@@ -215,17 +215,17 @@ public class Estudiante implements java.io.Serializable, User {
         return apellido1 + " " + apellido2;
     }
 
-    public String getFoto() {
+    /*public String getFoto() {
         return foto;
     }
 
     public void setFoto(String foto) {
         this.foto = foto;
-    }
+    }*/
 
     @Override
     public String toString() {
-        return nombre1 + " " + apellido1;
+        return nombre1 + " " + apellido1+" "+apellido2;
     }
 
     public String getOcupacion() {

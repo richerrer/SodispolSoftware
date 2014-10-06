@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2-hudson-740-. --><xs:schema xmlns:tns="http://WebServiceSodispol.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://WebServiceSodispol.com/">
+
+<xs:element name="datosEstudianteCedula" type="tns:datosEstudianteCedula" />
+
+<xs:element name="datosEstudianteCedulaResponse" type="tns:datosEstudianteCedulaResponse" />
+
+<xs:element name="datosEstudianteMatricula" type="tns:datosEstudianteMatricula" />
+
+<xs:element name="datosEstudianteMatriculaResponse" type="tns:datosEstudianteMatriculaResponse" />
+
+<xs:element name="datosEstudianteUsername" type="tns:datosEstudianteUsername" />
+
+<xs:element name="datosEstudianteUsernameResponse" type="tns:datosEstudianteUsernameResponse" />
+
+<xs:element name="datosProfesionalCedula" type="tns:datosProfesionalCedula" />
+
+<xs:element name="datosProfesionalCedulaResponse" type="tns:datosProfesionalCedulaResponse" />
+
+<xs:element name="datosProfesionalUsername" type="tns:datosProfesionalUsername" />
+
+<xs:element name="datosProfesionalUsernameResponse" type="tns:datosProfesionalUsernameResponse" />
+
+<xs:element name="tipoUsuario" type="tns:tipoUsuario" />
+
+<xs:element name="tipoUsuarioResponse" type="tns:tipoUsuarioResponse" />
+
+<xs:complexType name="datosEstudianteCedula">
+<xs:sequence>
+<xs:element name="cedula" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="datosEstudianteCedulaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:anyType" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="datosProfesionalCedula">
+<xs:sequence>
+<xs:element name="cedula" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="datosProfesionalCedulaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:anyType" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="datosEstudianteUsername">
+<xs:sequence>
+<xs:element name="username" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="datosEstudianteUsernameResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:anyType" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="datosProfesionalUsername">
+<xs:sequence>
+<xs:element name="username" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="datosProfesionalUsernameResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:anyType" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tipoUsuario">
+<xs:sequence>
+<xs:element name="username" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tipoUsuarioResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="datosEstudianteMatricula">
+<xs:sequence>
+<xs:element name="matricula" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="datosEstudianteMatriculaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:anyType" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

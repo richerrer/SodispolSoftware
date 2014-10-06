@@ -3,11 +3,13 @@ package com.sodispolSoftware.myuserdetail;
 import com.sodispolSoftware.businessObject.DoctorBo;
 import com.sodispolSoftware.businessObject.EnfermeroBo;
 import com.sodispolSoftware.businessObject.EstudianteBo;
+import com.sodispolSoftware.businessObject.implement.DoctorBoImpl;
+import com.sodispolSoftware.businessObject.implement.EstudianteBoImpl;
 import com.sodispolSoftware.manageBeans.UsuarioBean;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Enfermero;
 import com.sodispolSoftware.model.Estudiante;
-import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
+import com.sodispolSoftware.webServiceEspol.WebServiceEspol;
 import javax.inject.Inject;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,7 +28,7 @@ public class MyUserService implements UserDetailsService {
 
     @Inject
     private DoctorBo doctorBo;
-
+    
     @Inject
     private EnfermeroBo enfermeroBo;
     
@@ -36,6 +38,17 @@ public class MyUserService implements UserDetailsService {
     @Inject
     private UsuarioBean usuarioBean;
 
+    @Inject
+    private WebServiceEspol webService;
+
+    
+    public WebServiceEspol getWebService() {
+        return webService;
+    }
+
+    public void setWebService(WebServiceEspol webService) {
+        this.webService = webService;
+    }
     /**
      * Crea un Objeto, ya sea Doctor, Profesional o Estudiante dependiendo de
      * quién se haya logeado en el sistema
@@ -45,10 +58,11 @@ public class MyUserService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
-        String roleUser = WbServiceEspol.getRoleByUsername(username);
-        boolean state = WbServiceEspol.getStateByUsername(username);
-
-        if (roleUser.equals("P") && state)//Si es un profesional
+        String roleUser = webService.getRoleByUsername(username);
+        //boolean state = WebServiceEspol.getStateByUsername(username);
+        //EstudianteBoImpl e = (EstudianteBoImpl)estudianteBo;
+        //e.setA(e.getA()+1);
+        if (roleUser.equals("P"))//Si es un profesional
         {
             Doctor doctor = getDoctorBo().getDoctor(username);
             if (doctor != null) //Si es un doctor
@@ -68,12 +82,12 @@ public class MyUserService implements UserDetailsService {
             }
 
         }
-        if (roleUser.equals("E") && state) {//Si es un paciente estudiante
+        if (roleUser.equals("E")) {//Si es un paciente estudiante
             Estudiante estudiante = getEstudianteBo().getEstudiante(username);
             getUsuarioBean().setUser(estudiante);
             return new MyUserDetails(username, estudiante);
         }
-
+        //}
         return new MyUserDetails(username, null);
     }
     

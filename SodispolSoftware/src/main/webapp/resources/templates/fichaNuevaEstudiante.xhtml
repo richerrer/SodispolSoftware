@@ -4,7 +4,7 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <h:panelGrid columns="2" style="margin: auto">
-        <p:graphicImage url="resources/images/espol1.png" width="90em"/>
+        <p:graphicImage url="/resources/images/espol1.png" width="90em"/>
         <h:panelGrid columns="1" style="text-align: center" class="margen_izquierdo2">
             <h2>Escuela Superior Politécnica del Litoral</h2>
             <h4>Vicerrectorado de Asuntos Estudiantiles y Bienestar</h4>
@@ -17,7 +17,7 @@
                 <h:outputLabel>Carrera:</h:outputLabel>
             </div>
             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-6">
-                <h:inputText value="#{fichaEstudianteBean.estudiante.carrera}" class="centrar ancho80" readonly="true"/>
+                <h:inputTextarea value="#{fichaEstudianteBean.estudiante.carrera}" class="centrar ancho2 unresizable" readonly="true" />
             </div>
             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-2">
                 <h:outputLabel>N.Matrícula:</h:outputLabel>
@@ -32,7 +32,7 @@
                 <h:outputLabel>Nombre:</h:outputLabel>
             </div>
             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-6">
-                <h:inputText class="ancho80 centrar" value="#{fichaEstudianteBean.estudiante}" readonly="true"/>
+                <h:inputText class="ancho2 centrar" value="#{fichaEstudianteBean.estudiante}" readonly="true"/>
             </div>
         </div>
 
@@ -41,7 +41,7 @@
                 <h:outputLabel>Edad:</h:outputLabel>
             </div>
             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-6">
-                <h:inputText class="ancho80 centrar" value="#{fichaEstudianteBean.estudiante.edad}" readonly="true"/>
+                <h:inputText class="ancho2 centrar" value="#{fichaEstudianteBean.estudiante.edad}" readonly="true"/>
             </div>
             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-2">
                 <h:outputLabel>Teléfono:</h:outputLabel>
@@ -56,7 +56,7 @@
                 <h:outputLabel>Fecha de Nacimiento:</h:outputLabel>
             </div>
             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-6">
-                <h:inputText class="ancho80 centrar" value="#{fichaEstudianteBean.estudiante.fechaNacimiento}" readonly="true"/>
+                <h:inputText class="ancho2 centrar" value="#{fichaEstudianteBean.estudiante.fechaNacimiento}" readonly="true"/>
             </div>
         </div>
 
@@ -65,7 +65,7 @@
                 <h:outputLabel>Estado Civíl:</h:outputLabel>
             </div>
             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-6">
-                <h:inputText class="ancho80 centrar" value="#{fichaEstudianteBean.estudiante.estadocivil}"/>
+                <h:inputText class="ancho2 centrar" value="#{fichaEstudianteBean.estudiante.estadocivil}"/>
             </div>
         </div>
 
@@ -74,7 +74,7 @@
                 <h:outputLabel>Domicilio:</h:outputLabel>
             </div>
             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-6">
-                <h:inputText class="ancho80 centrar" value="#{fichaEstudianteBean.estudiante.direccion}"/>
+                <h:inputTextarea class="ancho2 centrar unresizable" value="#{fichaEstudianteBean.estudiante.direccion}"/>
             </div>
         </div>
 
@@ -83,7 +83,7 @@
                 <h:outputLabel>Antecedentes Patológicos:</h:outputLabel>
             </div>
             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-10">
-                <h:inputTextarea class="ancho1" rows="3" value="#{fichaEstudianteBean.fichaMedica.antecedentespatologicos}"/>
+                <h:inputTextarea class="ancho140 unresizable" rows="4" value="#{fichaEstudianteBean.fichaMedica.antecedentespatologicos}"/>
             </div>
         </div>
 
@@ -92,7 +92,7 @@
                 <h:outputLabel>Enfermedades de la Infancia:</h:outputLabel>
             </div>
             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-10">
-                <h:inputTextarea class="ancho1" rows="3" value="#{fichaEstudianteBean.fichaMedica.enfermedadesinfancia}"/>
+                <h:inputTextarea class="ancho140 unresizable" rows="4" value="#{fichaEstudianteBean.fichaMedica.enfermedadesinfancia}"/>
             </div>
         </div>
 
@@ -101,7 +101,7 @@
                 <h:outputLabel>Vacunas que ha Recibido:</h:outputLabel>
             </div>
             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-10">
-                <h:inputTextarea class="ancho1" rows="3" value="#{fichaEstudianteBean.fichaMedica.vacunasrecibidas}"/>
+                <h:inputTextarea class="ancho140 unresizable" rows="4" value="#{fichaEstudianteBean.fichaMedica.vacunasrecibidas}"/>
             </div>
         </div>
     </div>

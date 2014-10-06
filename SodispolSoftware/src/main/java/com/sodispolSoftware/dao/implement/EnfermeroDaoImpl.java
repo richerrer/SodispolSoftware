@@ -8,8 +8,9 @@ package com.sodispolSoftware.dao.implement;
 
 import com.sodispolSoftware.dao.EnfermeroDao;
 import com.sodispolSoftware.model.Enfermero;
-import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
+import com.sodispolSoftware.webServiceEspol.WebServiceEspol;
 import java.util.ArrayList;
+import javax.inject.Inject;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
@@ -17,6 +18,9 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author usuario
  */
 public class EnfermeroDaoImpl extends HibernateDaoSupport implements EnfermeroDao{
+    
+    @Inject
+    private WebServiceEspol webService;
     
     private final String queryObtenerEnfermeroAndRoleUser = "from Enfermero e left join fetch e.roleuser where e.username= ? and e.estadoborrado = ?";
 
@@ -30,7 +34,7 @@ public class EnfermeroDaoImpl extends HibernateDaoSupport implements EnfermeroDa
             Object[] paramsEnfermero = new Object[]{username,false};
             
             Enfermero enfermero = (Enfermero)getHibernateTemplate().find(queryObtenerEnfermeroAndRoleUser,paramsEnfermero).get(0); 
-            WbServiceEspol.loadDataEnfermeroFromWebService(enfermero);
+            webService.loadDataEnfermeroFromWebService(enfermero);
             return enfermero;
         }
         catch(Exception ex)//Cuando no se encuentra ningun objeto en la consulta
@@ -87,7 +91,7 @@ public class EnfermeroDaoImpl extends HibernateDaoSupport implements EnfermeroDa
             
             ArrayList<Enfermero> enfermeros = (ArrayList<Enfermero>)getHibernateTemplate().find(queryGetAllEnfermeros,paramsEnfermero); 
             for(Enfermero enfermero: enfermeros)    
-                WbServiceEspol.loadDataEnfermeroFromWebService(enfermero);
+                webService.loadDataEnfermeroFromWebService(enfermero);
             return enfermeros;
         }
         catch(Exception ex)//Cuando no se encuentra ningun objeto en la consulta
@@ -97,4 +101,11 @@ public class EnfermeroDaoImpl extends HibernateDaoSupport implements EnfermeroDa
        
     }
     
+    public WebServiceEspol getWebService() {
+        return webService;
+    }
+
+    public void setWebService(WebServiceEspol webService) {
+        this.webService = webService;
+    }
 }

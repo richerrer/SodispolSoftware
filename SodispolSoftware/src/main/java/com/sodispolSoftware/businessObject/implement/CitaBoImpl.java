@@ -10,7 +10,7 @@ import com.sodispolSoftware.model.Citamedica;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Fichamedicaestudiante;
-import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
+import com.sodispolSoftware.webServiceEspol.WebServiceEspol;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.inject.Inject;
@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Scope;
  * @version: 1.0
  */
 @Named
-@Scope("prototype")
+@Scope("session")
 public class CitaBoImpl implements CitaBo{
 
     @Inject

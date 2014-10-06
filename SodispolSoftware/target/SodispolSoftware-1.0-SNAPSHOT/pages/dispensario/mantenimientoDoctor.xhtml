@@ -23,12 +23,12 @@
             <nav class="navbar navbar-default color1 ancho1 center" role="navigation">
                 <ui:include src="/resources/templates/navMedico.xhtml"/>
             </nav>
-            <h3 class="centrar margen_top2">Lista de Doctores</h3>
+            <h3 class="centrar margen_top2">#{msg.doctores}</h3>
             <section class="ancho70 center margen_top2">
 
                 <p:growl id="msgs" showDetail="true" />
                 <h:form>
-                    <p:commandButton update=":formCreate" oncomplete="PF('dialogUsuarioCreate').show()" icon="ui-icon-document-b" title="Crear" value="Crear"/>
+                    <p:commandButton update=":formCreate" oncomplete="PF('dialogUsuarioCreate').show()" icon="ui-icon-document-b" title="Crear" value="#{msg.crear}"/>
                 </h:form>
                 <h:form id="formDataTable">
                     <p:dataTable id="basicDT" var="usuario" value="#{agregarDoctores.listaUsuarios}">
@@ -36,16 +36,16 @@
                         <p:column headerText="Username">
                             <h:outputText value="#{usuario.username}" />
                         </p:column>
-                        <p:column headerText="Nombres">
+                        <p:column headerText="#{msg.nombres}">
                             <h:outputText value="#{usuario.nombre1} #{usuario.nombre2}" />
                         </p:column>
-                        <p:column headerText="Apellidos">
+                        <p:column headerText="#{msg.apellidos}">
                             <h:outputText value="#{usuario.apellido1} #{usuario.apellido2}" />
                         </p:column>
-                        <p:column headerText="Hora de Entrada">
+                        <p:column headerText="#{msg.horaEntrada}">
                             <h:outputText value="#{usuario.horaentrada}" />
                         </p:column>
-                        <p:column headerText="Hora de Salida">
+                        <p:column headerText="#{msg.horaSalida}">
                             <h:outputText value="#{usuario.horasalida}" />
                         </p:column>
                         

@@ -10,9 +10,10 @@ import com.sodispolSoftware.dao.DoctorDao;
 import com.sodispolSoftware.model.Detallefichaestudiante;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Roleuser;
-import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
+import com.sodispolSoftware.webServiceEspol.WebServiceEspol;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -23,6 +24,9 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  */
 public class DoctorDaoImpl extends HibernateDaoSupport implements DoctorDao{
 
+    @Inject
+    private WebServiceEspol webService;
+    
     private final String queryObtenerDoctorAndRoleUser = "from Doctor d left join fetch d.roleuser where d.username= ? and d.estadoborrado = ?";
 
     private final String queryGetAllDoctors = "from Doctor d left join fetch d.roleuser where d.estadoborrado = ?";
@@ -35,7 +39,7 @@ public class DoctorDaoImpl extends HibernateDaoSupport implements DoctorDao{
             Object[] paramsDoctor = new Object[]{username,false};
             
             Doctor doctor = (Doctor)getHibernateTemplate().find(queryObtenerDoctorAndRoleUser,paramsDoctor).get(0); 
-            WbServiceEspol.loadDataDoctorFromWebService(doctor);
+            webService.loadDataDoctorFromWebService(doctor);
             return doctor;
         }
         catch(Exception ex)//Cuando no se encuentra ningun objeto en la consulta
@@ -88,36 +92,13 @@ public class DoctorDaoImpl extends HibernateDaoSupport implements DoctorDao{
     @Override
     public ArrayList<Doctor> getAllDoctors() 
     {       
-        /*ArrayList<Doctor> doctores = new ArrayList<Doctor>();
-        Session session = getHibernateTemplate().getSessionFactory().openSession();
-        try{
-           session.beginTransaction();
-           Query query = session.createQuery("select d from Doctor d where d.estadoborrado = :estado order by 1 desc");
-           query.setParameter("estado",false);
-           ArrayList<Object> consulta = (ArrayList<Object>) query.list();
-           for(Object array: consulta)
-           {
-                Doctor d = (Doctor)array;
-                if(d.getNombre1()==null)
-                {
-                    WbServiceEspol.loadDataDoctorFromWebService(d);
-                }
-                doctores.add(d);
-            }
-           session.beginTransaction().commit();
-           session.close();
-           return doctores;
-        }
-        catch(Exception ex){
-            return null;
-        }*/
         try
         {
             Object[] paramsDoctor = new Object[]{false};
             
             ArrayList<Doctor> doctors = (ArrayList<Doctor>)getHibernateTemplate().find(queryGetAllDoctors,paramsDoctor); 
             for(Doctor doctor: doctors)    
-                WbServiceEspol.loadDataDoctorFromWebService(doctor);
+                webService.loadDataDoctorFromWebService(doctor);
             return doctors;
         }
         catch(Exception ex)//Cuando no se encuentra ningun objeto en la consulta
@@ -125,6 +106,14 @@ public class DoctorDaoImpl extends HibernateDaoSupport implements DoctorDao{
             return null;
         }
        
+    }
+    
+     public WebServiceEspol getWebService() {
+        return webService;
+    }
+
+    public void setWebService(WebServiceEspol webService) {
+        this.webService = webService;
     }
     
 }

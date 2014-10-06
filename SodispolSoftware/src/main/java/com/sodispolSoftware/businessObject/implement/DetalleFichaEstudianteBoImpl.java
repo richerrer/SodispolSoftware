@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Scope;
  * @author Ricardo
  */
 @Named
-@Scope("prototype")
+@Scope("session")
 public class DetalleFichaEstudianteBoImpl implements DetalleFichaEstudianteBo{
 
     @Inject

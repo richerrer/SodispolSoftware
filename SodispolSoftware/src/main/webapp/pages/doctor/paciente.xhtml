@@ -23,7 +23,7 @@
             <nav class="navbar navbar-default color1 ancho1 center segundo" role="navigation">
                 <ui:include src="/resources/templates/navMedico.xhtml"/>
             </nav>
-
+            
             <div class="container ancho1">
                 <div class="row">
                     <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5  alturaEjemplo">
@@ -42,7 +42,7 @@
 
                                 <h:panelGrid columns="1" class=" ancho2 margen_top3" >
                                     <p:focus for="paramBusqueda" />
-                                    <p:inputText id="paramBusqueda" maxlength="15" style="width: 60%" value="#{pacienteBean.paramBusqueda}" required="true"/>
+                                    <p:inputText id="paramBusqueda" maxlength="15" style="width: 60%" value="#{pacienteBean.paramBusqueda}" required="true" requiredMessage="Error ingrese una matrícula o cédula"/>
 
                                     <p:commandButton  value="Buscar Paciente" id="buscarPaciente" update="growl" actionListener="#{pacienteBean.buttonAction}" styleClass="ui-priority-primary margen_top3">
                                         <!--Se envia al servidor a procesar el boton y el texto ya sea por matricula o cedula, asi como el tipo de busqueda-->
@@ -62,10 +62,8 @@
                                 <c:if test="#{pacienteBean.encontrado}">
                                     <p:row>
                                         <p:column colspan="1"><strong>Nombres:</strong></p:column>
-                                        <p:column colspan="1">#{pacienteBean.estudiante.nombres}</p:column> 
-                                        <p:column rowspan="6">
-                                            <p:graphicImage url="#{pacienteBean.estudiante.foto}" width="150px"/>
-                                        </p:column>
+                                        <p:column colspan="1" style="width: 35em">#{pacienteBean.estudiante.nombres}</p:column> 
+                                       
                                     </p:row>
                                     <p:row>
                                         <p:column colspan="1"><strong>Apellidos:</strong></p:column>
@@ -101,7 +99,7 @@
                                     </p:row>      
                                 </c:if>
                             </p:panelGrid>
-                            <h:form id="botonesFicha" class="ancho60 centrar">
+                            <h:form id="botonesFicha" class="ancho60 centrar margen_izquierdo5">
                                 <c:if test="#{pacienteBean.encontrado and (pacienteBean.estudiante!=null)}">
                                     <!--CommandButton envia por post-->
                                     <p:button  value="Nueva Observación" id="nuevaObservacion" outcome="observacion.xhtml" styleClass="ui-priority-primary margen_top3 ">

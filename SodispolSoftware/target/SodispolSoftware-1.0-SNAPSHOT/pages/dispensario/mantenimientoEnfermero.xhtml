@@ -43,12 +43,6 @@
                             <h:outputText value="#{usuario.apellido1} #{usuario.apellido2}" />
                         </p:column>
 
-
-                        <p:column style="width:32px;text-align: center">
-                            <p:commandButton update=":formUpdate" oncomplete="PF('dialogUsuarioUpdate').show()" icon="ui-icon-pencil" title="Actualizar">
-                                <f:setPropertyActionListener value="#{usuario}" target="#{agregarEnfermeros.selectUsuario}" />
-                            </p:commandButton>
-                        </p:column>
                         <p:column style="width:32px;text-align: center">
                             <p:commandButton update=":formDelete" oncomplete="PF('dialogUsuarioDelete').show()" icon="ui-icon-closethick" title="Eliminar">
                                 <f:setPropertyActionListener value="#{usuario}" target="#{agregarEnfermeros.selectUsuario}" />

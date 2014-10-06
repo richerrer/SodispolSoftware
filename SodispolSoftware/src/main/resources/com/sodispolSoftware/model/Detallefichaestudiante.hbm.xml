@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 20-jul-2014 15:20:17 by Hibernate Tools 3.6.0 -->
+<!-- Generated 18/09/2014 05:04:43 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="com.sodispolSoftware.model.Detallefichaestudiante" table="detallefichaestudiante" schema="public">
         <id name="iddetalleficha" type="long">
@@ -12,7 +12,7 @@
             <column name="idcita" />
         </many-to-one>
         <many-to-one name="doctor" class="com.sodispolSoftware.model.Doctor" fetch="select">
-            <column name="iddoctor" not-null="true"/>
+            <column name="iddoctor" not-null="true" />
         </many-to-one>
         <many-to-one name="fichamedicaestudiante" class="com.sodispolSoftware.model.Fichamedicaestudiante" fetch="select">
             <column name="idfchamedica" not-null="true" />
@@ -21,16 +21,7 @@
             <column name="estatura" precision="17" scale="17" />
         </property>
         <property name="peso" type="double">
-            <column name="peso" precision="17" scale="17"  />
-        </property>
-        <property name="examenpiel" type="string">
-            <column name="examenpiel"  />
-        </property>
-        <property name="aparatorespiratorio" type="string">
-            <column name="aparatorespiratorio"  />
-        </property>
-        <property name="apartocirculatorio" type="string">
-            <column name="apartocirculatorio"  />
+            <column name="peso" precision="17" scale="17" />
         </property>
         <property name="presionarterial" type="string">
             <column name="presionarterial" />
@@ -39,31 +30,19 @@
             <column name="pulso" />
         </property>
         <property name="ruidoscardiacos" type="string">
-            <column name="ruidoscardiacos"  />
-        </property>
-        <property name="aparatodigestivo" type="string">
-            <column name="aparatodigestivo" />
-        </property>
-        <property name="aparatogenicourinario" type="string">
-            <column name="aparatogenicourinario"/>
-        </property>
-        <property name="sitemalinfatico" type="string">
-            <column name="sitemalinfatico"/>
-        </property>
-        <property name="sistemanervioso" type="string">
-            <column name="sistemanervioso"/>
-        </property>
-        <property name="fecha" type="calendar">
-            <column name="fecha" length="13" not-null="true"/>
+            <column name="ruidoscardiacos" />
         </property>
         <property name="observaciones" type="string">
-            <column name="observaciones"/>
+            <column name="observaciones" />
         </property>
         <property name="temperatura" type="string">
             <column name="temperatura" />
         </property>
-        <property name="estadoborrado" type="java.lang.Boolean">
-            <column name="estadoborrado" not-null="true"/>
+        <property name="estadoborrado" type="boolean">
+            <column name="estadoborrado" not-null="true" />
+        </property>
+        <property name="fecha" type="calendar">
+            <column name="fecha" length="13" not-null="true" />
         </property>
         <set name="recetas" table="receta" inverse="true" lazy="true" fetch="select">
             <key>

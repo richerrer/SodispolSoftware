@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Scope;
  * @version: 1.0
  */
 @Named
-@Scope("prototype")
+@Scope("session")
 public class FichaMedicaEstudianteBoImpl implements FichaMedicaEstudianteBo{
 
     @Inject

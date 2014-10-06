@@ -277,7 +277,7 @@ public class WbServiceEspol {
         estudiante.setApellido2((String) attributes[10]);
         estudiante.setCarrera((String) attributes[6]);
         estudiante.setEdad((Integer) attributes[5]);
-        estudiante.setFoto((String) attributes[12]);
+        //estudiante.setFoto((String) attributes[12]);
         /*estudiante.setFechaNacimiento((String)attributes[11]);*/
     }
 
@@ -297,7 +297,7 @@ public class WbServiceEspol {
         estudiante.setApellido2((String) attributes[10]);
         estudiante.setCarrera((String) attributes[6]);
         estudiante.setEdad((Integer) attributes[5]);
-        estudiante.setFoto((String) attributes[12]);
+        //estudiante.setFoto((String) attributes[12]);
         /*estudiante.setFechaNacimiento((String)attributes[11]);*/
     }
 
@@ -317,7 +317,7 @@ public class WbServiceEspol {
         estudiante.setApellido2((String) attributes[10]);
         estudiante.setCarrera((String) attributes[6]);
         estudiante.setEdad((Integer) attributes[5]);
-        estudiante.setFoto((String) attributes[12]);
+        //estudiante.setFoto((String) attributes[12]);
         /*estudiante.setFechaNacimiento((String)attributes[11]);*/
     }
 

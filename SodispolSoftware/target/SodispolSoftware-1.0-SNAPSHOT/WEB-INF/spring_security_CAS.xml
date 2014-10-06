@@ -2,11 +2,16 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
   xmlns:sec="http://www.springframework.org/schema/security"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:aop="http://www.springframework.org/schema/aop"
   xsi:schemaLocation="
        http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
        http://www.springframework.org/schema/security
-       http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+       http://www.springframework.org/schema/security/spring-security-3.1.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+       <!--http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.1.xsd"-->
     
     
     <sec:http entry-point-ref="casEntryPoint" auto-config="true" path-type="ant">
@@ -14,7 +19,7 @@
         <sec:custom-filter after="CAS_FILTER"  ref="casFilter"/>
         <sec:intercept-url pattern="/pages/all/*" access="ROLE_DOCTOR,ROLE_ENFERMERO,ROLE_ESTUDIANTE,ROLE_NORMAL"/>
         <sec:intercept-url pattern="/pages/doctor/*" access="ROLE_DOCTOR"/>
-        <sec:intercept-url pattern="/pages/enfermero/*" access="ROLE_ENFERMERO,ROLE_DOCTOR"/>
+        <sec:intercept-url pattern="/pages/enfermero/*" access="ROLE_ENFERMERO"/>
         <sec:intercept-url pattern="/pages/dispensario/*" access="ROLE_DOCTOR,ROLE_ENFERMERO"/>
         <sec:intercept-url pattern="/pages/paciente/*" access="ROLE_ESTUDIANTE,ROLE_PROFESIONAL"/>
         <!--<sec:logout logout-success-url="https://compa:8443/cas/logout" invalidate-session="true" logout-url="/logout" />-->
@@ -44,7 +49,9 @@
         <sec:authentication-provider ref="casAuthenticationProvider" />
     </sec:authentication-manager>
     
-    <bean id="allAuthenticatedUserService" class="com.sodispolSoftware.myuserdetail.MyUserService"/>
+    <bean id="allAuthenticatedUserService" class="com.sodispolSoftware.myuserdetail.MyUserService" scope="session">
+       <aop:scoped-proxy proxy-target-class="true"/>
+    </bean>
     
     <bean id="casAuthenticationProvider" class="org.springframework.security.cas.authentication.CasAuthenticationProvider">
         <!--<property name="userDetailsService" ref="userServices"/>-->

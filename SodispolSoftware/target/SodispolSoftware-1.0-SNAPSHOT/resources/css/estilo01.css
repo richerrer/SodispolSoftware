@@ -47,14 +47,26 @@ body{
 .ancho80{
     width: 80%;
 }
+.ancho85{
+    width: 85%;
+}
 .ancho70{
     width: 70%;
+}
+.ancho140{
+    width: 140%;
+}
+.altoFijo1{
+    max-height: 15em;
+    overflow-y: scroll;
 }
 .juntar{
     display: inline-block;
     vertical-align: top;
 }
-
+.unresizable {
+    resize: none;
+}
 .adaptar{
     width: 100%;
 }
@@ -68,6 +80,11 @@ body{
 .negritas{
     font-weight: bold;
 }
+
+.margen_izquierdo_0_5{
+    margin-left: 0.5em;
+}
+
 .margen_izquierdo{
     margin-left: 1em;
 }
@@ -104,6 +121,9 @@ body{
 }
 .panelBarY{
     overflow-y: scroll
+}
+.panelBarX{
+    overflow-x: scroll
 }
 
 .centrar{

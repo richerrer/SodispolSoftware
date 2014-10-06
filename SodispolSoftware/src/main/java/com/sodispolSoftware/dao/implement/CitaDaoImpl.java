@@ -7,9 +7,10 @@ import com.sodispolSoftware.model.Citamedica;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Roleuser;
-import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
+import com.sodispolSoftware.webServiceEspol.WebServiceEspol;
 import java.util.ArrayList;
 import java.util.Calendar;
+import javax.inject.Inject;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.dao.DataAccessException;
@@ -22,6 +23,9 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao
 {
 
+    @Inject
+    private WebServiceEspol webService;
+    
     @Override
     public ArrayList<Citamedica> getAllCitas() 
     {
@@ -35,7 +39,8 @@ public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao
             for(Object[] obj : consulta)
             {
                 Citamedica cita = (Citamedica) obj[0];
-                WbServiceEspol.loadDataEstudianteByMatriculaFromWebService(cita.getEstudiante());
+                //WebServiceEspol.loadDataEstudianteByMatriculaFromWebService(cita.getEstudiante());
+                webService.loadDataEstudianteByMatriculaFromWebService(cita.getEstudiante());
                 citas.add(cita);
             }
             return citas;
@@ -59,7 +64,8 @@ public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao
             for(Object[] obj : consulta)
             {
                 Citamedica cita = (Citamedica) obj[0];
-                WbServiceEspol.loadDataEstudianteByMatriculaFromWebService(cita.getEstudiante());
+                //WebServiceEspol.loadDataEstudianteByMatriculaFromWebService(cita.getEstudiante());
+                webService.loadDataEstudianteByMatriculaFromWebService(cita.getEstudiante());
                 citas.add(cita);
             }
             return citas;
@@ -142,6 +148,14 @@ public class CitaDaoImpl extends HibernateDaoSupport implements CitaDao
     @Override
     public void deleteCita(Citamedica cita) {
         getHibernateTemplate().update(cita);
+    }
+
+    public WebServiceEspol getWebService() {
+        return webService;
+    }
+
+    public void setWebService(WebServiceEspol webService) {
+        this.webService = webService;
     }
      
     

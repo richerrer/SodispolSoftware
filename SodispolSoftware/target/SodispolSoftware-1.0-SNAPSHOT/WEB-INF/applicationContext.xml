@@ -32,7 +32,15 @@
         
      <import resource="springConfig/database/DataSource.xml"/>
      <import resource="springConfig/database/HibernateSessionFactory.xml"/>  
-     <import resource="springConfig/beansInjections/userBean.xml"/>
+     <import resource="springConfig/beansInjections/beanDaos.xml"/>
+     
+     <!-- Bean que se encarga de conectarse con el ws conforme al wsdl enviado-->
+     
+    <bean id="clientWebServices" class="com.sodispolSoftware.webServiceEspol.ClientWebServiceSodispol" scope="session">
+        <property name="wsdl" value="http://localhost:8090/WebServiceSodispol/WebServiceSodispol?wsdl"/>
+        <property name="service" value="http://WebServiceSodispol.com/"/>
+        <property name="name" value="WebServiceSodispol"/>
+    </bean>
      
      <!-- Se crea un propio view scope ya que spring no lo implementa por defecto-->
      <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">

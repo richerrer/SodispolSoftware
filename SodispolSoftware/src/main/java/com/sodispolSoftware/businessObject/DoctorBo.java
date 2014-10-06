@@ -10,7 +10,6 @@ import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  *
