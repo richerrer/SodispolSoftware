@@ -13,7 +13,7 @@ import com.sodispolSoftware.model.Citamedica;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.redirect.Redireccionar;
-import com.sodispolSoftware.webServiceEspol.WebServiceEspol;
+import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -343,6 +343,7 @@ public class CitaBean {
     {
         for(Citamedica cm : citasProvisional)
         {
+            int fd1=cm.getFechareg().getTime().getMonth();
             if((cm.getFechareg().getTime().getDate() == fecha.getDate()) && (cm.getFechareg().getTime().getMonth() == fecha.getMonth()) && ((cm.getFechareg().getTime().getYear()) == fecha.getYear()))
             {
                 setOcupacionEstudiante(cm.getEstudiante());
@@ -363,10 +364,15 @@ public class CitaBean {
     public void agregarCitaNoEncontrada(int horaInicio, int minutoInicio, int horaFin, int minutoFin)
     {
         setFechaBase(Calendar.getInstance());
+        int d1 = fecha.getDate();
+        int m1 = fecha.getMonth();
+        int a1 = fecha.getYear();
         newFechayHora(fecha.getDate(), fecha.getMonth(), fecha.getYear()+1900, horaInicio, minutoInicio);
         Citamedica cita = new Citamedica(fechaBase);
-        //int hora2= cita.getFechareg().get(Calendar.HOUR_OF_DAY);
-        //int min2 = cita.getFechareg().get(Calendar.MINUTE);
+        int diaX = cita.getFechareg().get(Calendar.DATE);
+        int mesX = cita.getFechareg().get(Calendar.MONTH);
+        int hora2= cita.getFechareg().get(Calendar.HOUR_OF_DAY);
+        int min2 = cita.getFechareg().get(Calendar.MINUTE);
         agregarHoraACita(cita, horaInicio, minutoInicio, horaFin, minutoFin);
         cita.setVacio(true);
         citasDataTable.add(cita);
@@ -477,8 +483,15 @@ public class CitaBean {
     
     public boolean fechaYHoraPermitidas(Calendar fechaCita)
     {
-        if(esHoyOFechaFutura(fechaCita) && esHoraNoPasada(fechaCita))
+        if(esHoy(fechaCita))
+        {
+            if(esHoraNoPasada(fechaCita))
+                return true;
+        }
+        else if(esFechaFutura(fechaCita))
+        {
             return true;
+        }
         return false;
     }
     
@@ -520,8 +533,8 @@ public class CitaBean {
         
         return "citas.xhtml";
     }
-   
-    public boolean esHoyOFechaFutura(Calendar fechaCita)
+    
+    public boolean esHoy(Calendar fechaCita)
     {
         int d=Calendar.getInstance().get(Calendar.DATE);
         int m=Calendar.getInstance().get(Calendar.MONTH);
@@ -531,9 +544,58 @@ public class CitaBean {
         int m2 = fechaCita.get(Calendar.MONTH);
         int a2=fechaCita.get(Calendar.YEAR);
         
-        if((d2>=d) && (m2>=m) && (a2>=a))
+        if((d2==d) && (m2==m) && (a2==a))
             return true;
         return false;
+    }
+    
+    public boolean esFechaFutura(Calendar fechaCita)
+    {
+        int d=Calendar.getInstance().get(Calendar.DATE);
+        int m=Calendar.getInstance().get(Calendar.MONTH);
+        int a=Calendar.getInstance().get(Calendar.YEAR);
+        
+        int d2=fechaCita.get(Calendar.DATE);
+        int m2 = fechaCita.get(Calendar.MONTH);
+        int a2=fechaCita.get(Calendar.YEAR);
+        
+        if(a2==a)//si es el mimso año
+        {
+            if(m2==m)//si es el mismo mes
+            {
+                if(d2>d)//el dia debe ser mayor
+                    return true;
+            }
+            else if(m2>m)
+            {
+                return true;
+            }
+        }
+        else if(a2>a)
+        {
+            return true;
+        }
+               
+        return false;
+    }
+   
+    public boolean esHoyOFechaFutura(Calendar fechaCita)
+    {
+        if(esHoy(fechaCita) == true || esFechaFutura(fechaCita)==true)
+            return true;
+        return false;
+        
+//        int d=Calendar.getInstance().get(Calendar.DATE);
+//        int m=Calendar.getInstance().get(Calendar.MONTH);
+//        int a=Calendar.getInstance().get(Calendar.YEAR);
+//        
+//        int d2=fechaCita.get(Calendar.DATE);
+//        int m2 = fechaCita.get(Calendar.MONTH);
+//        int a2=fechaCita.get(Calendar.YEAR);
+//        
+//        if((d2>=d) && (m2>=m) && (a2>=a))
+//            return true;
+//        return false;
     }
     
     public void atenderCita()
@@ -544,6 +606,8 @@ public class CitaBean {
         {
             if(citaSeleccionada.getEstadocita().equals("P"))
             {
+                getUsuarioBean().setCitaActual(null);
+                getUsuarioBean().setCitaActual(citaSeleccionada);
                 Redireccionar.redirect("pages/doctor/observacion.xhtml?modificador=1");
                 cambiarEstadoDeCita(citaSeleccionada, "C");
             }

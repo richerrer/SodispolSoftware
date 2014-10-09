@@ -1,5 +1,6 @@
 package com.sodispolSoftware.manageBeans;
 
+import com.sodispolSoftware.model.Citamedica;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Enfermero;
 import com.sodispolSoftware.model.Estudiante;
@@ -33,6 +34,8 @@ public class UsuarioBean{
     
     private int tipoPaginaConsultaCitas=0;//0->consulta de citas del doctor logueado; 1->consulta de citas luego de una transaccion
 
+    private Citamedica citaActual;
+    
     /**
      * Get the value of estudiantePaciente
      *
@@ -110,6 +113,14 @@ public class UsuarioBean{
 
     public void setTipoPaginaConsultaCitas(int tipoPaginaConsultaCitas) {
         this.tipoPaginaConsultaCitas = tipoPaginaConsultaCitas;
+    }
+    
+    public Citamedica getCitaActual() {
+        return citaActual;
+    }
+
+    public void setCitaActual(Citamedica citaActual) {
+        this.citaActual = citaActual;
     }
 
     public User getUser(){
