@@ -2,17 +2,16 @@ package com.sodispolSoftware.manageBeans;
 
 import com.sodispolSoftware.businessObject.DoctorBo;
 import com.sodispolSoftware.businessObject.EstudianteBo;
+import com.sodispolSoftware.model.Citamedica;
 import com.sodispolSoftware.model.Detallefichaestudiante;
 import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Fichamedicaestudiante;
 import com.sodispolSoftware.redirect.Redireccionar;
-import com.sun.faces.taglib.html_basic.CommandButtonTag;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
@@ -25,20 +24,36 @@ public class FichaEstudianteBean
 {
   @Inject
   private UsuarioBean usuarioBean;
+  
   @Inject
   private DoctorBo doctorBo;
+  
   @Inject
   private EstudianteBo estudianteBo;
+  
   private Estudiante estudiante;
+  
+  private Citamedica citamedica;
+  
   private Fichamedicaestudiante fichaMedica;
+  
   private Calendar fechaActualCalendar;
+  
   private ArrayList<Object[]> observacionesAnteriores;
+  
   private ArrayList<Detallefichaestudiante> detallesAnteriores;
+  
   private long numButtons = 1L;
+  
   private final int paginacion = 5;
+  
   private Map<String, String> parametros = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+  
   private long modificador;
+  
   private Detallefichaestudiante detalleFicha;
+  
+  private boolean guardar = false;
   
   @PostConstruct
   public void init()
@@ -75,6 +90,13 @@ public class FichaEstudianteBean
     }
   }
   
+  public void cargarCitaMedica(){
+      if(getUsuarioBean().getCitaActual()!=null){
+          citamedica = getUsuarioBean().getCitaActual();
+          getUsuarioBean().setCitaActual(null);
+      }
+  }
+  
   public void cargarFichaMedicaEstudiante(Estudiante estudiante)
   {
     setFichaMedica(getEstudianteBo().getFichaMedica(estudiante));
@@ -84,6 +106,7 @@ public class FichaEstudianteBean
   {
     if (getModificador() == 1) {
       cargarTipoFicha1();
+      cargarCitaMedica();
     } else {
       cargarTipoFicha2();
     }
@@ -109,14 +132,22 @@ public class FichaEstudianteBean
   
   public void guardar(ActionEvent actionEvent)
   {
-    guardarEstudiante();
-    guardarFichaMedica();
-    if (getModificador() == 1) {
-      guardarDetalleFichaMedica();
-    }
-    String msg = "Se agregó correctamente la observación ";//+actionEvent.getComponent().getAttributes().get("value")
-    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", msg);
-    FacesContext.getCurrentInstance().addMessage(null, message);
+      if(!guardar){
+        guardar = true;
+        guardarEstudiante();
+        guardarFichaMedica();
+        if (getModificador() == 1) {
+          guardarDetalleFichaMedica();
+        }
+        String msg = "Se agregó correctamente la observación ";//+actionEvent.getComponent().getAttributes().get("value")
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", msg);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+      }
+      else{
+          String msg = "Ya se había guardado la observación ";//+actionEvent.getComponent().getAttributes().get("value")
+          FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", msg);
+          FacesContext.getCurrentInstance().addMessage(null, message);
+      }
   }
   
   public void guardarEstudiante()
@@ -145,6 +176,7 @@ public class FichaEstudianteBean
     detalleFicha.setFichamedicaestudiante(getFichaMedica());
     detalleFicha.setEstadoborrado(false);
     detalleFicha.setFecha(getFechaActualCalendar());
+    detalleFicha.setCitamedica(getCitamedica());
   }
   
   public void getNumObservaciones()
@@ -276,4 +308,14 @@ public class FichaEstudianteBean
   {
     return this.parametros;
   }
+
+    public Citamedica getCitamedica() {
+        return citamedica;
+    }
+
+    public void setCitamedica(Citamedica citamedica) {
+        this.citamedica = citamedica;
+    }
+  
+  
 }

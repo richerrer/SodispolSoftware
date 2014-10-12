@@ -13,7 +13,7 @@ import com.sodispolSoftware.model.Citamedica;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.redirect.Redireccionar;
-import com.sodispolSoftware.webServiceEspol.WbServiceEspol;
+import com.sodispolSoftware.webServiceEspol.WebServiceEspol;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
