@@ -6,10 +6,13 @@
 
 package beans;
 
+import com.sodispolSoftware.businessObject.MedicinaBo;
+import com.sodispolSoftware.model.Patologia;
 import java.io.Serializable;
-import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
 import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.PieChartModel;
@@ -30,11 +33,26 @@ public class Estadisticas implements Serializable{
     private CartesianChartModel cartesianModelCefalea;
     private CartesianChartModel cartesianModelHepatitis;
     
+    private ArrayList<Patologia> patologias;
+    
+    @Inject
+    private MedicinaBo medicinaBo;
+    
     public Estadisticas(){  
+         
+        setMedicinaBo(medicinaBo);
         createCartesianModel();  
-        createPieModel();  
+        createPieModel();
                
     }  
+
+    public MedicinaBo getMedicinaBo() {
+        return medicinaBo;
+    }
+
+    public void setMedicinaBo(MedicinaBo medicinaBo) {
+        this.medicinaBo = medicinaBo;
+    }
     
     public CartesianChartModel getCartesianModel() {  
         return cartesianModel;  
@@ -43,6 +61,16 @@ public class Estadisticas implements Serializable{
     public PieChartModel getPieModel() {  
         return pieModel;  
     } 
+    
+    public ArrayList<Patologia> getPatologias() {
+        return patologias;
+    }
+
+    public void setPatologias(ArrayList<Patologia> patologias) {
+        this.patologias = patologias;
+    }
+    
+    
     
     public CartesianChartModel getCartesianModelInfluenza() {  
         return cartesianModelInfluenza;  
@@ -54,54 +82,37 @@ public class Estadisticas implements Serializable{
     
     private void createCartesianModel() {  
         cartesianModel = new CartesianChartModel(); 
+        
+        
+        
         cartesianModelInfluenza = new CartesianChartModel(); 
-        cartesianModelCefalea = new CartesianChartModel(); 
         cartesianModelHepatitis = new CartesianChartModel(); 
   
         ChartSeries influenza = new ChartSeries();  
         influenza.setLabel("Influenza"); 
-        influenza.set("Enero", 80);
-        influenza.set("Febrero", 55);
-        influenza.set("Marzo", 70);
-        influenza.set("Abril", 50);
-        influenza.set("Mayo", 50);
-        influenza.set("Junio", 25);
+        influenza.set("Octubre", 1);
         
         ChartSeries hepatitisB  = new ChartSeries();
         hepatitisB.setLabel("Hepatitis B");
-        hepatitisB.set("Enero", 20);
-        hepatitisB.set("Febrero", 16);
-        hepatitisB.set("Marzo", 15);
-        hepatitisB.set("Abril", 17);
-        hepatitisB.set("Mayo", 8);
-        hepatitisB.set("Junio", 19);
+        hepatitisB.set("Octubre", 1);
          
-        ChartSeries cefalea  = new ChartSeries();
-        cefalea.setLabel("Cefálea");
-        cefalea.set("Enero", 37);
-        cefalea.set("Febrero", 26);
-        cefalea.set("Marzo", 39);
-        cefalea.set("Abril", 29);
-        cefalea.set("Mayo", 28);
-        cefalea.set("Junio", 31);
+        
         
         cartesianModel.addSeries(influenza);  
         cartesianModel.addSeries(hepatitisB);
-        cartesianModel.addSeries(cefalea);
         
         cartesianModelInfluenza.addSeries(influenza); 
-        cartesianModelCefalea.addSeries(cefalea); 
         cartesianModelHepatitis.addSeries(hepatitisB);
     }  
   
     private void createPieModel() {  
-        pieModel = new PieChartModel();  
-  
+        pieModel = new PieChartModel();                 
         pieModel.set("Influenza", 362);  
         pieModel.set("Hepatitis B", 85);  
         pieModel.set("Cefálea", 186);  
-        pieModel.set("Anemia", 42);  
     }  
     
     
+    
 }
+

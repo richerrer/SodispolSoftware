@@ -8,6 +8,8 @@ package com.sodispolSoftware.businessObject;
 import com.sodispolSoftware.model.Detallefichaestudiante;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
+import com.sodispolSoftware.model.Patologia;
+import com.sodispolSoftware.model.Patologiadetalleficha;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -40,4 +42,8 @@ public interface DoctorBo {
     public boolean eliminarDoctor(Doctor doctor);
     
     public boolean changeStateDeleteDoctor(Doctor doctor);
+
+    public Patologia obtenerPatologia(String patologia);
+
+    public void agregarRelacionFichaPatologia(Patologiadetalleficha pd);
 }

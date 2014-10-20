@@ -36,14 +36,6 @@
                         
                       <h:form>
                         <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                            <h:outputText value="Patología: " />
-                            <p:selectOneMenu value="#{buttonBean.text}">
-                                <f:selectItem itemLabel="Seleccione Una" itemValue="" />
-                                <f:selectItem itemLabel="Influenza" itemValue="Option 1" />
-                                <f:selectItem itemLabel="Cefalea" itemValue="Option 2" />
-                                <f:selectItem itemLabel="Hepatitis B" itemValue="Option 3" />
-                                <f:selectItem itemLabel="Todas" itemValue="Option 4" />
-                            </p:selectOneMenu>
                             
                             <h4>Desde: </h4>  
                             <p:calendar value="#{calendarBean.date1}" showOn="button" />  
@@ -66,12 +58,12 @@
                     
                     <div style="width: 70%; text-align: center; margin-left: 15%; background-color: #B4C6CA" > 
                     <h4>Porcentaje del Total de Enfermedades</h4>  
-                    <p:pieChart value="#{estadisticas.pieModel}" legendPosition="e"  
+                    <p:pieChart value="#{estadisticaBean.pieModel}" legendPosition="e"  
                         showDataLabels="true"  
                         sliceMargin="5" diameter="210" />  
 
                     <h4>Cronología Estadística de Casos</h4>  
-                    <p:lineChart value="#{estadisticas.cartesianModel}" style="chartStyle" />  
+                    <p:lineChart value="#{estadisticas.cartesianModel}" style="chartStyle"  />  
 
                     <h4>Indice de casos por Patología</h4>  
                     <p:barChart value="#{estadisticas.cartesianModel}" />

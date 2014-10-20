@@ -6,6 +6,8 @@
 package com.sodispolSoftware.dao;
 
 import com.sodispolSoftware.model.Doctor;
+import com.sodispolSoftware.model.Patologia;
+import com.sodispolSoftware.model.Patologiadetalleficha;
 import java.util.ArrayList;
 
 /**
@@ -23,4 +25,8 @@ public interface DoctorDao {
     public boolean updateDoctor(Doctor doctor);
     
     public boolean changeStateDeleteDoctor(Doctor doctor);
+
+    public Patologia obtenerPorNombre(String patologia);
+
+    public void addRelacionFichaPatologia(Patologiadetalleficha pd);
 }

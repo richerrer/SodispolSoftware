@@ -2,10 +2,15 @@ package com.sodispolSoftware.manageBeans;
 
 import com.sodispolSoftware.businessObject.DoctorBo;
 import com.sodispolSoftware.businessObject.EstudianteBo;
+import com.sodispolSoftware.model.Categoriamedicina;
+import com.sodispolSoftware.model.Categoriamedicinamedicina;
 import com.sodispolSoftware.model.Citamedica;
 import com.sodispolSoftware.model.Detallefichaestudiante;
 import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Fichamedicaestudiante;
+import com.sodispolSoftware.model.Medicina;
+import com.sodispolSoftware.model.Patologia;
+import com.sodispolSoftware.model.Patologiadetalleficha;
 import com.sodispolSoftware.redirect.Redireccionar;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,6 +41,10 @@ public class FichaEstudianteBean
   private Citamedica citamedica;
   
   private Fichamedicaestudiante fichaMedica;
+  
+  private Patologia patologiaSeleccionada;
+  
+  private String patSeleccionada;
   
   private Calendar fechaActualCalendar;
   
@@ -111,6 +120,25 @@ public class FichaEstudianteBean
       cargarTipoFicha2();
     }
   }
+
+    public String getPatSeleccionada() {
+        return patSeleccionada;
+    }
+
+    public void setPatSeleccionada(String patSeleccionada) {
+        this.patSeleccionada = patSeleccionada;
+    }
+
+    
+    
+    public Patologia getPatologiaSeleccionada() {
+        return patologiaSeleccionada;
+    }
+
+    public void setPatologiaSeleccionada(Patologia patologiaSeleccionada) {
+        this.patologiaSeleccionada = patologiaSeleccionada;
+    }
+   
   
   public void cargarTipoFicha1()
   {
@@ -168,7 +196,14 @@ public class FichaEstudianteBean
   {
     cargarDatosDetalleFicha(this.detalleFicha);
     getDoctorBo().saveDetalleFichaEstudiante(this.detalleFicha);
+    guardarPatologia(this.detalleFicha);
   }
+  
+  public void guardarPatologia(Detallefichaestudiante det){
+        Patologia pat = (Patologia)obtenerPatologiaPorNombre(patSeleccionada);
+        Patologiadetalleficha pd = new Patologiadetalleficha(det, pat, false);
+        getDoctorBo().agregarRelacionFichaPatologia(pd);
+    }  
   
   public void cargarDatosDetalleFicha(Detallefichaestudiante detalleFicha)
   {
@@ -178,6 +213,10 @@ public class FichaEstudianteBean
     detalleFicha.setFecha(getFechaActualCalendar());
     detalleFicha.setCitamedica(getCitamedica());
   }
+  
+  private Patologia obtenerPatologiaPorNombre( String patologia) {
+        return getDoctorBo().obtenerPatologia(patologia);
+    }
   
   public void getNumObservaciones()
   {

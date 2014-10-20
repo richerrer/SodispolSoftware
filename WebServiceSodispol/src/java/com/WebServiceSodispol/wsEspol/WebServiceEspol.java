@@ -54,6 +54,6 @@ public class WebServiceEspol {
         ec.edu.espol.academico.webservices.WsSODISSoap port = service.getWsSODISSoap();
         return port.datosUsuario(username);
     }
-    
+
     
 }

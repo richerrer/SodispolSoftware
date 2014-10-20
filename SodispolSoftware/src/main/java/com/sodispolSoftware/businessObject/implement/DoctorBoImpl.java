@@ -8,6 +8,8 @@ import com.sodispolSoftware.model.Citamedica;
 import com.sodispolSoftware.model.Detallefichaestudiante;
 import com.sodispolSoftware.model.Doctor;
 import com.sodispolSoftware.model.Estudiante;
+import com.sodispolSoftware.model.Patologia;
+import com.sodispolSoftware.model.Patologiadetalleficha;
 import com.sodispolSoftware.webServiceEspol.WebServiceEspol;
 import java.util.ArrayList;
 import java.util.Date;
@@ -183,5 +185,17 @@ public class DoctorBoImpl implements DoctorBo{
     public boolean verifyTimes(Date horaEntrada,Date horaSalida){
         return horaSalida.after(horaEntrada);
     }
+
+    @Override
+    public Patologia obtenerPatologia(String patologia) {
+        return getDoctorDao().obtenerPorNombre(patologia);
+    }
+
+    @Override
+    public void agregarRelacionFichaPatologia(Patologiadetalleficha pd) {
+        getDoctorDao().addRelacionFichaPatologia(pd);
+    }
+    
+    
     
 }

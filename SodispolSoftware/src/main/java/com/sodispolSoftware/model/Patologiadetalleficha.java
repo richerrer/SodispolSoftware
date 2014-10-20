@@ -16,14 +16,20 @@ public class Patologiadetalleficha  implements java.io.Serializable {
 
     public Patologiadetalleficha() {
     }
-
-	
-    public Patologiadetalleficha(long idpatogogiaficha, Detallefichaestudiante detallefichaestudiante, Patologia patologia) {
+    public Patologiadetalleficha(Detallefichaestudiante detallefichaestudiante, Patologia patologia, Boolean estadoborrado)
+    {
+        this.detallefichaestudiante = detallefichaestudiante;
+        this.patologia = patologia;
+        this.estadoborrado = estadoborrado;
+    }
+    public Patologiadetalleficha(long idpatogogiaficha, Detallefichaestudiante detallefichaestudiante, Patologia patologia)
+    {
         this.idpatogogiaficha = idpatogogiaficha;
         this.detallefichaestudiante = detallefichaestudiante;
         this.patologia = patologia;
     }
-    public Patologiadetalleficha(long idpatogogiaficha, Detallefichaestudiante detallefichaestudiante, Patologia patologia, Boolean estadoborrado) {
+    public Patologiadetalleficha(long idpatogogiaficha, Detallefichaestudiante detallefichaestudiante, Patologia patologia, Boolean estadoborrado)
+    {
        this.idpatogogiaficha = idpatogogiaficha;
        this.detallefichaestudiante = detallefichaestudiante;
        this.patologia = patologia;
@@ -51,7 +57,7 @@ public class Patologiadetalleficha  implements java.io.Serializable {
     public void setPatologia(Patologia patologia) {
         this.patologia = patologia;
     }
-    public Boolean getEstadoborrado() {
+    public Boolean getEstadoborrado(){
         return this.estadoborrado;
     }
     

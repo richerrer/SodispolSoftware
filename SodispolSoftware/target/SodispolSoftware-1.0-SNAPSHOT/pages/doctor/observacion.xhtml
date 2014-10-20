@@ -109,7 +109,7 @@
                             <c:if test="#{fichaEstudianteBean.modificador==1}">
 
                                 <p:panel id="toggleable5" header="Recetar" toggleable="true"  collapsed="true" toggleSpeed="500"  widgetVar="panel5" style="margin-bottom:20px"  styleClass="color6">
-                                    <div style="height: 25em" class="panelBarY">
+                                    <div style="height: 15em" class="panelBarY">
 
                                         <p:dataTable id="medicinas"  var="medicina" value="#{medicinaBean.medicinas}" widgetVar="medicinaTable" filteredValue="#{medicinaBean.medicinasFiltradas}">                    
                                             <p:columns value="#{medicinaBean.columnas}" var="column" columnIndexVar="colIndex" sortBy="#{medicina[column.property]}" filterBy="#{medicina[column.property]}">
@@ -155,6 +155,19 @@
 
                                     </div>
                                 </p:panel>
+                                
+                                 <p:panel id="toggleable7" header="Conclusión" toggleable="true"  collapsed="true" toggleSpeed="500"  widgetVar="panel7" style="margin-bottom:20px"  styleClass="color6">
+                                    <div style="height: 5em" class="panelBarY">
+                                        <h:outputText value="El diagnóstico final del médico es que el paciente presenta: " />
+                                        <p:selectOneMenu id="categoria" value="#{fichaEstudianteBean.patSeleccionada}" >
+                                                    <f:selectItem itemLabel="Patología:" itemValue="" />
+                                                    <f:selectItems 
+                                                        value="#{medicinaBean.patologiasCargadas}" var="pat"
+                                                        itemLabel="#{pat.nombre}" itemValue="#{pat.nombre}"/>
+                                                </p:selectOneMenu>
+                                    </div>
+                                </p:panel>
+                                
                             </c:if>
                             <p:commandButton value="Guardar" id="buscarPaciente" update="growl" actionListener="#{fichaEstudianteBean.guardar}"/>
                         </h:form>

@@ -10,6 +10,7 @@ import com.sodispolSoftware.model.Categoriamedicina;
 import com.sodispolSoftware.model.Categoriamedicinamedicina;
 import com.sodispolSoftware.model.Medicina;
 import com.sodispolSoftware.model.Medicinaepecifica;
+import com.sodispolSoftware.model.Patologia;
 import java.util.ArrayList;
 
 /**
@@ -37,5 +38,15 @@ public interface MedicinaBo {
 
     public void agregarMedicinaEspecifica(Medicinaepecifica me);
 
+    public void eliminarMedicinasEspecificas(Medicina med);
+
+    public void eliminarRelacionCategoriaMedicina(Medicina med);
+
+    public void restarMedicinasEspecificas(Medicina med);
+
+    public ArrayList<Patologia> obtenerListaDePatologias();
+
+    public int obtenerCasosDePatologia(Patologia p);
+    
    
 }

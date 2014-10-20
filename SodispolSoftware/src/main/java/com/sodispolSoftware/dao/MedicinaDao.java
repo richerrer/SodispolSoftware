@@ -11,6 +11,7 @@ import com.sodispolSoftware.model.Categoriamedicinamedicina;
 import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Medicina;
 import com.sodispolSoftware.model.Medicinaepecifica;
+import com.sodispolSoftware.model.Patologia;
 import java.util.ArrayList;
 
 /**
@@ -36,4 +37,14 @@ public interface MedicinaDao {
     public Categoriamedicina obtenerPorNombre(String categoria);
 
     public void addMedicinaEspecifica(Medicinaepecifica me);
+
+    public void updateMedicinasEspecificas(Medicina med);
+
+    public void updateRelacionCategoriaMedicina(Medicina med);
+
+    public void updateMedicinasEspecificasRestadas(Medicina med);
+    
+    public ArrayList<Patologia> getListaDePatologias();
+
+    public int getCasosDePatologias(Patologia p);
 }

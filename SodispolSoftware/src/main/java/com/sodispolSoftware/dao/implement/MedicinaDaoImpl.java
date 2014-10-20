@@ -13,6 +13,8 @@ import com.sodispolSoftware.model.Estudiante;
 import com.sodispolSoftware.model.Fichamedicaestudiante;
 import com.sodispolSoftware.model.Medicina;
 import com.sodispolSoftware.model.Medicinaepecifica;
+import com.sodispolSoftware.model.Patologia;
+import com.sodispolSoftware.model.Patologiadetalleficha;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
@@ -102,6 +104,66 @@ public class MedicinaDaoImpl extends HibernateDaoSupport implements MedicinaDao 
     @Override
     public void addMedicinaEspecifica(Medicinaepecifica me) {
         getHibernateTemplate().save(me);
+    }
+
+    @Override
+    public void updateMedicinasEspecificas(Medicina med){
+            try{
+            Object[] param = new Object[]{med.getIdmedicina(),false};
+            ArrayList<Medicinaepecifica> listaMedicinas = (ArrayList<Medicinaepecifica>)getHibernateTemplate().find("from Medicinaepecifica cm where cm.medicina.idmedicina = ? and estadoborrado = ?",param);  
+                for(Medicinaepecifica medi : listaMedicinas)
+                { 
+                    medi.setEstadoborrado(true);
+                    getHibernateTemplate().update(medi);
+                }
+            }
+            catch(IndexOutOfBoundsException ex){
+            } 
+    }
+
+    @Override
+    public void updateRelacionCategoriaMedicina(Medicina med) {   
+        try{
+            Object[] paramsCategoria = new Object[]{med.getIdmedicina(),false};
+            Categoriamedicinamedicina cat = (Categoriamedicinamedicina)getHibernateTemplate().find("from Categoriamedicinamedicina c where c.medicina.idmedicina = ? and estadoborrado = ?",paramsCategoria).get(0); 
+            cat.setEstadoborrado(true);
+            getHibernateTemplate().update(cat);
+        }catch(IndexOutOfBoundsException ex){
+            } 
+    }
+
+    @Override
+    public void updateMedicinasEspecificasRestadas(Medicina med) {
+        try{
+            Object[] param = new Object[]{med.getIdmedicina(),false};
+            Medicinaepecifica medicine = (Medicinaepecifica)getHibernateTemplate().find("from Medicinaepecifica cm where cm.medicina.idmedicina = ? and estadoborrado = ?",param).get(0);  
+               medicine.setEstadoborrado(true);
+               getHibernateTemplate().update(medicine);
+            }
+            catch(IndexOutOfBoundsException ex){
+            } 
+    }
+    
+    @Override
+    public ArrayList<Patologia> getListaDePatologias() {
+        try{
+            Object[] param = new Object[]{false};
+            ArrayList<Patologia> listaPatologias = (ArrayList<Patologia>)getHibernateTemplate().find("from Patologia p where estadoborrado = ?",param);  
+            return listaPatologias;
+        }
+        catch(Exception ex)
+        {return null;}
+    }
+
+    @Override
+    public int getCasosDePatologias(Patologia p) {
+        try{
+            Object[] param = new Object[]{p.getIdpatologia(),false};
+            ArrayList<Patologiadetalleficha> listaCasos = (ArrayList<Patologiadetalleficha>)getHibernateTemplate().find("from Patologiadetalleficha p where p.patologia.idpatologia = ? and estadoborrado = ?",param);  
+            return listaCasos.size();
+        }
+        catch(Exception ex)
+        {return 0;}
     }
     
 }

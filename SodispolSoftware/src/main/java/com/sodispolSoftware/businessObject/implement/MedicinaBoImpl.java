@@ -12,6 +12,7 @@ import com.sodispolSoftware.model.Categoriamedicina;
 import com.sodispolSoftware.model.Categoriamedicinamedicina;
 import com.sodispolSoftware.model.Medicina;
 import com.sodispolSoftware.model.Medicinaepecifica;
+import com.sodispolSoftware.model.Patologia;
 import java.util.ArrayList;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -84,6 +85,29 @@ public class MedicinaBoImpl implements MedicinaBo {
         getMedicinaDao().addMedicinaEspecifica(me);
     }
 
-    
+    @Override
+    public void eliminarMedicinasEspecificas(Medicina med) {
+        getMedicinaDao().updateMedicinasEspecificas(med);
+    }
+
+    @Override
+    public void eliminarRelacionCategoriaMedicina(Medicina med) {
+        getMedicinaDao().updateRelacionCategoriaMedicina(med);
+    }
+
+    @Override
+    public void restarMedicinasEspecificas(Medicina med) {
+        getMedicinaDao().updateMedicinasEspecificasRestadas(med);
+    }
+
+    @Override
+    public ArrayList<Patologia> obtenerListaDePatologias() {
+        return getMedicinaDao().getListaDePatologias();
+    }
+
+    @Override
+    public int obtenerCasosDePatologia(Patologia p) {
+        return getMedicinaDao().getCasosDePatologias(p);
+    }
     
 }

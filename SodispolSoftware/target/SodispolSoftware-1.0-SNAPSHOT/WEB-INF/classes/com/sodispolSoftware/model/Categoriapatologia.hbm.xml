@@ -6,7 +6,7 @@
     <class name="com.sodispolSoftware.model.Categoriapatologia" table="categoriapatologia" schema="public">
         <id name="idcategoria" type="long">
             <column name="idcategoria" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <property name="estadoborrado" type="java.lang.Boolean">
             <column name="estadoborrado" not-null="true"/>

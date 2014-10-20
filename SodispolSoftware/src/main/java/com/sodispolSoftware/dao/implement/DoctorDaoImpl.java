@@ -7,8 +7,11 @@
 package com.sodispolSoftware.dao.implement;
 
 import com.sodispolSoftware.dao.DoctorDao;
+import com.sodispolSoftware.model.Categoriamedicina;
 import com.sodispolSoftware.model.Detallefichaestudiante;
 import com.sodispolSoftware.model.Doctor;
+import com.sodispolSoftware.model.Patologia;
+import com.sodispolSoftware.model.Patologiadetalleficha;
 import com.sodispolSoftware.model.Roleuser;
 import com.sodispolSoftware.webServiceEspol.WebServiceEspol;
 import java.util.ArrayList;
@@ -114,6 +117,23 @@ public class DoctorDaoImpl extends HibernateDaoSupport implements DoctorDao{
 
     public void setWebService(WebServiceEspol webService) {
         this.webService = webService;
+    }
+
+    @Override
+    public Patologia obtenerPorNombre(String patologia) {
+         try{
+            Object[] paramsPatologia = new Object[]{patologia,false};
+            Patologia pat = (Patologia)getHibernateTemplate().find("from Patologia c where c.nombre= ? and estadoborrado = ?",paramsPatologia).get(0); 
+            return pat;
+        }
+        catch(IndexOutOfBoundsException ex){
+            return null;
+        }  
+    }
+
+    @Override
+    public void addRelacionFichaPatologia(Patologiadetalleficha pd) {
+          getHibernateTemplate().save(pd);
     }
     
 }

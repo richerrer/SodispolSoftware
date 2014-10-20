@@ -34,6 +34,9 @@ public class WebServiceEspol {
         if (username.equals("gabapare")) {
             return "P";//Profesional
         }
+        if (username.equals("raualmirA")) {
+            return "P";//Profesional
+        }
         if(result!=null){
             if (result.equals("PROFESIONAL")) {
                 return "P";//Profesional

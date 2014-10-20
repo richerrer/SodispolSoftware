@@ -10,6 +10,7 @@ import com.sodispolSoftware.model.Categoriamedicina;
 import com.sodispolSoftware.model.Categoriamedicinamedicina;
 import com.sodispolSoftware.model.Medicina;
 import com.sodispolSoftware.model.Medicinaepecifica;
+import com.sodispolSoftware.model.Patologia;
 import java.io.Serializable;
 import javax.inject.Named;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
+import org.primefaces.context.RequestContext;
 import org.springframework.context.annotation.Scope;
 
 /**
@@ -50,20 +52,24 @@ public class MedicinaBean{
      private long idmedicina;
      private String descripcion;
      private Integer cajasdisponibles=1;
+     private Integer cajasNew=1;
+     private Integer dosis=1;
      private Integer cajasdisponiblesAccion=1;
      private Integer unidadesPorCaja=1;
      private Boolean estadodisponible;
      private Date fechaCaducidad;
+     private Patologia patologiaSeleccionada;
      private Categoriamedicina categoriaSeleccionada;
      private String catSeleccionada;
      private String medicinaNuevoNombre;
-     
+     private ArrayList<Patologia> patologias;
      private Integer unidades;
      private ArrayList<Medicina> receta;
      private ArrayList<Medicina> medicinas;
       private ArrayList<Medicina> medicinasFiltradas;
      private ArrayList<Categoriamedicina> categorias;
      private ArrayList<Medicina> medicinasCargadas=new ArrayList<Medicina>();
+     private ArrayList<Patologia> patologiasCargadas=new ArrayList<Patologia>();
      private ArrayList<Categoriamedicina> categoriasCargadas=new ArrayList<Categoriamedicina>();
      private ArrayList<ColumnModel> columnas;
      
@@ -85,6 +91,7 @@ public class MedicinaBean{
     public void init(){
           cargarMedicinas();
           cargarCategorias();
+          cargarPatologias();
           createDynamicColumns();
           
           
@@ -112,6 +119,14 @@ public class MedicinaBean{
         this.receta = receta;
     }
 
+    public Integer getDosis() {
+        return dosis;
+    }
+
+    public void setDosis(Integer dosis) {
+        this.dosis = dosis;
+    }
+
     
     
     public Integer getUnidades() {
@@ -120,6 +135,14 @@ public class MedicinaBean{
 
     public void setUnidades(Integer unidades) {
         this.unidades = unidades;
+    }
+
+    public Integer getCajasNew() {
+        return cajasNew;
+    }
+
+    public void setCajasNew(Integer cajasNew) {
+        this.cajasNew = cajasNew;
     }
     
     
@@ -185,6 +208,32 @@ public class MedicinaBean{
         this.medicinaSeleccionada = medicinaSeleccionada;
     }
 
+    public Patologia getPatologiaSeleccionada() {
+        return patologiaSeleccionada;
+    }
+
+    public void setPatologiaSeleccionada(Patologia patologiaSeleccionada) {
+        this.patologiaSeleccionada = patologiaSeleccionada;
+    }
+
+    public ArrayList<Patologia> getPatologias() {
+        return patologias;
+    }
+
+    public void setPatologias(ArrayList<Patologia> patologias) {
+        this.patologias = patologias;
+    }
+
+    public ArrayList<Patologia> getPatologiasCargadas() {
+        return patologiasCargadas;
+    }
+
+    public void setPatologiasCargadas(ArrayList<Patologia> patologiasCargadas) {
+        this.patologiasCargadas = patologiasCargadas;
+    }
+
+    
+    
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
@@ -316,6 +365,14 @@ public class MedicinaBean{
         }
     }
     
+    public void cargarPatologias(){
+        setPatologias(getMedicinaBo().obtenerListaDePatologias());
+        for(Patologia p : patologias)
+        {
+            patologiasCargadas.add(p);
+        }               
+    }
+    
     public void eliminarMedicina(ActionEvent actionEvent)
     {
         deleteMedicina();
@@ -347,7 +404,7 @@ public class MedicinaBean{
         //getReceta().remove(med);
     }
     
-    public void agregarMedicina(ActionEvent actionEvent)
+    public void agregarMedicina(ActionEvent event)
     {
         sumaMedicina();
         cargarMedicinas();
@@ -363,26 +420,38 @@ public class MedicinaBean{
     public void deleteMedicina() {
         Medicina med = (Medicina)getMedicinaSeleccionada();
         med.setEstadoborrado(true);
+        eliminarRelacionCategoriaMedicina(med);
+        eliminarMedicinasEspecificas(med);
         getMedicinaBo().updateMedicina(med);
         //agregarCategoria(medicina);  
     }
    
+    public void eliminarRelacionCategoriaMedicina(Medicina med){
+        getMedicinaBo().eliminarRelacionCategoriaMedicina(med);
+    }
+    
+    public void eliminarMedicinasEspecificas(Medicina med){
+        getMedicinaBo().eliminarMedicinasEspecificas(med);
+    }
+    
+    
     public void sumaMedicina() {
         Medicina med = (Medicina)getMedicinaSeleccionada();
-        
-        med.setCajasdisponibles(med.getCajasdisponibles()+ 1);
+        med.setCajasdisponibles(med.getCajasdisponibles()+ getCajasNew());
         getMedicinaBo().updateMedicina(med);
-        setUnidadesPorCaja(5);
-        setFechaCaducidad(new Date(2014, 10, 20));
-        crearMedicinasEspecificas(1,med);
+        crearMedicinasEspecificas(getCajasNew(),med);
         //agregarCategoria(medicina);        
     }
-    public void restaMedicina() {
+    public void restaMedicina() {       
         Medicina med = (Medicina)getMedicinaSeleccionada();
-        med.setCajasdisponibles(med.getCajasdisponibles()- 1);
+        
+        if(med.getCajasdisponibles()>0){
+        med.setCajasdisponibles(med.getCajasdisponibles()- getCajasNew());
         getMedicinaBo().updateMedicina(med);
-        //eliminarMedicinasEspecificas(1,med);
-//agregarCategoria(medicina);        
+        eliminarMedicinasEspecificas(getCajasNew(),med);
+        }else{
+            addMessage("Ya no hay cajas en stock");
+        }
     }
     
     public void guardarMedicina(ActionEvent actionEvent)
@@ -417,8 +486,12 @@ public class MedicinaBean{
         }
     }
     
-   
-    
+    public void eliminarMedicinasEspecificas(Integer cajas,Medicina med) {
+        for (int i = 0; i < cajas; i++) {
+            getMedicinaBo().restarMedicinasEspecificas(med);
+        }
+    }
+        
     public static Calendar dateToCalendar(Date date){ 
     Calendar cal = Calendar.getInstance();
     cal.setTime(date);
