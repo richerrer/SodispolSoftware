@@ -70,7 +70,7 @@
 
                             <!--     Observaciones anteriores     -->
                             <c:if test="#{fichaEstudianteBean.modificador==1}">
-                                <p:panel id="toggleable3" header="Observaciones Anteriores" collapsed="true" toggleable="true"  toggleSpeed="500"  widgetVar="panel3" style="margin-bottom:20px"  styleClass="color6">
+                                <p:panel id="toggleable3" header="Motivo de consultas anteriores" collapsed="true" toggleable="true"  toggleSpeed="500"  widgetVar="panel3" style="margin-bottom:20px"  styleClass="color6">
                                     <p:panel id="observacionesA" >
                                         <div class="color5 ancho2" style="height:15em;overflow-y: scroll ">
                                             <c:forEach items="#{fichaEstudianteBean.detallesAnteriores}" var="observaciones">
@@ -94,12 +94,12 @@
                             <!--    Observacion Especifica      -->
 
                             <c:if test="#{fichaEstudianteBean.modificador==1}">
-                                <p:panel id="toggleable4" header="Observación dada por Dr. #{usuarioBean.doctor}" collapsed="true" toggleable="true"  toggleSpeed="500"  widgetVar="panel4" style="margin-bottom:20px"  styleClass="color6">
+                                <p:panel id="toggleable4" header="Motivo de consulta dada por Dr. #{usuarioBean.doctor}" collapsed="true" toggleable="true"  toggleSpeed="500"  widgetVar="panel4" style="margin-bottom:20px"  styleClass="color6">
                                     <h:inputTextarea value="#{fichaEstudianteBean.detalleFicha.observaciones}" class="ancho2" rows="8" required="true" requiredMessage="Se requiere llenar el campo Observación"/>   
                                 </p:panel>
                             </c:if>
                             <c:if test="#{fichaEstudianteBean.modificador==0}">
-                                <p:panel id="toggleable4" header="Observación dada por Dr. #{fichaEstudianteBean.detalleFicha.doctor}" collapsed="true" toggleable="true"  toggleSpeed="500"  widgetVar="panel4" style="margin-bottom:20px"  styleClass="color6">
+                                <p:panel id="toggleable4" header="Motivo de consulta dada por Dr. #{fichaEstudianteBean.detalleFicha.doctor}" collapsed="true" toggleable="true"  toggleSpeed="500"  widgetVar="panel4" style="margin-bottom:20px"  styleClass="color6">
                                     <h:inputTextarea value="#{fichaEstudianteBean.detalleFicha.observaciones}" class="ancho2" rows="8" readonly="true"/>
                                 </p:panel>
                             </c:if>

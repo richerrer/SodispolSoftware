@@ -18,7 +18,7 @@
     otro elemento que se pueda ocultar al minimizar la barra -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav anchoNav">
-            <li class="active backgroungElementsNav anchoNavElement"><a href="/SodispolSoftware/pages/all/home.xhtml" class="textoNav centerNav" style="color: black !important">Home</a></li>
+            <li class="active backgroungElementsNav anchoNavElement"><a href="/SodispolSoftware/pages/dispensario/home.xhtml" class="textoNav centerNav" style="color: black !important">Home</a></li>
             <c:if test="#{(usuarioBean.user.roleuser.descripcion == 'ROLE_DOCTOR')}">
                 <li class="backgroungElementsNav anchoNavElement"><a href="/SodispolSoftware/pages/doctor/paciente.xhtml" class="textoNav centerNav">#{msg.paciente}</a></li>
             </c:if>

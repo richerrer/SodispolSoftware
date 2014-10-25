@@ -37,7 +37,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>pages/all/home.xhtml</welcome-file>
+        <welcome-file>pages/dispensario/home.xhtml</welcome-file>
     </welcome-file-list>
     
     <!--.....................configuracion con spring security y cas.....................-->

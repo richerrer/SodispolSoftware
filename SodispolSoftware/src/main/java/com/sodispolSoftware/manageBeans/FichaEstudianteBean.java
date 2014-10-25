@@ -144,6 +144,16 @@ public class FichaEstudianteBean
   {
     getNumObservaciones();
     cargarDetallesFichaMedicaEstudiante(getEstudiante(), 1, paginacion);
+    if(!getDetallesAnteriores().isEmpty()){
+        Detallefichaestudiante detalleAnterior = getDetallesAnteriores().get(0);
+        detalleFicha.setEstatura(detalleAnterior.getEstatura());
+        detalleFicha.setPeso(detalleAnterior.getPeso());
+        detalleFicha.setPresionarterial(detalleAnterior.getPresionarterial());
+        detalleFicha.setPulso(detalleAnterior.getPulso());
+        detalleFicha.setRuidoscardiacos(detalleAnterior.getRuidoscardiacos());
+        detalleFicha.setTemperatura(detalleAnterior.getTemperatura());
+    }
+    
   }
   
   public void cargarTipoFicha2()

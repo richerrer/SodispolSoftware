@@ -77,17 +77,7 @@ public class MyUserService implements UserDetailsService {
                 getUsuarioBean().setUser(enfermero);
                 return new MyUserDetails(username, enfermero);
             } 
-            else //Si es un paciente profesional
-            {
-            }
-
         }
-        if (roleUser.equals("E")) {//Si es un paciente estudiante
-            Estudiante estudiante = getEstudianteBo().getEstudiante(username);
-            getUsuarioBean().setUser(estudiante);
-            return new MyUserDetails(username, estudiante);
-        }
-        //}
         return new MyUserDetails(username, null);
     }
     
