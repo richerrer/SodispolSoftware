@@ -52,29 +52,32 @@
                            <div class="row ancho2" style="font-size: small" >
                                 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
                                 <p:separator />
-                                <p:dataTable var="cita" value="#{citaBean.citasDataTable}" id="seded">  
-                                    <p:column headerText="Horario" style="width: 21%">  
-                                        <h:outputText value="#{cita.hora}" />  
-                                    </p:column>  
+                                <p:scrollPanel style="width:100%;height:500px">
+                                    <p:dataTable var="cita" value="#{citaBean.citasDataTable}" id="seded">  
+                                        <p:column headerText="Horario" style="width: 21%">  
+                                            <h:outputText value="#{cita.hora}" />  
+                                        </p:column>  
 
-                                    <p:column headerText="Nombre" style="width: 35%">  
-                                        <h:outputText value="#{cita.estudiante.nombre1} #{cita.estudiante.apellido1}" />  
-                                    </p:column>  
+                                        <p:column headerText="Nombre" style="width: 35%">  
+                                            <h:outputText value="#{cita.estudiante.nombre1} #{cita.estudiante.apellido1}" />  
+                                        </p:column>  
 
-                                    <p:column headerText="Ocupacion" style="width: 25%">  
-                                        <h:outputText value="#{cita.estudiante.ocupacion}" />  
-                                    </p:column>  
+                                        <p:column headerText="Ocupacion" style="width: 25%">  
+                                            <h:outputText value="#{cita.estudiante.ocupacion}" />  
+                                        </p:column>  
 
-                                    <p:column style="width: 20%">
+                                        <p:column style="width: 20%">
 
-                                        <p:commandButton id="atender" value="Atender Cita" action="#{citaBean.atenderCita()}" ajax="false">
-                                            <!--<f:param name="modificador" value="1" />-->
-                                            <f:setPropertyActionListener value="#{cita}" target="#{citaBean.citaSeleccionada}" />
-                                        </p:commandButton>
-                                            
-                                    </p:column>
+                                            <p:commandButton id="atender" value="Atender Cita" action="#{citaBean.atenderCita()}" ajax="false">
+                                                <!--<f:param name="modificador" value="1" />-->
+                                                <f:setPropertyActionListener value="#{cita}" target="#{citaBean.citaSeleccionada}" />
+                                            </p:commandButton>
 
-                                </p:dataTable>  
+                                        </p:column>
+
+                                    </p:dataTable> 
+                                </p:scrollPanel>
+                                     
                             </div> 
                         </div>
                         <div class="col-md-1"></div>
